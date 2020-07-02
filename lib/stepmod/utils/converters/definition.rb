@@ -7,6 +7,13 @@ module Stepmod
         def convert(node, state = {})
           treat_children(node, state)
         end
+
+        private
+
+        def treat_children(node, state)
+          res = node.children.map { |child| treat(child, state) }
+          res.map(&:strip).reject(&:empty?).join("\n\n")
+        end
       end
 
       ReverseAsciidoctor::Converters.register :definition, Definition.new

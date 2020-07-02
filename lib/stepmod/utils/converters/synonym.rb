@@ -5,7 +5,7 @@ module Stepmod
     module Converters
       class Synonym < ReverseAsciidoctor::Converters::Base
         def convert(node, state = {})
-          "alt:[#{node.text}]\n"
+          "alt:[#{node.text.strip}]"
         end
       end
 

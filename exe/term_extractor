@@ -20,6 +20,8 @@ end
 require 'bundler/setup'
 require 'stepmod/utils/stepmod_definition_converter'
 
+ReverseAsciidoctor.config.unknown_tags = :bypass
+
 DOCUMENT_NAME = 'ISO10303'
 parsed_terms = []
 parsed_bibliography = []
@@ -43,6 +45,7 @@ ARGV.each do |path|
       converted_definistion = Stepmod::Utils::StepmodDefinitionConverter.convert(definition)
       source_block = <<~TEXT
         #{converted_definistion}
+
         [source]
         <<#{source_name},clause=3.#{index}>>
       TEXT

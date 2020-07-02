@@ -18,7 +18,7 @@ RSpec.describe Stepmod::Utils::Converters::Definition do
     TEXT
   end
   let(:output) do
-    "\n=== boundary representation solid model \nalt:[ B-rep ]\ntype of geometric model in which the size and shape of a solid is defined in terms of the faces, edges and vertices which make up its boundary\n"
+    "=== boundary representation solid model\n\nalt:[B-rep]\n\ntype of geometric model in which the size and shape of a solid is defined in terms of the faces, edges and vertices which make up its boundary"
   end
 
   it 'converts complex children block by rules' do
@@ -48,12 +48,37 @@ RSpec.describe Stepmod::Utils::Converters::Definition do
       TEXT
     end
     let(:output) do
-      "\n=== class of activity\nclass that has only\n term:[definition:individual activity] as members\n\n[example]\n====\n 'Distilling' is a class of activity that is reference data held in a reference data library. The classification of the individual activity 'Distill batch\\_27 on 2006-05-19' as 'distilling' specifies what it is. \n====\n"
+      "=== class of activity\n\nclass that has only term:[individual activity] as members\n\n[example]\n====\n'Distilling' is a class of activity that is reference data held in a reference data library. The classification of the individual activity 'Distill batch\\_27 on 2006-05-19' as 'distilling' specifies what it is.\n===="
     end
 
     it 'converts para tag into alt block' do
       input = node_for(xml_input)
       expect(converter.convert(input)).to eq(output)
+    end
+  end
+
+  context 'when there is blank line at the start of block' do
+    let(:xml_input) do
+      <<~TEXT
+        <def>
+          <note>
+            <p>The support solution may include:The support solution may include:</p>
+          </note>
+          <example>
+            <p>Three thousand bundles of yarn are divided into different groups.Each group is submerged in a separate barrel of red dye.
+            </p>
+          </example>
+        </def>
+      TEXT
+    end
+    let(:output) do
+      "[NOTE]\n--\nThe support solution may include:The support solution may include:\n--\n\n[example]\n====\nThree thousand bundles of yarn are divided into different groups.Each group is submerged in a separate barrel of red dye.\n===="
+    end
+
+
+    it 'removes any blank lines supplied and preceding lines' do
+      input = node_for(xml_input)
+      expect(converter.convert(input).strip).to eq(output.strip)
     end
   end
 end

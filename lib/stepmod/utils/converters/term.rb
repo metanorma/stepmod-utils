@@ -5,7 +5,7 @@ module Stepmod
     module Converters
       class Term < ReverseAsciidoctor::Converters::Base
         def convert(node, state = {})
-          "\n=== #{treat_children(node, state)}\n"
+          "=== #{treat_children(node, state).strip}"
         end
       end
 

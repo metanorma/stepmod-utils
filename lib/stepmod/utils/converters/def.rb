@@ -1,22 +1,42 @@
-require 'stepmod/utils/converters/def_text'
 
 module Stepmod
   module Utils
     module Converters
       class Def < ReverseAsciidoctor::Converters::Base
         def convert(node, state = {})
+          node = node.dup
           "#{additional_block(node)}#{treat_children(node, state)}"
         end
 
         private
 
-        def treat(node, state)
-          if node.name == 'text'
-            return '' if node.text.strip.empty?
-            return Stepmod::Utils::Converters::DefText.new.convert(node, state)
-          end
+        def treat_children(node, state)
+          converted = node.children.each_with_object({}) do |child, res|
+                        content = treat(child, state)
+                                    .split("\n")
+                                    .map(&:strip)
+                                    .reject(&:empty?)
+                                    .join("\n")
+                                    .strip
+                        next if content.empty?
 
-          ReverseAsciidoctor::Converters.lookup(node.name).convert(node, state)
+                        res[child] = content
+                      end
+          previous = nil
+          result = ''
+          converted.each.with_index do |(child, content), i|
+            if i == 0 || inlinde_tag?(child, previous)
+              result += " #{content}"
+            else
+              result += "\n\n#{content}"
+            end
+            previous = child
+          end
+          result.strip
+        end
+
+        def inlinde_tag?(child, previous)
+          %w[text sub i clause_ref].include?(child.name) && previous && %w[i sub text clause_ref].include?(previous.name)
         end
 
         def additional_block(node)
@@ -31,7 +51,7 @@ module Stepmod
                     .new
                     .convert(first_child_tag)
           first_child_tag.remove
-          result
+          "#{result}\n\n"
         end
       end
 
