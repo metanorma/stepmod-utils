@@ -1,0 +1,61 @@
+#!/usr/bin/env ruby
+
+#!/usr/bin/env ruby
+# encoding: UTF-8
+
+# resolve bin path, ignoring symlinks
+require "pathname"
+bin_file = Pathname.new(__FILE__).realpath
+
+# add self to libpath
+$:.unshift File.expand_path("../../lib", bin_file)
+
+# Fixes https://github.com/rubygems/rubygems/issues/1420
+require "rubygems/specification"
+
+class Gem::Specification
+  def this; self; end
+end
+
+require 'bundler/setup'
+require 'stepmod/utils/stepmod_definition_converter'
+
+ReverseAsciidoctor.config.unknown_tags = :bypass
+
+DOCUMENT_NAME = 'ISO10303'
+parsed_terms = []
+parsed_bibliography = []
+encountered_terms = {}
+
+ARGV.each do |path|
+  Dir["#{path}/**/*.xml"].each do |file_path|
+    # puts("Processing xml file #{file_path}")
+    current_document = Nokogiri::XML(File.read(file_path)).root
+    source_name = "#{DOCUMENT_NAME}-#{current_document['part']}"
+    if current_document['part'].to_s.empty? && current_document.xpath('//definition').length > 0
+      puts("FATAL: missing part attribute: #{current_document['part']}, #{file_path}")
+    end
+    # read definitions
+    current_document.xpath('//definition').each.with_index(1) do |definition, index|
+      term_id = definition['id']
+      unless term_id.nil?
+        puts("FATAL: Duplicated term with id: #{term_id}, #{file_path}") if encountered_terms[term_id]
+        encountered_terms[term_id] = true
+      end
+      converted_definistion = Stepmod::Utils::StepmodDefinitionConverter.convert(definition)
+      source_block = <<~TEXT
+        #{converted_definistion}
+
+        [source]
+        <<#{source_name},clause=3.#{index}>>
+      TEXT
+      parsed_terms.push(source_block)
+    end
+    if current_document.xpath('//definition').length > 0
+      parsed_bibliography.push("* [[[#{source_name},#{source_name.gsub('ISO', 'ISO ')}]]]")
+    end
+  end
+end
+
+File.open('03-terms.adoc', 'w') { |file| file.puts(parsed_terms.join("\n")) }
+File.open('99-bibliography.adoc', 'w') { |file| file.puts(parsed_bibliography.join("\n")) }
