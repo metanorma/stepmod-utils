@@ -40,14 +40,26 @@ module Stepmod
           first_child_tag = node
                               .children
                               .find { |n| n.is_a?(Nokogiri::XML::Element) }
-          return unless first_child_tag&.name == 'p' &&
-                          defined?(Stepmod::Utils::Converters::Synonym)
+          return unless can_transform_to_alt?(first_child_tag)
 
           result = Stepmod::Utils::Converters::Synonym
                     .new
                     .convert(first_child_tag)
           first_child_tag.remove
           "#{result}\n\n"
+        end
+
+        # metanorma/stepmod-utils#18 when para is the only text doe snot transform it
+        def can_transform_to_alt?(first_child_tag)
+          return false unless first_child_tag&.name == 'p' &&
+                                defined?(Stepmod::Utils::Converters::Synonym)
+
+          next_sibling = first_child_tag.next
+          while next_sibling
+            return true if !next_sibling.text.to_s.strip.empty? && %w[p text].include?(next_sibling.name)
+            next_sibling = next_sibling.next
+          end
+          false
         end
       end
 
