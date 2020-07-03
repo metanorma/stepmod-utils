@@ -29,7 +29,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_runtime_dependency "thor", "~> 1.0"
+  spec.add_runtime_dependency "thor", ">= 0.20.3"
   spec.add_runtime_dependency "reverse_adoc", "~> 0.2"
   spec.add_development_dependency "byebug", "~> 11.1"
 end
