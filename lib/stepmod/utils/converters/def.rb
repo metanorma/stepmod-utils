@@ -12,12 +12,7 @@ module Stepmod
 
         def treat_children(node, state)
           converted = node.children.each_with_object({}) do |child, res|
-                        content = treat(child, state)
-                                    .split("\n")
-                                    .map(&:strip)
-                                    .reject(&:empty?)
-                                    .join("\n")
-                                    .strip
+                        content = treat(child, state).strip
                         next if content.empty?
 
                         res[child] = content

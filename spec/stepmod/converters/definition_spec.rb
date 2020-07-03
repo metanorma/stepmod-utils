@@ -81,4 +81,27 @@ RSpec.describe Stepmod::Utils::Converters::Definition do
       expect(converter.convert(input).strip).to eq(output.strip)
     end
   end
+
+  context 'when there is a list inside note block' do
+    let(:xml_input) do
+      <<~TEXT
+        <def>
+          <note>
+            The support solution may include:The support solution may include:
+            <ul><li>one</li><li>two</li><li>three</li></ul>
+          </note>
+        </def>
+      TEXT
+    end
+    let(:output) do
+      "[NOTE]\n--\nThe support solution may include:The support solution may include: \n\n* one\n* two\n* three\n--"
+    end
+
+
+    it 'removes any blank lines supplied and preceding lines' do
+      input = node_for(xml_input)
+      byebug
+      expect(converter.convert(input).strip).to eq(output.strip)
+    end
+  end
 end
