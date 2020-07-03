@@ -20,7 +20,7 @@ module Stepmod
           previous = nil
           result = ''
           converted.each.with_index do |(child, content), i|
-            if i == 0 || inlinde_tag?(child, previous)
+            if i == 0 || !block_tag?(child, previous)
               result += " #{content}"
             else
               result += "\n\n#{content}"
@@ -30,8 +30,9 @@ module Stepmod
           result.strip
         end
 
-        def inlinde_tag?(child, previous)
-          %w[text sub i clause_ref].include?(child.name) && previous && %w[i sub text clause_ref].include?(previous.name)
+        def block_tag?(child, previous)
+          %w[ul example note alt p].include?(child.name) ||
+            (child.previous && %w[ul example note alt p].include?(child.previous.name))
         end
 
         def additional_block(node)
