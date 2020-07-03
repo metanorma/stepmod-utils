@@ -104,7 +104,7 @@ module Stepmod
       end
 
       def anchor
-        docid.gsub('/', '-').gsub(' ', '_')
+        docid.gsub('/', '-').gsub(' ', '_').gsub(':', '_')
       end
 
       def to_mn_adoc
