@@ -6,11 +6,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Ribose Inc."]
   spec.email         = ["open.source@ribose.com"]
 
-  spec.summary       = "stepmod-utils converts NISO STS XML into Metanorma XML."
+  spec.summary       = "Stepmod-utils is a toolkit that works on STEPmod data."
   spec.description   = <<~DESCRIPTION
-    stepmod-utils converts NISO STS XML into Metanorma XML.
-    This gem is a wrapper around stepmod-utils.jar available from
-    https://github.com/metanorma/stepmod-utils, with versions matching the JAR file.
+    Stepmod-utils is a toolkit that works on STEPmod data.
   DESCRIPTION
 
   spec.homepage      = "https://github.com/metanorma/stepmod-utils"

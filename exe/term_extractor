@@ -19,43 +19,73 @@ end
 
 require 'bundler/setup'
 require 'stepmod/utils/stepmod_definition_converter'
+require 'stepmod/utils/bibdata'
+require 'stepmod/utils/concept'
 
 ReverseAsciidoctor.config.unknown_tags = :bypass
 
-DOCUMENT_NAME = 'ISO10303'
 parsed_terms = []
 parsed_bibliography = []
 encountered_terms = {}
 
-ARGV.each do |path|
-  Dir["#{path}/**/*.xml"].each do |file_path|
-    # puts("Processing xml file #{file_path}")
-    current_document = Nokogiri::XML(File.read(file_path)).root
-    source_name = "#{DOCUMENT_NAME}-#{current_document['part']}"
-    if current_document['part'].to_s.empty? && current_document.xpath('//definition').length > 0
-      puts("FATAL: missing part attribute: #{current_document['part']}, #{file_path}")
-    end
-    # read definitions
-    current_document.xpath('//definition').each.with_index(1) do |definition, index|
-      term_id = definition['id']
-      unless term_id.nil?
-        puts("FATAL: Duplicated term with id: #{term_id}, #{file_path}") if encountered_terms[term_id]
-        encountered_terms[term_id] = true
-      end
-      converted_definistion = Stepmod::Utils::StepmodDefinitionConverter.convert(definition)
-      source_block = <<~TEXT
-        #{converted_definistion}
+paths = ARGV.map do |path|
+  path = "../iso-10303-stepmod/data"
+  puts "Searching for #{path}/{resource,module,application_protocol,business_object_model}.xml..."
+  Dir[
+    "#{path}/**/resource.xml",
+    "#{path}/**/application_protocol.xml",
+    "#{path}/**/business_object_model.xml",
+    "#{path}/**/module.xml"
+  ]
+end.flatten.sort.uniq
 
-        [source]
-        <<#{source_name},clause=3.#{index}>>
-      TEXT
-      parsed_terms.push(source_block)
-    end
-    if current_document.xpath('//definition').length > 0
-      parsed_bibliography.push("* [[[#{source_name},#{source_name.gsub('ISO', 'ISO ')}]]]")
-    end
+paths.each do |file_path|
+  puts("Processing XML file #{file_path}")
+  current_document = Nokogiri::XML(File.read(file_path)).root
+
+  bibdata = nil
+  begin
+    bibdata = Stepmod::Utils::Bibdata.new(document: current_document)
+  rescue
+    puts "WARNING: Unknown file #{file_path}, skipped"
+    next
   end
+
+  if bibdata.part.to_s.empty?
+    puts "FATAL: missing `part` attribute: #{file_path}"
+  end
+
+  # read definitions
+  current_document.xpath('//definition').each.with_index(1) do |definition, index|
+
+    term_id = definition['id']
+    unless term_id.nil?
+      if encountered_terms[term_id]
+        puts "FATAL: Duplicated term with id: #{term_id}, #{file_path}"
+      end
+      encountered_terms[term_id] = true
+    end
+
+    concept = Stepmod::Utils::Concept.parse(
+      definition,
+      reference_anchor: bibdata.anchor,
+      # Assume that definition is located in clause 3 of the ISO document
+      # in order. We really don't have a good reference here.
+      reference_clause: "3.#{index}"
+    )
+
+    parsed_terms << concept
+    parsed_bibliography << bibdata
+  end
+
 end
 
-File.open('03-terms.adoc', 'w') { |file| file.puts(parsed_terms.join("\n")) }
-File.open('99-bibliography.adoc', 'w') { |file| file.puts(parsed_bibliography.join("\n")) }
+parsed_bibliography.uniq!
+
+File.open('031-generated-terms.adoc', 'w') { |file|
+  file.puts(parsed_terms.map(&:to_mn_adoc).join("\n"))
+}
+
+File.open('991-generated-bibliography.adoc', 'w') { |file|
+  file.puts(parsed_bibliography.map(&:to_mn_adoc).join("\n"))
+}
