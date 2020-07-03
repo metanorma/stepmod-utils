@@ -10,11 +10,7 @@ image:https://img.shields.io/github/commits-since/metanorma/stepmod-utils/latest
 
 == Purpose
 
-The stepmod-utils Ruby gem is a wrapper around the Java https://github.com/metanorma/stepmod-utils[stepmod-utils]
-which converts NISO STS and ISOSTS into Metanorma XML and AsciiDoc files.
-
-This gem is used to provide stepmod-utils.jar with mirrored version numbers, to allow
-Ruby code to easily refer to the desired stepmod-utils version as dependencies.
+The stepmod-utils Ruby gem provides a number of tools to work with the STEPmod repository/
 
 == Installation
 
@@ -27,34 +23,14 @@ Or include it in your gemspec.
 
 == Usage
 
-[source,ruby]
+[source,sh]
 ----
-require 'stepmod-utils'
-Sts2mn.convert(input: 'test/sts.xml')
-# => generates 'test/sts.adoc', in Metanorma AsciiDoc
-
-Sts2mn.convert(input: 'test/sts.xml', output: 'another/path/mn.xml', format: 'xml')
-# => generates 'another/path/mn.xml' in Metanorma XML
-
-Sts2mn.convert(input: 'test/sts.xml', output: 'another/path/mn.adoc', format: 'adoc')
-# => generates 'another/path/mn.adoc' in Metanorma AsciiDoc
-
-Sts2mn.split_bibdata('test/sts.xml')
-# => generates 'test/sts.rxl' (Relaton XML) and 'test/mn.adoc' (Metanorma AsciiDoc)
+stepmod-extract-terms {stepmod-data-directory}
 ----
 
-== Updating the gem
+Then these files will be created:
 
-Update `lib/stepmod-utils/version.rb` to the desired version of https://github.com/metanorma/stepmod-utils[stepmod-utils].
-
-Run `rake` to download the `bin/stepmod-utils.jar` file:
-
-[source,ruby]
-----
-rm -f bin/stepmod-utils.jar
-rake bin/stepmod-utils.jar
-----
-
-Then release the gem with `rake release`.
+* `031-generated-terms.adoc` all terms extracted
+* `991-generated-bibliography.adoc` all bibliographic sources where the terms come from
 
 
