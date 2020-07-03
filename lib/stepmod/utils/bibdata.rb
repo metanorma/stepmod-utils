@@ -109,9 +109,9 @@ module Stepmod
 
       def to_mn_adoc
         if title_en
-          "* [[[ISO#{DOCNUMBER}-#{part},#{docid}]]], _#{full_title}_"
+          "* [[[#{anchor},#{docid}]]], _#{full_title}_"
         else
-          "* [[[ISO#{DOCNUMBER}-#{part},#{docid}]]]"
+          "* [[[#{anchor},#{docid}]]]"
         end
       end
 
