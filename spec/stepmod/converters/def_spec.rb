@@ -22,7 +22,7 @@ RSpec.describe Stepmod::Utils::Converters::Def do
 
   it 'converts para tag into alt block' do
     input = node_for(xml_input)
-    expect(converter.convert(input).strip).to match(output.strip)
+    expect(converter.convert(input).strip).to eq(output.strip)
   end
 
   context 'when first para tag' do
