@@ -13,6 +13,6 @@ RSpec.describe Stepmod::Utils::Converters::ClauseRef do
 
   it 'compacts and removes any whitespace' do
     input = node_for(xml_input)
-    expect(converter.convert(input)).to match(output)
+    expect(converter.convert(input)).to eq(output)
   end
 end
