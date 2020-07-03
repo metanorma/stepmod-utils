@@ -100,7 +100,35 @@ RSpec.describe Stepmod::Utils::Converters::Definition do
 
     it 'removes any blank lines supplied and preceding lines' do
       input = node_for(xml_input)
-      byebug
+      expect(converter.convert(input).strip).to eq(output.strip)
+    end
+  end
+
+  context 'when additional text tags' do
+    let(:xml_input) do
+      <<~TEXT
+        <definition>
+          <term>curve  </term>
+            <def>
+            <ul><li>one</li><li>two</li><li>three</li></ul>
+            set of mathematical points which is the image, in two- or
+            three-dimensional space, of a continuous function defined over a
+            connected subset
+            of
+            the real line R
+            <sup>1</sup>
+            , and which is not a single point
+          </def>
+        </definition>
+      TEXT
+    end
+    let(:output) do
+      "=== curve\n\n* one\n* two\n* three\n\nset of mathematical points which is the image, in two- or three-dimensional space, of a continuous function defined over a connected subset of the real line R ^1^ , and which is not a single point"
+    end
+
+
+    it 'does not get block indention' do
+      input = node_for(xml_input)
       expect(converter.convert(input).strip).to eq(output.strip)
     end
   end

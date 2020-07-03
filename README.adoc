@@ -25,7 +25,7 @@ Or include it in your gemspec.
 
 [source,sh]
 ----
-stepmod-extract-terms {stepmod-data-directory}
+stepmod-extract-terms {stepmod-data-directory-1} {stepmod-data-directory-2} {stepmod-data-directory-n}
 ----
 
 Then these files will be created:
