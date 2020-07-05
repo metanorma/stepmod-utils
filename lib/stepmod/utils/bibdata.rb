@@ -29,7 +29,7 @@ module Stepmod
         @pub_year = document['publication.year'].split('-').first
         @pub_date = document['publication.date']
 
-        puts to_mn_adoc
+        # puts to_mn_adoc
 
         return self
         # <module

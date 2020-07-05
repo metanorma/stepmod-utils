@@ -28,31 +28,37 @@ parsed_terms = []
 parsed_bibliography = []
 encountered_terms = {}
 
-paths = ARGV.map do |path|
-  path = "../iso-10303-stepmod/data"
-  puts "Searching for #{path}/{resource,module,application_protocol,business_object_model}.xml..."
-  Dir[
-    "#{path}/**/resource.xml",
-    "#{path}/**/application_protocol.xml",
-    "#{path}/**/business_object_model.xml",
-    "#{path}/**/module.xml"
-  ]
+stepmod_dir = ARGV.first || Dir.pwd
+
+def log message
+  puts "[stepmod-utils] #{message}"
+end
+
+log "STEPmod directory set to #{stepmod_dir}. Detecting paths..."
+
+files = %w(
+  resource.xml
+  application_protocol.xml
+  business_object_model.xml
+  module.xml
+  ).inject([]) do |acc, t|
+    acc << Dir["#{stepmod_dir}/**/#{t}"]
 end.flatten.sort.uniq
 
-paths.each do |file_path|
-  puts("Processing XML file #{file_path}")
+files.each do |file_path|
+  log "Processing XML file #{file_path}"
   current_document = Nokogiri::XML(File.read(file_path)).root
 
   bibdata = nil
   begin
     bibdata = Stepmod::Utils::Bibdata.new(document: current_document)
   rescue
-    puts "WARNING: Unknown file #{file_path}, skipped"
+    log "WARNING: Unknown file #{file_path}, skipped"
     next
   end
 
   if bibdata.part.to_s.empty?
-    puts "FATAL: missing `part` attribute: #{file_path}"
+    log "FATAL: missing `part` attribute: #{file_path}"
   end
 
   # read definitions
@@ -61,7 +67,7 @@ paths.each do |file_path|
     term_id = definition['id']
     unless term_id.nil?
       if encountered_terms[term_id]
-        puts "FATAL: Duplicated term with id: #{term_id}, #{file_path}"
+        log "FATAL: Duplicated term with id: #{term_id}, #{file_path}"
       end
       encountered_terms[term_id] = true
     end
@@ -86,6 +92,10 @@ File.open('031-generated-terms.adoc', 'w') { |file|
   file.puts(parsed_terms.map(&:to_mn_adoc).join("\n"))
 }
 
+log "written to: 031-generated-terms.adoc"
+
 File.open('991-generated-bibliography.adoc', 'w') { |file|
   file.puts(parsed_bibliography.map(&:to_mn_adoc).join("\n"))
 }
+
+log "written to: 991-generated-bibliography.adoc"
