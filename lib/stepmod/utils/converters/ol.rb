@@ -3,7 +3,7 @@
 module Stepmod
   module Utils
     module Converters
-      class Ol < ReverseAsciidoctor::Converters::Base
+      class Ol < ReverseAdoc::Converters::Base
         def convert(node, state = {})
           id = node['id']
           anchor = id ? "[[#{id}]]\n" : ""
@@ -44,9 +44,9 @@ module Stepmod
         end
       end
 
-      ReverseAsciidoctor::Converters.register :ol, Ol.new
-      ReverseAsciidoctor::Converters.register :ul, Ol.new
-      ReverseAsciidoctor::Converters.register :dir, Ol.new
+      ReverseAdoc::Converters.register :ol, Ol.new
+      ReverseAdoc::Converters.register :ul, Ol.new
+      ReverseAdoc::Converters.register :dir, Ol.new
     end
   end
 end

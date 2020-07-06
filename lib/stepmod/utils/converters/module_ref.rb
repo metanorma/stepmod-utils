@@ -3,7 +3,7 @@
 module Stepmod
   module Utils
     module Converters
-      class ModuleRef < ReverseAsciidoctor::Converters::Base
+      class ModuleRef < ReverseAdoc::Converters::Base
         def convert(node, _state = {})
           ref = node['linkend']
           # #23:
@@ -27,7 +27,7 @@ module Stepmod
           ref.squeeze(' ').strip
         end
       end
-      ReverseAsciidoctor::Converters.register :module_ref, ModuleRef.new
+      ReverseAdoc::Converters.register :module_ref, ModuleRef.new
     end
   end
 end

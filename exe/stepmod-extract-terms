@@ -22,7 +22,7 @@ require 'stepmod/utils/stepmod_definition_converter'
 require 'stepmod/utils/bibdata'
 require 'stepmod/utils/concept'
 
-ReverseAsciidoctor.config.unknown_tags = :bypass
+ReverseAdoc.config.unknown_tags = :bypass
 
 parsed_terms = []
 parsed_bibliography = []

@@ -2,7 +2,7 @@
 module Stepmod
   module Utils
     module Converters
-      class Def < ReverseAsciidoctor::Converters::Base
+      class Def < ReverseAdoc::Converters::Base
         def convert(node, state = {})
           node = node.dup
           "#{additional_block(node)}#{treat_children(node, state)}"
@@ -63,7 +63,7 @@ module Stepmod
         end
       end
 
-      ReverseAsciidoctor::Converters.register :def, Def.new
+      ReverseAdoc::Converters.register :def, Def.new
     end
   end
 end

@@ -5,7 +5,7 @@ require 'stepmod/utils/converters/em'
 module Stepmod
   module Utils
     module Converters
-      class Stem < ReverseAsciidoctor::Converters::Base
+      class Stem < ReverseAdoc::Converters::Base
         def convert(node, state = {})
           return Em.new.convert(node, state) if node.text.strip.length > 8
 
@@ -13,7 +13,7 @@ module Stepmod
         end
       end
 
-      ReverseAsciidoctor::Converters.register :i, Stem.new
+      ReverseAdoc::Converters.register :i, Stem.new
     end
   end
 end

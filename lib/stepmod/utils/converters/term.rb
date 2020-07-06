@@ -5,7 +5,7 @@ require 'stepmod/utils/converters/synonym'
 module Stepmod
   module Utils
     module Converters
-      class Term < ReverseAsciidoctor::Converters::Base
+      class Term < ReverseAdoc::Converters::Base
         def convert(node, state = {})
           first_child = node.children.find do |child|
                           child.name == 'text' && !child.text.to_s.strip.empty?
@@ -23,7 +23,7 @@ module Stepmod
         end
       end
 
-      ReverseAsciidoctor::Converters.register :term, Term.new
+      ReverseAdoc::Converters.register :term, Term.new
     end
   end
 end

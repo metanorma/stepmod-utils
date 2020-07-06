@@ -3,7 +3,7 @@
 module Stepmod
   module Utils
     module Converters
-      class Note < ReverseAsciidoctor::Converters::Base
+      class Note < ReverseAdoc::Converters::Base
         def convert(node, state = {})
           <<~TEMPLATE
             [NOTE]
@@ -13,7 +13,7 @@ module Stepmod
           TEMPLATE
         end
       end
-      ReverseAsciidoctor::Converters.register :note, Note.new
+      ReverseAdoc::Converters.register :note, Note.new
     end
   end
 end

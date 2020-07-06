@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'reverse_asciidoctor'
+require 'reverse_adoc'
 require 'stepmod/utils/converters/clause_ref'
 require 'stepmod/utils/converters/express_ref'
 require 'stepmod/utils/converters/module_ref'
@@ -14,23 +14,23 @@ require 'stepmod/utils/converters/stem'
 require 'stepmod/utils/converters/term'
 require 'stepmod/utils/converters/synonym'
 
-require 'reverse_asciidoctor/converters/a'
-require 'reverse_asciidoctor/converters/blockquote'
-require 'reverse_asciidoctor/converters/bypass'
-require 'reverse_asciidoctor/converters/br'
-require 'reverse_asciidoctor/converters/code'
-require 'reverse_asciidoctor/converters/drop'
-require 'reverse_asciidoctor/converters/head'
-require 'reverse_asciidoctor/converters/hr'
-require 'reverse_asciidoctor/converters/ignore'
-require 'reverse_asciidoctor/converters/li'
-require 'reverse_asciidoctor/converters/p'
-require 'reverse_asciidoctor/converters/pass_through'
-require 'reverse_asciidoctor/converters/q'
-require 'reverse_asciidoctor/converters/strong'
-require 'reverse_asciidoctor/converters/sup'
-require 'reverse_asciidoctor/converters/sub'
-require 'reverse_asciidoctor/converters/text'
+require 'reverse_adoc/converters/a'
+require 'reverse_adoc/converters/blockquote'
+require 'reverse_adoc/converters/bypass'
+require 'reverse_adoc/converters/br'
+require 'reverse_adoc/converters/code'
+require 'reverse_adoc/converters/drop'
+require 'reverse_adoc/converters/head'
+require 'reverse_adoc/converters/hr'
+require 'reverse_adoc/converters/ignore'
+require 'reverse_adoc/converters/li'
+require 'reverse_adoc/converters/p'
+require 'reverse_adoc/converters/pass_through'
+require 'reverse_adoc/converters/q'
+require 'reverse_adoc/converters/strong'
+require 'reverse_adoc/converters/sup'
+require 'reverse_adoc/converters/sub'
+require 'reverse_adoc/converters/text'
 
 
 module Stepmod
@@ -47,9 +47,9 @@ module Stepmod
 
         root || (return '')
 
-        ReverseAsciidoctor.config.with(options) do
-          result = ReverseAsciidoctor::Converters.lookup(root.name).convert(root)
-          ReverseAsciidoctor.cleaner.tidy(result)
+        ReverseAdoc.config.with(options) do
+          result = ReverseAdoc::Converters.lookup(root.name).convert(root)
+          ReverseAdoc.cleaner.tidy(result)
         end
       end
     end

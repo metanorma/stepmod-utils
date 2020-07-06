@@ -3,7 +3,7 @@
 module Stepmod
   module Utils
     module Converters
-      class ClauseRef < ReverseAsciidoctor::Converters::Base
+      class ClauseRef < ReverseAdoc::Converters::Base
         def convert(node, _state = {})
           " term:[#{normalized_ref(node['linkend'])}] "
         end
@@ -16,7 +16,7 @@ module Stepmod
           ref.to_s.split(':').last.squeeze(' ').strip
         end
       end
-      ReverseAsciidoctor::Converters.register :clause_ref, ClauseRef.new
+      ReverseAdoc::Converters.register :clause_ref, ClauseRef.new
     end
   end
 end
