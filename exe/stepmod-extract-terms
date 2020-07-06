@@ -57,6 +57,12 @@ files.each do |file_path|
     next
   end
 
+  # TODO: we may want a command line option to override this in the future
+  unless %w(IS DIS TS).include? bibdata.doctype
+    log "WARNING: skipping #{bibdata.docid} as it is not IS, DIS or TS"
+    next
+  end
+
   if bibdata.part.to_s.empty?
     log "FATAL: missing `part` attribute: #{file_path}"
   end
