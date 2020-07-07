@@ -83,7 +83,8 @@ files.each do |file_path|
       reference_anchor: bibdata.anchor,
       # Assume that definition is located in clause 3 of the ISO document
       # in order. We really don't have a good reference here.
-      reference_clause: "3.#{index}"
+      reference_clause: "3.#{index}",
+      file_path: Pathname.new(file_path).relative_path_from(Pathname.new(stepmod_dir))
     )
 
     parsed_terms << concept
