@@ -52,7 +52,10 @@ end
 log "INFO: Detecting paths..."
 
 files = %w(
+  resource.xml
+  application_protocol.xml
   business_object_model.xml
+  module.xml
   ).inject([]) do |acc, t|
     acc << Dir["#{stepmod_dir}/**/#{t}"]
 end.flatten.sort.uniq
