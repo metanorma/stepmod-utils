@@ -1,8 +1,7 @@
 #!/usr/bin/env ruby
-
-#!/usr/bin/env ruby
 # encoding: UTF-8
 
+require 'pry'
 # resolve bin path, ignoring symlinks
 require "pathname"
 bin_file = Pathname.new(__FILE__).realpath
@@ -21,6 +20,7 @@ require 'bundler/setup'
 require 'stepmod/utils/stepmod_definition_converter'
 require 'stepmod/utils/bibdata'
 require 'stepmod/utils/concept'
+require 'ptools'
 
 ReverseAdoc.config.unknown_tags = :bypass
 
@@ -34,37 +34,72 @@ def log message
   puts "[stepmod-utils] #{message}"
 end
 
-log "STEPmod directory set to #{stepmod_dir}. Detecting paths..."
+stepmod_path = Pathname.new(stepmod_dir).realpath
+
+# If we are using the stepmod CVS repository, provide the revision number per file
+has_cvs = File.which("cvs")
+cvs_mode = has_cvs && Dir.exists?(stepmod_path.join('CVS'))
+
+log "INFO: STEPmod directory set to #{stepmod_dir}."
+
+if cvs_mode
+  log "INFO: STEPmod directory is a CVS repository and will detect revisions."
+  log "INFO: [CVS] Detecting file revisions can be slow, please be patient!"
+else
+  log "INFO: STEPmod directory is not a CVS repository, skipping revision detection."
+end
+
+log "INFO: Detecting paths..."
 
 files = %w(
-  resource.xml
-  application_protocol.xml
   business_object_model.xml
-  module.xml
   ).inject([]) do |acc, t|
     acc << Dir["#{stepmod_dir}/**/#{t}"]
 end.flatten.sort.uniq
 
 files.each do |file_path|
-  log "Processing XML file #{file_path}"
+  file_path = Pathname.new(file_path).realpath
+  fpath = file_path.relative_path_from(stepmod_path)
+
+  log "INFO: Processing XML file #{fpath}"
   current_document = Nokogiri::XML(File.read(file_path)).root
 
   bibdata = nil
   begin
     bibdata = Stepmod::Utils::Bibdata.new(document: current_document)
   rescue
-    log "WARNING: Unknown file #{file_path}, skipped"
+    log "WARNING: Unknown file #{fpath}, skipped"
     next
   end
 
   # TODO: we may want a command line option to override this in the future
   unless %w(IS DIS TS).include? bibdata.doctype
-    log "WARNING: skipping #{bibdata.docid} as it is not IS, DIS or TS"
+    log "INFO: skipped #{bibdata.docid} as it is not IS, DIS or TS"
     next
   end
 
   if bibdata.part.to_s.empty?
-    log "FATAL: missing `part` attribute: #{file_path}"
+    log "FATAL: missing `part` attribute: #{fpath}"
+    log "INFO: skipped #{bibdata.docid} as it is missing `part` attribute."
+    next
+  end
+
+  revision_string = "\n// CVS: revision not detected"
+  if cvs_mode
+    # Run `cvs status` to find out version
+
+    log "INFO: Detecting CVS revision..."
+    Dir.chdir(stepmod_path) do
+      status = `cvs status #{fpath}`
+
+      unless status.empty?
+        working_rev = status.split(/\n/).grep(/Working revision:/).first.match(/revision:\s+(.+)$/)[1]
+        repo_rev = status.split(/\n/).grep(/Repository revision:/).first.match(/revision:\t(.+)\t/)[1]
+        log "INFO: CVS working rev (#{working_rev}), repo rev (#{repo_rev})"
+        revision_string = "\n// CVS working rev: (#{working_rev}), repo rev (#{repo_rev})\n" +
+          "// CVS: revision #{working_rev == repo_rev ? 'up to date' : 'differs'}"
+      end
+    end
   end
 
   # read definitions
@@ -73,23 +108,27 @@ files.each do |file_path|
     term_id = definition['id']
     unless term_id.nil?
       if encountered_terms[term_id]
-        log "FATAL: Duplicated term with id: #{term_id}, #{file_path}"
+        log "FATAL: Duplicated term with id: #{term_id}, #{fpath}"
       end
       encountered_terms[term_id] = true
     end
 
+    # Assume that definition is located in clause 3 of the ISO document
+    # in order. We really don't have a good reference here.
+    ref_clause = "3.#{index}"
+
     concept = Stepmod::Utils::Concept.parse(
       definition,
       reference_anchor: bibdata.anchor,
-      # Assume that definition is located in clause 3 of the ISO document
-      # in order. We really don't have a good reference here.
-      reference_clause: "3.#{index}",
-      file_path: Pathname.new(file_path).relative_path_from(Pathname.new(stepmod_dir))
+      reference_clause: ref_clause,
+      file_path: fpath + revision_string
     )
 
     parsed_terms << concept
     parsed_bibliography << bibdata
   end
+
+  log "INFO: Completed processing XML file #{fpath}"
 
 end
 
@@ -99,10 +138,10 @@ File.open('031-generated-terms.adoc', 'w') { |file|
   file.puts(parsed_terms.map(&:to_mn_adoc).join("\n"))
 }
 
-log "written to: 031-generated-terms.adoc"
+log "INFO: written to: 031-generated-terms.adoc"
 
 File.open('991-generated-bibliography.adoc', 'w') { |file|
   file.puts(parsed_bibliography.map(&:to_mn_adoc).join("\n"))
 }
 
-log "written to: 991-generated-bibliography.adoc"
+log "INFO: written to: 991-generated-bibliography.adoc"
