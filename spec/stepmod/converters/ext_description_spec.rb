@@ -15,6 +15,6 @@ RSpec.describe Stepmod::Utils::Converters::ExtDescription do
   it 'converts html children' do
     input = node_for(
       "<ext_description linkend='#{schema}'><li>foo</li></ext_description>")
-    expect(converter.convert(input)).to include(" foo\n")
+    expect(converter.convert(input)).to include("foo\n")
   end
 end

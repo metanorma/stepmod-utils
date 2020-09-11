@@ -20,11 +20,14 @@ module Stepmod
           previous = nil
           result = ''
           converted.each.with_index do |(child, content), i|
-            if i == 0 || !block_tag?(child, previous)
-              result += " #{content}"
+            if block_tag?(child, previous)
+              result += "\n\n"
+            elsif comment_tag?(child, previous)
+              result += "\n"
             else
-              result += "\n\n#{content}"
+              result += ' '
             end
+            result += content
             previous = child
           end
           result.strip
@@ -32,7 +35,11 @@ module Stepmod
 
         def block_tag?(child, previous)
           %w[ul example note alt p].include?(child.name) ||
-            (child.previous && %w[ul example note alt p].include?(child.previous.name))
+            (previous && %w[ul example note alt p].include?(previous.name))
+        end
+
+        def comment_tag?(child, previous)
+          child.name == 'comment' || (previous && previous.name === 'comment')
         end
 
         def additional_block(node)

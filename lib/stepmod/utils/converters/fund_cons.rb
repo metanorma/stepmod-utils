@@ -5,11 +5,7 @@ module Stepmod
     module Converters
       class FundCons < ReverseAdoc::Converters::Base
         def convert(node, state = {})
-          <<~TEMPLATE
-            == Fundamental concerns
-
-            #{treat_children(node, state)}
-          TEMPLATE
+          "\n\n== Fundamental concerns\n\n#{treat_children(node, state).strip}\n\n"
         end
       end
 

@@ -5,9 +5,11 @@ module Stepmod
     module Converters
       class Schema < ReverseAdoc::Converters::Base
         def convert(node, state = {})
-          node.children.map do |child|
-            treat(child, state)
-          end.join("\n\n")
+          <<~TEMPLATE
+            (*"#{node['name']}"
+            #{treat_children(node, state).strip}
+            *)
+          TEMPLATE
         end
       end
       ReverseAdoc::Converters.register :schema, Schema.new

@@ -24,6 +24,6 @@ RSpec.describe Stepmod::Utils::SmrlDescriptionConverter do
         </ext_descriptions>
       XML
     )
-    expect(described_class.convert(input)).to include(" foo\n")
+    expect(described_class.convert(input)).to include("foo\n")
   end
 end
