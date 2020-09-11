@@ -31,7 +31,8 @@ module Stepmod
             name = title if name.empty?
             href = "link:#{href}" unless href.to_s =~ URI::DEFAULT_PARSER.make_regexp
             link = "#{href}[#{name}]"
-            link.prepend(' ')
+            # link.prepend(' ')
+            link = " #{link}"
             link
           end
         end

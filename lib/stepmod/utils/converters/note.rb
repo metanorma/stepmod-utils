@@ -5,12 +5,7 @@ module Stepmod
     module Converters
       class Note < ReverseAdoc::Converters::Base
         def convert(node, state = {})
-          <<~TEMPLATE
-            [NOTE]
-            --
-            #{treat_children(node, state).strip}
-            --
-          TEMPLATE
+          "\n\n[NOTE]\n--\n#{treat_children(node, state).strip}\n--\n\n"
         end
       end
       ReverseAdoc::Converters.register :note, Note.new

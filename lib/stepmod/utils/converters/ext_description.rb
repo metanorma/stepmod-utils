@@ -7,7 +7,7 @@ module Stepmod
         def convert(node, state = {})
           <<~TEMPLATE
             (*"#{node['linkend']}"
-            #{treat_children(node, state)}
+            #{treat_children(node, state).strip}
             *)
           TEMPLATE
         end

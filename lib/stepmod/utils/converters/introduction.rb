@@ -5,11 +5,7 @@ module Stepmod
     module Converters
       class Introduction < ReverseAdoc::Converters::Base
         def convert(node, state = {})
-          <<~TEMPLATE
-            == Introduction
-
-            #{treat_children(node, state)}
-          TEMPLATE
+          "\n\n== Introduction\n\n#{treat_children(node, state).strip}\n\n"
         end
       end
 

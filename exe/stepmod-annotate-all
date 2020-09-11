@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+
+stepmod_dir = ARGV.first || Dir.pwd
+
+# build resource_docs cache
+resource_docs_cache_file = `mktemp`
+`"#{File.join(__dir__, 'stepmod-build-resource-docs-cache')}" "#{stepmod_dir}" > "#{resource_docs_cache_file}"`
+
+# annotate each file
+files = `"#{File.join(__dir__, 'stepmod-find-express-files')}" "#{stepmod_dir}"`.strip.split("\n")
+files.each do |file|
+  $stderr.puts file
+  annotated_file = File.join(File.dirname(file), "#{File.basename(file, '.exp')}_annotated.exp")
+  `"#{File.join(__dir__, 'stepmod-annotate')}" "#{file}" "#{resource_docs_cache_file}" "#{stepmod_dir}" > "#{annotated_file}"`
+end
+
+# cleanup
+`rm "#{resource_docs_cache_file}"`
