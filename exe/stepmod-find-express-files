@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+
+require 'nokogiri'
+
+stepmod_dir = ARGV.first || Dir.pwd
+
+index = Nokogiri::XML(File.read(File.join(stepmod_dir, 'repository_index.xml'))).root
+
+files = []
+files.push(*index.xpath('modules/module').flat_map{|item| ["data/modules/#{item['name']}/arm.exp", "data/modules/#{item['name']}/mim.exp"]})
+files.push(*index.xpath('resources/resource').map{|item| "data/resources/#{item['name']}/#{item['name']}.exp"})
+files.push(*index.xpath('business_object_models/business_object_model').flat_map{|item| ["data/business_object_models/#{item['name']}/bom.exp", "data/business_object_models/#{item['name']}/DomainModel.exp"]})
+
+existing_files = files.filter{|file| File.exists?(File.join(stepmod_dir, file))} 
+puts existing_files
