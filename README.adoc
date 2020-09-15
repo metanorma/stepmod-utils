@@ -69,6 +69,50 @@ The meaning of this attribute can be defined in the annotated EXPRESS schemas th
 -----
 
 
+== Conversion of STEPmod resource.xml into adoc
+
+Given resource.xml file contents:
+
+[source,xml]
+----
+<schema name="contract_schema" number="8369" version="3">
+  <introduction>
+    The subject of the <b>contract_schema</b> is the description of contract agreements.
+  </introduction>
+  <fund_cons>
+    Contract information may be attached to any aspect of a product data.
+  </fund_cons>
+  <express-g>
+    <imgfile file="contract_schemaexpg1.xml"/>
+    <imgfile file="contract_schemaexpg2.xml"/>
+  </express-g>
+</schema>
+----
+
+Command:
+
+[source,sh]
+----
+$ stepmod-convert-express-resource resource.xml
+----
+
+Will give output:
+
+[source,adoc]
+----
+== Introduction
+
+The subject of the *contract_schema* is the description of contract agreements.
+
+== Fundamental concerns
+
+Contract information may be attached to any aspect of a product data.
+
+expg_image:contract_schemaexpg1.xml[]
+expg_image:contract_schemaexpg2.xml[]
+----
+
+
 == CVS revision detection
 
 If the STEPmod repository is a CVS repository, it will display the
