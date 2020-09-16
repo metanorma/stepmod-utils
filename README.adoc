@@ -37,6 +37,81 @@ Then these files will be created:
 * `031-generated-terms.adoc` all terms extracted
 * `991-generated-bibliography.adoc` all bibliographic sources where the terms come from
 
+== Conversion of STEPmod descriptions.xml into adoc
+
+[source,sh]
+----
+$ stepmod-convert-express-description /path/to/the/stepmod/descriptions.xml
+----
+
+Example output:
+[source,adoc]
+-----
+(*"application_context_schema"
+
+*)
+(*"application_context_schema.exchange_identification_context_select"
+ The *exchange\_identification\_context\_select* type allows for the designation of the data types express_ref:[management_resources_schema:ir_express:management_resources_schema.identification_assignment] and express_ref:[person_organization_schema:ir_express:person_organization_schema.organization] .
+*)
+(*"application_context_schema.application_context"
+ An *application\_context*, as defined in ISO 10303-1, is a context in which product data is defined and has meaning. An *application\_context* represents various types of information that relate to product data and may affect the meaning and usage of that data.
+*)
+(*"application_context_schema.application_context.application"
+
+the express_ref:[support_resource_schema:ir_express:support_resource_schema.label] by which the *application\_context* is known.
+
+[NOTE]
+--
+The meaning of this attribute can be defined in the annotated EXPRESS schemas that use or specialize this entity, or in an agreement of common understanding between the partners sharing this information.
+--
+
+*)
+-----
+
+
+== Conversion of STEPmod resource.xml into adoc
+
+Given resource.xml file contents:
+
+[source,xml]
+----
+<schema name="contract_schema" number="8369" version="3">
+  <introduction>
+    The subject of the <b>contract_schema</b> is the description of contract agreements.
+  </introduction>
+  <fund_cons>
+    Contract information may be attached to any aspect of a product data.
+  </fund_cons>
+  <express-g>
+    <imgfile file="contract_schemaexpg1.xml"/>
+    <imgfile file="contract_schemaexpg2.xml"/>
+  </express-g>
+</schema>
+----
+
+Command:
+
+[source,sh]
+----
+$ stepmod-convert-express-resource resource.xml
+----
+
+Will give output:
+
+[source,adoc]
+----
+== Introduction
+
+The subject of the *contract_schema* is the description of contract agreements.
+
+== Fundamental concerns
+
+Contract information may be attached to any aspect of a product data.
+
+expg_image:contract_schemaexpg1.xml[]
+expg_image:contract_schemaexpg2.xml[]
+----
+
 
 == CVS revision detection
 

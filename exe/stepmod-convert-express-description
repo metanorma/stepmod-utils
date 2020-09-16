@@ -1,0 +1,33 @@
+#!/usr/bin/env ruby
+# encoding: UTF-8
+
+# resolve bin path, ignoring symlinks
+require "pathname"
+bin_file = Pathname.new(__FILE__).realpath
+
+# add self to libpath
+$:.unshift File.expand_path("../../lib", bin_file)
+
+# Fixes https://github.com/rubygems/rubygems/issues/1420
+require "rubygems/specification"
+
+class Gem::Specification
+  def this; self; end
+end
+
+require 'bundler/setup'
+require 'stepmod/utils/smrl_description_converter'
+
+ReverseAdoc.config.unknown_tags = :bypass
+
+input_content = ARGF.read
+
+result = Stepmod::Utils::SmrlDescriptionConverter.convert(input_content, {})
+result.split("\n").each do |line|
+  begin
+    $stdout.puts(line)
+    $stdout.flush
+  rescue Errno::EPIPE
+    exit(74)
+  end
+end
