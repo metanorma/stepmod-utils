@@ -23,7 +23,7 @@ RSpec.describe Stepmod::Utils::SmrlResourceConverter do
   end
 
   let(:output) do
-    "(*\"contract_schema\"\n== Introduction\n\nThe subject of the *contract\\_schema* is the description of contract agreements.\n\n== Fundamental concerns\n\nContract information may be attached to any aspect of a product data.\n\nexpg_image:contract_schemaexpg1.xml[]\n\nexpg_image:contract_schemaexpg2.xml[]\n*)\n"
+    "(*\"contract_schema\"\n== Introduction\n\nThe subject of the *contract_schema* is the description of contract agreements.\n\n== Fundamental concerns\n\nContract information may be attached to any aspect of a product data.\n\nexpg_image:contract_schemaexpg1.xml[]\n\nexpg_image:contract_schemaexpg2.xml[]\n*)\n"
   end
 
   it 'Converts input file into the correct adoc' do
