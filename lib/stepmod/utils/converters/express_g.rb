@@ -15,6 +15,8 @@ module Stepmod
         private
 
         def parse_to_svg_reference(file)
+          return '' unless File.file?(file)
+
           image_document = Nokogiri::XML(File.read(file))
           svg_path = File.basename(image_document.xpath('//img').first['src'], '.*')
           <<~SVGMAP
