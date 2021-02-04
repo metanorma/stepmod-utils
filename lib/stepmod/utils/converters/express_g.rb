@@ -8,8 +8,28 @@ module Stepmod
           node.children.map do |child|
             next unless child.name == 'imgfile'
 
-            "expg_image:#{child['file']}[]"
+            parse_to_svg_reference(child['file'])
           end.join("\n")
+        end
+
+        private
+
+        def parse_to_svg_reference(file)
+          image_document = Nokogiri::XML(File.read(file))
+          svg_path = File.basename(image_document.xpath('//img').first['src'], '.*')
+          <<~SVGMAP
+            [.svgmap]
+            ====
+            image::#{svg_path}.svg[]
+
+            #{image_document.xpath('//img.area').map {|n| schema_reference(n['href']) }.join("\n")}
+            ====
+          SVGMAP
+        end
+
+        def schema_reference(xml_path)
+          schema_name = File.basename(xml_path, '.*')
+          "* <<express:#{schema_name},#{schema_name}>>; #{xml_path}"
         end
       end
 

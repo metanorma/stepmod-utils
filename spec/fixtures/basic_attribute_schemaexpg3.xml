@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="../../../xsl/res_doc/imgfile.xsl"?>
+<!DOCTYPE imgfile.content SYSTEM "../../../dtd/text.ent">
+<imgfile.content module="fundamentals_of_product_description_and_support" file="basic_attribute_schemaexpg3.xml">
+  <img src="basic_attribute_schemaexpg3.gif">
+    <img.area shape="rect" coords="157,98,305,139" href="../../resources/custom3/custom3.xml" />
+    <img.area shape="rect" coords="10,10,143,51" href="../../resources/custom4/custom4.xml" />
+  </img>
+</imgfile.content>
