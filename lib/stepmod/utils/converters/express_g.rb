@@ -30,8 +30,13 @@ module Stepmod
         end
 
         def schema_reference(xml_path)
-          schema_name = File.basename(xml_path, '.*')
-          "* <<express:#{schema_name},#{schema_name}>>; #{xml_path}"
+          if xml_path =~ /#/
+            parts = xml_path.split('#').last.split('.')
+            "* <<express:#{parts.first.strip}.#{parts[1..-1].join('.').strip}>>; #{xml_path}"
+          else
+            schema_name = File.basename(xml_path, '.*')
+            "* <<express:#{schema_name},#{schema_name}>>; #{xml_path}"
+          end
         end
       end
 

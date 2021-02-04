@@ -39,7 +39,7 @@ RSpec.describe Stepmod::Utils::Converters::ExpressG do
       ====
       image::basic_attribute_schemaexpg3.svg[]
 
-      * <<express:custom3,custom3>>; ../../resources/custom3/custom3.xml
+      * <<express:custom3.name1.name2>>; ../../resources/custom3/custom3.xml#custom3.name1.name2
       * <<express:custom4,custom4>>; ../../resources/custom4/custom4.xml
       ====
 
