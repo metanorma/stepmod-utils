@@ -1,4 +1,4 @@
-= stepmod-utils Ruby gem
+= STEPmod utilities
 
 image:https://img.shields.io/gem/v/metanorma.svg["Gem Version", link="https://rubygems.org/gems/metanorma"]
 image:https://github.com/metanorma/stepmod-utils/workflows/ubuntu/badge.svg["Ubuntu Build Status", link="https://github.com/metanorma/stepmod-utils/actions?query=workflow%3Aubuntu"]
@@ -11,6 +11,12 @@ image:https://img.shields.io/github/commits-since/metanorma/stepmod-utils/latest
 == Purpose
 
 The `stepmod-utils` Ruby gem provides a number of tools to work with the STEPmod repository.
+
+
+== CVS to Git migration procedures
+
+include::migrating_from_cvs.adoc[]
+
 
 == Installation
 
