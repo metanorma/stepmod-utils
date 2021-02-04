@@ -14,8 +14,8 @@ RSpec.describe Stepmod::Utils::SmrlResourceConverter do
             Contract information may be attached to any aspect of a product data.
           </fund_cons>
           <express-g>
-            <imgfile file="contract_schemaexpg1.xml"/>
-            <imgfile file="contract_schemaexpg2.xml"/>
+            <imgfile file="#{fixtures_path('basic_attribute_schemaexpg1.xml')}"/>
+            <imgfile file="#{fixtures_path('basic_attribute_schemaexpg2.xml')}"/>
           </express-g>
         </schema>
       </resource>
@@ -23,7 +23,33 @@ RSpec.describe Stepmod::Utils::SmrlResourceConverter do
   end
 
   let(:output) do
-    "(*\"contract_schema\"\n== Introduction\n\nThe subject of the *contract_schema* is the description of contract agreements.\n\n== Fundamental concerns\n\nContract information may be attached to any aspect of a product data.\n\nexpg_image:contract_schemaexpg1.xml[]\n\nexpg_image:contract_schemaexpg2.xml[]\n*)\n"
+    <<~ADOC
+      (*"contract_schema"
+      == Introduction
+
+      The subject of the *contract_schema* is the description of contract agreements.
+
+      == Fundamental concerns
+
+      Contract information may be attached to any aspect of a product data.
+
+      [.svgmap]
+      ====
+      image::basic_attribute_schemaexpg1.svg[]
+
+      * <<express:support_resource_schema,support_resource_schema>>; ../../resources/support_resource_schema/support_resource_schema.xml
+      * <<express:basic_attribute_schema,basic_attribute_schema>>; ../../resources/basic_attribute_schema/basic_attribute_schema.xml
+      ====
+
+      [.svgmap]
+      ====
+      image::basic_attribute_schemaexpg2.svg[]
+
+      * <<express:custom,custom>>; ../../resources/custom/custom.xml
+      * <<express:custom2,custom2>>; ../../resources/custom2/custom2.xml
+      ====
+      *)
+    ADOC
   end
 
   it 'Converts input file into the correct adoc' do
