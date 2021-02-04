@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="../../../xsl/res_doc/imgfile.xsl"?>
+<!DOCTYPE imgfile.content SYSTEM "../../../dtd/text.ent">
+<imgfile.content module="fundamentals_of_product_description_and_support" file="basic_attribute_schemaexpg1.xml">
+  <img src="basic_attribute_schemaexpg1.gif">
+    <img.area shape="rect" coords="157,98,305,139" href="../../resources/support_resource_schema/support_resource_schema.xml" />
+    <img.area shape="rect" coords="10,10,143,51" href="../../resources/basic_attribute_schema/basic_attribute_schema.xml" />
+  </img>
+</imgfile.content>

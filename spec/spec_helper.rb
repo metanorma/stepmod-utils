@@ -18,3 +18,7 @@ end
 def node_for(html)
   Nokogiri::HTML.parse(html).root.child.child
 end
+
+def fixtures_path(path)
+  File.join(File.expand_path("./fixtures", __dir__), path)
+end
