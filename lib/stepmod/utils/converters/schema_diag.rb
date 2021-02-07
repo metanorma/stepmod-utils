@@ -1,0 +1,14 @@
+# frozen_string_literal: true
+
+module Stepmod
+  module Utils
+    module Converters
+      class SchemaDiag < ReverseAdoc::Converters::Base
+        def convert(node, state = {})
+          treat_children(node, state).strip
+        end
+      end
+      ReverseAdoc::Converters.register :schema_diag, SchemaDiag.new
+    end
+  end
+end
