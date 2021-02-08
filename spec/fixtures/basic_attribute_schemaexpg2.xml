@@ -3,7 +3,7 @@
 <!DOCTYPE imgfile.content SYSTEM "../../../dtd/text.ent">
 <imgfile.content module="fundamentals_of_product_description_and_support" file="basic_attribute_schemaexpg2.xml">
   <img src="basic_attribute_schemaexpg2.gif">
-    <img.area shape="rect" coords="157,98,305,139" href="../../resources/custom/custom.xml" />
-    <img.area shape="rect" coords="10,10,143,51" href="../../resources/custom2/custom2.xml" />
+    <img.area shape="rect" coords="157,98,305,139" href="../../resources/custom/custom.xml#custom.name" />
+    <img.area shape="rect" coords="10,10,143,51" href="../../resources/custom2/custom2.xml#custom2.name2" />
   </img>
 </imgfile.content>

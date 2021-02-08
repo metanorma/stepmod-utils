@@ -1,9 +1,21 @@
 <?xml version="1.0"?>
-<?xml-stylesheet type="text/xsl" href="../../../xsl/res_doc/imgfile.xsl"?>
-<!DOCTYPE imgfile.content SYSTEM "../../../dtd/text.ent">
-<imgfile.content module="fundamentals_of_product_description_and_support" file="basic_attribute_schemaexpg3.xml">
-  <img src="basic_attribute_schemaexpg3.gif">
-    <img.area shape="rect" coords="157,98,305,139" href="../../resources/custom3/custom3.xml#custom3.name1.name2" />
-    <img.area shape="rect" coords="10,10,143,51" href="../../resources/custom4/custom4.xml" />
+<?xml-stylesheet type="text/xsl" href="../../../xsl/res_doc/imgfile.xsl"?><!DOCTYPE imgfile.content SYSTEM "../../../dtd/text.ent">
+<imgfile.content module="finite_element_analysis_definition_relationships" file="action_and_model_relationships_schemaexpg1.xml">
+  <img src="action_and_model_relationships_schemaexpg1.gif">
+    <img.area shape="poly" coords="151,93,151,139,377,139,377,93,151,93" href="../../resources/product_and_model_relationships_schema/product_and_model_relationships_schema.xml#product_and_model_relationships_schema" />
+    <img.area shape="poly" coords="457,120,457,168,676,168,676,120,457,120" href="../../resources/action_and_model_relationships_schema/action_and_model_relationships_schema.xml#action_and_model_relationships_schema" />
+    <img.area shape="poly" coords="19,688,19,735,223,735,223,688,19,688" href="../../resources/state_and_model_relationships_schema/state_and_model_relationships_schema.xml#state_and_model_relationships_schema" />
+    <img.area shape="poly" coords="504,787,504,833,779,833,779,787,504,787" href="../../resources/property_distribution_and_model_relationships_schema/property_distribution_and_model_relationships_schema.xml#property_distribution_and_model_relationships_schema" />
+    <img.area shape="poly" coords="11,184,11,231,149,231,149,184,11,184" href="../../resources/product_definition_schema/product_definition_schema.xml#product_definition_schema" />
+    <img.area shape="poly" coords="7,264,7,312,233,312,233,264,7,264" href="../../resources/structural_response_representation_schema/structural_response_representation_schema.xml#structural_response_representation_schema" />
+    <img.area shape="poly" coords="320,257,320,305,452,305,452,257,320,257" href="../../resources/product_analysis_schema/product_analysis_schema.xml#product_analysis_schema" />
+    <img.area shape="poly" coords="349,579,349,625,443,625,443,579,349,579" href="../../resources/analysis_schema/analysis_schema.xml#analysis_schema" />
+    <img.area shape="poly" coords="345,387,345,433,484,433,484,387,345,387" href="../../resources/support_resource_schema/support_resource_schema.xml#support_resource_schema" />
+    <img.area shape="poly" coords="595,203,595,249,679,249,679,203,595,203" href="../../resources/action_schema/action_schema.xml#action_schema" />
+    <img.area shape="poly" coords="245,864,245,911,509,911,509,864,245,864" href="../../resources/finite_element_analysis_control_and_result_schema/finite_element_analysis_control_and_result_schema.xml#finite_element_analysis_control_and_result_schema" />
+    <img.area shape="poly" coords="149,784,149,831,263,831,263,784,149,784" href="../../resources/state_type_schema/state_type_schema.xml#state_type_schema" />
+    <img.area shape="poly" coords="320,688,320,735,508,735,508,688,320,688" href="../../resources/product_property_definition_schema/product_property_definition_schema.xml#product_property_definition_schema" />
+    <img.area shape="poly" coords="7,443,7,489,188,489,188,443,7,443" href="../../resources/fea_definition_relationships_schema/fea_definition_relationships_schema.xml#fea_definition_relationships_schema" />
+    <img.area shape="poly" coords="112,547,112,592,217,592,217,547,112,547" href="../../resources/topology_schema/topology_schema.xml#topology_schema" />
   </img>
 </imgfile.content>

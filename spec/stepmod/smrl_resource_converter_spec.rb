@@ -45,8 +45,8 @@ RSpec.describe Stepmod::Utils::SmrlResourceConverter do
       ====
       image::basic_attribute_schemaexpg2.svg[]
 
-      * <<express:custom,custom>>; ../../resources/custom/custom.xml
-      * <<express:custom2,custom2>>; ../../resources/custom2/custom2.xml
+      * <<express:custom.name,custom>>; ../../resources/custom/custom.xml#custom.name
+      * <<express:custom2.name2,custom2>>; ../../resources/custom2/custom2.xml#custom2.name2
       ====
       *)
     ADOC
