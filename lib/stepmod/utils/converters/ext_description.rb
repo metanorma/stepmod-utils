@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Stepmod
   module Utils
     module Converters
