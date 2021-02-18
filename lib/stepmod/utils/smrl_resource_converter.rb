@@ -29,6 +29,7 @@ require 'stepmod/utils/converters/strong'
 require 'stepmod/utils/converters/sub'
 require 'stepmod/utils/converters/sup'
 require 'stepmod/utils/converters/text'
+require 'stepmod/utils/cleaner'
 
 require 'reverse_adoc/converters/figure'
 require 'reverse_adoc/converters/img'
@@ -50,7 +51,7 @@ module Stepmod
 
         ReverseAdoc.config.with(options) do
           result = ReverseAdoc::Converters.lookup(root.name).convert(root)
-          ReverseAdoc.cleaner.tidy(result)
+          Stepmod::Utils::Cleaner.new.tidy(result)
         end
       end
     end
