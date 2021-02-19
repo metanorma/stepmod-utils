@@ -37,16 +37,16 @@ RSpec.describe Stepmod::Utils::SmrlResourceConverter do
       ====
       image::basic_attribute_schemaexpg1.svg[]
 
-      * <<express:support_resource_schema,support_resource_schema>>; ../../resources/support_resource_schema/support_resource_schema.xml
-      * <<express:basic_attribute_schema,basic_attribute_schema>>; ../../resources/basic_attribute_schema/basic_attribute_schema.xml
+      * <<express:support_resource_schema>>; 1
+      * <<express:basic_attribute_schema>>; 2
       ====
 
       [.svgmap]
       ====
       image::basic_attribute_schemaexpg2.svg[]
 
-      * <<express:custom.name,custom>>; ../../resources/custom/custom.xml#custom.name
-      * <<express:custom2.name2,custom2>>; ../../resources/custom2/custom2.xml#custom2.name2
+      * <<express:custom.name>>; 1
+      * <<express:custom2.name2>>; 2
       ====
       *)
     ADOC
