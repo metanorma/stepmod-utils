@@ -24,18 +24,18 @@ module Stepmod
             ====
             image::#{svg_path}.svg[]
 
-            #{image_document.xpath('//img.area').map {|n| schema_reference(n['href']) }.join("\n")}
+            #{image_document.xpath('//img.area').map.with_index(1) {|n, i| schema_reference(n['href'], i) }.join("\n")}
             ====
           SVGMAP
         end
 
-        def schema_reference(xml_path)
+        def schema_reference(xml_path, index)
           if xml_path =~ /#/
             _,express_path_part = xml_path.split('#')
-            "* <<express:#{express_path_part},#{express_path_part.split('.').first.strip}>>; #{xml_path}"
+            "* <<express:#{express_path_part.strip}>>; #{index}"
           else
             schema_name = File.basename(xml_path, '.*')
-            "* <<express:#{schema_name},#{schema_name}>>; #{xml_path}"
+            "* <<express:#{schema_name.strip}>>; #{index}"
           end
         end
       end
