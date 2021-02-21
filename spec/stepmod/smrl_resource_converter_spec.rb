@@ -3,7 +3,7 @@ require 'spec_helper'
 require 'stepmod/utils/smrl_resource_converter'
 
 RSpec.describe Stepmod::Utils::SmrlResourceConverter do
-  let(:input) do
+  let(:input_xml) do
     <<~XML
       <resource>
         <schema name="contract_schema" number="8369" version="3">
@@ -53,6 +53,35 @@ RSpec.describe Stepmod::Utils::SmrlResourceConverter do
   end
 
   it 'Converts input file into the correct adoc' do
-    expect(described_class.convert(input)).to eq(output)
+    expect(described_class.convert(input_xml)).to eq(output)
+  end
+
+  context 'when dl tags present' do
+    let(:input_xml) do
+      <<~XML
+        <resource>
+          <schema name="contract_schema" number="8369" version="3">
+            <dl>
+              <dt>one</dt>
+              <dd>this is one</dd>
+              <dt>two</dt>
+              <dd>this is two</dd>
+            </dl>
+          </schema>
+        </resource>
+      XML
+    end
+    let(:output) do
+      <<~XML
+        (*"contract_schema"
+        one:: this is one
+        two:: this is two
+        *)
+      XML
+    end
+
+    it 'renders correclt internal dl tags and children' do
+      expect(described_class.convert(input_xml)).to eq(output)
+    end
   end
 end
