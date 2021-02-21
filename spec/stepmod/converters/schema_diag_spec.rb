@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'stepmod/utils/converters/schema_diag'
-require 'stepmod/utils/converters/express_g'
 
 RSpec.describe Stepmod::Utils::Converters::SchemaDiag do
   let(:converter) { described_class.new }
