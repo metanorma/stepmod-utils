@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'stepmod/utils/converters/ext_description'
 
 RSpec.describe Stepmod::Utils::Converters::ExtDescription do
   let(:converter) { described_class.new }

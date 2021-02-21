@@ -2,6 +2,13 @@ require "bundler/setup"
 require 'byebug'
 require "stepmod/utils"
 require 'stepmod/utils/stepmod_definition_converter'
+require 'stepmod/utils/smrl_description_converter'
+require 'stepmod/utils/smrl_resource_converter'
+require 'stepmod/utils/converters/ext_description'
+require 'stepmod/utils/converters/ext_descriptions'
+require 'stepmod/utils/converters/express_g'
+require 'stepmod/utils/converters/schema_diag'
+require 'stepmod/utils/converters/express_g'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

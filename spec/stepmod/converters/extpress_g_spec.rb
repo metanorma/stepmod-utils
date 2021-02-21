@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'stepmod/utils/converters/express_g'
 
 RSpec.describe Stepmod::Utils::Converters::ExpressG do
   let(:converter) { described_class.new }

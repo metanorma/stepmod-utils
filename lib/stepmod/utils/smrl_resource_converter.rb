@@ -37,6 +37,10 @@ require 'stepmod/utils/cleaner'
 require 'reverse_adoc/converters/figure'
 require 'reverse_adoc/converters/img'
 require 'reverse_adoc/converters/li'
+require 'reverse_adoc/converters/table'
+require 'reverse_adoc/converters/tr'
+require 'reverse_adoc/converters/td'
+require 'reverse_adoc/converters/th'
 
 module Stepmod
   module Utils
