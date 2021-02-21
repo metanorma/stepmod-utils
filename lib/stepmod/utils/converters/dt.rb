@@ -5,6 +5,8 @@ module Stepmod
     module Converters
       class Dt < ReverseAdoc::Converters::Base
         def convert(node, state = {})
+          return "{blank}::" if node.text.strip.length.zero?
+
           "#{node.text}:: "
         end
 

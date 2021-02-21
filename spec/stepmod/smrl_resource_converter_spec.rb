@@ -64,7 +64,9 @@ RSpec.describe Stepmod::Utils::SmrlResourceConverter do
               <dd>this is one</dd>
               <dt>two</dt>
               <dd>this is two</dd>
-            </dl>
+              <dt>
+              </dl> </dt>
+              <dd>This is blank</dd>
           </schema>
         </resource>
       XML
@@ -74,6 +76,7 @@ RSpec.describe Stepmod::Utils::SmrlResourceConverter do
         (*"contract_schema"
         one:: this is one
         two:: this is two
+        {blank}:: This is blank
         *)
       XML
     end
