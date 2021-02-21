@@ -31,7 +31,7 @@ RSpec.describe Stepmod::Utils::SmrlDescriptionConverter do
         <express_ref linkend="classification_and_set_theory:ir:classification_schema.class" />
       XML
     )
-    expect(described_class.convert(input)).to eq("<<express:classification_schema:classification_schema.class,class>>")
+    expect(described_class.convert(input)).to eq("<<express:classification_schema.class,class>>")
   end
 
   context 'when nested lists' do
