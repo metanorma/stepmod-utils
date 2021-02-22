@@ -102,6 +102,16 @@ module Stepmod
           gsub("&psi;", "psi").
           gsub("&Psi;", "Psi").
           gsub("&omega;", "omega")
+          gsub("&#967", "χ").
+          gsub("&#215", "×").
+          gsub("&#931", "Σ").
+          gsub("&#961", "ρ").
+          gsub("&#963", "σ").
+          gsub("&#955", "λ").
+          gsub("&#964", "τ").
+          gsub("&#8706", "∂").
+          gsub("&#8804", "≤").
+          gsub("&#8805", "≥")
       end
 
       def html_entities_to_stem(x)

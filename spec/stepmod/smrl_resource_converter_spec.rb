@@ -130,13 +130,13 @@ RSpec.describe Stepmod::Utils::SmrlResourceConverter do
         2+<| #2000=*Internal_probe_access_area*(referenced as SELF in following lines)
 
         // table header row
-        | SELF<<express:Product_occurrence_arm:Product_occurrence_arm.Definition_based_product_occurrence.derived_from,derived_from>> | #2222=<<express:Layered_interconnect_simple_template_arm:Layered_interconnect_simple_template_arm.Stratum_feature_template,Stratum_feature_template>>;
-        | SELF<<express:Layered_interconnect_module_design_arm:Layered_interconnect_module_design_arm.Probe_access_area.probed_layout_item,probed_layout_item>> | #2233=<<express:Layered_interconnect_module_design_arm:Layered_interconnect_module_design_arm.Stratum_feature,Stratum_feature>> (on layer 6 and part of implementation of net 3CB022)
+        | SELF<<express:Product_occurrence_arm.Definition_based_product_occurrence.derived_from,derived_from>> | #2222=<<express:Layered_interconnect_simple_template_arm.Stratum_feature_template,Stratum_feature_template>>;
+        | SELF<<express:Layered_interconnect_module_design_arm.Probe_access_area.probed_layout_item,probed_layout_item>> | #2233=<<express:Layered_interconnect_module_design_arm.Stratum_feature,Stratum_feature>> (on layer 6 and part of implementation of net 3CB022)
         // <tr align="left">
         // <td>SELF<express_ref linkend="Feature_and_connection_zone:arm:Feature_and_connection_zone_arm.Definitional_shape_element.connection_area">Definitional_shape_element.connection_area</express_ref></td>
         // <td>#3211=<express_ref linkend="Physical_unit_design_view:arm:Physical_unit_design_view_arm.Connection_zone_in_design_view"/>; (visible from external environment and geometrically a subset of #4444 geometry)</td></tr>
-        | SELF<<express:Layered_interconnect_module_design_arm:Layered_interconnect_module_design_arm.Probe_access_area.stratum_feature_material_stackup,stratum_feature_material_stackup>> | not provided;
-        | *stratum_feature_implementation* | #4444=<<express:Layered_interconnect_module_design_arm:Layered_interconnect_module_design_arm.Stratum_feature,Stratum_feature>> composed only of one <<express:Land_arm:Land_arm.Land,Land>> (on top layer).
+        | SELF<<express:Layered_interconnect_module_design_arm.Probe_access_area.stratum_feature_material_stackup,stratum_feature_material_stackup>> | not provided;
+        | *stratum_feature_implementation* | #4444=<<express:Layered_interconnect_module_design_arm.Stratum_feature,Stratum_feature>> composed only of one <<express:Land_arm.Land,Land>> (on top layer).
         | *internal_access* | #2000 is referenced by #3000
         // end of first table
 
