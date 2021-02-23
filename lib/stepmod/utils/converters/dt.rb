@@ -5,9 +5,9 @@ module Stepmod
     module Converters
       class Dt < ReverseAdoc::Converters::Base
         def convert(node, state = {})
-          return "{blank}::" if node.text.strip.length.zero?
+          return "\n\n{blank}::" if node.text.strip.length.zero?
 
-          "#{node.text}:: "
+          "\n\n#{node.text}:: "
         end
 
         ReverseAdoc::Converters.register :dt, Dt.new
