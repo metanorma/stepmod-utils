@@ -64,6 +64,7 @@ RSpec.describe Stepmod::Utils::SmrlResourceConverter do
               <dd>this is one</dd>
               <dt>two</dt>
               <dd>this is two</dd>
+              <dt></dt><dd>a3ma &#160; : &#160; annotated 3d model assembly</dd>
               <dt>
               </dl> </dt>
               <dd>This is blank</dd>
@@ -72,13 +73,7 @@ RSpec.describe Stepmod::Utils::SmrlResourceConverter do
       XML
     end
     let(:output) do
-      <<~XML
-        (*"contract_schema"
-        one:: this is one
-        two:: this is two
-        {blank}:: This is blank
-        *)
-      XML
+      "(*\"contract_schema\"\none:: this is one\n\ntwo:: this is two\n\na3ma:: annotated 3d model assembly\n\n{blank}:: This is blank\n*)\n"
     end
 
     it 'renders correclt internal dl tags and children' do
