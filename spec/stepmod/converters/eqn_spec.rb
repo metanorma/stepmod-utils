@@ -25,7 +25,7 @@ RSpec.describe Stepmod::Utils::Converters::Eqn do
     XML
   end
   let(:output) do
-    "[[eqnGM1]]\n[stem]\n++++\nχ My node ms Italic text = V - E + 2F - L l - 2(S - G s) = 0\n++++\n"
+    "[[eqnGM1]]\n\n[stem]\n++++\nχ My node ms Italic text = V - E + 2F - L l - 2(S - G s) = 0\n++++\n\n"
   end
 
   it 'converts complex children block by rules' do
@@ -40,7 +40,7 @@ RSpec.describe Stepmod::Utils::Converters::Eqn do
       XML
     end
     let(:output) do
-      "[[eqnGM1]]\n[stem]\n++++\nχ ms = V - E + 2F - L l - 2(S - G s) = 0\n++++\n"
+      "[[eqnGM1]]\n\n[stem]\n++++\nχ ms = V - E + 2F - L l - 2(S - G s) = 0\n++++\n\n"
     end
 
     it 'converts special symbols in element' do
@@ -72,7 +72,7 @@ RSpec.describe Stepmod::Utils::Converters::Eqn do
       XML
     end
     let(:output) do
-      "[stem]\n++++\nK1 = \"upper_index_on_u_control_points\"\n++++\n"
+      "\n[stem]\n++++\nK1 = \"upper_index_on_u_control_points\"\n++++\n\n"
     end
 
     it 'converts special symbols in element' do

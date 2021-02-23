@@ -149,4 +149,73 @@ RSpec.describe Stepmod::Utils::SmrlResourceConverter do
       expect(described_class.convert(input_xml).gsub(/ \n/, "\n")).to eq(output)
     end
   end
+
+  context 'when eqn tags' do
+    let(:input_xml) do
+      <<~XML
+        <resource>
+          <schema name="contract_schema" number="8369" version="3">
+            A <b>Different_assembly_constraint_type</b> is a type of
+            one or more assembly constraints between a component and its connected component in the comparing assembly
+            data set
+            have different type from that of the corresponding component and its connected component in the compared
+            assembly data set.
+
+            <p>
+              The inspection requirement corresponding to this criterion is,
+            </p>
+            <ul>
+              <li>
+                for each pair of the comparing assembly data set that is an element of a target assembly data set
+                and the compared assembly data set that is the corresponding element of the other target assembly data
+                set,
+              </li>
+              <ul>
+                <li>
+                  <eqn id="eqnGM1">
+                    <i>
+                      &#967;
+                      <sub>ms</sub>
+                      =
+                      <b>V - E + 2F - L</b>
+                      <sub>l</sub>
+                      <b> - 2(S - G</b>
+                      <sup>s</sup>)
+                    </i>
+                    = 0 &#8195; (1) &#8195;
+                  </eqn>
+                  is different from the type of the corresponding assembly constraint in the compared assembly data set.
+                </li>
+              </ul>
+            </ul>
+          </schema>
+        </resource>
+      XML
+    end
+    let(:output) do
+      <<~XML
+        (*"contract_schema"
+        A *Different_assembly_constraint_type* is a type of one or more assembly constraints between a component and its connected component in the comparing assembly data set have different type from that of the corresponding component and its connected component in the compared assembly data set.
+
+        The inspection requirement corresponding to this criterion is,
+
+        * for each pair of the comparing assembly data set that is an element of a target assembly data set and the compared assembly data set that is the corresponding element of the other target assembly data set,
+
+        ** [[eqnGM1]]
+
+        [stem]
+        ++++
+        χ ms = V - E + 2F - L l - 2(S - G s) = 0
+        ++++
+
+        is different from the type of the corresponding assembly constraint in the compared assembly data set.
+        *)
+      XML
+    end
+
+    it 'correctly renders nested lists' do
+      input = node_for(input_xml)
+      expect(described_class.convert(input).gsub(/ \n/, "\n")).to eq(output)
+    end
+  end
 end

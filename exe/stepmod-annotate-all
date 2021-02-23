@@ -1,5 +1,8 @@
 #!/usr/bin/env ruby
 
+require 'concurrent'
+require 'stepmod/utils/stepmod_file_annotator'
+
 stepmod_dir = ARGV.first || Dir.pwd
 
 # build resource_docs cache
@@ -8,10 +11,28 @@ resource_docs_cache_file = `mktemp`
 
 # annotate each file
 files = `"#{File.join(__dir__, 'stepmod-find-express-files')}" "#{stepmod_dir}"`.strip.split("\n")
-files.each do |file|
-  $stderr.puts file
-  annotated_file = File.join(File.dirname(file), "#{File.basename(file, '.exp')}_annotated.exp")
-  `"#{File.join(__dir__, 'stepmod-annotate')}" "#{file}" "#{resource_docs_cache_file}" "#{stepmod_dir}" > "#{annotated_file}"`
+MAX_THREADS = [2, Concurrent.processor_count].max * 2
+MAX_QUEUE_SIZE = MAX_THREADS * 4
+# https://github.com/ruby-concurrency/concurrent-ruby/blob/master/docs-source/thread_pools.md
+pool = Concurrent::ThreadPoolExecutor.new(
+  :min_threads => MAX_THREADS,
+  :max_threads => MAX_THREADS,
+  :max_queue   => MAX_QUEUE_SIZE,
+  :fallback_policy => :caller_runs
+)
+files.each_slice(MAX_QUEUE_SIZE) do |batch|
+  puts("Queueing next batch")
+  batch.each do |file|
+    pool.post do
+      puts("Queued processing #{file}")
+      annotated = Stepmod::Utils::StepmodFileAnnotator.new(express_file: file, resource_docs_cache_file: resource_docs_cache_file, stepmod_dir: stepmod_dir).call
+      File.open(File.join(File.dirname(file), "#{File.basename(file, '.exp')}_annotated.exp"), 'w') do |file|
+        file.puts(annotated)
+      end
+      puts("Done processing #{file}")
+    end
+  end
+  pool.shutdown
 end
 
 # cleanup

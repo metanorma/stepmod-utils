@@ -27,7 +27,8 @@ module Stepmod
 
                                   n.name == 'b'
                                 end
-          first_strong_node.next &&
+          first_strong_node &&
+            first_strong_node.next &&
             first_strong_node.next.text? &&
             first_strong_node.next.content =~ /\s+:/
         end
@@ -51,10 +52,12 @@ module Stepmod
           internal_content = treat_children(cloned_node, state)
           content = Stepmod::Utils::HtmlToAsciimath.new.call(internal_content)
           res = <<~TEMPLATE
+
                 [stem]
                 ++++
                 #{remove_trash_symbols(content.strip)}
                 ++++
+
                 TEMPLATE
           res = "[[#{cloned_node['id']}]]\n#{res}" if cloned_node['id'] && cloned_node['id'].length > 0
           res
@@ -87,7 +90,7 @@ module Stepmod
         end
       end
 
-      ReverseAdoc::Converters.register :eqn, Em.new
+      ReverseAdoc::Converters.register :eqn, Eqn.new
     end
   end
 end
