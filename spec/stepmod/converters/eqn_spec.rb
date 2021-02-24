@@ -56,7 +56,7 @@ RSpec.describe Stepmod::Utils::Converters::Eqn do
       XML
     end
     let(:output) do
-      "directrix::   a circle in 3D space of radius R _{1} , "
+      "\n\ndirectrix::   a circle in 3D space of radius R _{1} , \n"
     end
 
     it 'converts special symbols in element' do
