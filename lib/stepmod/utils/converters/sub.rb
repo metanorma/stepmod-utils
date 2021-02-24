@@ -6,7 +6,15 @@ module Stepmod
       class Sub < ReverseAdoc::Converters::Base
         def convert(node, state = {})
           content = treat_children(node, state)
+          return stem_notation(content) if node.parent.name == 'eqn'
+
           "#{content[/^\s*/]}~#{content.strip}~#{content[/\s*$/]}"
+        end
+
+        private
+
+        def stem_notation(content)
+          "_{#{content}}"
         end
       end
 

@@ -121,6 +121,7 @@ RSpec.describe Stepmod::Utils::SmrlResourceConverter do
         (*"contract_schema"
         // start of first table
 
+        .Population of Internal_probe_access_area
         |===
         2+<| #2000=*Internal_probe_access_area*(referenced as SELF in following lines)
 
@@ -200,7 +201,7 @@ RSpec.describe Stepmod::Utils::SmrlResourceConverter do
 
         [stem]
         ++++
-        χ ms = V - E + 2F - L l - 2(S - G s) = 0
+        χ _{ms} = V - E + 2F - L_{l} - 2(S - G^{s}) = 0
         ++++
 
         is different from the type of the corresponding assembly constraint in the compared assembly data set.

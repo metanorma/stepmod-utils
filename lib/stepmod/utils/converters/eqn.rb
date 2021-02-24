@@ -79,13 +79,13 @@ module Stepmod
           TAGS_NOT_IN_CONTEXT.each do |tag_name|
             node
               .children
-              .xpath("./#{tag_name}")
-              .map do |n|
-                n.tap{ |n| n.add_previous_sibling(n.children) }.remove
+              .each do |n|
+                remove_tags_not_in_context(n) if n.children.length > 0
+                next if n.name != tag_name
+
+                n.add_previous_sibling(n.children)
+                n.unlink
               end
-          end
-          node.traverse do |descendant|
-            descendant.content = descendant.content.gsub('#8195;', '')
           end
         end
       end
