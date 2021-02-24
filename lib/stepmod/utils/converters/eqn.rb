@@ -44,7 +44,7 @@ module Stepmod
           first_strong_node.next.content = first_strong_node.next.content.gsub(/\s?:/, '')
           term = first_strong_node.text.strip
           first_strong_node.remove
-          "#{term}:: #{treat_children(cloned_node, state)}"
+          "\n\n#{term}:: #{treat_children(cloned_node, state)}\n"
         end
 
         def stem_converted(cloned_node, state)
