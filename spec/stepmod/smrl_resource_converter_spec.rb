@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 RSpec.describe Stepmod::Utils::SmrlResourceConverter do
+  subject(:convert) { cleaned_adoc(described_class.convert(input_xml)) }
+
   let(:input_xml) do
     <<~XML
       <resource>
@@ -51,7 +53,7 @@ RSpec.describe Stepmod::Utils::SmrlResourceConverter do
   end
 
   it 'Converts input file into the correct adoc' do
-    expect(described_class.convert(input_xml)).to eq(output)
+    expect(convert).to eq(output)
   end
 
   context 'when dl tags present' do
@@ -73,11 +75,21 @@ RSpec.describe Stepmod::Utils::SmrlResourceConverter do
       XML
     end
     let(:output) do
-      "(*\"contract_schema\"\none:: this is one\n\ntwo:: this is two\n\na3ma:: annotated 3d model assembly\n\n{blank}:: This is blank\n*)\n"
+      <<~XML
+        (*"contract_schema"
+        one:: this is one
+
+        two:: this is two
+
+        a3ma:: annotated 3d model assembly
+
+        {blank}:: This is blank
+        *)
+      XML
     end
 
     it 'renders correclt internal dl tags and children' do
-      expect(described_class.convert(input_xml)).to eq(output)
+      expect(convert).to eq(output)
     end
   end
 
@@ -142,7 +154,7 @@ RSpec.describe Stepmod::Utils::SmrlResourceConverter do
     end
 
     it 'Converts table elements into the correct adoc' do
-      expect(described_class.convert(input_xml).gsub(/ \n/, "\n")).to eq(output)
+      expect(convert).to eq(output)
     end
   end
 
@@ -201,7 +213,7 @@ RSpec.describe Stepmod::Utils::SmrlResourceConverter do
 
         [stem]
         ++++
-        χ _{ms} = V - E + 2F - L_{l} - 2(S - G^{s}) = 0
+        χ_{ms} = V - E + 2F - L_{l} - 2(S - G^{s}) = 0
         ++++
 
         is different from the type of the corresponding assembly constraint in the compared assembly data set.
@@ -211,7 +223,7 @@ RSpec.describe Stepmod::Utils::SmrlResourceConverter do
 
     it 'correctly renders nested lists' do
       input = node_for(input_xml)
-      expect(described_class.convert(input).gsub(/ \n/, "\n")).to eq(output)
+      expect(convert).to eq(output)
     end
   end
 end
