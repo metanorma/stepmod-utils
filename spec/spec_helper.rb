@@ -29,3 +29,7 @@ end
 def fixtures_path(path)
   File.join(File.expand_path("./fixtures", __dir__), path)
 end
+
+def cleaned_adoc(adoc)
+  adoc.gsub(/ \n/, "\n")
+end

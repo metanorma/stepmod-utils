@@ -3,8 +3,9 @@
 require 'spec_helper'
 
 RSpec.describe Stepmod::Utils::Converters::Definition do
-  let(:converter) { described_class.new }
-  let(:xml_input) do
+  subject(:convert) { cleaned_adoc(described_class.new.convert(node_for(input_xml))) }
+
+  let(:input_xml) do
     <<~TEXT
       <definition>
           <term>boundary representation solid model  </term>
@@ -18,16 +19,21 @@ RSpec.describe Stepmod::Utils::Converters::Definition do
     TEXT
   end
   let(:output) do
-    "=== boundary representation solid model\n\nalt:[B-rep]\n\ntype of geometric model in which the size and shape of a solid is defined in terms of the faces, edges and vertices which make up its boundary"
+    <<~XML
+      === boundary representation solid model
+
+      alt:[B-rep]
+
+      type of geometric model in which the size and shape of a solid is defined in terms of the faces, edges and vertices which make up its boundary
+    XML
   end
 
   it 'converts complex children block by rules' do
-    input = node_for(xml_input)
-    expect(converter.convert(input)).to eq(output)
+    expect(convert).to eq(output.strip)
   end
 
   context 'when there is clause_ref children tags' do
-    let(:xml_input) do
+    let(:input_xml) do
       <<~TEXT
         <definition>
           <term id="class_of_activity">class of activity</term>
@@ -52,13 +58,12 @@ RSpec.describe Stepmod::Utils::Converters::Definition do
     end
 
     it 'converts para tag into alt block' do
-      input = node_for(xml_input)
-      expect(converter.convert(input)).to eq(output)
+      expect(convert).to eq(output)
     end
   end
 
   context 'when there is blank line at the start of block' do
-    let(:xml_input) do
+    let(:input_xml) do
       <<~TEXT
         <def>
           <note>
@@ -77,13 +82,12 @@ RSpec.describe Stepmod::Utils::Converters::Definition do
 
 
     it 'removes any blank lines supplied and preceding lines' do
-      input = node_for(xml_input)
-      expect(converter.convert(input).strip).to eq(output.strip)
+      expect(convert.strip).to eq(output)
     end
   end
 
   context 'when there is a list inside note block' do
-    let(:xml_input) do
+    let(:input_xml) do
       <<~TEXT
         <def>
           <note>
@@ -99,13 +103,12 @@ RSpec.describe Stepmod::Utils::Converters::Definition do
 
 
     it 'removes any blank lines supplied and preceding lines' do
-      input = node_for(xml_input)
-      expect(converter.convert(input).strip).to eq(output.strip)
+      expect(convert).to eq(cleaned_adoc(output))
     end
   end
 
   context 'when additional text tags' do
-    let(:xml_input) do
+    let(:input_xml) do
       <<~TEXT
         <definition>
           <term>curve  </term>
@@ -128,8 +131,7 @@ RSpec.describe Stepmod::Utils::Converters::Definition do
 
 
     it 'does not get block indention' do
-      input = node_for(xml_input)
-      expect(converter.convert(input).strip).to eq(output.strip)
+      expect(convert.strip).to eq(output)
     end
   end
 end
