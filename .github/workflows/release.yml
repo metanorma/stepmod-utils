@@ -8,6 +8,8 @@ on:
           Next release version. Possible values: x.y.z, major, minor, patch or pre|rc|etc
         required: true
         default: 'patch'
+  push:
+    tags: [ v* ]
 
 jobs:
   release:
@@ -21,7 +23,8 @@ jobs:
 
       - run: gem install gem-release    
 
-      - run: |
+      - if: ${{ github.event_name == 'workflow_dispatch' }}
+        run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
           gem bump --version ${{ github.event.inputs.next_version }} --tag --push
