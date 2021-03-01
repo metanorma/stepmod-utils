@@ -226,4 +226,28 @@ RSpec.describe Stepmod::Utils::SmrlResourceConverter do
       expect(convert).to eq(output)
     end
   end
+
+  context 'when strong tag formatting mixes with braces in text' do
+    let(:input_xml) do
+      <<~XML
+        <resource>
+          <schema name="contract_schema" number="8369" version="3">
+            The first one (named <b>Is_Acyclic</b>) has as argument the.
+            For implementation of (<b>Laminate_components</b>) (e.g., <b>Land</b>)
+          </schema>
+        </resource>
+      XML
+    end
+    let(:output) do
+      <<~XML
+        (*"contract_schema"
+        The first one (named *Is_Acyclic*{blank}) has as argument the. For implementation of ({blank}*Laminate_components*{blank}) (e.g., *Land*{blank})
+        *)
+      XML
+    end
+
+    it 'adds {blank} escape chars' do
+      expect(convert).to eq(output)
+    end
+  end
 end

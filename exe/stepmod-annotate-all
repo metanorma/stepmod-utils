@@ -24,12 +24,12 @@ files.each_slice(MAX_QUEUE_SIZE) do |batch|
   puts("Queueing next batch")
   batch.each do |file|
     pool.post do
-      puts("Queued processing #{file}")
+      puts("#{Thread.current.object_id}: Queued processing #{file}")
       annotated = Stepmod::Utils::StepmodFileAnnotator.new(express_file: file, resource_docs_cache_file: resource_docs_cache_file, stepmod_dir: stepmod_dir).call
       File.open(File.join(File.dirname(file), "#{File.basename(file, '.exp')}_annotated.exp"), 'w') do |file|
         file.puts(annotated)
       end
-      puts("Done processing #{file}")
+      puts("#{Thread.current.object_id}: Done processing #{file}")
     end
   end
   pool.shutdown
