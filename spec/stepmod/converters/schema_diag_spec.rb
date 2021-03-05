@@ -16,6 +16,7 @@ RSpec.describe Stepmod::Utils::Converters::SchemaDiag do
   end
   let(:output) do
     <<~XML
+      [[basic_attribute_schemaexpg1]]
       [.svgmap]
       ====
       image::basic_attribute_schemaexpg1.svg[]

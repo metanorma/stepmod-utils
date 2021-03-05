@@ -33,6 +33,7 @@ RSpec.describe Stepmod::Utils::SmrlResourceConverter do
 
       Contract information may be attached to any aspect of a product data.
 
+      [[basic_attribute_schemaexpg1]]
       [.svgmap]
       ====
       image::basic_attribute_schemaexpg1.svg[]
@@ -41,6 +42,7 @@ RSpec.describe Stepmod::Utils::SmrlResourceConverter do
       * <<express:basic_attribute_schema>>; 2
       ====
 
+      [[basic_attribute_schemaexpg2]]
       [.svgmap]
       ====
       image::basic_attribute_schemaexpg2.svg[]

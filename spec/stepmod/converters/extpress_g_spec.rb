@@ -16,6 +16,7 @@ RSpec.describe Stepmod::Utils::Converters::ExpressG do
   let(:adoc_output) do
     <<~ADOC
 
+      [[basic_attribute_schemaexpg1]]
       [.svgmap]
       ====
       image::basic_attribute_schemaexpg1.svg[]
@@ -25,6 +26,7 @@ RSpec.describe Stepmod::Utils::Converters::ExpressG do
       ====
 
 
+      [[basic_attribute_schemaexpg2]]
       [.svgmap]
       ====
       image::basic_attribute_schemaexpg2.svg[]
@@ -34,6 +36,7 @@ RSpec.describe Stepmod::Utils::Converters::ExpressG do
       ====
 
 
+      [[action_and_model_relationships_schemaexpg1]]
       [.svgmap]
       ====
       image::action_and_model_relationships_schemaexpg1.svg[]
