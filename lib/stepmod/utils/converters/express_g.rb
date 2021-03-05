@@ -20,9 +20,9 @@ module Stepmod
           image_document = Nokogiri::XML(File.read(file))
           svg_path = File.basename(image_document.xpath('//img').first['src'], '.*')
           <<~SVGMAP
-            [[#{svg_path}]]
             [.svgmap]
             ====
+            [[#{svg_path}]]
             image::#{svg_path}.svg[]
 
             #{image_document.xpath('//img.area').map.with_index(1) {|n, i| schema_reference(n['href'], i) }.join("\n")}
