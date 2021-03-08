@@ -25,11 +25,11 @@ RSpec.describe Stepmod::Utils::SmrlResourceConverter do
   let(:output) do
     <<~ADOC
       (*"contract_schema"
-      == Introduction
+      == General
 
       The subject of the *contract_schema* is the description of contract agreements.
 
-      == Fundamental concerns
+      == Fundamental concepts and assumptions
 
       Contract information may be attached to any aspect of a product data.
 
