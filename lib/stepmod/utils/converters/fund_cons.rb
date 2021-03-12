@@ -5,7 +5,7 @@ module Stepmod
     module Converters
       class FundCons < ReverseAdoc::Converters::Base
         def convert(node, state = {})
-          "\n\n== Fundamental concerns\n\n#{treat_children(node, state).strip}\n\n"
+          "\n\n== Fundamental concepts and assumptions\n\n#{treat_children(node, state).strip}\n\n"
         end
       end
 

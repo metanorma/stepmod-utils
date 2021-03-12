@@ -25,16 +25,17 @@ RSpec.describe Stepmod::Utils::SmrlResourceConverter do
   let(:output) do
     <<~ADOC
       (*"contract_schema"
-      == Introduction
+      == General
 
       The subject of the *contract_schema* is the description of contract agreements.
 
-      == Fundamental concerns
+      == Fundamental concepts and assumptions
 
       Contract information may be attached to any aspect of a product data.
 
       [.svgmap]
       ====
+      [[basic_attribute_schemaexpg1]]
       image::basic_attribute_schemaexpg1.svg[]
 
       * <<express:support_resource_schema>>; 1
@@ -43,6 +44,7 @@ RSpec.describe Stepmod::Utils::SmrlResourceConverter do
 
       [.svgmap]
       ====
+      [[basic_attribute_schemaexpg2]]
       image::basic_attribute_schemaexpg2.svg[]
 
       * <<express:custom.name>>; 1

@@ -18,6 +18,7 @@ RSpec.describe Stepmod::Utils::Converters::SchemaDiag do
     <<~XML
       [.svgmap]
       ====
+      [[basic_attribute_schemaexpg1]]
       image::basic_attribute_schemaexpg1.svg[]
 
       * <<express:support_resource_schema>>; 1

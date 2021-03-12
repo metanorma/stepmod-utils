@@ -22,6 +22,7 @@ module Stepmod
           <<~SVGMAP
             [.svgmap]
             ====
+            [[#{svg_path}]]
             image::#{svg_path}.svg[]
 
             #{image_document.xpath('//img.area').map.with_index(1) {|n, i| schema_reference(n['href'], i) }.join("\n")}
