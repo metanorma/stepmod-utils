@@ -9,7 +9,7 @@ module Stepmod
           anchor = id ? "[[#{id}]]\n" : ""
           ol_count = state.fetch(:ol_count, 0) + 1
           attrs = ol_attrs(node)
-          res = "\n\n#{anchor}#{attrs}#{treat_children(node, state.merge(ol_count: ol_count))}\n"
+          res = "\n\n#{anchor}#{attrs}#{treat_children(node, state.merge(ol_count: ol_count, tdsinglepara: true))}\n"
           # Why do we add this?
           # res = "\n" + res if node.parent && node.parent.name == 'note'
           res
