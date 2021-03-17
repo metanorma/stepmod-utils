@@ -252,4 +252,72 @@ RSpec.describe Stepmod::Utils::SmrlResourceConverter do
       expect(convert).to eq(output)
     end
   end
+
+  context "when nested para inside the list" do
+    let(:input_xml) do
+      <<~XML
+        <resource>
+          <schema name="contract_schema" number="8369" version="3">
+            <p>This is the first paramgraph</p>
+            <ul>
+              <li>
+                <p>the definition of a given object is characterized by a set of unique properties.</p>
+                <example number="2">
+                  A product cannot have two shapes simultaneously.
+                </example>
+              </li>
+              <li>
+                <p>any usage of the object is characterized by a set of unique properties.</p>
+                <example number="3">
+                  A product, like glue, may have different shapes depending on its usage.
+                </example>
+              </li>
+              <li>
+                <p>a property characterizes either the definition or one of the usages of an object.</p>
+                <example number="4">
+                  The appearance of chair x is a unique property of that chair.
+                  The colour designating that the chair is white is a single item in a representation for the appearance
+                  property of chair x.
+                  This colour is shareable among many representations for the properties of many different objects.
+                </example>
+              </li>
+            </ul>
+          </schema>
+        </resource>
+      XML
+    end
+
+    let(:output) do
+      <<~ADOC
+        (*"contract_schema"
+        This is the first paramgraph
+
+        * the definition of a given object is characterized by a set of unique properties.
+
+        [example]
+        ====
+        A product cannot have two shapes simultaneously.
+        ====
+
+        * any usage of the object is characterized by a set of unique properties.
+
+        [example]
+        ====
+        A product, like glue, may have different shapes depending on its usage.
+        ====
+
+        * a property characterizes either the definition or one of the usages of an object.
+
+        [example]
+        ====
+        The appearance of chair x is a unique property of that chair. The colour designating that the chair is white is a single item in a representation for the appearance property of chair x. This colour is shareable among many representations for the properties of many different objects.
+        ====
+        *)
+      ADOC
+    end
+
+    it 'Removes all nested para tags from lists' do
+      expect(convert).to eq(output)
+    end
+  end
 end
