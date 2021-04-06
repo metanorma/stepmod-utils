@@ -5,7 +5,7 @@ module Stepmod
     module Converters
       class Introduction < ReverseAdoc::Converters::Base
         def convert(node, state = {})
-          "\n\n== General\n\n#{treat_children(node, state).strip}\n\n"
+          treat_children(node, state)
         end
       end
 

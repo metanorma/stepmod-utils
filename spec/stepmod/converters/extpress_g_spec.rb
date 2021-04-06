@@ -16,9 +16,11 @@ RSpec.describe Stepmod::Utils::Converters::ExpressG do
   let(:adoc_output) do
     <<~ADOC
 
+      *)
+
+      (*"action_schema.__expressg"
       [.svgmap]
       ====
-      [[basic_attribute_schemaexpg1]]
       image::basic_attribute_schemaexpg1.svg[]
 
       * <<express:support_resource_schema>>; 1
@@ -26,9 +28,11 @@ RSpec.describe Stepmod::Utils::Converters::ExpressG do
       ====
 
 
+      *)
+
+      (*"action_schema.__expressg"
       [.svgmap]
       ====
-      [[basic_attribute_schemaexpg2]]
       image::basic_attribute_schemaexpg2.svg[]
 
       * <<express:custom.name>>; 1
@@ -36,9 +40,11 @@ RSpec.describe Stepmod::Utils::Converters::ExpressG do
       ====
 
 
+      *)
+
+      (*"action_schema.__expressg"
       [.svgmap]
       ====
-      [[action_and_model_relationships_schemaexpg1]]
       image::action_and_model_relationships_schemaexpg1.svg[]
 
       * <<express:product_and_model_relationships_schema>>; 1
