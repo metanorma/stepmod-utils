@@ -5,7 +5,13 @@ module Stepmod
     module Converters
       class FundCons < ReverseAdoc::Converters::Base
         def convert(node, state = {})
-          "\n\n== Fundamental concepts and assumptions\n\n#{treat_children(node, state).strip}\n\n"
+          <<~TEXT
+            *)
+
+            (*"#{state.fetch(:schema_name, 'action_schema')}.__fund_cons"
+
+            #{treat_children(node, state).strip}
+          TEXT
         end
       end
 

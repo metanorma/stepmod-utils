@@ -5,6 +5,7 @@ module Stepmod
     module Converters
       class Schema < ReverseAdoc::Converters::Base
         def convert(node, state = {})
+          state = state.merge(schema_name: node['name'])
           <<~TEMPLATE
             (*"#{node['name']}"
             #{treat_children(node, state).strip}
