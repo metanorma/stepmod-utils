@@ -20,8 +20,8 @@ module Stepmod
           image_document = Nokogiri::XML(File.read(file))
           svg_path = File.basename(image_document.xpath('//img').first['src'], '.*')
           <<~SVGMAP
-            *)
 
+            *)
             (*"#{state.fetch(:schema_name)}.__expressg"
             [.svgmap]
             ====

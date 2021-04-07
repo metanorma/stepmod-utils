@@ -6,8 +6,8 @@ module Stepmod
       class FundCons < ReverseAdoc::Converters::Base
         def convert(node, state = {})
           <<~TEXT
-            *)
 
+            *)
             (*"#{state.fetch(:schema_name)}.__fund_cons"
 
             #{treat_children(node, state).strip}
