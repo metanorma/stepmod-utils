@@ -8,7 +8,7 @@ module Stepmod
           <<~TEXT
             *)
 
-            (*"#{state.fetch(:schema_name, 'action_schema')}.__fund_cons"
+            (*"#{state.fetch(:schema_name)}.__fund_cons"
 
             #{treat_children(node, state).strip}
           TEXT

@@ -18,7 +18,7 @@ RSpec.describe Stepmod::Utils::Converters::SchemaDiag do
     <<~XML
       *)
 
-      (*"action_schema.__expressg"
+      (*"test_schema.__expressg"
       [.svgmap]
       ====
       image::basic_attribute_schemaexpg1.svg[]
@@ -31,6 +31,6 @@ RSpec.describe Stepmod::Utils::Converters::SchemaDiag do
 
   it 'converts html children' do
     input = node_for(input_xml)
-    expect(converter.convert(input)).to eq(output.strip)
+    expect(converter.convert(input, { schema_name: 'test_schema' })).to eq(output.strip)
   end
 end

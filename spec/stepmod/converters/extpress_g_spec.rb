@@ -18,7 +18,7 @@ RSpec.describe Stepmod::Utils::Converters::ExpressG do
 
       *)
 
-      (*"action_schema.__expressg"
+      (*"test_schema.__expressg"
       [.svgmap]
       ====
       image::basic_attribute_schemaexpg1.svg[]
@@ -30,7 +30,7 @@ RSpec.describe Stepmod::Utils::Converters::ExpressG do
 
       *)
 
-      (*"action_schema.__expressg"
+      (*"test_schema.__expressg"
       [.svgmap]
       ====
       image::basic_attribute_schemaexpg2.svg[]
@@ -42,7 +42,7 @@ RSpec.describe Stepmod::Utils::Converters::ExpressG do
 
       *)
 
-      (*"action_schema.__expressg"
+      (*"test_schema.__expressg"
       [.svgmap]
       ====
       image::action_and_model_relationships_schemaexpg1.svg[]
@@ -69,6 +69,6 @@ RSpec.describe Stepmod::Utils::Converters::ExpressG do
 
   it 'takes ext_description linkend attribute' do
     input = node_for(input_xml)
-    expect(converter.convert(input)).to eq(adoc_output)
+    expect(converter.convert(input, { schema_name: 'test_schema' })).to eq(adoc_output)
   end
 end

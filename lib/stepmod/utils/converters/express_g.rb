@@ -22,7 +22,7 @@ module Stepmod
           <<~SVGMAP
             *)
 
-            (*"#{state.fetch(:schema_name, 'action_schema')}.__expressg"
+            (*"#{state.fetch(:schema_name)}.__expressg"
             [.svgmap]
             ====
             image::#{svg_path}.svg[]
