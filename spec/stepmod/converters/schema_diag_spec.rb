@@ -17,7 +17,6 @@ RSpec.describe Stepmod::Utils::Converters::SchemaDiag do
   let(:output) do
     <<~XML
       *)
-
       (*"test_schema.__expressg"
       [.svgmap]
       ====

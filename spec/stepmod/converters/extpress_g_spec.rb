@@ -16,8 +16,8 @@ RSpec.describe Stepmod::Utils::Converters::ExpressG do
   let(:adoc_output) do
     <<~ADOC
 
-      *)
 
+      *)
       (*"test_schema.__expressg"
       [.svgmap]
       ====
@@ -28,8 +28,8 @@ RSpec.describe Stepmod::Utils::Converters::ExpressG do
       ====
 
 
-      *)
 
+      *)
       (*"test_schema.__expressg"
       [.svgmap]
       ====
@@ -40,8 +40,8 @@ RSpec.describe Stepmod::Utils::Converters::ExpressG do
       ====
 
 
-      *)
 
+      *)
       (*"test_schema.__expressg"
       [.svgmap]
       ====
