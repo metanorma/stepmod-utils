@@ -76,7 +76,7 @@ files.each do |file_path|
   end
 
   # TODO: we may want a command line option to override this in the future
-  unless %w(IS DIS TS).include? bibdata.doctype
+  unless %w(IS DIS FDIS TS).include? bibdata.doctype
     log "INFO: skipped #{bibdata.docid} as it is not IS, DIS or TS"
     next
   end
@@ -135,7 +135,7 @@ files.each do |file_path|
 
 end
 
-parsed_bibliography.uniq!
+parsed_bibliography
 
 File.open('031-generated-terms.adoc', 'w') { |file|
   file.puts(parsed_terms.map(&:to_mn_adoc).join("\n"))
@@ -144,7 +144,7 @@ File.open('031-generated-terms.adoc', 'w') { |file|
 log "INFO: written to: 031-generated-terms.adoc"
 
 File.open('991-generated-bibliography.adoc', 'w') { |file|
-  file.puts(parsed_bibliography.map(&:to_mn_adoc).join("\n"))
+  file.puts(parsed_bibliography.map(&:to_mn_adoc).uniq.join("\n"))
 }
 
 log "INFO: written to: 991-generated-bibliography.adoc"
