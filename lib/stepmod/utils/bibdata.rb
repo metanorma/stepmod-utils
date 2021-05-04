@@ -67,6 +67,8 @@ module Stepmod
           "ISO/CD #{DOCNUMBER}-#{part}"
         when "DIS"
           "ISO/DIS #{DOCNUMBER}-#{part}"
+        when "FDIS"
+          "ISO/FDIS #{DOCNUMBER}-#{part}"
         when "TS"
           "ISO/TS #{DOCNUMBER}-#{part}"
         when "CD-TS"
