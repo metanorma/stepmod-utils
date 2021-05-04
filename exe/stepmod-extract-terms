@@ -144,7 +144,7 @@ File.open('031-generated-terms.adoc', 'w') { |file|
 log "INFO: written to: 031-generated-terms.adoc"
 
 File.open('991-generated-bibliography.adoc', 'w') { |file|
-  file.puts(parsed_bibliography.map(&:to_mn_adoc).uniq.join("\n"))
+  file.puts(parsed_bibliography.map(&:to_mn_adoc).sort.uniq.join("\n"))
 }
 
 log "INFO: written to: 991-generated-bibliography.adoc"
