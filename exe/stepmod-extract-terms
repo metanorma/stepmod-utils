@@ -178,6 +178,29 @@ files.each do |file_path|
     parsed_bibliography << bibdata
   end
 
+  current_document.xpath('//arm').each.with_index(1) do |arm_node, index|
+    # Assume that definition is located in clause 3 of the ISO document
+    # in order. We really don't have a good reference here.
+    ref_clause = "3.#{index}"
+
+    concept = Stepmod::Utils::Concept.parse(
+      arm_node,
+      reference_anchor: bibdata.anchor,
+      reference_clause: ref_clause,
+      file_path: fpath + revision_string
+    )
+
+    unless term_special_category(bibdata)
+      # log "INFO: this part is generic"
+      parsed_terms << concept
+    else
+      # log "INFO: this part is special"
+      part_concepts << concept
+    end
+
+    parsed_bibliography << bibdata
+  end
+
   log "INFO: Completed processing XML file #{fpath}"
 
   if part_concepts.length == 0
