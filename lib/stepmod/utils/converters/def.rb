@@ -71,6 +71,7 @@ module Stepmod
       end
 
       ReverseAdoc::Converters.register :def, Def.new
+      ReverseAdoc::Converters.register :description, Def.new
     end
   end
 end

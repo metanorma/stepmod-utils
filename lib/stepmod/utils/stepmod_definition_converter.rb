@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'reverse_adoc'
+require 'stepmod/utils/converters/arm'
 require 'stepmod/utils/converters/clause_ref'
 require 'stepmod/utils/converters/express_ref'
 require 'stepmod/utils/converters/module_ref'
@@ -13,6 +14,7 @@ require 'stepmod/utils/converters/ol'
 require 'stepmod/utils/converters/stem'
 require 'stepmod/utils/converters/term'
 require 'stepmod/utils/converters/synonym'
+require 'stepmod/utils/converters/uof'
 
 require 'reverse_adoc/converters/a'
 require 'reverse_adoc/converters/blockquote'

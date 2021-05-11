@@ -21,8 +21,18 @@ module Stepmod
       end
 
       def self.parse(definition_xml, reference_anchor:, reference_clause:, file_path:)
+        converted_definition = Stepmod::Utils::StepmodDefinitionConverter
+                                  .convert(definition_xml, { reference_anchor: reference_anchor })
+        if definition_xml.name == 'arm'
+          converted_definition = <<~TEXT
+            #{converted_definition}
+
+            NOTE: This term is incompletely defined in this document. Reference #{reference_anchor}
+            for the complete definition.
+          TEXT
+        end
         new(
-          converted_definition: Stepmod::Utils::StepmodDefinitionConverter.convert(definition_xml),
+          converted_definition: converted_definition,
           reference_anchor: reference_anchor,
           reference_clause: reference_clause,
           file_path: file_path
