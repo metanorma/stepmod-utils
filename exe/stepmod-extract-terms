@@ -100,6 +100,8 @@ files = %w(
 
 end.flatten.sort.uniq
 
+max_ecnountered_refs_indexes = {}
+
 files.each do |file_path|
   file_path = Pathname.new(file_path).realpath
   fpath = file_path.relative_path_from(stepmod_path)
@@ -146,8 +148,8 @@ files.each do |file_path|
 
   # read definitions
   part_concepts = []
-  current_document.xpath('//definition').each.with_index(1) do |definition, index|
-
+  current_document.xpath('//definition').each do |definition|
+    index = max_ecnountered_refs_indexes[bibdata.anchor] || 1
     term_id = definition['id']
     unless term_id.nil?
       if encountered_terms[term_id]
@@ -175,10 +177,12 @@ files.each do |file_path|
       part_concepts << concept
     end
 
+    max_ecnountered_refs_indexes[bibdata.anchor] = index + 1
     parsed_bibliography << bibdata
   end
 
-  current_document.xpath('//arm').each.with_index(1) do |arm_node, index|
+  current_document.xpath('//arm').each do |arm_node|
+    index = max_ecnountered_refs_indexes[bibdata.anchor] || 1
     # Assume that definition is located in clause 3 of the ISO document
     # in order. We really don't have a good reference here.
     ref_clause = "3.#{index}"
@@ -198,7 +202,38 @@ files.each do |file_path|
       part_concepts << concept
     end
 
+    max_ecnountered_refs_indexes[bibdata.anchor] = index + 1
     parsed_bibliography << bibdata
+  end
+
+  current_document.xpath('//schema').each do |schema_node|
+    Dir["#{stepmod_dir}/**/#{schema_node['name']}/descriptions.xml"].each do |description|
+      description_document = Nokogiri::XML(File.read(description)).root
+      description_document.xpath('//ext_description').each do |ext_description|
+        index = max_ecnountered_refs_indexes[bibdata.anchor] || 1
+        # Assume that definition is located in clause 3 of the ISO document
+        # in order. We really don't have a good reference here.
+        ref_clause = "3.#{index}"
+
+        concept = Stepmod::Utils::Concept.parse(
+          ext_description,
+          reference_anchor: bibdata.anchor,
+          reference_clause: ref_clause,
+          file_path: fpath + revision_string
+        )
+
+        unless term_special_category(bibdata)
+          # log "INFO: this part is generic"
+          parsed_terms << concept
+        else
+          # log "INFO: this part is special"
+          part_concepts << concept
+        end
+
+        max_ecnountered_refs_indexes[bibdata.anchor] = index + 1
+        parsed_bibliography << bibdata
+      end
+    end
   end
 
   log "INFO: Completed processing XML file #{fpath}"
