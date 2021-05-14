@@ -170,6 +170,7 @@ files.each do |file_path|
       reference_clause: ref_clause,
       file_path: fpath + revision_string
     )
+    next unless concept
 
     unless term_special_category(bibdata)
       # log "INFO: this part is generic"
@@ -183,34 +184,38 @@ files.each do |file_path|
     parsed_bibliography << bibdata
   end
 
-  current_document.xpath('//arm').each do |arm_node|
-    index = max_encountered_refs_indexes[bibdata.anchor] || 1
-
+  part_modules = []
+  current_document.xpath('//arm/uof').each do |uof_node|
     concept = Stepmod::Utils::Concept.parse(
-      arm_node,
+      uof_node,
       reference_anchor: bibdata.anchor,
       reference_clause: nil,
       file_path: fpath + revision_string
     )
+    # puts concept.inspect
 
-    module_concepts << concept
-    # unless term_special_category(bibdata)
-    #   # log "INFO: this part is generic"
-    #   general_concepts << concept
-    # else
-    #   # log "INFO: this part is special"
-    #   part_concepts << concept
-    # end
+    next unless concept
 
-    max_encountered_refs_indexes[bibdata.anchor] = index + 1
+    unless term_special_category(bibdata)
+      # log "INFO: this part is generic"
+      module_concepts << concept
+    else
+      # log "INFO: this part is special"
+      part_modules << concept
+    end
+
     parsed_bibliography << bibdata
   end
 
+  part_resources = []
+  # Assumption: every schema is only linked by a single resource_docs document.
   current_document.xpath('//schema').each do |schema_node|
-    Dir["#{stepmod_dir}/**/#{schema_node['name']}/descriptions.xml"].each do |description|
-      description_document = Nokogiri::XML(File.read(description)).root
+    schema_name = schema_node['name']
+
+    Dir["#{stepmod_path}/*/#{schema_name}/descriptions.xml"].each do |description_xml_path|
+      log "INFO: Processing resources schema #{description_xml_path}"
+      description_document = Nokogiri::XML(File.read(description_xml_path)).root
       description_document.xpath('//ext_description').each do |ext_description|
-        index = max_encountered_refs_indexes[bibdata.anchor] || 1
 
         concept = Stepmod::Utils::Concept.parse(
           ext_description,
@@ -218,17 +223,16 @@ files.each do |file_path|
           reference_clause: nil,
           file_path: fpath + revision_string
         )
+        next unless concept
 
-        resource_concepts << concept
-        # unless term_special_category(bibdata)
-        #   # log "INFO: this part is generic"
-        #   general_concepts << concept
-        # else
-        #   # log "INFO: this part is special"
-        #   part_concepts << concept
-        # end
+        unless term_special_category(bibdata)
+          # log "INFO: this part is generic"
+          resource_concepts << concept
+        else
+          # log "INFO: this part is special"
+          part_resources << concept
+        end
 
-        max_encountered_refs_indexes[bibdata.anchor] = index + 1
         parsed_bibliography << bibdata
       end
     end
@@ -236,7 +240,7 @@ files.each do |file_path|
 
   log "INFO: Completed processing XML file #{fpath}"
 
-  if part_concepts.length == 0
+  if part_concepts.empty?
     log "INFO: Skipping #{fpath} (#{bibdata.docid}) because it contains no concepts."
     next
   elsif part_concepts.length < 3
@@ -250,6 +254,24 @@ files.each do |file_path|
     File.open(fn, 'w') { |file|
       file.puts("== #{part_to_title(bibdata)}\n\n")
       file.puts(part_concepts.map(&:to_mn_adoc).join("\n"))
+    }
+    log "INFO: written to: #{fn}"
+  end
+
+  unless part_resources.empty?
+    fn = "04x-stepmod-entities-resources-#{bibdata.part}.adoc"
+    File.open(fn, 'w') { |file|
+      file.puts("== #{part_to_title(bibdata)}\n\n")
+      file.puts(part_resources.map(&:to_mn_adoc).join("\n"))
+    }
+    log "INFO: written to: #{fn}"
+  end
+
+  unless part_modules.empty?
+    fn = "04x-stepmod-entities-modules-#{bibdata.part}.adoc"
+    File.open(fn, 'w') { |file|
+      file.puts("== #{part_to_title(bibdata)}\n\n")
+      file.puts(part_modules.map(&:to_mn_adoc).join("\n"))
     }
     log "INFO: written to: #{fn}"
   end
