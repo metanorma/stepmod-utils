@@ -23,7 +23,8 @@ module Stepmod
       def self.parse(definition_xml, reference_anchor:, reference_clause:, file_path:)
         converted_definition = Stepmod::Utils::StepmodDefinitionConverter
                                   .convert(definition_xml, { reference_anchor: reference_anchor })
-        if definition_xml.name == 'arm' || definition_xml.name == 'ext_description'
+
+        if definition_xml.name == 'uof' || definition_xml.name == 'ext_description'
           converted_definition = <<~TEXT
             #{converted_definition.split("\n")[0..3].join("\n")}
 
