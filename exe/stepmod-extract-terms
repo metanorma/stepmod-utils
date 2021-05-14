@@ -282,11 +282,11 @@ File.open('031-stepmod-general.adoc', 'w') { |file|
   file.puts(general_concepts.map(&:to_mn_adoc).join("\n"))
 }
 
-File.open('04-stepmod-entities-resources.adoc', 'w') { |file|
+File.open('041-stepmod-entities-resources.adoc', 'w') { |file|
   file.puts(resource_concepts.map(&:to_mn_adoc).join("\n"))
 }
 
-File.open('05-stepmod-entities-modules.adoc', 'w') { |file|
+File.open('051-stepmod-entities-modules.adoc', 'w') { |file|
   file.puts(module_concepts.map(&:to_mn_adoc).join("\n"))
 }
 
