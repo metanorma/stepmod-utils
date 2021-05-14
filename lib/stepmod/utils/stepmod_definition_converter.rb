@@ -52,7 +52,8 @@ module Stepmod
 
         ReverseAdoc.config.with(options) do
           result = ReverseAdoc::Converters.lookup(root.name).convert(root)
-          ReverseAdoc.cleaner.tidy(result)
+          return '' unless result
+          ReverseAdoc.cleaner.tidy(result.dup)
         end
       end
     end
