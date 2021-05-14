@@ -40,15 +40,16 @@ module Stepmod
   module Utils
     class StepmodDefinitionConverter
       def self.convert(input, options = {})
-        root = if input.is_a?(String)
-                  then Nokogiri::XML(input).root
-                elsif input.is_a?(Nokogiri::XML::Document)
-                  then input.root
-                elsif input.is_a?(Nokogiri::XML::Node)
-                  then input
-                end
+        root = case input
+               when String
+                 Nokogiri::XML(input).root
+               when Nokogiri::XML::Document
+                 input.root
+               when Nokogiri::XML::Node
+                 input
+               end
 
-        root || (return '')
+        return '' unless root
 
         ReverseAdoc.config.with(options) do
           result = ReverseAdoc::Converters.lookup(root.name).convert(root)
