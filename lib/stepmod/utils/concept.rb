@@ -27,8 +27,8 @@ module Stepmod
           converted_definition = <<~TEXT
             #{converted_definition.split("\n")[0..3].join("\n")}
 
-            NOTE: This term is incompletely defined in this document. Reference #{reference_anchor}
-            for the complete definition.
+            NOTE: This term is incompletely defined in this document.
+            Reference <<#{reference_anchor}>> for the complete definition.
           TEXT
         end
         new(
@@ -45,7 +45,7 @@ module Stepmod
           #{converted_definition}
 
           [.source]
-          <<#{reference_anchor},clause=#{reference_clause}>>
+          <<#{reference_anchor}#{reference_clause ? ",clause=" + reference_clause : ""}>>
 
         TEXT
       end

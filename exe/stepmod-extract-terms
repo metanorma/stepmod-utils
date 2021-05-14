@@ -27,7 +27,9 @@ ReverseAdoc.config.unknown_tags = :bypass
 # TODO: we may want a command line option to override this in the future
 ACCEPTED_STAGES = %w(IS DIS FDIS TS)
 
-parsed_terms = []
+general_concepts = []
+resource_concepts = []
+module_concepts = []
 parsed_bibliography = []
 encountered_terms = {}
 
@@ -100,7 +102,7 @@ files = %w(
 
 end.flatten.sort.uniq
 
-max_ecnountered_refs_indexes = {}
+max_encountered_refs_indexes = {}
 
 files.each do |file_path|
   file_path = Pathname.new(file_path).realpath
@@ -149,7 +151,7 @@ files.each do |file_path|
   # read definitions
   part_concepts = []
   current_document.xpath('//definition').each do |definition|
-    index = max_ecnountered_refs_indexes[bibdata.anchor] || 1
+    index = max_encountered_refs_indexes[bibdata.anchor] || 1
     term_id = definition['id']
     unless term_id.nil?
       if encountered_terms[term_id]
@@ -171,38 +173,36 @@ files.each do |file_path|
 
     unless term_special_category(bibdata)
       # log "INFO: this part is generic"
-      parsed_terms << concept
+      general_concepts << concept
     else
       # log "INFO: this part is special"
       part_concepts << concept
     end
 
-    max_ecnountered_refs_indexes[bibdata.anchor] = index + 1
+    max_encountered_refs_indexes[bibdata.anchor] = index + 1
     parsed_bibliography << bibdata
   end
 
   current_document.xpath('//arm').each do |arm_node|
-    index = max_ecnountered_refs_indexes[bibdata.anchor] || 1
-    # Assume that definition is located in clause 3 of the ISO document
-    # in order. We really don't have a good reference here.
-    ref_clause = "3.#{index}"
+    index = max_encountered_refs_indexes[bibdata.anchor] || 1
 
     concept = Stepmod::Utils::Concept.parse(
       arm_node,
       reference_anchor: bibdata.anchor,
-      reference_clause: ref_clause,
+      reference_clause: nil,
       file_path: fpath + revision_string
     )
 
-    unless term_special_category(bibdata)
-      # log "INFO: this part is generic"
-      parsed_terms << concept
-    else
-      # log "INFO: this part is special"
-      part_concepts << concept
-    end
+    module_concepts << concept
+    # unless term_special_category(bibdata)
+    #   # log "INFO: this part is generic"
+    #   general_concepts << concept
+    # else
+    #   # log "INFO: this part is special"
+    #   part_concepts << concept
+    # end
 
-    max_ecnountered_refs_indexes[bibdata.anchor] = index + 1
+    max_encountered_refs_indexes[bibdata.anchor] = index + 1
     parsed_bibliography << bibdata
   end
 
@@ -210,27 +210,25 @@ files.each do |file_path|
     Dir["#{stepmod_dir}/**/#{schema_node['name']}/descriptions.xml"].each do |description|
       description_document = Nokogiri::XML(File.read(description)).root
       description_document.xpath('//ext_description').each do |ext_description|
-        index = max_ecnountered_refs_indexes[bibdata.anchor] || 1
-        # Assume that definition is located in clause 3 of the ISO document
-        # in order. We really don't have a good reference here.
-        ref_clause = "3.#{index}"
+        index = max_encountered_refs_indexes[bibdata.anchor] || 1
 
         concept = Stepmod::Utils::Concept.parse(
           ext_description,
           reference_anchor: bibdata.anchor,
-          reference_clause: ref_clause,
+          reference_clause: nil,
           file_path: fpath + revision_string
         )
 
-        unless term_special_category(bibdata)
-          # log "INFO: this part is generic"
-          parsed_terms << concept
-        else
-          # log "INFO: this part is special"
-          part_concepts << concept
-        end
+        resource_concepts << concept
+        # unless term_special_category(bibdata)
+        #   # log "INFO: this part is generic"
+        #   general_concepts << concept
+        # else
+        #   # log "INFO: this part is special"
+        #   part_concepts << concept
+        # end
 
-        max_ecnountered_refs_indexes[bibdata.anchor] = index + 1
+        max_encountered_refs_indexes[bibdata.anchor] = index + 1
         parsed_bibliography << bibdata
       end
     end
@@ -239,16 +237,16 @@ files.each do |file_path|
   log "INFO: Completed processing XML file #{fpath}"
 
   if part_concepts.length == 0
-    log "INFO: Skipping #{bibdata.part} because there are no concepts."
+    log "INFO: Skipping #{fpath} (#{bibdata.docid}) because it contains no concepts."
     next
   elsif part_concepts.length < 3
-    log "INFO: Skipping #{bibdata.part} because it only has #{part_concepts.length} terms."
+    log "INFO: Skipping #{fpath} (#{bibdata.docid}) because it only has #{part_concepts.length} terms."
 
     part_concepts.each do |x|
-      parsed_terms << x
+      general_concepts << x
     end
   else
-    fn = "03-stepmod-#{bibdata.part}.adoc"
+    fn = "03x-stepmod-#{bibdata.part}.adoc"
     File.open(fn, 'w') { |file|
       file.puts("== #{part_to_title(bibdata)}\n\n")
       file.puts(part_concepts.map(&:to_mn_adoc).join("\n"))
@@ -259,7 +257,15 @@ files.each do |file_path|
 end
 
 File.open('031-stepmod-general.adoc', 'w') { |file|
-  file.puts(parsed_terms.map(&:to_mn_adoc).join("\n"))
+  file.puts(general_concepts.map(&:to_mn_adoc).join("\n"))
+}
+
+File.open('04-stepmod-entities-resources.adoc', 'w') { |file|
+  file.puts(resource_concepts.map(&:to_mn_adoc).join("\n"))
+}
+
+File.open('05-stepmod-entities-modules.adoc', 'w') { |file|
+  file.puts(module_concepts.map(&:to_mn_adoc).join("\n"))
 }
 
 log "INFO: written to: 031-stepmod-general.adoc"
