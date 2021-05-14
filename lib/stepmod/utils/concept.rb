@@ -24,6 +24,8 @@ module Stepmod
         converted_definition = Stepmod::Utils::StepmodDefinitionConverter
                                   .convert(definition_xml, { reference_anchor: reference_anchor })
 
+        return nil if converted_definition.nil? || converted_definition.strip.empty?
+
         if definition_xml.name == 'uof' || definition_xml.name == 'ext_description'
           converted_definition = <<~TEXT
             #{converted_definition.split("\n")[0..3].join("\n")}
