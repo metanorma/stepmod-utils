@@ -184,36 +184,52 @@ files.each do |file_path|
     parsed_bibliography << bibdata
   end
 
+  part_resources = []
   part_modules = []
-  current_document.xpath('//arm/uof').each do |uof_node|
-    concept = Stepmod::Utils::Concept.parse(
-      uof_node,
-      reference_anchor: bibdata.anchor,
-      reference_clause: nil,
-      file_path: fpath + revision_string
-    )
-    # puts concept.inspect
 
-    next unless concept
+  log "INFO: FILE PATH IS #{file_path}"
+  case file_path.to_s
+  when /resource.xml$/
+    log "INFO: Processing resource.xml for #{file_path}"
+    # Assumption: every schema is only linked by a single resource_docs document.
+    current_document.xpath('//schema').each do |schema_node|
+      schema_name = schema_node['name']
 
-    unless term_special_category(bibdata)
-      # log "INFO: this part is generic"
-      module_concepts << concept
-    else
-      # log "INFO: this part is special"
-      part_modules << concept
+      Dir["#{stepmod_path}/resources/#{schema_name}/descriptions.xml"].each do |description_xml_path|
+        log "INFO: Processing resources schema #{description_xml_path}"
+        description_document = Nokogiri::XML(File.read(description_xml_path)).root
+        description_document.xpath('//ext_description').each do |ext_description|
+
+          # log "INFO: Processing linkend[#{ext_description['linkend']}]"
+
+          concept = Stepmod::Utils::Concept.parse(
+            ext_description,
+            reference_anchor: bibdata.anchor,
+            reference_clause: nil,
+            file_path: Pathname.new(description_xml_path).relative_path_from(stepmod_path)
+          )
+          next unless concept
+
+          unless term_special_category(bibdata)
+            # log "INFO: this part is generic"
+            resource_concepts << concept
+          else
+            # log "INFO: this part is special"
+            part_resources << concept
+          end
+
+          parsed_bibliography << bibdata
+        end
+      end
     end
 
-    parsed_bibliography << bibdata
-  end
-
-  part_resources = []
-  # Assumption: every schema is only linked by a single resource_docs document.
-  current_document.xpath('//schema').each do |schema_node|
-    schema_name = schema_node['name']
-
-    Dir["#{stepmod_path}/*/#{schema_name}/descriptions.xml"].each do |description_xml_path|
-      log "INFO: Processing resources schema #{description_xml_path}"
+  when /module.xml$/
+    log "INFO: Processing module.xml for #{file_path}"
+    # Assumption: every schema is only linked by a single module document.
+    puts current_document.xpath('//module').length
+    schema_name = current_document.xpath('//module').first['name']
+    Dir["#{stepmod_path}/modules/#{schema_name}/*descriptions.xml"].each do |description_xml_path|
+      log "INFO: Processing modules schema #{description_xml_path}"
       description_document = Nokogiri::XML(File.read(description_xml_path)).root
       description_document.xpath('//ext_description').each do |ext_description|
 
@@ -221,21 +237,22 @@ files.each do |file_path|
           ext_description,
           reference_anchor: bibdata.anchor,
           reference_clause: nil,
-          file_path: fpath + revision_string
+          file_path: Pathname.new(description_xml_path).relative_path_from(stepmod_path)
         )
         next unless concept
 
         unless term_special_category(bibdata)
           # log "INFO: this part is generic"
-          resource_concepts << concept
+          module_concepts << concept
         else
           # log "INFO: this part is special"
-          part_resources << concept
+          part_modules << concept
         end
 
         parsed_bibliography << bibdata
       end
     end
+
   end
 
   log "INFO: Completed processing XML file #{fpath}"

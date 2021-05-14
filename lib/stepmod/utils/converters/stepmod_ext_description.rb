@@ -7,12 +7,26 @@ module Stepmod
           linkend = node['linkend'].split('.')
 
           # We ignore all the WHERE and IP rules because those are not terms
-          return nil if linkend.last =~ /^wr/
+          case linkend.last
+          when /^wr/, /^ur/
+            return nil
+          end
+
+          child_text = treat_children(node, state).strip
+          return nil if child_text.empty?
+
+          domain =  case linkend.first
+                    when /_mim$/, /_arm$/
+                      "<STEP module>"
+                    # when /_schema$/
+                    else
+                      "<STEP resource>"
+                    end
 
           <<~TEMPLATE
-            === #{node['linkend'].split('.').last}
+            === #{linkend.join('.')}
 
-            <STEP resource> #{treat_children(node, state).strip}
+            #{domain ? domain + " " : ""}#{treat_children(node, state).strip}
           TEMPLATE
         end
       end

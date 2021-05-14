@@ -13,10 +13,14 @@ module Stepmod
           # We take the text value of the element and convert to this:
 
           # term:[individual products]
-          if node['linkend'].split(':').length > 1
-            ref = node.text
+
+          ref = node.text.strip
+          if !ref.empty?
+            " term:[#{normalized_ref(ref)}] "
+          elsif
+            ref = node['linkend'].split(':').first
+            " *#{ref}*"
           end
-          " term:[#{normalized_ref(ref)}] "
         end
 
         private
