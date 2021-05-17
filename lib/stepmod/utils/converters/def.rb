@@ -32,6 +32,11 @@ module Stepmod
             result += content
             previous = child
           end
+
+          # Remove double newlines for every line
+          result = result.gsub(/\n\n+/, "\n\n")
+          result = result.squeeze(' ')
+
           result.strip
         end
 
@@ -52,8 +57,9 @@ module Stepmod
           return unless can_transform_to_alt?(first_child_tag)
 
           result = Stepmod::Utils::Converters::Synonym
-                    .new
-                    .convert(first_child_tag)
+            .new
+            .convert(first_child_tag)
+
           first_child_tag.remove
           "#{result}\n\n"
         end

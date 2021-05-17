@@ -29,7 +29,6 @@ module Stepmod
                       "STEP resource"
                     end
 
-
           <<~TEMPLATE
             === #{linkend.last}
 
