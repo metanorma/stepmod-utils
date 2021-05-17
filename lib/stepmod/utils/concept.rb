@@ -26,7 +26,7 @@ module Stepmod
 
         return nil if converted_definition.nil? || converted_definition.strip.empty?
 
-        if definition_xml.name == 'uof' || definition_xml.name == 'ext_description'
+        if definition_xml.name == 'ext_description'
           converted_definition = <<~TEXT
             #{converted_definition.split("\n")[0..3].join("\n")}
 

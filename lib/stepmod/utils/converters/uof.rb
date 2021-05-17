@@ -7,11 +7,16 @@ module Stepmod
     module Converters
       class Uof < ReverseAdoc::Converters::Base
         def convert(node, state = {})
-          <<~TEXT
-          === #{node['name'].strip}
 
-          <STEP module> #{treat_children(node, state).strip}
-          TEXT
+          # WARNING: <uof> tag content is deprecated
+          return ""
+
+          #
+          # <<~TEXT
+          # === #{node['name'].strip}
+
+          # <STEP module> #{treat_children(node, state).strip}
+          # TEXT
         end
       end
 
