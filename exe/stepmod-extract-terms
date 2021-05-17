@@ -29,7 +29,6 @@ ACCEPTED_STAGES = %w(IS DIS FDIS TS)
 
 general_concepts = []
 resource_concepts = []
-module_concepts = []
 parsed_bibliography = []
 encountered_terms = {}
 
@@ -375,19 +374,14 @@ end
 File.open('031-stepmod-general.adoc', 'w') { |file|
   file.puts(general_concepts.map(&:to_mn_adoc).join("\n"))
 }
+log "INFO: written to: 031-stepmod-general.adoc"
 
 File.open('041-stepmod-entities-resources.adoc', 'w') { |file|
   file.puts(resource_concepts.map(&:to_mn_adoc).join("\n"))
 }
-
-# File.open('051-stepmod-entities-modules.adoc', 'w') { |file|
-#   file.puts(module_concepts.map(&:to_mn_adoc).join("\n"))
-# }
-
-log "INFO: written to: 031-stepmod-general.adoc"
+log "INFO: written to: 041-stepmod-entities-resources.adoc"
 
 File.open('991-generated-bibliography.adoc', 'w') { |file|
   file.puts(parsed_bibliography.map(&:to_mn_adoc).sort.uniq.join("\n"))
 }
-
 log "INFO: written to: 991-generated-bibliography.adoc"
