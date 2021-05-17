@@ -1,6 +1,7 @@
 require "bundler/setup"
 require 'byebug'
 require "stepmod/utils"
+require "stepmod/utils/concept"
 require 'stepmod/utils/stepmod_definition_converter'
 require 'stepmod/utils/smrl_description_converter'
 require 'stepmod/utils/smrl_resource_converter'
