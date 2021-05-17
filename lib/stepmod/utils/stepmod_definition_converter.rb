@@ -16,6 +16,7 @@ require 'stepmod/utils/converters/stepmod_ext_description'
 require 'stepmod/utils/converters/term'
 require 'stepmod/utils/converters/synonym'
 require 'stepmod/utils/converters/uof'
+require 'stepmod/utils/converters/figure'
 
 require 'reverse_adoc/converters/a'
 require 'reverse_adoc/converters/blockquote'
