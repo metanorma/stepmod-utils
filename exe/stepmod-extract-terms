@@ -185,7 +185,8 @@ files.each do |file_path|
   end
 
   part_resources = []
-  part_modules = []
+  part_modules_arm = {}
+  part_modules_mim = {}
 
   log "INFO: FILE PATH IS #{file_path}"
   case file_path.to_s
@@ -226,12 +227,17 @@ files.each do |file_path|
   when /module.xml$/
     log "INFO: Processing module.xml for #{file_path}"
     # Assumption: every schema is only linked by a single module document.
-    puts current_document.xpath('//module').length
+    # puts current_document.xpath('//module').length
     schema_name = current_document.xpath('//module').first['name']
-    Dir["#{stepmod_path}/modules/#{schema_name}/*descriptions.xml"].each do |description_xml_path|
-      log "INFO: Processing modules schema #{description_xml_path}"
+
+    description_xml_path = "#{stepmod_path}/modules/#{schema_name}/arm_descriptions.xml"
+    log "INFO: Processing modules schema #{description_xml_path}"
+
+    if File.exists?(description_xml_path)
       description_document = Nokogiri::XML(File.read(description_xml_path)).root
       description_document.xpath('//ext_description').each do |ext_description|
+
+        linkend_schema = ext_description['linkend'].split('.').first
 
         concept = Stepmod::Utils::Concept.parse(
           ext_description,
@@ -241,14 +247,33 @@ files.each do |file_path|
         )
         next unless concept
 
-        unless term_special_category(bibdata)
-          # log "INFO: this part is generic"
-          module_concepts << concept
-        else
-          # log "INFO: this part is special"
-          part_modules << concept
-        end
+        part_modules_arm[linkend_schema] ||= []
+        part_modules_arm[linkend_schema] << concept
+        # puts part_modules_arm.inspect
+        parsed_bibliography << bibdata
+      end
+    end
 
+    description_xml_path = "#{stepmod_path}/modules/#{schema_name}/mim_descriptions.xml"
+    log "INFO: Processing modules schema #{description_xml_path}"
+
+    if File.exists?(description_xml_path)
+      description_document = Nokogiri::XML(File.read(description_xml_path)).root
+      description_document.xpath('//ext_description').each do |ext_description|
+
+        linkend_schema = ext_description['linkend'].split('.').first
+
+        concept = Stepmod::Utils::Concept.parse(
+          ext_description,
+          reference_anchor: bibdata.anchor,
+          reference_clause: nil,
+          file_path: Pathname.new(description_xml_path).relative_path_from(stepmod_path)
+        )
+        next unless concept
+
+        part_modules_mim[linkend_schema] ||= []
+        part_modules_mim[linkend_schema] << concept
+        # puts part_modules_mim.inspect
         parsed_bibliography << bibdata
       end
     end
@@ -259,7 +284,6 @@ files.each do |file_path|
 
   if part_concepts.empty?
     log "INFO: Skipping #{fpath} (#{bibdata.docid}) because it contains no concepts."
-    next
   elsif part_concepts.length < 3
     log "INFO: Skipping #{fpath} (#{bibdata.docid}) because it only has #{part_concepts.length} terms."
 
@@ -284,11 +308,34 @@ files.each do |file_path|
     log "INFO: written to: #{fn}"
   end
 
-  unless part_modules.empty?
-    fn = "04x-stepmod-entities-modules-#{bibdata.part}.adoc"
+  # puts "INFO: MODULE SIZE #{part_modules_arm.size} #{part_modules_mim.size}"
+
+  if part_modules_arm.size + part_modules_mim.size > 0
+    fn = "05x-stepmod-entities-modules-#{bibdata.part}.adoc"
+
     File.open(fn, 'w') { |file|
-      file.puts("== #{part_to_title(bibdata)}\n\n")
-      file.puts(part_modules.map(&:to_mn_adoc).join("\n"))
+      file.puts("")
+
+      unless part_modules_arm.empty?
+        schema_name = part_modules_arm.first.first
+        concepts = part_modules_arm.first.last
+
+        # puts "SCHEMA NAME ARM: #{schema_name}"
+        file.puts("== #{schema_name}\n\n")
+        file.puts(concepts.map(&:to_mn_adoc).join("\n"))
+      end
+
+      file.puts("")
+
+      unless part_modules_mim.empty?
+        schema_name = part_modules_mim.first.first
+
+        # puts "SCHEMA NAME MIM: #{schema_name}"
+        concepts = part_modules_mim.first.last
+        file.puts("== #{schema_name}\n\n")
+        file.puts(concepts.map(&:to_mn_adoc).join("\n"))
+      end
+
     }
     log "INFO: written to: #{fn}"
   end
@@ -303,9 +350,9 @@ File.open('041-stepmod-entities-resources.adoc', 'w') { |file|
   file.puts(resource_concepts.map(&:to_mn_adoc).join("\n"))
 }
 
-File.open('051-stepmod-entities-modules.adoc', 'w') { |file|
-  file.puts(module_concepts.map(&:to_mn_adoc).join("\n"))
-}
+# File.open('051-stepmod-entities-modules.adoc', 'w') { |file|
+#   file.puts(module_concepts.map(&:to_mn_adoc).join("\n"))
+# }
 
 log "INFO: written to: 031-stepmod-general.adoc"
 
