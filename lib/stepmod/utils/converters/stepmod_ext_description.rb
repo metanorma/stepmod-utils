@@ -6,27 +6,28 @@ module Stepmod
           state = state.merge(schema_name: node['linkend'])
           linkend = node['linkend'].split('.')
 
-          # We ignore all the WHERE and IP rules because those are not terms
-          case linkend.last
-          when /^wr/, /^ur/
-            return nil
-          end
+          # We only want ENTITY entries, not their attributes
+          # https://github.com/metanorma/iso-10303-2/issues/36#issuecomment-841300092
+          return nil if linkend.length != 2
 
           child_text = treat_children(node, state).strip
           return nil if child_text.empty?
 
           domain =  case linkend.first
                     when /_mim$/, /_arm$/
-                      "<STEP module>"
+                      "STEP module"
                     # when /_schema$/
                     else
-                      "<STEP resource>"
+                      "STEP resource"
                     end
 
-          <<~TEMPLATE
-            === #{linkend.join('.')}
 
-            #{domain ? domain + " " : ""}#{treat_children(node, state).strip}
+          <<~TEMPLATE
+            === #{linkend.last}
+
+            #{domain ? "domain:[" + domain + "]" : ""}
+
+            #{child_text}
           TEMPLATE
         end
       end
