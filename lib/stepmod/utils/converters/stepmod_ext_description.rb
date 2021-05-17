@@ -13,6 +13,14 @@ module Stepmod
           child_text = treat_children(node, state).strip
           return nil if child_text.empty?
 
+          # Only taking the first paragraph of the definition
+          child_text = child_text.split("\n").first
+
+          # # Only taking the first sentence
+          # if child_text.contains?(".")
+          #   child_text = child_text.split(".").first
+          # end
+
           domain =  case linkend.first
                     when /_mim$/, /_arm$/
                       "STEP module"
