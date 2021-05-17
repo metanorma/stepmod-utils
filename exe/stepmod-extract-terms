@@ -90,22 +90,40 @@ end
 
 log "INFO: Detecting paths..."
 
-files = %w(
-  resource.xml
-  application_protocol.xml
-  business_object_model.xml
-  module.xml
-  ).inject([]) do |acc, t|
+repo_index = Nokogiri::XML(File.read('repository_index.xml')).root
 
-    candidate_paths = Dir["#{stepmod_dir}/**/#{t}"]
-    acc << candidate_paths
+files = []
 
-end.flatten.sort.uniq
+# add module paths
+repo_index.xpath('//module').each do |x|
+  path = Pathname.new("#{stepmod_dir}/modules/#{x['name']}/module.xml")
+  files << path if File.exists? path
+end
+
+# add resource_docs paths
+repo_index.xpath('//resource_doc').each do |x|
+  path = Pathname.new("#{stepmod_dir}/resource_docs/#{x['name']}/resource.xml")
+  files << path if File.exists? path
+end
+
+# add business_object_models paths
+repo_index.xpath('//business_object_model').each do |x|
+  path = Pathname.new("#{stepmod_dir}/business_object_models/#{x['name']}/business_object_model.xml")
+  files << path if File.exists? path
+end
+
+# add application_protocols paths
+repo_index.xpath('//application_protocol').each do |x|
+  path = Pathname.new("#{stepmod_dir}/application_protocols/#{x['name']}/application_protocol.xml")
+  files << path if File.exists? path
+end
+
+files.sort!.uniq!
 
 parsed_schema_names = {}
 
 files.each do |file_path|
-  file_path = Pathname.new(file_path).realpath
+  file_path = file_path.realpath
   fpath = file_path.relative_path_from(stepmod_path)
 
   log "INFO: Processing XML file #{fpath}"
