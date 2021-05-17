@@ -103,6 +103,7 @@ files = %w(
 end.flatten.sort.uniq
 
 max_encountered_refs_indexes = {}
+parsed_schema_names = {}
 
 files.each do |file_path|
   file_path = Pathname.new(file_path).realpath
@@ -195,6 +196,12 @@ files.each do |file_path|
     # Assumption: every schema is only linked by a single resource_docs document.
     current_document.xpath('//schema').each do |schema_node|
       schema_name = schema_node['name']
+      if parsed_schema_names[schema_name]
+        log "ERROR: We have encountered this schema before: #{schema_name} from path #{parsed_schema_names[schema_name]}, now at #{file_path}"
+        next
+      else
+        parsed_schema_names[schema_name] = file_path
+      end
 
       Dir["#{stepmod_path}/resources/#{schema_name}/descriptions.xml"].each do |description_xml_path|
         log "INFO: Processing resources schema #{description_xml_path}"
@@ -229,6 +236,12 @@ files.each do |file_path|
     # Assumption: every schema is only linked by a single module document.
     # puts current_document.xpath('//module').length
     schema_name = current_document.xpath('//module').first['name']
+    if parsed_schema_names[schema_name]
+      log "ERROR: We have encountered this schema before: #{schema_name} from path #{parsed_schema_names[schema_name]}, now at #{file_path}"
+      next
+    else
+      parsed_schema_names[schema_name] = file_path
+    end
 
     description_xml_path = "#{stepmod_path}/modules/#{schema_name}/arm_descriptions.xml"
     log "INFO: Processing modules schema #{description_xml_path}"
