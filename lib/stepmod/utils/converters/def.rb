@@ -12,13 +12,15 @@ module Stepmod
 
         def treat_children(node, state)
           converted = node.children.each_with_object({}) do |child, res|
-                        content = treat(child, state).strip
-                        next if content.empty?
 
-                        res[child] = content
-                      end
+            content = treat(child, state)
+            next if content.strip.empty?
+
+            res[child] = content
+          end
           previous = nil
           result = ''
+
           converted.each.with_index do |(child, content), i|
             if block_tag?(child, previous)
               result += "\n\n"

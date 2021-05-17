@@ -21,14 +21,20 @@ module Stepmod
       end
 
       def self.parse(definition_xml, reference_anchor:, reference_clause:, file_path:)
-        converted_definition = Stepmod::Utils::StepmodDefinitionConverter
-                                  .convert(definition_xml, { reference_anchor: reference_anchor })
+        converted_definition = Stepmod::Utils::StepmodDefinitionConverter.convert(
+          definition_xml,
+          {
+            # We don't want examples and notes
+            no_notes_examples: true,
+            reference_anchor: reference_anchor
+          }
+        )
 
         return nil if converted_definition.nil? || converted_definition.strip.empty?
 
         if definition_xml.name == 'ext_description'
           converted_definition = <<~TEXT
-            #{converted_definition.split("\n")[0..3].join("\n")}
+            #{converted_definition}
 
             NOTE: This term is incompletely defined in this document.
             Reference <<#{reference_anchor}>> for the complete definition.

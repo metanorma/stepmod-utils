@@ -52,7 +52,7 @@ module Stepmod
         return '' unless root
 
         ReverseAdoc.config.with(options) do
-          result = ReverseAdoc::Converters.lookup(root.name).convert(root)
+          result = ReverseAdoc::Converters.lookup(root.name).convert(root, options)
           return '' unless result
           ReverseAdoc.cleaner.tidy(result.dup)
         end
