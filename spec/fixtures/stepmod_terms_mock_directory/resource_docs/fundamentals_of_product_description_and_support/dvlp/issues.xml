@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: issues.xml,v 1.9 2004/09/21 15:59:01 robbod Exp $ -->
+<?xml-stylesheet type="text/xsl" href="../../../../xsl/projmg/resource_issues_file.xsl"?>
+<!DOCTYPE issues SYSTEM "../../../../dtd/projmg/resource_issues.dtd">
+<issues resource="fundamentals_of_product_description_and_support">
+	<!--
+Description of how the issues files is given in: stepmod\help\issues.htm
+ id - an identifer of the isssue unique to this file
+ type - the primary XML element in resource.xml that the issue is against.
+        Either: 
+            general | keywords | contacts | purpose |
+            inscope | outscope | normrefs | definition |
+            abbreviations |
+            (schema_name) intro | fund_cons | express | expg |
+            usage_guide | bibliography
+ linkend - the target of the comment 
+ category - editorial | minor_technical | major_technical | repository 
+ by - person raising the issue
+ date - date issue raised yy-mm-dd
+ status - status of issue. Either "open" or "closed"
+
+Comment - is a comment raised by someone about the issue
+
+<issue
+  id=""
+  type=""
+  linkend=""
+  category=""
+  by=""
+  date=""
+  status="open">
+  <description>
+
+   </description>
+
+<comment
+   by="" 
+   date="">
+<description>
+</description>
+</comment>
+ </issue>
+-->
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<!-- +++++++++++++++++++   ISSUES                  ++++++++++++++ -->
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<issue id="mwd-1" type="examples" linkend="" category="editorial" by="Darla Nettles" date="2003-06" status="closed">
+		<description>
+			<p>Word document:</p>
+			Use of “i.e.” is deprecated – see SD.  Suggest replacement with one of the alternative formulations suggested in the SD.
+		</description>
+		<comment by="Mike Ward" date="2003-06">
+			<description>
+				Agreed.
+			</description>
+		</comment>
+	</issue>
+	<issue id="mwd-2" type="cover" linkend="" category="minor_technical" by="John Dunford" date="2003-06" status="closed">
+		<description>
+			<p>Word document:</p>
+			Comments to reader do not include any reference to motivation for extension to Part 4.  Suggest that we include sentence on motivation for extension to part 41 in comments to reader.
+		</description>
+		<comment by="Mike Ward" date="2003-06">
+			<description>
+				Agreed.
+			</description>
+		</comment>
+	</issue>
+	<issue id="mwd-3" type="cover" linkend="" category="minor_technical" by="John Dunford" date="2003-06" status="closed">
+		<description>
+			<p>Word document:</p>
+			Key words do not include any of new concepts introduced into Part 41. Suggest that we extend key words to include some of new concepts introduced into Part 41.
+		</description>
+		<comment by="Mike Ward" date="2003-06">
+			<description>
+				Agreed.
+			</description>
+		</comment>
+	</issue>
+	<issue id="mwd-4" type="general" linkend="" category="editorial" by="John Dunford" date="2003-06" status="closed">
+		<description>
+			<p>Word document:</p>
+			Inconsistent spacing after commas, full-stops and colons.	 Should always use single spacing after commas, full-stops and colons (except in EXPRESS code).
+		</description>
+		<comment by="Mike Ward" date="2003-06">
+			<description>
+				Agreed.
+			</description>
+		</comment>
+	</issue>
+	<issue id="mwd-5" type="general" linkend="" category="editorial" by="Darla Nettles" date="2003-06" status="closed">
+		<description>
+			<p>Word document:</p>
+			Widows, orphans, and headings with no accompanying text on same page should be avoided – see SD. Suggest removal of any widows, orphans, and headings with no accompanying text on same page from new version of Part 41.
+		</description>
+		<comment by="Mike Ward" date="2003-06">
+			<description>
+				Agreed.
+			</description>
+		</comment>
+	</issue>
+	<issue id="mwd-6" type="general" linkend="" category="editorial" by="Darla Nettles" date="2003-06" status="closed">
+		<description>
+			<p>Word document:</p>
+			Cross references to annexes should refer to (say) “annex A” where the word “annex” is in lower case and the letter in question is in upper case.  Amend (as necessary) all cross-references to annexes so that they are consistent and are in line with the SD.
+		</description>
+		<comment by="Mike Ward" date="2003-06">
+			<description>
+				Agreed.
+			</description>
+		</comment>
+	</issue>
+	<issue id="mwd-7" type="general" linkend="" category="editorial" by="Darla Nettles" date="2003-06" status="closed">
+		<description>
+			<p>Word document:</p>
+			Year should be “2003” throughout the document.	Amend (as necessary) all years in all headers and footers.		</description>
+		<comment by="Mike Ward" date="2003-06">
+			<description>
+				Agreed.
+			</description>
+		</comment>
+	</issue>
+	<issue id="mwd-8" type="shortnames" linkend="" category="minor_technical" by="Mike Ward" date="2003-07-04" status="closed">
+		<description>
+			<p>Word document:</p>
+			Second instance of "QUALIFICATION" in the table of short names should be "QUALIFICATION_RELATIONSHIP".		</description>
+		<comment by="Mike Ward" date="2003-07-04">
+			<description>
+				Agreed.
+			</description>
+		</comment>
+	</issue>
+	<issue id="mwd-9" type="shortnames" linkend="" category="minor_technical" by="Mike Ward" date="2003-07-04" status="closed">
+		<description>
+			<p>Word document:</p>
+			Short name for "EXPERIENCE_TYPE_ROLE" in the table of short names should be "EXTYRL".		</description>
+		<comment by="Mike Ward" date="2003-07-04">
+			<description>
+				Agreed.
+			</description>
+		</comment>
+	</issue>
+	<issue id="mwd-10" type="shortnames" linkend="" category="minor_technical" by="Mike Ward" date="2003-07-04" status="closed">
+		<description>
+			<p>Word document:</p>
+			"POSITION_IN_ORGANIZATION_TYPE_RELATIONSHIP" in the table of short names should be "POSITION_IN_ORGANIZATION_TYPE_ASSIGNMENT".
+		</description>
+		<comment by="Mike Ward" date="2003-07-04">
+			<description>
+				Agreed.
+			</description>
+		</comment>
+	</issue>
+	<issue id="mwd-11" type="shortnames" linkend="" category="minor_technical" by="Mike Ward" date="2003-07-04" status="closed">
+		<description>
+			<p>Word document:</p>
+			"POSITION IN ORGANIZATION" in the table of short names should be "POSITION_IN_ORGANIZATION" - occurs in several entries.
+		</description>
+		<comment by="Mike Ward" date="2003-07-04">
+			<description>
+				Agreed.
+			</description>
+		</comment>
+	</issue>
+	<issue id="mwd-12" type="express" linkend="" category="minor_technical" by="Mike Ward" date="2003-07-02" status="closed">
+		<description>
+			<p>Word document and XML:</p>
+			<p>There is a discrepancy between the express in the word document for part 41 edition 2 and the express file for part 41 edition2.
+</p>
+			<p>This is as follows:</p>
+			<p>N524 word doc says:</p>
+ENTITY coordinated_universal_time_offset;&#10;
+  hour_offset   : INTEGER;
+  minute_offset : OPTIONAL INTEGER;
+  sense         : ahead_or_behind;
+DERIVE
+  actual_minute_offset: INTEGER := NVL(minute_offset,0);
+WHERE
+  WR1: { 0 &lt;= hour_offset &lt; 24 };
+  WR2: { 0 &lt;= minute_offset &lt;= 59 };
+  WR3: NOT (((hour_offset &lt;&gt; 0) OR (actual_minute_offset &lt;&gt; 0))
+AND (sense = exact));
+END_ENTITY; -- coordinated_universal_time_offset
+
+<p>N525 exp file says:</p>
+ENTITY coordinated_universal_time_offset;
+    hour_offset : INTEGER;
+    minute_offset : OPTIONAL INTEGER;
+    sense : ahead_or_behind;
+  DERIVE
+    actual_minute_offset : INTEGER := NVL(minute_offset, 0);
+  WHERE
+    WR1: {0 &lt;= hour_offset &lt; 24};
+    WR2: {0 &lt;= <b>actual_</b>minute_offset &lt;= 59};
+    WR3: NOT (((hour_offset &lt;&gt; 0) OR (actual_minute_offset &lt;&gt; 0)) AND (sense = exact));
+  END_ENTITY;
+		</description>
+		<comment by="Keith Hunten" date="2003-07-08">
+			<description>we should use the N525 EXPRESS</description>
+		</comment>
+		<comment by="Mike Ward" date="2003-07-09">
+			<description>
+				Agreed.
+			</description>
+		</comment>
+	</issue>
+	<issue id="mwd-13" type="intro" linkend="" category="editorial" by="Keith Hunten" date="2003-07-08" status="closed">
+		<description>
+			<p>Word document:</p>
+			"10303-41:1994" at start of list of post edition 2 changes should be  "10303-41:2000"
+		</description>
+		<comment by="Mike Ward" date="2003-07-09">
+			<description>
+				Agreed.
+			</description>
+		</comment>
+	</issue>
+	<issue id="mwd-14" type="intro" linkend="" category="minor_technical" by="Keith Hunten" date="2003-07-08" status="closed">
+		<description>
+			<p>Word document:</p>
+			organization_assignment, organization_role, and organization should be removed from list of entities added since edition 2
+		</description>
+		<comment by="Mike Ward" date="2003-07-09">
+			<description>
+				Agreed.
+			</description>
+		</comment>
+	</issue>
+	<issue id="mwd-15" type="intro" linkend="" category="minor_technical" by="Keith Hunten" date="2003-07-08" status="closed">
+		<description>
+			<p>Word document:</p>
+			location_representation_assignment and location_representation_role should be added to list of entities added since edition 2
+		</description>
+		<comment by="Mike Ward" date="2003-07-09">
+			<description>
+				Agreed.
+			</description>
+		</comment>
+	</issue>
+	<issue id="mwd-16" type="shortnames" linkend="" category="minor_technical" by="Mike Ward" date="2003-07-09" status="closed">
+		<description>
+			<p>Word document:</p>
+			Shortname clash: EXPERIENCE_TYPE_RELATIONSHIP	EXTYRL and EXPERIENCE_TYPE_ROLE EXTYRL
+			Change shortname for EXPERIENCE_TYPE_RELATIONSHIP to EXTYREL
+		</description>
+		<comment by="Mike Ward" date="2003-07-09">
+			<description>
+				Agreed.
+			</description>
+		</comment>
+	</issue>
+	<issue id="mwd-17" type="intro" linkend="" category="editorial" by="Keith Hunten" date="2003-07-08" status="closed">
+		<description>
+			<p>Word document:</p>
+			Changes from edition 1 to edition 2 should be included along with changes between edition 2 and edition 3.
+		</description>
+		<comment by="Mike Ward" date="2003-07-09">
+			<description>
+				Agreed.
+			</description>
+		</comment>
+	</issue>
+	<issue id="mwd-18" type="express" linkend="" category="major_technical" by="Keith Hunten" date="2003-07-08" status="closed">
+		<description>
+			<p>Word document and XML:</p>
+			All role attributes should be mandatory
+		</description>
+		<comment by="Mike Ward" date="2003-07-09">
+			<description>
+				Agreed.
+			</description>
+		</comment>
+	</issue>
+	<issue id="mwd-19" type="expg" linkend="" category="major_technical" by="Keith Hunten" date="2003-07-08" status="closed">
+		<description>
+			<p>Word document and XML:</p>
+			All role attributes should be mandatory
+		</description>
+		<comment by="Mike Ward" date="2003-07-09">
+			<description>
+				Agreed.
+			</description>
+		</comment>
+	</issue>
+	<issue id="mwd-20" type="express" linkend="" category="major_technical" by="Keith Hunten" date="2003-07-08" status="closed">
+		<description>
+			<p>Word document and XML:</p>
+			All xxx_relationship entities should have matching acyclic_xxx_relationship functions.
+		</description>
+		<comment by="Mike Ward" date="2003-07-09">
+			<description>
+				Agreed.
+			</description>
+		</comment>
+	</issue>
+	<issue id="mwd-21" type="express" linkend="" category="minor_technical" by="Keith Hunten" date="2003-07-08" status="closed">
+		<description>
+			<p>Word document:</p>
+			EXPRESS source should have colons lined up vertically.
+		</description>
+		<comment by="Mike Ward" date="2003-07-09">
+			<description>
+				Agreed.
+			</description>
+		</comment>
+	</issue>
+	<issue id="mwd-22" type="general" linkend="" category="editorial" by="Keith Hunten" date="2003-07-09" status="closed">
+		<description>
+			<p>Word document:</p>
+			Scope page banner has "FDIS" instead of "CD". One of the sections has "FDIS" in the header instead of "CD".
+		</description>
+		<comment by="Mike Ward" date="2003-07-10">
+			<description>
+				Agreed.
+			</description>
+		</comment>
+	</issue>
+	<issue id="jp-1" type="intro" by="Shin-ichi Yoshioka"
+date="2003-10-10" member_body="JP" status="closed" ballot_comment="yes" resolution="accept">
+		<description>Descriptions about modifications do not coincide with the content of the document.
+Example 1)
+1.1) current description of Introduction
+The EXPRESS-G diagram Figure D.45 has been modified so that the entity previously named “action_role” is now named "action_method_role" in accordance with the EXPRESS.
+1.2) comment
+Figure D.45 does not exist in ed2 document, and entity "action_method_role" is not found in Figure D.45 of ed3 document.
+Example 2)
+Added entity in Figure D.32, “person_type_definition_relationship”, is not described in Introduction.
+Example 3)
+Added entity in Figure D.53, “qualification_relationship”, is not described in Introduction.
+</description>
+		<comment by="Mike Ward" date="2003-10-15">
+			<description>The entries at "1.1" and "1.2" have been deleted. The diagram in question was from an earlier version of part 41 ed2 not from the published version. The other entries in this section have been checked and are correct. The missing entities have been added to the list.
+</description>
+		</comment>
+	</issue>
+	<issue id="jp-2" type="intro" by="Shin-ichi Yoshioka" date="2003-10-10" member_body="JP" status="closed" ballot_comment="yes" resolution="accept">
+		<description>Experience, position and qualification, those are described as added declarations in Introduction, are missing in this subclause. </description>
+		<comment by="Mike Ward" date="2003-10-15">
+			<description>The entries at "1.1" and "1.2" have been deleted. The diagram in question was from an earlier version of part 41 ed2 not from the published version. The other entries in this section have been checked and are correct. The missing entities have been added to the list.
+</description>
+		</comment>
+	</issue>
+	<issue id="jp-3" type="definition" by="Shin-ichi Yoshioka" date="2003-10-10" member_body="JP" status="closed" ballot_comment="yes" resolution="accept">
+		<description>“A person_type is a kind of person” is an inadequate definition.</description>
+		<comment by="Mike Ward" date="2003-10-15">
+			<description>The text "A person_type is a category of people having common characteristics." has been substituted.</description>
+		</comment>
+	</issue>
+	<issue id="no-1" type="other" by="Ulf Leirstein" date="2003-10-19" member_body="NO" status="closed" ballot_comment="yes" resolution="accept">
+		<description>Location includes in its semantics address. It was agreed at the WG12 meeting in Stuttgart to add a note at location that the concept of address is a specific kind of location and that this can be found elsewhere in the document.
+		</description>
+		<comment by="Mike Ward" date="2003-10-22">
+			<description>At 25.3.1, the text: "NOTE    The specification or representation of a location might take the form of a postal address, a set of geographical or spatial coordinates, or an association with a product." has been added and the Word document has thus been aligned with the XML version of this part.</description>
+		</comment>
+	</issue>
+	<issue id="no-2" type="examples" by="Ulf Leirstein" date="2003-10-19" member_body="NO" status="closed" ballot_comment="yes" resolution="accept">
+		<description>The following text includes a spelling error: " EXAMPLE   The association of a location with its representation as as set of geographical co-ordinates."</description>
+		<comment by="Mike Ward" date="2003-10-22">
+			<description>At 8.4.35, the text "EXAMPLE   The association of a location with its representation as as set of geographical co-ordinates." has been corrected to "EXAMPLE   The association of a location with its representation as a set of geographical co-ordinates."</description>
+		</comment>
+	</issue>
+</issues>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: g_change.xml,v 1.1 2010/02/04 17:22:53 robbod Exp $ -->
+<!DOCTYPE module_clause SYSTEM "../../../../dtd/module_clause.dtd">
+<?xml-stylesheet type="text/xsl"
+href="../../../../xsl/sect_g_change.xsl" ?>
+<module_clause directory="activity"/>

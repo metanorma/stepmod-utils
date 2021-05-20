@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<?xml-stylesheet 
+  type="text/xsl" 
+  href="../../../xsl/descriptions.xsl"?>
+<!DOCTYPE ext_descriptions SYSTEM "../../../dtd/description.dtd">
+<ext_descriptions module_directory="activity" schema_file="mim.xml" 
+rcs.date="$Date: 2003/08/25 19:13:32 $" rcs.revision="$Revision: 1.12 $"
+describe.selects="YES"
+>
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  Schema: activity_mim
+   <express_ref linkend="activity:mim:activity_mim"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="activity_mim">
+</ext_description>
+
+
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: activity_mim  Type: action_item 
+   <express_ref linkend="activity:mim:Activity_mim.action_item"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: activity_mim  Entity: applied_action_assignment  
+   <express_ref linkend="activity:mim:Activity_mim.applied_action_assignment"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="Activity_mim.applied_action_assignment">
+An <b>applied_action_assignment</b> is an <express_ref linkend="action_schema:ir_express:action_schema.action"/> related
+to the data that are affected by the <express_ref linkend="action_schema:ir_express:action_schema.action"/>.
+An <b>applied_action_assignment</b> is a type of <express_ref linkend="management_resources_schema:ir_express:management_resources_schema.action_assignment"/>.
+
+</ext_description>
+
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: activity_mim  Entity: applied_action_assignment  Attribute: items 
+   <express_ref linkend="activity:mim:Activity_mim.applied_action_assignment.items"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="Activity_mim.applied_action_assignment.items">
+the product or activity data that are affected by the <express_ref linkend="action_schema:ir_express:action_schema.action"/>.
+</ext_description>
+</ext_descriptions>

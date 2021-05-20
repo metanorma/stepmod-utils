@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: issues_dvlp.xml,v 1.1 2002/12/24 14:22:12 robbod Exp $ -->
+<?xml-stylesheet type="text/xsl" href="../../../../nav/xsl/issues_dvlp.xsl"?>
+<stylesheet_application directory="activity"/>

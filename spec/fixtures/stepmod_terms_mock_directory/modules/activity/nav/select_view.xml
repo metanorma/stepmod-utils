@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: select_view.xml,v 1.1 2002/10/10 11:14:51 nigelshaw Exp $ -->
+<?xml-stylesheet type="text/xsl" href="../../../../nav/xsl/select_view.xsl"?>
+<stylesheet_application directory="activity"/>

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: projmg.xml,v 1.2 2003/02/10 00:46:52 thendrix Exp $ -->
+<?xml-stylesheet type="text/xsl" href="../../../../xsl/projmg/resource_projmg.xsl"?>
+<!DOCTYPE management SYSTEM "../../../../dtd/projmg/res_doc/projmg.dtd">
+<management resource="fundamentals_of_product_description_and_support"
+  percentage_complete="0"
+  issues="issues.xml">
+
+  <developers>
+    <developer ref=""/>
+  </developers>
+
+<!-- 
+  <resource.milestones>
+    <milestone
+      name="M1"
+      description="Requirements allocated to resource"
+      status="not-achieved"
+      planned_date=""
+      predicted_date=""
+      achieved_date="">
+    </milestone>
+
+    <milestone
+      name="M2"
+      description="Draft for team review"
+      status="not-achieved"
+      planned_date=""
+      predicted_date=""
+      achieved_date="">
+    </milestone>
+
+    <milestone
+      name="M3"
+      description="Ready for QC"
+      status="not-achieved"
+      planned_date=""
+      predicted_date=""
+      achieved_date="">
+    </milestone>
+
+    <milestone
+      name="M4"
+      description="QC form completed"
+      status="not-achieved"
+      planned_date=""
+      predicted_date=""
+      achieved_date="">
+    </milestone>
+
+    <milestone
+      name="M5"
+      description="Submitted for ballot"
+      status="not-achieved"
+      planned_date=""
+      predicted_date=""
+      achieved_date="">
+    </milestone>
+
+    <milestone
+      name="M6"
+      description="Ballot comments resolved"
+      status="not-achieved"
+      planned_date=""
+      predicted_date=""
+      achieved_date="">
+    </milestone>
+
+    <milestone
+      name="M7"
+      description="Published as TS"
+      status="not-achieved"
+      planned_date=""
+      predicted_date=""
+      achieved_date="">
+    </milestone>
+  </resource.milestones>
+
+  <resource.checklist>
+    <status section="resource.header"
+      by=""
+      date=""
+      status="in-work">
+    </status>
+    
+    <status section="resource.intro"
+      by=""
+      date=""
+      status="in-work">
+      <description>
+        Reviewed by PLCS
+      </description>
+    </status>
+    
+
+
+    <status section="nut_and_bolt_1_schema.xml"
+      by=""
+      date=""
+      status="in-work">
+      <description>
+      </description>
+    </status>
+
+    <status section="nut_and_bolt_1_schema expressg"
+      by=""
+      date=""
+      status="in-work">
+      <description>
+      </description>
+    </status>
+
+    <status section="nut_and_bolt_1_schema.exp"
+      by=""
+      date=""
+      status="in-work">
+      <description>
+      </description>
+    </status>
+
+    <status section="nut_and_bolt_2_schema.xml"
+      by=""
+      date=""
+      status="in-work">
+      <description>
+      </description>
+    </status>
+
+    <status section="nut_and_bolt_2_schema expressg"
+      by=""
+      date=""
+      status="in-work">
+      <description>
+      </description>
+    </status>
+
+    <status section="nut_and_bolt_2_schema.exp"
+      by=""
+      date=""
+      status="in-work">
+      <description>
+      </description>
+    </status>
+
+    <status section="nut_and_bolt_3_schema.xml"
+      by=""
+      date=""
+      status="in-work">
+      <description>
+      </description>
+    </status>
+
+    <status section="nut_and_bolt_3_schema expressg"
+      by=""
+      date=""
+      status="in-work">
+      <description>
+      </description>
+    </status>
+
+    <status section="nut_and_bolt_3_schema.exp"
+      by=""
+      date=""
+      status="in-work">
+      <description>
+      </description>
+    </status>
+  </resource.checklist>
+-->
+</management>

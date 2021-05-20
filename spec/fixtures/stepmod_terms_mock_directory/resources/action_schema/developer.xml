@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<!-- $Id: developer.xml,v 1.2 2002/10/08 13:24:38 joshualubell Exp $ -->
+<?xml-stylesheet type="text/xsl" href="../../../nav/xsl/schema_developer.xsl"?>
+<stylesheet_application directory="action_schema"/>

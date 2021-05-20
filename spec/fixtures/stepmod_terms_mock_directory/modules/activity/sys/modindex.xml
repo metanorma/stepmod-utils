@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: modindex.xml,v 1.1 2003/07/23 11:02:40 robbod Exp $ -->
+<!DOCTYPE module_clause SYSTEM "../../../../dtd/module_clause.dtd">
+<?xml-stylesheet type="text/xsl"
+href="../../../../xsl/sect_modindex.xsl" ?>
+<module_clause directory="activity"/>

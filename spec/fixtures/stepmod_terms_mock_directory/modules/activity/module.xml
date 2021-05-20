@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: module.xml,v 1.59 2019/05/27 18:08:04 kevin Exp $ -->
+<!DOCTYPE module SYSTEM "../../../dtd/module.dtd">
+<module
+   name="activity"
+   name.french="Activit&#233;"
+   part="1047"
+   version="3"
+   
+   wg.number="8343"
+   wg.number.supersedes="6847"
+   wg.number.arm="2941"
+   wg.number.mim="1157"   
+   checklist.internal_review="7069"
+   checklist.project_leader="0000"
+   checklist.convener="0000"
+   status="TS"
+   language="E"
+   publication.year="2014-02"
+   publication.date="2014-02-01"
+   published="y"
+   previous.revision.year="2010-07" 
+   previous.revision.cancelled="NO" 
+   revision.complete="YES" 
+   rcs.date="$Date: 2019/05/27 18:08:04 $"
+   rcs.revision="$Revision: 1.59 $"
+  development.folder="dvlp"
+>
+
+ <keywords>
+    module, activity, activity assignment, activity relationship
+ </keywords>
+
+ <contacts>
+   <projlead ref="pdmmodules.projlead"/>
+   <editor ref="pdmmodules.editor"/>
+ </contacts>
+   
+   <changes>
+      <change version="2">
+         <description> No ARM EXPRESS declarations and interface specifications have been added,
+            removed or modified. Definition added for "Activity" and description of the
+            "chosen_method" attribute of Activity clarified. </description>
+           </change> 
+       <change version="3">
+        <description>
+        Updated bibliography.
+        </description>      
+       </change>
+             
+  
+   </changes>
+
+ <purpose>
+This part of ISO 10303 specifies an application module for the representation of the data that identify activities and of association of an activity with product or activity data.
+ </purpose>
+
+ <inscope>
+   <li>definition of an activity;</li>
+   <li>relationship between two activities;</li>
+   <li>relationship between an activity and the product or activity data that it affects or uses.
+   </li>
+ </inscope>
+
+ <outscope>
+   <li>scheduling of activities;</li>
+   <li>authority to undertake an activity;</li>
+   <li>representation of product data that derive from an activity.</li>
+ </outscope>
+
+ <normrefs>
+   <normref.inc normref="ref10303-41"/>
+ </normrefs>
+   
+   <definition>
+      <term id="activity">activity</term>
+      <def>
+         action that has taken place, is taking place, or is expected to take place in the future
+         <example>Change, distilling, design, a process to drill a hole, and a task such as training someone, are examples of activities.</example>
+      </def>
+   </definition>
+   
+ <arm>
+   <uof name="Activity">
+     <description>
+       The Activity UoF specifies the data structure for the representation of activity data.
+     </description>
+     <uof.ae entity="Activity"/>
+     <uof.ae entity="Activity_relationship"/>
+     <uof.ae entity="Activity_status"/>
+     <uof.ae entity="Applied_activity_assignment"/>
+
+   </uof>
+   <express-g>
+     <imgfile file="armexpg1.xml"/>
+     <imgfile file="armexpg2.xml"/>
+   </express-g>
+ </arm>
+
+ <mapping_table>
+
+   <ae entity="Activity">
+      <aimelt>executed_action</aimelt>
+      <source>ISO 10303-41</source>
+      <aa attribute="name">
+         <aimelt>action.name</aimelt>
+         <source>ISO 10303-41</source>
+         <refpath>executed_action
+				 executed_action &lt;= action
+				 action.name</refpath>
+      </aa>
+      <aa attribute="description">
+         <aimelt>action.description</aimelt>
+         <source>ISO 10303-41</source>
+         <refpath>executed_action
+				 executed_action &lt;= action
+				 action.description</refpath>
+      </aa>
+      <aa attribute="chosen_method" assertion_to="Activity_method">
+         <aimelt>PATH</aimelt>
+         <source></source>
+         <refpath>executed_action
+				 executed_action &lt;= action
+         action.chosen_method -&gt; action_method
+         action_method
+       </refpath>
+      </aa>
+      <aa attribute="id">
+         <aimelt>id_attribute.attribute_value</aimelt>
+         <source>ISO 10303-41</source>
+         <refpath>executed_action
+				 executed_action &lt;= action
+				 action &lt;- id_attribute.identified_item
+				 id_attribute.attribute_value</refpath>
+      </aa>
+   </ae>
+
+   <ae entity="Activity_relationship">
+      <aimelt>action_relationship</aimelt>
+      <source>ISO 10303-41</source>
+      <aa attribute="description">
+         <aimelt>action_relationship.description</aimelt>
+         <source>ISO 10303-41</source>
+      </aa>
+      <aa attribute="name">
+         <aimelt>action_relationship.name</aimelt>
+         <source>ISO 10303-41</source>
+      </aa>
+      <aa attribute="related_activity" assertion_to="Activity">
+         <aimelt>PATH</aimelt>
+         <source></source>
+         <refpath>
+				 action_relationship
+         action_relationship.related_action -&gt; action
+         action =&gt; executed_action
+       </refpath>
+      </aa>
+      <aa attribute="relating_activity" assertion_to="Activity">
+         <aimelt>PATH</aimelt>
+         <source></source>
+         <refpath>action_relationship
+         action_relationship.relating_action -&gt; action
+         action =&gt; executed_action</refpath>
+      </aa>
+   </ae>
+
+   <ae entity="Activity_status">
+      <aimelt>action_status</aimelt>
+      <source>ISO 10303-41</source>
+      <aa attribute="assigned_activity" assertion_to="Activity">
+         <aimelt>PATH</aimelt>
+         <source></source>
+         <refpath>
+				 action_status
+				 action_status.assigned_action -&gt; executed_action
+				 </refpath>
+      </aa>
+      <aa attribute="status">
+         <aimelt>action_status.status</aimelt>
+         <source>ISO 10303-41</source>
+      </aa>
+   </ae>
+   <ae entity="Applied_activity_assignment">
+      <aimelt>applied_action_assignment</aimelt>
+      <source>ISO 10303-1047</source>
+      <aa attribute="assigned_activity" assertion_to="Activity">
+         <aimelt>PATH</aimelt>
+         <source></source>
+         <refpath>applied_action_assignment 
+				 applied_action_assignment &lt;= action_assignment
+				 action_assignment
+				 action_assignment.assigned_action -&gt; action
+				 action =&gt; executed_action
+				 </refpath>
+      </aa>
+      <aa attribute="items" assertion_to="activity_item">
+         <aimelt>PATH</aimelt>
+         <source></source>
+         <refpath>applied_action_assignment
+				 applied_action_assignment.items[i] -&gt; action_items
+				 </refpath>
+      </aa>
+
+      <aa attribute="role">
+         <aimelt>object_role.name</aimelt>
+         <source>ISO 10303-41</source>
+         <refpath>applied_action_assignment 
+				 applied_action_assignment &lt;= action_assignment
+				 action_assignment.role -&gt; object_role
+				 object_role.name
+				 </refpath>
+      </aa>
+   </ae>
+ </mapping_table>
+
+ <mim>
+   <express-g>
+     <imgfile file="mimexpg1.xml"/>
+     <imgfile file="mimexpg2.xml"/>
+   </express-g>
+   <shortnames>
+     <shortname name="APACAS" entity="applied_action_assignment"/>
+   </shortnames>
+ </mim>
+
+ <bibliography>
+    <bibitem.module name="person_organization_assignment"/>
+    <bibitem.inc ref="ref8824-1"/>
+	<bibitem.inc ref="AMConGde06"/>
+</bibliography>
+
+</module>

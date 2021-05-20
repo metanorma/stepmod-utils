@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: issues.xml,v 1.11 2004/10/31 23:58:40 thendrix Exp $ -->
+<?xml-stylesheet type="text/xsl" href="../../../../xsl/projmg/issues_file.xsl"?>
+<!DOCTYPE issues SYSTEM "../../../../dtd/projmg/issues.dtd">
+<issues module="activity">
+
+<!--
+Description of how the issues files is given in: stepmod\help\issues.htm
+ id - an identifer of the isssue unique to this file
+ type - the primary XML element in module.xml that the issue is against.
+        Either: 
+            general | keywords | contacts | purpose |
+            inscope | outscope | normrefs | definition |
+            abbreviations | arm | armexpg | arm_lf |
+            armexpg_lf | mapping_table | mim  | mimexpg |
+            mim_lf | mimexpg_lf | usage_guide | bibliography
+ linkend - the target of the comment 
+ category - editorial | minor_technical | major_technical | repository 
+ by - person raising the issue
+ date - date issue raised yy-mm-dd
+ status - status of issue. Either "open" or "closed"
+
+Comment - is a comment raised by someone about the issue
+
+<issue
+  id=""
+  type=""
+  linkend=""
+  category=""
+  by=""
+  date=""
+  status="open">
+  <description>
+
+   </description>
+
+<comment
+   by="" 
+   date="">
+<description>
+</description>
+</comment>
+ </issue>
+-->
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- +++++++++++++++++++   ISSUES                  ++++++++++++++ -->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<issue
+   id="RBN-1"
+   type="arm"
+   linkend="Activity_arm.Activity"
+   status="closed"
+   category="editorial"
+   by="Rob Bodington"
+   date="03-07-16"
+   seds="yes">
+<description>
+  <p>
+    The definition in first paragraph is circular.
+    Replace with:
+  </p>
+  <p>
+  An <b>Activity</b> is the identification of the occurrence of an action,
+  which has taken place, is taking place, or is expected to take place in the 
+  future.
+  The procedure executed during that <b>Activity</b> is identified with the 
+  <express_ref linkend="activity_method:arm:Activity_method_arm.Activity_method"/>
+  that is referred to by the 
+  <express_ref linkend="activity:arm:Activity_arm.Activity.chosen_method"/>
+  attribute.
+  </p>
+
+</description>
+
+<comment
+   by="Tom Hendrix"
+   date="03-08-19">
+<description>
+Accept. Fixed.
+</description>
+</comment>
+</issue>
+
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<issue
+   id="THX-1"
+   type="mim"
+   linkend="Activity_mim"
+   status="closed"
+   category="minor_technical"
+   by="Tom Hendrix"
+   date="04-08-18"
+   seds="yes"
+   ballot_comment="yes"
+   member_body="US">
+<description>
+action_items should be action_item for PDM_schema harmonization.
+</description>
+
+<comment
+   by="Tom Hendrix"
+   date="04-08-23">
+<description>
+Reject. Not required because identifier does not show up in p21 or p28 instance. aslo, too much rework for other modules.
+</description>
+</comment>
+</issue>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<issue
+   id="DE-23"
+   type="general"
+   linkend=""
+   status="closed"
+   category="minor_technical"
+   by="DE-23"
+   date="2004-09-21"
+   seds="no"
+   ballot="PLCS DIS ballot"
+   ballot_comment="yes"
+   ballot_comment_id="DE-23"
+   member_body="GE"
+   resolution="reject">
+  <issue_management
+    owner="Tom Hendrix"
+    priority="low"
+    category="Activity"/>
+ <description>
+ <p>
+   <b>SC4 part number:</b>  </p>
+ <p>
+   <b>(2) Clause:</b> 10303-1047 4.3.1 Activity
+ </p>
+ <p>
+   <b>(3) Paragraph:</b> 
+ </p>
+ <p>
+   <b>(5) Comment:</b>
+ </p>
+ <p>
+An Activity may have only a name, but no id. This is also the case in the AIM</p>
+ <p>
+   <b>(6) Proposal:</b>
+ </p>
+ <p>
+Make attribute id optional</p>
+ </description>
+
+<comment
+   by="Tom Hendrix"
+   date="04-10-15">
+<description>
+Attribute required for AP214 harmonization. Please raise as SEDS.
+</description>
+</comment>
+</issue>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<issue
+   id="DE-24"
+   type="general"
+   linkend=""
+   status="closed"
+   category="minor_technical"
+   by="DE-24"
+   date="2004-09-21"
+   seds="no"
+   ballot="PLCS DIS ballot"
+   ballot_comment="yes"
+   ballot_comment_id="DE-24"
+   member_body="GE"
+   resolution="reject"
+>
+ 
+  <issue_management
+    owner="Tom Hendrix"
+    priority="low"
+    category="Activity"/>
+<description>
+ <p>
+   <b>SC4 part number:</b>  </p>
+ <p>
+   <b>(2) Clause:</b> 10303-1047 4.3.3 Activity_status
+ </p>
+ <p>
+   <b>(3) Paragraph:</b> 
+ </p>
+ <p>
+   <b>(5) Comment:</b>
+ </p>
+ <p>
+Provide a list of typical status to be used</p>
+ <p>
+   <b>(6) Proposal:</b>
+ </p>
+ <p>
+Add normative text for "in work", "scheduled", ...</p>
+ </description>
+
+<comment
+   by="Rob Bodington"
+   date="04-09-22">
+<description>
+The text should be in an informative note rather than normative text.
+</description>
+</comment>
+
+<comment
+   by="Tom Hendrix"
+   date="04-10-15">
+<description>
+Agree with PLCS project.
+</description>
+</comment>
+
+<comment
+   by="Jochen Haenisch"
+   date="04-10-29">
+<description>
+refer better to standard reference data
+</description>
+</comment>
+</issue>
+
+</issues>
