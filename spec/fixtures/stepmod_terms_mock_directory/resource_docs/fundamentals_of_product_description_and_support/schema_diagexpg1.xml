@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="../../../xsl/res_doc/imgfile.xsl" ?>
+<!DOCTYPE imgfile.content SYSTEM "../../../dtd/text.ent">
+<imgfile.content module="fundamentals_of_product_description_and_support" file="schema_diagexpg1.xml">
+	<img src="schema_diagexpg1.gif">
+		<img.area shape="poly" coords="301,39,301,95,528,95,528,39,301,39" href="../../resources/group_schema.xml#group_schema"/>
+		<img.area shape="poly" coords="301,644,301,700,528,700,528,644,301,644" href="../../resources/qualifications_schema.xml#qualifications_schema"/>
+		<img.area shape="poly" coords="301,115,301,171,528,171,528,115,301,115" href="../../resources/location_schema.xml#location_schema"/>
+		<img.area shape="poly" coords="301,189,301,245,528,245,528,189,301,189" href="../../resources/management_resources_schema.xml#management_resources_schema"/>
+		<img.area shape="poly" coords="301,265,301,321,528,321,528,265,301,265" href="../../resources/measure_schema.xml#measure_schema"/>
+		<img.area shape="poly" coords="301,341,301,397,528,397,528,341,301,341" href="../../resources/person_organization_schema.xml#person_organization_schema"/>
+		<img.area shape="poly" coords="301,719,301,775,528,775,528,719,301,719" href="../../resources/security_classification_schema.xml#security_classification_schema"/>
+		<img.area shape="poly" coords="37,719,37,775,264,775,264,719,37,719" href="../../resources/experience_schema.xml#experience_schema"/>
+		<img.area shape="poly" coords="37,115,37,171,264,171,264,115,37,115" href="../../resources/application_context_schema.xml#application_context_schema"/>
+		<img.area shape="poly" coords="301,416,301,472,528,472,528,416,301,416" href="../../resources/product_definition_schema.xml#product_definition_schema"/>
+		<img.area shape="poly" coords="301,492,301,548,528,548,528,492,301,492" href="../../resources/product_property_definition_schema#product_property_definition_schema"/>
+		<img.area shape="poly" coords="301,568,301,624,528,624,528,568,301,568" href="../../resources/product_property_representation_schema.xml#product_property_representation_schema"/>
+		<img.area shape="poly" coords="37,39,37,95,264,95,264,39,37,39" href="../../resources/action_schema.xml#action_schema"/>
+		<img.area shape="poly" coords="37,189,37,245,264,245,264,189,37,189" href="../../resources/approval_schema.xml#approval_schema"/>
+		<img.area shape="poly" coords="37,341,37,397,264,397,264,341,37,341" href="../../resources/certification_schema.xml#certification_schema"/>
+		<img.area shape="poly" coords="37,492,37,548,264,548,264,492,37,492" href="../../resources/date_time_schema.xml#date_time_schema"/>
+		<img.area shape="poly" coords="37,416,37,472,264,472,264,416,37,416" href="../../resources/contract_schema.xml#contract_schema"/>
+		<img.area shape="poly" coords="37,568,37,624,264,624,264,568,37,568" href="../../resources/document_schema.xml#document_schema"/>
+		<img.area shape="poly" coords="37,644,37,700,264,700,264,644,37,644" href="../../resources/effectivity_schema.xml#effectivity_schema"/>
+		<img.area shape="poly" coords="37,795,37,851,264,851,264,795,37,795" href="../../resources/external_reference_schema.xml#external_reference_schema"/>
+		<img.area shape="poly" coords="37,265,37,321,264,321,264,265,37,265" href="../../resources/basic_attribute_schema.xml#basic_attribute_schema"/>
+		<img.area shape="poly" coords="301,795,301,851,528,851,528,795,301,795" href="../../resources/support_resource_schema.xml#support_resource_schema"/>
+	</img>
+</imgfile.content>

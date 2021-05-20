@@ -50,7 +50,7 @@ module Stepmod
 
       def to_mn_adoc
         <<~TEXT
-          // STEPmod path:#{!file_path.empty? ? " " + file_path : ""}
+          // STEPmod path:#{!file_path.empty? ? " #{file_path}" : ""}
           #{converted_definition}
 
           [.source]

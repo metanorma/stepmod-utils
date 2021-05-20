@@ -1,0 +1,250 @@
+<?xml version="1.0"?>
+<?xml-stylesheet 
+  type="text/xsl" 
+  href="../../../xsl/descriptions.xsl"?>
+<!DOCTYPE ext_descriptions SYSTEM "../../../dtd/description.dtd">
+<ext_descriptions module_directory="activity" schema_file="arm.xml" 
+rcs.date="$Date: 2013/09/21 15:00:44 $" rcs.revision="$Revision: 1.22 $"
+  describe.selects="YES"
+>
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: Activity_arm 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="Activity_arm">
+</ext_description>
+
+
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: Activity_arm  Type: activity_item 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: Activity_arm  Entity: Activity 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="Activity_arm.Activity">
+An <b>Activity</b> is the identification of the occurrence of an action that  has taken place, is taking place, or is expected to take place in the
+future.
+The procedure executed during that <b>Activity</b> is identified with the <express_ref linkend="activity_method:arm:Activity_method_arm.Activity_method"/> that is referred to by the <b>chosen_method</b> attribute.
+
+<example>Change, distilling, design, a process to drill a hole, and a task such as training someone, are examples
+of activities.
+</example>
+
+
+<note number="1">Status information identifying the level of completion
+of each activity may be provided within an instance of 
+<express_ref linkend="Activity:arm:Activity_arm.Activity_status"/>.
+</note>
+<note number="2">
+The items that are affected by an <b>Activity</b>, for example as input or output, may be identified
+within an instance of <express_ref linkend="Activity:arm:Activity_arm.Applied_activity_assignment"/>.
+</note>
+</ext_description>
+
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: Activity_arm  Entity: Activity  Attribute: id 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="Activity_arm.Activity.id">
+the identifier that distinguishes the <b>Activity</b>.
+</ext_description>
+
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: Activity_arm  Entity: Activity  Attribute: name 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="Activity_arm.Activity.name">
+the words by which the <b>Activity</b> is known.
+</ext_description>
+
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: Activity_arm  Entity: Activity  Attribute: description 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="Activity_arm.Activity.description">
+the text that provides further information about the <b>Activity</b>. 
+The value of the attribute need not be specified.
+</ext_description>
+
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: Activity_arm  Entity: Activity  Attribute: chosen_method 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="Activity_arm.Activity.chosen_method">
+  the <express_ref linkend="activity_method:arm:Activity_method_arm.Activity_method"/> that specifies the approach selected to carry out the
+  <b>Activity</b>.
+</ext_description>
+
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: Activity_arm  Entity: Activity_relationship 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="Activity_arm.Activity_relationship">
+An <b>Activity_relationship</b> is a relationship between two instances of
+<express_ref linkend="activity:arm:Activity_arm.Activity"/>. 
+<example>
+The activity required to complete a work order, may be decomposed into a series of
+activities. 
+Their corresponding instances would be related using instances of the <b>Activity_relationship</b> entity. 
+</example>
+</ext_description>
+
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: Activity_arm  Entity: Activity_relationship  Attribute: description 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="Activity_arm.Activity_relationship.description">
+the text that provides further information about the <b>Activity_relationship</b>.
+The value of the attribute need not be specified.
+</ext_description>
+
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: Activity_arm  Entity: Activity_relationship  Attribute: name 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="Activity_arm.Activity_relationship.name">
+the words by which the <b>Activity_relationship</b> is known.
+</ext_description>
+
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: Activity_arm  Entity: Activity_relationship  Attribute: related_activity 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="Activity_arm.Activity_relationship.related_activity">
+  <p>
+    the second instance of <express_ref linkend="activity:arm:Activity_arm.Activity"/>
+  that is part of the relationship. 
+</p>
+<note number="3">
+The <b>related_activity</b> usually identifies the <express_ref linkend="Activity:arm:Activity_arm.Activity"/>,
+which is based on the definition of the <b>relating_activity</b>. 
+</note>
+<note number="4">
+The meaning of this attribute is defined by the <b>name</b> attribute. 
+</note> 
+</ext_description>
+
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: Activity_arm  Entity: Activity_relationship  Attribute: relating_activity 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description
+linkend="Activity_arm.Activity_relationship.relating_activity">
+  <p>
+    the first of the instances of <express_ref linkend="activity:arm:Activity_arm.Activity"/>  
+  that is part of the relationship. 
+</p>
+<note number="1">
+  The <b>relating_activity</b> usually identifies the
+  activity the definition of the <b>related_activity</b> is based on, 
+  for example, derived from or dependent on. 
+</note>
+<note number="2">
+The meaning of this attribute is defined by the <b>name</b> attribute. 
+</note>
+</ext_description>
+
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: Activity_arm  Entity: Activity_status 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="Activity_arm.Activity_status">
+An <b>Activity_status</b> is the assignment of a status to an <express_ref linkend="activity:arm:Activity_arm.Activity"/>
+
+.
+</ext_description>
+
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: Activity_arm  Entity: Activity_status  Attribute: assigned_activity 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="Activity_arm.Activity_status.assigned_activity">
+the <express_ref linkend="activity:arm:Activity_arm.Activity"/>
+ to which the <b>Activity_status</b> applies.
+</ext_description>
+
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: Activity_arm  Entity: Activity_status  Attribute: status 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="Activity_arm.Activity_status.status">
+the label that provides a user interpretable designation for the level of completion of the <express_ref linkend="activity:arm:Activity_arm.Activity"/>. 
+</ext_description>
+
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: Activity_arm  Entity: Applied_activity_assignment 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="Activity_arm.Applied_activity_assignment">
+
+An <b>Applied_activity_assignment</b> is an association of an 
+<express_ref linkend="activity:arm:Activity_arm.Activity"/>
+ with product or activity data. It characterizes the role of the concepts represented with these data with respect to the activity.
+
+<note>This entity should not be used to represent the association of an activity with the organizations that are responsible for its execution or its management.
+That kind of information can be represented with instances of <express_ref linkend="person_organization_assignment:arm:Person_organization_assignment_arm.Organization_or_person_in_organization_assignment"/>
+.
+</note>
+
+</ext_description>
+
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: Activity_arm  Entity: Applied_activity_assignment  Attribute: assigned_activity 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="Activity_arm.Applied_activity_assignment.assigned_activity">
+the <express_ref linkend="activity:arm:Activity_arm.Activity"/> that is considered.
+</ext_description>
+
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: Activity_arm  Entity: Applied_activity_assignment  Attribute: items 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="Activity_arm.Applied_activity_assignment.items">
+ the set of <express_ref linkend="activity:arm:Activity_arm.activity_item"/>
+that are associated with the <b>assigned_activity</b>.
+</ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: Activity_arm  Entity: Applied_activity_assignment  Attribute: role 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="Activity_arm.Applied_activity_assignment.role">
+  <p>
+    the text that specifies the purpose of the association of the
+    <b>Applied_activity_assignment</b> with product or activity data.
+  </p>
+<p>Where applicable, the following values shall be used for role:</p>
+<ul>
+<li>'input': the concepts represented by the items are inputs of the Activity; 
+  </li>
+<li>'output': the concepts represented by the items result from the Activity;
+	</li>
+<li>'constraint': the concepts represented by the items influence the execution of the Activity.
+<example>
+Presence of a gas tube may constrain the execution of drilling of a hole.
+</example>
+  </li>
+
+</ul>
+
+</ext_description>
+</ext_descriptions>

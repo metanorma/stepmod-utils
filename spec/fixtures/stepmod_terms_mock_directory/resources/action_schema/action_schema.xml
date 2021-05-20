@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="../../../xsl/express.xsl"?><!DOCTYPE express SYSTEM "../../../dtd/express.dtd">
+<express description.file="descriptions.xml" language_version="2" rcs.date="$Date: 2020/07/09 16:44:17 $" rcs.revision="$Revision: 1.28 $" reference="ISO 10303-41">
+   <application name="JSDAI" owner="LKSoft" source="action_schema schema_instance" url="www.lksoft.com" version="4.0 beta"/>
+   <schema name="action_schema">
+      <interface kind="reference" schema="basic_attribute_schema">
+         <interfaced.item name="description_attribute"/>
+         <interfaced.item name="description_attribute_select"/>
+         <interfaced.item name="get_description_value"/>
+         <interfaced.item name="get_id_value"/>
+         <interfaced.item name="get_name_value"/>
+         <interfaced.item name="get_role"/>
+         <interfaced.item name="id_attribute"/>
+         <interfaced.item name="id_attribute_select"/>
+         <interfaced.item name="name_attribute"/>
+         <interfaced.item name="name_attribute_select"/>
+         <interfaced.item name="object_role"/>
+         <interfaced.item name="role_select"/>
+         <interfaced.item name="role_association"/>
+      </interface>
+      <interface kind="reference" schema="support_resource_schema">
+         <interfaced.item name="bag_to_set"/>
+         <interfaced.item name="identifier"/>
+         <interfaced.item name="label"/>
+         <interfaced.item name="text"/>
+      </interface>
+      <type name="as_description_attribute_select">
+         <select basedon="description_attribute_select" selectitems="action_request_solution"/>
+      </type>
+      <type name="as_id_attribute_select">
+         <select basedon="id_attribute_select" selectitems="action"/>
+      </type>
+      <type name="as_name_attribute_select">
+         <select basedon="name_attribute_select" selectitems="action_request_solution"/>
+      </type>
+      <type name="as_role_select">
+         <select basedon="role_select" selectitems="directed_action_assignment"/>
+      </type>
+      <type name="supported_item">
+         <select selectitems="action_directive action action_method"/>
+      </type>
+      <entity name="action">
+         <explicit name="name">
+            <typename name="label"/>
+         </explicit>
+         <explicit name="description" optional="YES">
+            <typename name="text"/>
+         </explicit>
+         <explicit name="chosen_method">
+            <typename name="action_method"/>
+         </explicit>
+         <derived expression="get_id_value(SELF)" name="id">
+            <typename name="identifier"/>
+         </derived>
+         <where expression="SIZEOF(USEDIN(SELF, 'BASIC_ATTRIBUTE_SCHEMA.' + 'ID_ATTRIBUTE.IDENTIFIED_ITEM')) &lt;= 1" label="WR1"/>
+      </entity>
+      <entity name="action_directive">
+         <explicit name="name">
+            <typename name="label"/>
+         </explicit>
+         <explicit name="description" optional="YES">
+            <typename name="text"/>
+         </explicit>
+         <explicit name="analysis">
+            <typename name="text"/>
+         </explicit>
+         <explicit name="comment">
+            <typename name="text"/>
+         </explicit>
+         <explicit name="requests">
+            <aggregate lower="1" type="SET" upper="?"/>
+            <typename name="versioned_action_request"/>
+         </explicit>
+      </entity>
+      <entity name="action_directive_relationship">
+         <explicit name="name">
+            <typename name="label"/>
+         </explicit>
+         <explicit name="description" optional="YES">
+            <builtintype type="STRING"/>
+         </explicit>
+         <explicit name="relating">
+            <typename name="action_directive"/>
+         </explicit>
+         <explicit name="related">
+            <typename name="action_directive"/>
+         </explicit>
+         <explicit name="relation_type">
+            <builtintype type="STRING"/>
+         </explicit>
+         <where expression="acyclic_action_directive_relationship(SELF, [related], 'ACTION_SCHEMA.ACTION_DIRECTIVE_RELATIONSHIP')" label="WR1"/>
+      </entity>
+      <entity name="action_method">
+         <explicit name="name">
+            <typename name="label"/>
+         </explicit>
+         <explicit name="description" optional="YES">
+            <typename name="text"/>
+         </explicit>
+         <explicit name="consequence">
+            <typename name="text"/>
+         </explicit>
+         <explicit name="purpose">
+            <typename name="text"/>
+         </explicit>
+      </entity>
+      <entity name="action_method_relationship">
+         <explicit name="name">
+            <typename name="label"/>
+         </explicit>
+         <explicit name="description" optional="YES">
+            <typename name="text"/>
+         </explicit>
+         <explicit name="relating_method">
+            <typename name="action_method"/>
+         </explicit>
+         <explicit name="related_method">
+            <typename name="action_method"/>
+         </explicit>
+      </entity>
+      <entity name="action_relationship">
+         <explicit name="name">
+            <typename name="label"/>
+         </explicit>
+         <explicit name="description" optional="YES">
+            <typename name="text"/>
+         </explicit>
+         <explicit name="relating_action">
+            <typename name="action"/>
+         </explicit>
+         <explicit name="related_action">
+            <typename name="action"/>
+         </explicit>
+      </entity>
+      <entity name="action_request_solution">
+         <explicit name="method">
+            <typename name="action_method"/>
+         </explicit>
+         <explicit name="request">
+            <typename name="versioned_action_request"/>
+         </explicit>
+         <derived expression="get_description_value(SELF)" name="description">
+            <typename name="text"/>
+         </derived>
+         <derived expression="get_name_value(SELF)" name="name">
+            <typename name="label"/>
+         </derived>
+         <where expression="SIZEOF(USEDIN(SELF, 'BASIC_ATTRIBUTE_SCHEMA.' + 'DESCRIPTION_ATTRIBUTE.DESCRIBED_ITEM')) &lt;= 1" label="WR1"/>
+         <where expression="SIZEOF(USEDIN(SELF, 'BASIC_ATTRIBUTE_SCHEMA.' + 'NAME_ATTRIBUTE.NAMED_ITEM')) &lt;= 1" label="WR2"/>
+      </entity>
+      <entity name="action_request_status">
+         <explicit name="status">
+            <typename name="label"/>
+         </explicit>
+         <explicit name="assigned_request">
+            <typename name="versioned_action_request"/>
+         </explicit>
+      </entity>
+      <entity name="action_resource">
+         <explicit name="name">
+            <typename name="label"/>
+         </explicit>
+         <explicit name="description" optional="YES">
+            <typename name="text"/>
+         </explicit>
+         <explicit name="usage">
+            <aggregate lower="1" type="SET" upper="?"/>
+            <typename name="supported_item"/>
+         </explicit>
+         <explicit name="kind">
+            <typename name="action_resource_type"/>
+         </explicit>
+      </entity>
+      <entity name="action_resource_relationship">
+         <explicit name="name">
+            <typename name="label"/>
+         </explicit>
+         <explicit name="description" optional="YES">
+            <typename name="text"/>
+         </explicit>
+         <explicit name="relating_resource">
+            <typename name="action_resource"/>
+         </explicit>
+         <explicit name="related_resource">
+            <typename name="action_resource"/>
+         </explicit>
+      </entity>
+      <entity name="action_resource_type">
+         <explicit name="name">
+            <typename name="label"/>
+         </explicit>
+      </entity>
+      <entity name="action_status">
+         <explicit name="status">
+            <typename name="label"/>
+         </explicit>
+         <explicit name="assigned_action">
+            <typename name="executed_action"/>
+         </explicit>
+      </entity>
+      <entity name="directed_action" supertypes="executed_action">
+         <explicit name="directive">
+            <typename name="action_directive"/>
+         </explicit>
+      </entity>
+      <entity abstract.supertype="YES" name="directed_action_assignment">
+         <explicit name="assigned_directed_action">
+            <typename name="directed_action"/>
+         </explicit>
+         <derived expression="get_role(SELF)" name="role">
+            <typename name="object_role"/>
+         </derived>
+         <where expression="SIZEOF(USEDIN(SELF, 'BASIC_ATTRIBUTE_SCHEMA.' + 'ROLE_ASSOCIATION.ITEM_WITH_ROLE')) &lt;= 1" label="WR1"/>
+      </entity>
+      <entity name="executed_action" supertypes="action"/>
+      <entity name="versioned_action_request">
+         <explicit name="id">
+            <typename name="identifier"/>
+         </explicit>
+         <explicit name="version" optional="YES">
+            <typename name="label"/>
+         </explicit>
+         <explicit name="purpose">
+            <typename name="text"/>
+         </explicit>
+         <explicit name="description" optional="YES">
+            <typename name="text"/>
+         </explicit>
+      </entity>
+      <entity name="versioned_action_request_relationship">
+         <explicit name="id">
+            <typename name="identifier"/>
+         </explicit>
+         <explicit name="name">
+            <typename name="label"/>
+         </explicit>
+         <explicit name="description" optional="YES">
+            <typename name="text"/>
+         </explicit>
+         <explicit name="relating_versioned_action_request">
+            <typename name="versioned_action_request"/>
+         </explicit>
+         <explicit name="related_versioned_action_request">
+            <typename name="versioned_action_request"/>
+         </explicit>
+      </entity>
+      <function name="acyclic_action_directive_relationship">
+         <parameter name="relation">
+            <typename name="action_directive_relationship"/>
+         </parameter>
+         <parameter name="relatives">
+            <aggregate lower="1" type="SET" upper="?"/>
+            <typename name="action_directive"/>
+         </parameter>
+         <parameter name="specific_relation">
+            <builtintype type="STRING"/>
+         </parameter>
+         <builtintype type="BOOLEAN"/>
+         <algorithm>LOCAL 
+		x : SET of action_directive_relationship;
+	END_LOCAL;
+	IF relation.relating IN relatives THEN 
+		RETURN (FALSE);
+	END_IF;
+	x := QUERY(adr &lt;* bag_to_set(USEDIN(relation.relating, 'ACTION_SCHEMA.' + 'ACTION_DIRECTIVE_RELATIONSHIP.' + 'RELATED')) | specific_relation IN TYPEOF(adr));
+	REPEAT i := 1 TO HIINDEX(x);
+		IF NOT acyclic_action_directive_relationship(x[i], relatives + relation.relating, specific_relation) THEN 
+	 		RETURN (FALSE);
+		END_IF;
+	END_REPEAT;
+	RETURN (TRUE);</algorithm>
+      </function>
+      <function name="acyclic_action_method_relationship">
+         <parameter name="relation">
+            <typename name="action_method_relationship"/>
+         </parameter>
+         <parameter name="relatives">
+            <aggregate lower="1" type="SET" upper="?"/>
+            <typename name="action_method"/>
+         </parameter>
+         <parameter name="specific_relation">
+            <builtintype type="STRING"/>
+         </parameter>
+         <builtintype type="BOOLEAN"/>
+         <algorithm>LOCAL
+      x : SET OF action_method_relationship;
+    END_LOCAL;
+
+    IF relation.relating_method IN relatives THEN
+      RETURN (FALSE);
+    END_IF;
+    x := QUERY(am &lt;* bag_to_set(USEDIN(relation.relating_method, 'ACTION_SCHEMA.' + 'ACTION_METHOD_RELATIONSHIP.' + 'RELATED_METHOD')) | specific_relation IN TYPEOF(am));
+    REPEAT i := 1 TO HIINDEX(x);
+      IF NOT acyclic_action_method_relationship(x[i], relatives + relation.relating_method, specific_relation) THEN
+        RETURN (FALSE);
+      END_IF;
+    END_REPEAT;
+    RETURN (TRUE);</algorithm>
+      </function>
+      <function name="acyclic_action_relationship">
+         <parameter name="relation">
+            <typename name="action_relationship"/>
+         </parameter>
+         <parameter name="relatives">
+            <aggregate lower="1" type="SET" upper="?"/>
+            <typename name="action"/>
+         </parameter>
+         <parameter name="specific_relation">
+            <builtintype type="STRING"/>
+         </parameter>
+         <builtintype type="BOOLEAN"/>
+         <algorithm>LOCAL
+      x : SET OF action_relationship;
+    END_LOCAL;
+
+    IF relation.relating_action IN relatives THEN
+      RETURN (FALSE);
+    END_IF;
+    x := QUERY(actn &lt;* bag_to_set(USEDIN(relation.relating_action, 'ACTION_SCHEMA.' + 'ACTION_RELATIONSHIP.' + 'RELATED_ACTION')) | specific_relation IN TYPEOF(actn));
+    REPEAT i := 1 TO HIINDEX(x);
+      IF NOT acyclic_action_relationship(x[i], relatives + relation.relating_action, specific_relation) THEN
+        RETURN (FALSE);
+      END_IF;
+    END_REPEAT;
+    RETURN (TRUE);</algorithm>
+      </function>
+      <function name="acyclic_action_resource_relationship">
+         <parameter name="relation">
+            <typename name="action_resource_relationship"/>
+         </parameter>
+         <parameter name="relatives">
+            <aggregate lower="1" type="SET" upper="?"/>
+            <typename name="action_resource"/>
+         </parameter>
+         <parameter name="specific_relation">
+            <builtintype type="STRING"/>
+         </parameter>
+         <builtintype type="BOOLEAN"/>
+         <algorithm>LOCAL
+      x : SET OF action_resource_relationship;
+    END_LOCAL;
+
+    IF relation.relating_resource IN relatives THEN
+      RETURN (FALSE);
+    END_IF;
+    x := QUERY(ar &lt;* bag_to_set(USEDIN(relation.relating_resource, 'ACTION_SCHEMA.' + 'ACTION_RESOURCE_RELATIONSHIP.' + 'RELATED_RESOURCE')) | specific_relation IN TYPEOF(ar));
+    REPEAT i := 1 TO HIINDEX(x);
+      IF NOT acyclic_action_resource_relationship(x[i], relatives + relation.relating_resource, specific_relation) THEN
+        RETURN (FALSE);
+      END_IF;
+    END_REPEAT;
+    RETURN (TRUE);</algorithm>
+      </function>
+      <function name="acyclic_versioned_action_request_relationship">
+         <parameter name="relation">
+            <typename name="versioned_action_request_relationship"/>
+         </parameter>
+         <parameter name="relatives">
+            <aggregate lower="0" type="SET" upper="?"/>
+            <typename name="versioned_action_request"/>
+         </parameter>
+         <parameter name="specific_relation">
+            <builtintype type="STRING"/>
+         </parameter>
+         <builtintype type="BOOLEAN"/>
+         <algorithm>LOCAL
+      x : SET OF versioned_action_request_relationship;
+    END_LOCAL;
+
+    IF relation.relating_versioned_action_request IN relatives THEN
+      RETURN (FALSE);
+    END_IF;
+    x := QUERY(varr &lt;* bag_to_set(USEDIN(relation.relating_versioned_action_request, 'ACTION_SCHEMA.' + 'VERSIONED_ACTION_REQUEST_RELATIONSHIP.' + 'RELATED_VERSIONED_ACTION_REQUEST')) | specific_relation IN TYPEOF(varr));
+    REPEAT i := 1 TO HIINDEX(x);
+      IF NOT acyclic_versioned_action_request_relationship(x[i], relatives + relation.relating_versioned_action_request, specific_relation) THEN
+        RETURN (FALSE);
+      END_IF;
+    END_REPEAT;
+    RETURN (TRUE);</algorithm>
+      </function>
+   </schema>
+</express>

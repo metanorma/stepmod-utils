@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: 2_refs.xml,v 1.1 2003/01/10 18:06:12 mikeward Exp $ -->
+<!DOCTYPE resource_clause SYSTEM "../../../../dtd/res_doc/resource_clause.dtd">
+<?xml-stylesheet type="text/xsl"
+href="../../../../xsl/res_doc/sect_2_refs.xsl" ?>
+<resource_clause directory="fundamentals_of_product_description_and_support"/>

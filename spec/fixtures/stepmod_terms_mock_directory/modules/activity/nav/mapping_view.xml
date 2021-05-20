@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: mapping_view.xml,v 1.1 2002/10/10 11:50:38 nigelshaw Exp $ -->
+<?xml-stylesheet type="text/xsl" href="../../../../nav/xsl/mapping_view.xsl"?>
+<stylesheet_application directory="activity"/>

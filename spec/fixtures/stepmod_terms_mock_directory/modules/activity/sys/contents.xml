@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: contents.xml,v 1.1 2002/06/17 15:42:58 robbod Exp $ -->
+<!DOCTYPE module_clause SYSTEM "../../../../dtd/module_clause.dtd">
+<?xml-stylesheet type="text/xsl"
+href="../../../../xsl/sect_contents.xsl" ?>
+<module_clause directory="activity"/>

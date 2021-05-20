@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: developer.xml,v 1.1 2002/09/15 21:12:03 robbod Exp $ -->
+<?xml-stylesheet type="text/xsl" href="../../../../nav/xsl/developer.xsl"?>
+<stylesheet_application directory="activity"/>

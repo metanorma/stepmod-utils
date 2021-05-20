@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: 26_schema.xml,v 1.3 2018/11/21 15:55:34 sjohnston Exp $ -->
+<!DOCTYPE resource_clause SYSTEM "../../../../dtd/res_doc/resource_clause.dtd">
+<?xml-stylesheet type="text/xsl" href="../../../../xsl/res_doc/sect_schema.xsl" ?>
+<resource_clause directory="fundamentals_of_product_description_and_support" pos="23"/>

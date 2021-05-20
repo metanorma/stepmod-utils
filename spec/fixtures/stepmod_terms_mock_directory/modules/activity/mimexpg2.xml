@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<?xml-stylesheet 
+      type="text/xsl" 
+      href="../../../xsl/imgfile.xsl"
+    ?> <!DOCTYPE imgfile.content SYSTEM "../../../dtd/text.ent">
+<imgfile.content module="activity" file="mimexpg2.xml">
+<img src="mimexpg2.gif">
+<img.area shape="polygon" coords="605,231,605,305,719,305,719,231,605,231" href="../../resources/action_schema/action_schema.xml#action_schema.action" />
+<img.area shape="polygon" coords="227,231,227,305,415,305,415,231,227,231" href="../../resources/action_schema/action_schema.xml#action_schema.action_relationship" />
+<img.area shape="polygon" coords="435,231,435,305,585,305,585,231,435,231" href="../../resources/action_schema/action_schema.xml#action_schema.action_status" />
+<img.area shape="polygon" coords="37,231,37,305,207,305,207,231,37,231" href="../../resources/action_schema/action_schema.xml#action_schema.executed_action" />
+<img.area shape="polygon" coords="568,136,568,211,756,211,756,136,568,136" href="../../resources/basic_attribute_schema/basic_attribute_schema.xml#basic_attribute_schema.object_role" />
+<img.area shape="polygon" coords="568,41,568,116,756,116,756,41,568,41" href="../../resources/basic_attribute_schema/basic_attribute_schema.xml#basic_attribute_schema.id_attribute" />
+<img.area shape="polygon" coords="79,4,79,79,335,79,335,4,79,4" href="../../resources/management_resources_schema/management_resources_schema.xml#management_resources_schema.action_assignment" />
+<img.area shape="polygon" coords="379,136,379,173,492,173,492,136,379,136" href="../activity/sys/5_mim.xml#Activity_mim.action_items" />
+<img.area shape="polygon" coords="131,127,131,183,281,183,281,127,131,127" href="../activity/sys/5_mim.xml#Activity_mim.applied_action_assignment" />
+</img>
+</imgfile.content>

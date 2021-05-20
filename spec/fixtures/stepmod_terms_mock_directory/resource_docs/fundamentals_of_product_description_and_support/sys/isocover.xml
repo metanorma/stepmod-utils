@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: isocover.xml,v 1.1 2004/10/15 02:49:13 thendrix Exp $ -->
+<!DOCTYPE resource_clause SYSTEM "../../../../dtd/res_doc/resource_clause.dtd">
+<?xml-stylesheet type="text/xsl"
+href="../../../../xsl/sect_isocover.xsl" ?>
+<resource_clause directory="fundamentals_of_product_description_and_support"/>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: mim_descriptions.xml,v 1.1 2002/09/30 09:02:00 robbod Exp $ -->
+<?xml-stylesheet type="text/xsl" href="../../../../nav/xsl/mim_descriptions.xsl"?>
+<stylesheet_application directory="activity"/>

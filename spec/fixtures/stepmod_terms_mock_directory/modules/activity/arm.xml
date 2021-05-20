@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../../../xsl/express.xsl"?>
+<!DOCTYPE express SYSTEM "../../../dtd/express.dtd">
+
+<express language_version="2" rcs.date="$Date: 2008/11/28 13:28:01 $" rcs.revision="$Revision: 1.15 $" description.file="arm_descriptions.xml">
+   <application name="JSDAI" owner="LKSoft" url="www.lksoft.com" version="4.0 beta" source="activity_arm schema_instance"/>
+   <schema name="Activity_arm">
+      <interface kind="use" schema="Activity_method_arm"/>
+      <type name="activity_item">
+         <select extensible="YES" genericentity="YES"/>
+      </type>
+      <entity name="Activity">
+         <explicit name="id">
+            <builtintype type="STRING"/>
+         </explicit>
+         <explicit name="name">
+            <builtintype type="STRING"/>
+         </explicit>
+         <explicit name="description" optional="YES">
+            <builtintype type="STRING"/>
+         </explicit>
+         <explicit name="chosen_method">
+            <typename name="Activity_method"/>
+         </explicit>
+      </entity>
+      <entity name="Activity_relationship">
+         <explicit name="name">
+            <builtintype type="STRING"/>
+         </explicit>
+         <explicit name="description" optional="YES">
+            <builtintype type="STRING"/>
+         </explicit>
+         <explicit name="relating_activity">
+            <typename name="Activity"/>
+         </explicit>
+         <explicit name="related_activity">
+            <typename name="Activity"/>
+         </explicit>
+      </entity>
+      <entity name="Activity_status">
+         <explicit name="assigned_activity">
+            <typename name="Activity"/>
+         </explicit>
+         <explicit name="status">
+            <builtintype type="STRING"/>
+         </explicit>
+      </entity>
+      <entity name="Applied_activity_assignment">
+         <explicit name="assigned_activity">
+            <typename name="Activity"/>
+         </explicit>
+         <explicit name="items">
+            <aggregate type="SET" lower="1" upper="?"/>
+            <typename name="activity_item"/>
+         </explicit>
+         <explicit name="role">
+            <builtintype type="STRING"/>
+         </explicit>
+      </entity>
+   </schema>
+</express>

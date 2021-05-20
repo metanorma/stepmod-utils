@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<?xml-stylesheet 
+      type="text/xsl" 
+      href="../../../xsl/imgfile.xsl"
+    ?> <!DOCTYPE imgfile.content SYSTEM "../../../dtd/text.ent">
+<imgfile.content module="activity" file="armexpg2.xml">
+<img src="armexpg2.gif">
+<img.area shape="poly" coords="371,217,371,255,577,255,577,217,371,217" href="../activity_method/sys/4_info_reqs.xml#Activity_method_arm.Activity_method" />
+<img.area shape="poly" coords="563,444,563,481,695,481,695,444,563,444" href="../activity/sys/4_info_reqs.xml#Activity_arm.activity_item" />
+<img.area shape="poly" coords="96,217,96,415,209,415,209,217,96,217" href="../activity/sys/4_info_reqs.xml#Activity_arm.Activity" />
+<img.area shape="poly" coords="336,303,336,377,449,377,449,303,336,303" href="../activity/sys/4_info_reqs.xml#Activity_arm.Activity_relationship" />
+<img.area shape="poly" coords="267,104,267,160,380,160,380,104,267,104" href="../activity/sys/4_info_reqs.xml#Activity_arm.Activity_status" />
+<img.area shape="poly" coords="299,435,299,491,449,491,449,435,299,435" href="../activity/sys/4_info_reqs.xml#Activity_arm.Applied_activity_assignment" />
+</img>
+</imgfile.content>

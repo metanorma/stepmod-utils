@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: g_change.xml,v 1.1 2011/05/20 20:57:16 liutkuviene Exp $ -->
+<!DOCTYPE resource_clause SYSTEM "../../../../dtd/res_doc/resource_clause.dtd">
+<?xml-stylesheet type="text/xsl"
+href="../../../../xsl/res_doc/sect_g_change.xsl" ?>
+<resource_clause directory="fundamentals_of_product_description_and_support"/>
