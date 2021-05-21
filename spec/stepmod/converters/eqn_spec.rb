@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'support/smrl_converters_setup'
 require 'stepmod/utils/converters/eqn'
 
 RSpec.describe Stepmod::Utils::Converters::Eqn do

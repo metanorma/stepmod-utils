@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'support/smrl_converters_setup'
 
 RSpec.describe Stepmod::Utils::SmrlResourceConverter do
   subject(:convert) { cleaned_adoc(described_class.convert(input_xml)) }

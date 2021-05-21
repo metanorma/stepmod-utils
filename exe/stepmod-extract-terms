@@ -78,10 +78,8 @@ end
 
 part_modules.each do |(bibdata, part_modules_arm, part_modules_mim)|
   fn = "05x-stepmod-entities-modules-#{bibdata.part}.adoc"
-
   File.open(fn, 'w') { |file|
     file.puts("")
-
     unless part_modules_arm.empty?
       schema_name = part_modules_arm.first.first
       concepts = part_modules_arm.first.last

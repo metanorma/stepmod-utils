@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'support/smrl_converters_setup'
 
 RSpec.describe Stepmod::Utils::SmrlDescriptionConverter do
   let(:schema) { 'schema' }
