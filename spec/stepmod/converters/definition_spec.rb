@@ -54,7 +54,7 @@ RSpec.describe Stepmod::Utils::Converters::Definition do
       TEXT
     end
     let(:output) do
-      "=== class of activity\n\nclass that has only\n// <clause_ref linkend=\"3_definition:individual_activity\">individual activities</clause_ref>\nterm:[individual activity] as members\n\n[example]\n====\n'Distilling' is a class of activity that is reference data held in a reference data library. The classification of the individual activity 'Distill batch_27 on 2006-05-19' as 'distilling' specifies what it is.\n===="
+      "=== class of activity\n\nclass that has only\n// <clause_ref linkend=\"3_definition:individual_activity\">individual activities</clause_ref>\n\n term:[individual activity] as members\n\n[example]\n====\n'Distilling' is a class of activity that is reference data held in a reference data library. The classification of the individual activity 'Distill batch_27 on 2006-05-19' as 'distilling' specifies what it is.\n===="
     end
 
     it 'converts para tag into alt block' do
@@ -126,7 +126,7 @@ RSpec.describe Stepmod::Utils::Converters::Definition do
       TEXT
     end
     let(:output) do
-      "=== curve\n\n* one\n* two\n* three\n\nset of mathematical points which is the image, in two- or three-dimensional space, of a continuous function defined over a connected subset of the real line R ^1^ , and which is not a single point"
+      "=== curve\n\n* one\n* two\n* three\n\n set of mathematical points which is the image, in two- or three-dimensional space, of a continuous function defined over a connected subset of the real line R ^1^ , and which is not a single point"
     end
 
 

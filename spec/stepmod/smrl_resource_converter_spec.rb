@@ -293,21 +293,18 @@ RSpec.describe Stepmod::Utils::SmrlResourceConverter do
         This is the first paramgraph
 
         * the definition of a given object is characterized by a set of unique properties.
-
         [example]
         ====
         A product cannot have two shapes simultaneously.
         ====
 
         * any usage of the object is characterized by a set of unique properties.
-
         [example]
         ====
         A product, like glue, may have different shapes depending on its usage.
         ====
 
         * a property characterizes either the definition or one of the usages of an object.
-
         [example]
         ====
         The appearance of chair x is a unique property of that chair. The colour designating that the chair is white is a single item in a representation for the appearance property of chair x. This colour is shareable among many representations for the properties of many different objects.
