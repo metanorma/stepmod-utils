@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'support/smrl_converters_setup'
 
 RSpec.describe Stepmod::Utils::Converters::Definition do
   subject(:convert) { cleaned_adoc(described_class.new.convert(node_for(input_xml))) }

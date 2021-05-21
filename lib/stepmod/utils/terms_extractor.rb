@@ -262,7 +262,6 @@ module Stepmod
               description_document.xpath('//ext_description').each do |ext_description|
 
                 linkend_schema = ext_description['linkend'].split('.').first
-
                 concept = Stepmod::Utils::Concept.parse(
                   ext_description,
                   reference_anchor: bibdata.anchor,
@@ -317,7 +316,7 @@ module Stepmod
             part_concepts << [bibdata, current_part_concepts] unless current_part_concepts.empty?
           end
           part_resources << [bibdata, current_part_resources] unless current_part_resources.empty?
-          part_modules << [bibdata, current_part_modules_arm, current_part_modules_mim] unless current_part_modules_arm.size + current_part_modules_mim.size > 0
+          part_modules << [bibdata, current_part_modules_arm, current_part_modules_mim] if current_part_modules_arm.size + current_part_modules_mim.size > 0
         end
       end
     end
