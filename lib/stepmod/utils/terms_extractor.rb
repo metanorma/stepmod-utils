@@ -1,7 +1,6 @@
 require 'stepmod/utils/stepmod_definition_converter'
 require 'stepmod/utils/bibdata'
 require 'stepmod/utils/concept'
-require 'ptools'
 
 ReverseAdoc.config.unknown_tags = :bypass
 
@@ -57,8 +56,11 @@ module Stepmod
 
       def call
         # If we are using the stepmod CVS repository, provide the revision number per file
-        has_cvs = File.which("cvs")
-        @cvs_mode = has_cvs && Dir.exists?(stepmod_path.join('CVS'))
+        @cvs_mode = if Dir.exists?(stepmod_path.join('CVS'))
+          require 'ptools'
+          # ptools provides File.which
+          File.which("cvs")
+        end
 
         log "INFO: STEPmod directory set to #{stepmod_dir}."
 

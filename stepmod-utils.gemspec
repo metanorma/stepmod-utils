@@ -31,7 +31,6 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency "thor", ">= 0.20.3"
   spec.add_runtime_dependency "reverse_adoc", ">= 0.2.9"
-  spec.add_runtime_dependency "ptools", '~> 1.3'
   spec.add_runtime_dependency "concurrent-ruby"
   spec.add_development_dependency "byebug", "~> 11.1"
 end
