@@ -17,7 +17,6 @@ class Gem::Specification
 end
 
 require 'bundler/setup'
-require 'ptools'
 require 'stepmod/utils/terms_extractor'
 
 stepmod_dir = ARGV.first || Dir.pwd
