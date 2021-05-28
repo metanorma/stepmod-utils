@@ -9,7 +9,7 @@ on:
         description: |
           Next release version. Possible values: x.y.z, major, minor, patch or pre|rc|etc
         required: true
-        default: 'patch'
+        default: 'skip'
   push:
     tags: [ v* ]
 
@@ -22,10 +22,11 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '2.6'
+          bundler-cache: true
 
       - run: gem install gem-release
 
-      - if: ${{ github.event_name == 'workflow_dispatch' }}
+      - if: ${{ github.event_name == 'workflow_dispatch' }} && ${{ github.event.inputs.next_version != 'skip' }}
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
@@ -36,7 +37,7 @@ jobs:
           RUBYGEMS_API_KEY: ${{secrets.METANORMA_CI_RUBYGEMS_API_KEY}}
         run: |
           gem install gem-release
-          cat > ~/.gem/credentials << EOF
+          envsubst << 'EOF' > ~/.gem/credentials
           ---
           :rubygems_api_key: ${RUBYGEMS_API_KEY}
           EOF
