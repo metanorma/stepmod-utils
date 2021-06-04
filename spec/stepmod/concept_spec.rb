@@ -2,6 +2,16 @@ require 'spec_helper'
 require 'support/smrl_converters_setup'
 
 RSpec.describe Stepmod::Utils::Concept do
+  subject(:parse) do
+    described_class
+      .parse(
+        input,
+        reference_anchor: "ISO_10303-41_2020",
+        reference_clause: nil,
+        file_path: "")
+  end
+
+  let(:input) { node_for(input_xml) }
 
   original_ext_description = ReverseAdoc::Converters.lookup(:ext_description)
   original_express_ref = ReverseAdoc::Converters.lookup(:express_ref)
@@ -50,16 +60,55 @@ RSpec.describe Stepmod::Utils::Concept do
     end
 
     it 'correctly renders definition' do
-      input = node_for(input_xml)
-      expect(described_class.parse(
-        input,
-        reference_anchor: "ISO_10303-41_2020",
-        reference_clause: nil,
-        file_path: "").to_mn_adoc
-      ).to eq(output)
+      expect(parse.to_mn_adoc).to eq(output)
+    end
+  end
+
+  context 'when definition xml' do
+    let(:input_xml) do
+      <<~XML
+        <definition>
+          <term>boundary representation solid model</term>
+          <def>
+            <p> B-rep </p>
+            <p> Test </p>
+            type of geometric model in which the size and shape of a solid is
+            defined in terms of the faces, edges
+            and vertices which make up its boundary
+          </def>
+        </definition>
+      XML
     end
 
+    let(:output) do
+      <<~OUTPUT
+        // STEPmod path:
+        === boundary representation solid model
 
+        alt:[B-rep,Test]
+
+        type of geometric model in which the size and shape of a solid is defined in terms of the faces, edges and vertices which make up its boundary
+
+        [.source]
+        <<ISO_10303-41_2020>>
+
+      OUTPUT
+    end
+
+    let(:designation) do
+      {
+        accepted: "boundary representation solid model",
+        alt: [" B-rep ", " Test "]
+      }
+    end
+
+    it 'correctly parses and stores designation' do
+      expect(parse.designation).to(eq(designation))
+    end
+
+    it 'correctly renders ascidoc output' do
+      expect(parse.to_mn_adoc).to(eq(output))
+    end
   end
 
   after do
