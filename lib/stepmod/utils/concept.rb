@@ -20,32 +20,79 @@ module Stepmod
         end
       end
 
-      def self.parse(definition_xml, reference_anchor:, reference_clause:, file_path:)
-        converted_definition = Stepmod::Utils::StepmodDefinitionConverter.convert(
-          definition_xml,
+      class << self
+        def parse(definition_xml, reference_anchor:, reference_clause:, file_path:)
+          converted_definition = Stepmod::Utils::StepmodDefinitionConverter.convert(
+            definition_xml,
+            {
+              # We don't want examples and notes
+              no_notes_examples: true,
+              reference_anchor: reference_anchor
+            }
+          )
+
+          return nil if converted_definition.nil? || converted_definition.strip.empty?
+
+          if definition_xml.name == 'ext_description'
+            converted_definition = <<~TEXT
+              #{converted_definition}
+
+              NOTE: This term is incompletely defined in this document.
+              Reference <<#{reference_anchor}>> for the complete definition.
+            TEXT
+          end
+          # https://github.com/metanorma/stepmod-utils/issues/86
+          if definition_xml.name == 'definition'
+            designation = definition_designation(definition_xml)
+            definition = definition_xml_definition(definition_xml)
+            converted_definition = definition_xml_converted_definition(designation, definition).strip
+          end
+          new(
+            designation: designation,
+            definition: definition,
+            converted_definition: converted_definition,
+            reference_anchor: reference_anchor,
+            reference_clause: reference_clause,
+            file_path: file_path
+          )
+        end
+
+        def definition_designation(definition_xml)
+          alts = definition_xml.xpath('.//def/p').map(&:text)
           {
-            # We don't want examples and notes
-            no_notes_examples: true,
-            reference_anchor: reference_anchor
+            accepted: definition_xml.xpath('.//term').first&.text,
+            alt: alts
           }
-        )
+        end
 
-        return nil if converted_definition.nil? || converted_definition.strip.empty?
+        def definition_xml_definition(definition_xml)
+          definition_xml
+            .xpath('.//def')
+            .first
+            .children
+            .find_all(&:text?)
+            .map { |n| n.text.strip.gsub("\n", "").gsub(/\s+/, ' ')  }
+            .join
+        end
 
-        if definition_xml.name == 'ext_description'
-          converted_definition = <<~TEXT
-            #{converted_definition}
+        def definition_xml_converted_definition(designation, definition)
+          if designation[:alt].length.positive?
+            alt_notation = "alt:[#{designation[:alt].map(&:strip).join(',')}]"
+          end
+          result = <<~TEXT
+            === #{designation[:accepted]}
+          TEXT
+          if alt_notation
+            result += <<~TEXT
 
-            NOTE: This term is incompletely defined in this document.
-            Reference <<#{reference_anchor}>> for the complete definition.
+              #{alt_notation}
+            TEXT
+          end
+          <<~TEXT
+            #{result}
+            #{definition}
           TEXT
         end
-        new(
-          converted_definition: converted_definition,
-          reference_anchor: reference_anchor,
-          reference_clause: reference_clause,
-          file_path: file_path
-        )
       end
 
       def to_mn_adoc
