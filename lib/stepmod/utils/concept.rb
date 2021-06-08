@@ -44,7 +44,7 @@ module Stepmod
           # https://github.com/metanorma/stepmod-utils/issues/86
           if definition_xml.name == 'definition'
             designation = definition_designation(definition_xml)
-            definition = definition_xml_definition(definition_xml)
+            definition = definition_xml_definition(definition_xml, reference_anchor)
             converted_definition = definition_xml_converted_definition(designation, definition).strip
           end
           new(
@@ -65,14 +65,22 @@ module Stepmod
           }
         end
 
-        def definition_xml_definition(definition_xml)
-          definition_xml
-            .xpath('.//def')
-            .first
-            .children
-            .find_all(&:text?)
-            .map { |n| n.text.strip.gsub("\n", "").gsub(/\s+/, ' ')  }
-            .join
+        def definition_xml_definition(definition_xml, reference_anchor)
+          text_nodes = definition_xml
+                        .xpath('.//def')
+                        .first
+                        .children
+                        .reject { |n| n.name == 'p'  }
+          wrapper = "<def>#{text_nodes.map(&:to_s).join}</def>"
+          Stepmod::Utils::Converters::Def
+            .new
+            .convert(
+              Nokogiri::XML(wrapper).root,
+              {
+                # We don't want examples and notes
+                no_notes_examples: true,
+                reference_anchor: reference_anchor
+              })
         end
 
         def definition_xml_converted_definition(designation, definition)
