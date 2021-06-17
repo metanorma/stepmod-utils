@@ -5,7 +5,7 @@ module Stepmod
     module Converters
       class ModuleRef < ReverseAdoc::Converters::Base
         def convert(node, _state = {})
-          ref = node['linkend']
+          ref = node["linkend"]
           # #23:
           # In this case when we see this:
 
@@ -18,7 +18,7 @@ module Stepmod
           if !ref.empty?
             " term:[#{normalized_ref(ref)}] "
           elsif
-            ref = node['linkend'].split(':').first
+            ref = node["linkend"].split(":").first
             " *#{ref}*"
           end
         end
@@ -28,7 +28,7 @@ module Stepmod
         def normalized_ref(ref)
           return unless ref || ref.empty?
 
-          ref.squeeze(' ').strip
+          ref.squeeze(" ").strip
         end
       end
       ReverseAdoc::Converters.register :module_ref, ModuleRef.new

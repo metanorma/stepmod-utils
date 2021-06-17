@@ -4,7 +4,7 @@ module Stepmod
   module Utils
     module Converters
       class Hr < ReverseAdoc::Converters::Base
-        def convert(node, state = {})
+        def convert(_node, _state = {})
           "\n* * *\n"
         end
       end

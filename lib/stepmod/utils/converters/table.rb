@@ -5,12 +5,13 @@ module Stepmod
     module Converters
       class Table < ReverseAdoc::Converters::Base
         def convert(node, state = {})
-          id = node['id']
+          id = node["id"]
           anchor = id ? "[[#{id}]]\n" : ""
-          title = node['caption'].to_s
+          title = node["caption"].to_s
           title = ".#{title}\n" unless title.empty?
           attrs = style(node)
-          "\n\n#{anchor}#{attrs}#{title}|===\n#{treat_children(node, state)}\n|===\n"
+          "\n\n#{anchor}#{attrs}#{title}|===\n#{treat_children(node,
+                                                               state)}\n|===\n"
         end
 
         def frame(node)
@@ -23,8 +24,6 @@ module Stepmod
             "frame=sides"
           when "box", "border"
             "frame=all"
-          else
-            nil
           end
         end
 
@@ -38,13 +37,11 @@ module Stepmod
             "rules=cols"
           when "none"
             "rules=none"
-          else
-            nil
           end
         end
 
         def style(node)
-          width = "width=#{node['width']}" if node['width']
+          width = "width=#{node['width']}" if node["width"]
           attrs = []
           frame_attr = frame(node)
           rules_attr = rules(node)
@@ -52,6 +49,7 @@ module Stepmod
           attrs += frame_attr if frame_attr
           attrs += rules_attr if rules_attr
           return "" if attrs.empty?
+
           "[#{attrs.join(',')}]\n"
         end
       end

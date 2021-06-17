@@ -5,16 +5,15 @@ module Stepmod
     module Converters
       class Note < ReverseAdoc::Converters::Base
         def convert(node, state = {})
-
           # If we want to skip this node
-          return '' if state[:no_notes_examples]
+          return "" if state[:no_notes_examples]
 
           <<~TEMPLATE
 
-          [NOTE]
-          --
-          #{treat_children(node, state).strip}
-          --
+            [NOTE]
+            --
+            #{treat_children(node, state).strip}
+            --
 
           TEMPLATE
         end

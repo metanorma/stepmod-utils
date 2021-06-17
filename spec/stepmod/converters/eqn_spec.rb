@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-require 'support/smrl_converters_setup'
-require 'stepmod/utils/converters/eqn'
+require "spec_helper"
+require "support/smrl_converters_setup"
+require "stepmod/utils/converters/eqn"
 
 RSpec.describe Stepmod::Utils::Converters::Eqn do
-  subject(:convert) { cleaned_adoc(described_class.new.convert(node_for(input_xml))) }
+  subject(:convert) do
+    cleaned_adoc(described_class.new.convert(node_for(input_xml)))
+  end
 
   let(:input_xml) do
     <<~XML
@@ -37,11 +39,11 @@ RSpec.describe Stepmod::Utils::Converters::Eqn do
     XML
   end
 
-  it 'converts complex children block by rules' do
+  it "converts complex children block by rules" do
     expect(convert).to eq(output)
   end
 
-  context 'when special symbols are used' do
+  context "when special symbols are used" do
     let(:input_xml) do
       <<~XML
         <eqn id="eqnGM1"> <i> &#967; <sub>ms</sub> = <b>V - E + 2F - L</b> <sub>l</sub> <b> - 2(S - G</b> <sup>s</sup>) </i> = 0 &#8195; (1) &#8195; </eqn>
@@ -59,12 +61,12 @@ RSpec.describe Stepmod::Utils::Converters::Eqn do
       XML
     end
 
-    it 'converts special symbols in element' do
+    it "converts special symbols in element" do
       expect(convert).to eq(output)
     end
   end
 
-  context 'when eqn is actually a definition list' do
+  context "when eqn is actually a definition list" do
     let(:input_xml) do
       <<~XML
         <eqn> <b>directrix</b> : a circle in 3D space of radius R <sub>1</sub> , </eqn>
@@ -78,12 +80,12 @@ RSpec.describe Stepmod::Utils::Converters::Eqn do
       XML
     end
 
-    it 'converts special symbols in element' do
+    it "converts special symbols in element" do
       expect(convert).to eq(output)
     end
   end
 
-  context 'when underscore variable is used' do
+  context "when underscore variable is used" do
     let(:input_xml) do
       <<~XML
         <eqn> <i> K1 </i>= <b>upper_index_on_u_control_points</b> </eqn>
@@ -100,12 +102,12 @@ RSpec.describe Stepmod::Utils::Converters::Eqn do
       XML
     end
 
-    it 'converts special symbols in element' do
+    it "converts special symbols in element" do
       expect(convert).to eq(output)
     end
   end
 
-  context 'when sup/sub tags used' do
+  context "when sup/sub tags used" do
     let(:input_xml) do
       <<~XML
         <eqn> <b>s</b>(u,v) = (1 - u -v)<sup>3</sup><b>P<sub>1</sub></b> + u<sup>3</sup><b>P<sub>2</sub></b> + v<sup>3</sup><b>P<sub>3</sub></b> + 3(1 - u -v)<sup>2</sup>u<b>P<sub>4</sub></b> + 3(1 - u -v)u<sup>2</sup><b>P<sub>5</sub></b> + 3u<sup>2</sup>v<b>P<sub>6</sub></b> + 3uv<sup>2</sup><b>P<sub>7</sub></b> + 3(1 - u -v)v<sup>2</sup><b>P<sub>8</sub></b> + 3(1 - u -v)<sup>2</sup>v<b>P<sub>9</sub></b> + 6uv(1 - u -v)<b>P<sub>10</sub></b> </eqn>
@@ -121,7 +123,7 @@ RSpec.describe Stepmod::Utils::Converters::Eqn do
 
       XML
     end
-    it 'converts complex children block by rules' do
+    it "converts complex children block by rules" do
       expect(convert).to eq(output)
     end
   end

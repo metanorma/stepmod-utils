@@ -3,8 +3,8 @@ module Stepmod
     module Converters
       class StepmodExtDescription < ReverseAdoc::Converters::Base
         def convert(node, state = {})
-          state = state.merge(schema_name: node['linkend'])
-          linkend = node['linkend'].split('.')
+          state = state.merge(schema_name: node["linkend"])
+          linkend = node["linkend"].split(".")
 
           # We only want ENTITY entries, not their attributes
           # https://github.com/metanorma/iso-10303-2/issues/36#issuecomment-841300092
@@ -32,13 +32,14 @@ module Stepmod
           <<~TEMPLATE
             === #{linkend.last}
 
-            #{domain ? "domain:[" + domain + "]" : ""}
+            #{domain ? "domain:[#{domain}]" : ''}
 
             #{child_text}
           TEMPLATE
         end
       end
-      ReverseAdoc::Converters.register :ext_description, StepmodExtDescription.new
+      ReverseAdoc::Converters.register :ext_description,
+                                       StepmodExtDescription.new
     end
   end
 end

@@ -1,12 +1,12 @@
-require 'spec_helper'
-require 'support/smrl_converters_setup'
+require "spec_helper"
+require "support/smrl_converters_setup"
 
 RSpec.describe Stepmod::Utils::SmrlDescriptionConverter do
-  let(:schema) { 'schema' }
+  let(:schema) { "schema" }
 
-  it 'takes ext_description linkend attribute' do
+  it "takes ext_description linkend attribute" do
     input = node_for(
-      <<~XML
+      <<~XML,
         <ext_descriptions>
           <ext_description linkend='#{schema}'></ext_description>
         </ext_descriptions>
@@ -15,9 +15,9 @@ RSpec.describe Stepmod::Utils::SmrlDescriptionConverter do
     expect(described_class.convert(input)).to include(%{(*"#{schema}"})
   end
 
-  it 'converts html children' do
+  it "converts html children" do
     input = node_for(
-      <<~XML
+      <<~XML,
         <ext_descriptions>
           <ext_description linkend='#{schema}'><li>foo</li></ext_description>
         </ext_descriptions>
@@ -26,16 +26,17 @@ RSpec.describe Stepmod::Utils::SmrlDescriptionConverter do
     expect(described_class.convert(input)).to include("foo\n")
   end
 
-  it 'converts express_ref tags into the new format' do
+  it "converts express_ref tags into the new format" do
     input = node_for(
-      <<~XML
+      <<~XML,
         <express_ref linkend="classification_and_set_theory:ir:classification_schema.class" />
       XML
     )
-    expect(described_class.convert(input)).to eq("<<express:classification_schema.class,class>>")
+    expect(described_class.convert(input))
+      .to(eq("<<express:classification_schema.class,class>>"))
   end
 
-  context 'when nested lists' do
+  context "when nested lists" do
     let(:input_xml) do
       <<~XML
         <ext_description linkend="Annotated_3d_model_equivalence_assembly_arm.Different_assembly_constraint_type">
@@ -123,7 +124,7 @@ RSpec.describe Stepmod::Utils::SmrlDescriptionConverter do
       XML
     end
 
-    it 'correctly renders nested lists' do
+    it "correctly renders nested lists" do
       input = node_for(input_xml)
       expect(described_class.convert(input).gsub(/ \n/, "\n")).to eq(output)
     end

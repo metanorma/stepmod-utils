@@ -4,14 +4,15 @@ module Stepmod
   module Utils
     module Converters
       class Strong < ReverseAdoc::Converters::Base
-        BLANK_CHARS = "{blank}".freeze
+        BLANK_CHARS = "{blank}"
 
         def convert(node, state = {})
           content = treat_children(node, state.merge(already_strong: true))
           if content.strip.empty? || state[:already_strong]
             content
           else
-            handle_express_escape_seq(node, "#{content[/^\s*/]}*#{content.strip}*#{content[/\s*$/]}")
+            handle_express_escape_seq(node,
+                                      "#{content[/^\s*/]}*#{content.strip}*#{content[/\s*$/]}")
           end
         end
 
@@ -30,7 +31,7 @@ module Stepmod
 
         def braces_sibling?(sibling, end_of_text = false)
           match = end_of_text ? /\($/ : /^\)/
-          sibling && sibling.text? && sibling.text =~ match
+          sibling&.text? && sibling.text =~ match
         end
       end
 

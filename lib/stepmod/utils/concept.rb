@@ -1,39 +1,29 @@
+require "glossarist"
+
 module Stepmod
   module Utils
-
-    class Concept
+    class Concept < Glossarist::LocalizedConcept
       attr_accessor *%w(
-        designation
-        definition
-        reference_anchor
         reference_clause
-        examples
-        notes
-        synonym
+        reference_anchor
         converted_definition
         file_path
       )
 
-      def initialize(options)
-        options.each_pair do |k, v|
-          send("#{k}=", v)
-        end
-      end
-
       class << self
-        def parse(definition_xml, reference_anchor:, reference_clause:, file_path:)
+        def parse(definition_xml, reference_anchor:, reference_clause:, file_path:, language_code: "en")
           converted_definition = Stepmod::Utils::StepmodDefinitionConverter.convert(
             definition_xml,
             {
               # We don't want examples and notes
               no_notes_examples: true,
-              reference_anchor: reference_anchor
-            }
+              reference_anchor: reference_anchor,
+            },
           )
 
           return nil if converted_definition.nil? || converted_definition.strip.empty?
 
-          if definition_xml.name == 'ext_description'
+          if definition_xml.name == "ext_description"
             converted_definition = <<~TEXT
               #{converted_definition}
 
@@ -42,35 +32,40 @@ module Stepmod
             TEXT
           end
           # https://github.com/metanorma/stepmod-utils/issues/86
-          if definition_xml.name == 'definition'
+          if definition_xml.name == "definition"
             designation = definition_designation(definition_xml)
-            definition = definition_xml_definition(definition_xml, reference_anchor)
-            converted_definition = definition_xml_converted_definition(designation, definition).strip
+            definition = definition_xml_definition(definition_xml,
+                                                   reference_anchor)
+            converted_definition = definition_xml_converted_definition(
+              designation, definition
+            ).strip
           end
           new(
-            designation: designation,
+            designations: [designation],
             definition: definition,
             converted_definition: converted_definition,
+            id: "#{reference_anchor}.#{reference_clause}",
             reference_anchor: reference_anchor,
             reference_clause: reference_clause,
-            file_path: file_path
+            file_path: file_path,
+            language_code: language_code,
           )
         end
 
         def definition_designation(definition_xml)
-          alts = definition_xml.xpath('.//def/p').map(&:text)
+          alts = definition_xml.xpath(".//def/p").map(&:text)
           {
-            accepted: definition_xml.xpath('.//term').first&.text,
-            alt: alts
+            accepted: definition_xml.xpath(".//term").first&.text,
+            alt: alts,
           }
         end
 
         def definition_xml_definition(definition_xml, reference_anchor)
           text_nodes = definition_xml
-                        .xpath('.//def')
-                        .first
-                        .children
-                        .reject { |n| n.name == 'p'  }
+            .xpath(".//def")
+            .first
+            .children
+            .reject { |n| n.name == "p" }
           wrapper = "<def>#{text_nodes.map(&:to_s).join}</def>"
           Stepmod::Utils::Converters::Def
             .new
@@ -79,8 +74,9 @@ module Stepmod
               {
                 # We don't want examples and notes
                 no_notes_examples: true,
-                reference_anchor: reference_anchor
-              })
+                reference_anchor: reference_anchor,
+              },
+            )
         end
 
         def definition_xml_converted_definition(designation, definition)
@@ -105,15 +101,14 @@ module Stepmod
 
       def to_mn_adoc
         <<~TEXT
-          // STEPmod path:#{!file_path.empty? ? " #{file_path}" : ""}
+          // STEPmod path:#{!file_path.empty? ? " #{file_path}" : ''}
           #{converted_definition}
 
           [.source]
-          <<#{reference_anchor}#{reference_clause ? ",clause=" + reference_clause : ""}>>
+          <<#{reference_anchor}#{reference_clause ? ",clause=#{reference_clause}" : ''}>>
 
         TEXT
       end
-
     end
   end
 end

@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'support/smrl_converters_setup'
+require "spec_helper"
+require "support/smrl_converters_setup"
 
 RSpec.describe Stepmod::Utils::Concept do
   subject(:parse) do
@@ -8,7 +8,8 @@ RSpec.describe Stepmod::Utils::Concept do
         input,
         reference_anchor: "ISO_10303-41_2020",
         reference_clause: nil,
-        file_path: "")
+        file_path: "",
+      )
   end
 
   let(:input) { node_for(input_xml) }
@@ -16,12 +17,14 @@ RSpec.describe Stepmod::Utils::Concept do
   original_ext_description = ReverseAdoc::Converters.lookup(:ext_description)
   original_express_ref = ReverseAdoc::Converters.lookup(:express_ref)
   before do
-    require 'stepmod/utils/converters/stepmod_ext_description'
-    ReverseAdoc::Converters.register :ext_description, Stepmod::Utils::Converters::StepmodExtDescription.new
-    ReverseAdoc::Converters.register :express_ref, Stepmod::Utils::Converters::ExpressRef.new
+    require "stepmod/utils/converters/stepmod_ext_description"
+    ReverseAdoc::Converters.register :ext_description,
+                                     Stepmod::Utils::Converters::StepmodExtDescription.new
+    ReverseAdoc::Converters.register :express_ref,
+                                     Stepmod::Utils::Converters::ExpressRef.new
   end
 
-  context 'when action_schema' do
+  context "when action_schema" do
     let(:input_xml) do
       <<~XML
         <ext_description linkend="action_schema.supported_item">
@@ -59,12 +62,12 @@ RSpec.describe Stepmod::Utils::Concept do
       OUTPUT
     end
 
-    it 'correctly renders definition' do
+    it "correctly renders definition" do
       expect(parse.to_mn_adoc).to eq(output)
     end
   end
 
-  context 'when definition xml' do
+  context "when definition xml" do
     let(:input_xml) do
       <<~XML
         <definition>
@@ -98,15 +101,15 @@ RSpec.describe Stepmod::Utils::Concept do
     let(:designation) do
       {
         accepted: "boundary representation solid model",
-        alt: [" B-rep ", " Test "]
+        alt: [" B-rep ", " Test "],
       }
     end
 
-    it 'correctly parses and stores designation' do
-      expect(parse.designation).to(eq(designation))
+    it "correctly parses and stores designation" do
+      expect(parse.designations).to(eq([designation]))
     end
 
-    it 'correctly renders ascidoc output' do
+    it "correctly renders ascidoc output" do
       expect(parse.to_mn_adoc).to(eq(output))
     end
   end
@@ -116,4 +119,3 @@ RSpec.describe Stepmod::Utils::Concept do
     ReverseAdoc::Converters.register :express_ref, original_express_ref
   end
 end
-

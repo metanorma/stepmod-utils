@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'stepmod/utils/converters/em'
+require "stepmod/utils/converters/em"
 
 module Stepmod
   module Utils

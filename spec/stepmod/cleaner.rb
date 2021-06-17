@@ -1,12 +1,12 @@
-require 'spec_helper'
-require 'stepmod/utils/converters/ext_description'
-require 'stepmod/utils/cleaner'
+require "spec_helper"
+require "stepmod/utils/converters/ext_description"
+require "stepmod/utils/cleaner"
 
 RSpec.describe Stepmod::Utils::Cleaner do
   subject(:converter) { Stepmod::Utils::Converters::ExtDescription.new }
   subject(:cleaner) { described_class.new }
 
-  context 'when text whitespace is present' do
+  context "when text whitespace is present" do
     let(:input_xml) do
       <<~TEXT
         <ext_description linkend="management_resources_schema.action_method_role">
@@ -43,7 +43,7 @@ RSpec.describe Stepmod::Utils::Cleaner do
       TEXT
     end
 
-    it 'strips all whitespace at the begining of lines' do
+    it "strips all whitespace at the begining of lines" do
       input = node_for(input_xml)
       expect(cleaner.tidy(converter.convert(input))).to eq(output)
     end

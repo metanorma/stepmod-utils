@@ -4,7 +4,7 @@ module Stepmod
   module Utils
     module Converters
       class Code < ReverseAdoc::Converters::Base
-        def convert(node, state = {})
+        def convert(node, _state = {})
           "`#{node.text}`"
         end
       end

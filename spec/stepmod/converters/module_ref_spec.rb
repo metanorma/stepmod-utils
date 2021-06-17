@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-require 'support/smrl_converters_setup'
+require "spec_helper"
+require "support/smrl_converters_setup"
 
 RSpec.describe Stepmod::Utils::Converters::ModuleRef do
   let(:converter) { described_class.new }
@@ -12,7 +12,7 @@ RSpec.describe Stepmod::Utils::Converters::ModuleRef do
     "term:[individual products]"
   end
 
-  it 'when there is semicolum in linked attribute it converts by rules' do
+  it "when there is semicolum in linked attribute it converts by rules" do
     input = node_for(xml_input)
     expect(converter.convert(input).strip).to eq(output.strip)
   end

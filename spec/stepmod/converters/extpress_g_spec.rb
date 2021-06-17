@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-require 'support/smrl_converters_setup'
+require "spec_helper"
+require "support/smrl_converters_setup"
 
 RSpec.describe Stepmod::Utils::Converters::ExpressG do
   let(:converter) { described_class.new }
@@ -68,8 +68,9 @@ RSpec.describe Stepmod::Utils::Converters::ExpressG do
     ADOC
   end
 
-  it 'takes ext_description linkend attribute' do
+  it "takes ext_description linkend attribute" do
     input = node_for(input_xml)
-    expect(converter.convert(input, { schema_name: 'test_schema' })).to eq(adoc_output)
+    expect(converter.convert(input,
+                             { schema_name: "test_schema" })).to eq(adoc_output)
   end
 end

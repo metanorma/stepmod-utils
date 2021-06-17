@@ -15,7 +15,7 @@ module Stepmod
       end
 
       ReverseAdoc::Converters.register :em, Em.new
-      ReverseAdoc::Converters.register :cite,  Em.new
+      ReverseAdoc::Converters.register :cite, Em.new
     end
   end
 end

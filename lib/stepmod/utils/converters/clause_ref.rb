@@ -13,7 +13,7 @@ module Stepmod
         def normalized_ref(ref)
           return unless ref || ref.empty?
 
-          ref.to_s.split(':').last.squeeze(' ').strip
+          ref.to_s.split(":").last.squeeze(" ").strip
         end
       end
       ReverseAdoc::Converters.register :clause_ref, ClauseRef.new

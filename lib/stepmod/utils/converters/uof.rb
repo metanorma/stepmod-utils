@@ -1,15 +1,14 @@
 # frozen_string_literal: true
 
-require 'stepmod/utils/converters/synonym'
+require "stepmod/utils/converters/synonym"
 
 module Stepmod
   module Utils
     module Converters
       class Uof < ReverseAdoc::Converters::Base
-        def convert(node, state = {})
-
+        def convert(_node, _state = {})
           # WARNING: <uof> tag content is deprecated
-          return ""
+          ""
 
           #
           # <<~TEXT
