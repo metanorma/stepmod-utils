@@ -103,7 +103,7 @@ module Stepmod
           .gsub("&psi;", "psi")
           .gsub("&Psi;", "Psi")
           .gsub("&omega;", "omega")
-        gsub("&#967", "χ")
+          .gsub("&#967", "χ")
           .gsub("&#215", "×")
           .gsub("&#931", "Σ")
           .gsub("&#961", "ρ")
