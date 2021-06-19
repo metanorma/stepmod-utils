@@ -1,8 +1,16 @@
 require 'spec_helper'
 require 'stepmod/utils/terms_extractor'
+require 'stepmod/utils/converters/express_ref_express_description'
 
 RSpec.describe Stepmod::Utils::TermsExtractor do
   subject(:call) { described_class.call(stepmod_dir, StringIO.new) }
+
+  before do
+    ReverseAdoc::Converters.unregister :express_ref
+    ReverseAdoc::Converters
+      .register(:express_ref,
+        Stepmod::Utils::Converters::ExpressRefExpressDescription.new)
+  end
 
   describe '.call' do
     let(:stepmod_dir) { fixtures_path('stepmod_terms_mock_directory') }
