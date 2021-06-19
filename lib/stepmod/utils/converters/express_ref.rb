@@ -5,7 +5,7 @@ module Stepmod
     module Converters
       class ExpressRef < ReverseAdoc::Converters::Base
         def convert(node, _state = {})
-          "*#{node['linkend'].to_s.split('.').last}*"
+          " *#{node['linkend'].to_s.split('.').last}*"
         end
       end
       ReverseAdoc::Converters.register :express_ref, ExpressRef.new
