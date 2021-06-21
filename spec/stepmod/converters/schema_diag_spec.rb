@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-require 'support/smrl_converters_setup'
+require "spec_helper"
+require "support/smrl_converters_setup"
 
 RSpec.describe Stepmod::Utils::Converters::SchemaDiag do
   let(:converter) { described_class.new }
@@ -29,8 +29,10 @@ RSpec.describe Stepmod::Utils::Converters::SchemaDiag do
     XML
   end
 
-  it 'converts html children' do
+  it "converts html children" do
     input = node_for(input_xml)
-    expect(converter.convert(input, { schema_name: 'test_schema' })).to eq(output.strip)
+    expect(converter.convert(input,
+                             { schema_name: "test_schema" }))
+      .to(eq(output.strip))
   end
 end

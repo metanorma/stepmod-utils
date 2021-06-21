@@ -16,14 +16,14 @@ module Stepmod
 
         def treat_empty(node, state)
           parent = node.parent.name.to_sym
-          if [:ol, :ul].include?(parent)  # Otherwise the identation is broken
-            ''
+          if %i[ol ul].include?(parent) # Otherwise the identation is broken
+            ""
           elsif state[:tdsinglepara]
-            ''
-          elsif node.text == ' '          # Regular whitespace text node
-            ' '
+            ""
+          elsif node.text == " "          # Regular whitespace text node
+            " "
           else
-            ''
+            ""
           end
         end
 
@@ -34,9 +34,7 @@ module Stepmod
           text = remove_border_newlines(text)
 
           text = preserve_keychars_within_backticks(text)
-          text = preserve_tags(text)
-
-          text
+          preserve_tags(text)
         end
 
         def preserve_nbsp(text)
@@ -44,20 +42,20 @@ module Stepmod
         end
 
         def preserve_tags(text)
-          text.gsub(/[<>]/, '>' => '\>', '<' => '\<')
+          text.gsub(/[<>]/, ">" => '\>', "<" => '\<')
         end
 
         def remove_border_newlines(text)
-          text.gsub(/\A\n+/, '').gsub(/\n+\z/, '')
+          text.gsub(/\A\n+/, "").gsub(/\n+\z/, "")
         end
 
         def remove_inner_newlines(text)
-          text.tr("\n\t", ' ').squeeze(' ')
+          text.tr("\n\t", " ").squeeze(" ")
         end
 
         def preserve_keychars_within_backticks(text)
           text.gsub(/`.*?`/) do |match|
-            match.gsub('\_', '_').gsub('\*', '*')
+            match.gsub('\_', "_").gsub('\*', "*")
           end
         end
       end

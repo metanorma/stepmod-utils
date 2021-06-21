@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'support/smrl_converters_setup'
+require "spec_helper"
+require "support/smrl_converters_setup"
 
 RSpec.describe Stepmod::Utils::SmrlResourceConverter do
   subject(:convert) { cleaned_adoc(described_class.convert(input_xml)) }
@@ -55,11 +55,11 @@ RSpec.describe Stepmod::Utils::SmrlResourceConverter do
     ADOC
   end
 
-  it 'Converts input file into the correct adoc' do
+  it "Converts input file into the correct adoc" do
     expect(convert).to eq(output)
   end
 
-  context 'when dl tags present' do
+  context "when dl tags present" do
     let(:input_xml) do
       <<~XML
         <resource>
@@ -91,44 +91,44 @@ RSpec.describe Stepmod::Utils::SmrlResourceConverter do
       XML
     end
 
-    it 'renders correclt internal dl tags and children' do
+    it "renders correclt internal dl tags and children" do
       expect(convert).to eq(output)
     end
   end
 
-  context 'when table elements present' do
+  context "when table elements present" do
     let(:input_xml) do
       <<~XML
-      <resource>
-        <schema name="contract_schema" number="8369" version="3">
-          // start of first table
-          <table number="1" caption="Population of Internal_probe_access_area">
-              <tr>
-                <th colspan="2" align="left">#2000=<b>Internal_probe_access_area</b>(referenced as SELF in following lines)</th></tr> <!-- table header row -->
-              <tr align="left">
-                <td>SELF\<express_ref linkend="product_occurrence:arm:Product_occurrence_arm.Definition_based_product_occurrence.derived_from">Definition_based_product_occurrence.derived_from</express_ref></td>
-                <td>#2222=<express_ref linkend="Layered_interconnect_simple_template:arm:Layered_interconnect_simple_template_arm.Stratum_feature_template"/>;</td></tr>
-              <tr align="left">
-                <td>SELF\<express_ref linkend="Layered_interconnect_module_design:arm:Layered_interconnect_module_design_arm.Probe_access_area.probed_layout_item">Probe_access_area.probed_layout_item</express_ref></td>
-                <td>#2233=<express_ref linkend="Layered_interconnect_module_design:arm:Layered_interconnect_module_design_arm.Stratum_feature"/> (on layer 6 and part of implementation of net 3CB022)</td></tr>
-          <!--
-              <tr align="left">
-                <td>SELF\<express_ref linkend="Feature_and_connection_zone:arm:Feature_and_connection_zone_arm.Definitional_shape_element.connection_area">Definitional_shape_element.connection_area</express_ref></td>
-                <td>#3211=<express_ref linkend="Physical_unit_design_view:arm:Physical_unit_design_view_arm.Connection_zone_in_design_view"/>; (visible from external environment and geometrically a subset of #4444 geometry)</td></tr>
-          -->
-              <tr align="left">
-                <td>SELF\<express_ref linkend="Layered_interconnect_module_design:arm:Layered_interconnect_module_design_arm.Probe_access_area.stratum_feature_material_stackup">Probe_access_area.stratum_feature_material_stackup</express_ref></td>
-                <td>not provided;</td></tr>
-              <tr align="left">
-                <td><b>stratum_feature_implementation</b></td>
-                <td>#4444=<express_ref linkend="Layered_interconnect_module_design:arm:Layered_interconnect_module_design_arm.Stratum_feature"/> composed only of one <express_ref linkend="Land:arm:Land_arm.Land"/> (on top layer). </td></tr>
-                  <tr align="left">
-                    <td><b>internal_access</b></td>
-                    <td>#2000 is referenced by #3000 </td></tr>
-              <!-- end of first table -->
-              </table>
-        </schema>
-      </resource>
+        <resource>
+          <schema name="contract_schema" number="8369" version="3">
+            // start of first table
+            <table number="1" caption="Population of Internal_probe_access_area">
+                <tr>
+                  <th colspan="2" align="left">#2000=<b>Internal_probe_access_area</b>(referenced as SELF in following lines)</th></tr> <!-- table header row -->
+                <tr align="left">
+                  <td>SELF\<express_ref linkend="product_occurrence:arm:Product_occurrence_arm.Definition_based_product_occurrence.derived_from">Definition_based_product_occurrence.derived_from</express_ref></td>
+                  <td>#2222=<express_ref linkend="Layered_interconnect_simple_template:arm:Layered_interconnect_simple_template_arm.Stratum_feature_template"/>;</td></tr>
+                <tr align="left">
+                  <td>SELF\<express_ref linkend="Layered_interconnect_module_design:arm:Layered_interconnect_module_design_arm.Probe_access_area.probed_layout_item">Probe_access_area.probed_layout_item</express_ref></td>
+                  <td>#2233=<express_ref linkend="Layered_interconnect_module_design:arm:Layered_interconnect_module_design_arm.Stratum_feature"/> (on layer 6 and part of implementation of net 3CB022)</td></tr>
+            <!--
+                <tr align="left">
+                  <td>SELF\<express_ref linkend="Feature_and_connection_zone:arm:Feature_and_connection_zone_arm.Definitional_shape_element.connection_area">Definitional_shape_element.connection_area</express_ref></td>
+                  <td>#3211=<express_ref linkend="Physical_unit_design_view:arm:Physical_unit_design_view_arm.Connection_zone_in_design_view"/>; (visible from external environment and geometrically a subset of #4444 geometry)</td></tr>
+            -->
+                <tr align="left">
+                  <td>SELF\<express_ref linkend="Layered_interconnect_module_design:arm:Layered_interconnect_module_design_arm.Probe_access_area.stratum_feature_material_stackup">Probe_access_area.stratum_feature_material_stackup</express_ref></td>
+                  <td>not provided;</td></tr>
+                <tr align="left">
+                  <td><b>stratum_feature_implementation</b></td>
+                  <td>#4444=<express_ref linkend="Layered_interconnect_module_design:arm:Layered_interconnect_module_design_arm.Stratum_feature"/> composed only of one <express_ref linkend="Land:arm:Land_arm.Land"/> (on top layer). </td></tr>
+                    <tr align="left">
+                      <td><b>internal_access</b></td>
+                      <td>#2000 is referenced by #3000 </td></tr>
+                <!-- end of first table -->
+                </table>
+          </schema>
+        </resource>
       XML
     end
     let(:output) do
@@ -156,12 +156,12 @@ RSpec.describe Stepmod::Utils::SmrlResourceConverter do
       ADOC
     end
 
-    it 'Converts table elements into the correct adoc' do
+    it "Converts table elements into the correct adoc" do
       expect(convert).to eq(output)
     end
   end
 
-  context 'when eqn tags' do
+  context "when eqn tags" do
     let(:input_xml) do
       <<~XML
         <resource>
@@ -224,13 +224,12 @@ RSpec.describe Stepmod::Utils::SmrlResourceConverter do
       XML
     end
 
-    it 'correctly renders nested lists' do
-      input = node_for(input_xml)
+    it "correctly renders nested lists" do
       expect(convert).to eq(output)
     end
   end
 
-  context 'when strong tag formatting mixes with braces in text' do
+  context "when strong tag formatting mixes with braces in text" do
     let(:input_xml) do
       <<~XML
         <resource>
@@ -249,7 +248,7 @@ RSpec.describe Stepmod::Utils::SmrlResourceConverter do
       XML
     end
 
-    it 'adds {blank} escape chars' do
+    it "adds {blank} escape chars" do
       expect(convert).to eq(output)
     end
   end
@@ -314,7 +313,7 @@ RSpec.describe Stepmod::Utils::SmrlResourceConverter do
       ADOC
     end
 
-    it 'Removes all nested para tags from lists' do
+    it "Removes all nested para tags from lists" do
       expect(convert).to eq(output)
     end
   end

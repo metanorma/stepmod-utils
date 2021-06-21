@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # encoding: UTF-8
 
-require 'pry'
+require "pry"
 # resolve bin path, ignoring symlinks
 require "pathname"
 bin_file = Pathname.new(__FILE__).realpath
@@ -12,12 +12,14 @@ $:.unshift File.expand_path("../../lib", bin_file)
 # Fixes https://github.com/rubygems/rubygems/issues/1420
 require "rubygems/specification"
 
-class Gem::Specification
-  def this; self; end
+module Gem
+  class Specification
+    def this; self; end
+  end
 end
 
-require 'bundler/setup'
-require 'stepmod/utils/terms_extractor'
+require "bundler/setup"
+require "stepmod/utils/terms_extractor"
 
 stepmod_dir = ARGV.first || Dir.pwd
 
@@ -51,37 +53,43 @@ def part_to_title(bibdata)
   end
 end
 
-def log message
+def log(message)
   puts "[stepmod-utils] #{message}"
 end
 
 part_concepts.each do |(bibdata, current_part_concepts)|
+  current_part_concepts = current_part_concepts.to_a.map do |n|
+    n.localizations["en"]
+  end
   fn = "03x-stepmod-#{bibdata.part}.adoc"
-  File.open(fn, 'w') { |file|
+  File.open(fn, "w") do |file|
     file.puts("== #{part_to_title(bibdata)}\n\n")
     file.puts(current_part_concepts.map(&:to_mn_adoc).join("\n"))
-  }
+  end
   log "INFO: written to: #{fn}"
 end
-
 
 part_resources.each do |(bibdata, current_part_resources)|
+  current_part_resources = current_part_resources.to_a.map do |n|
+    n.localizations["en"]
+  end
   fn = "04x-stepmod-entities-resources-#{bibdata.part}.adoc"
-  File.open(fn, 'w') { |file|
+  File.open(fn, "w") do |file|
     file.puts("== #{part_to_title(bibdata)}\n\n")
     file.puts(current_part_resources.map(&:to_mn_adoc).join("\n"))
-  }
+  end
   log "INFO: written to: #{fn}"
 end
-
 
 part_modules.each do |(bibdata, part_modules_arm, part_modules_mim)|
   fn = "05x-stepmod-entities-modules-#{bibdata.part}.adoc"
-  File.open(fn, 'w') { |file|
+  File.open(fn, "w") do |file|
     file.puts("")
     unless part_modules_arm.empty?
       schema_name = part_modules_arm.first.first
-      concepts = part_modules_arm.first.last
+      concepts = part_modules_arm.first.last.to_a.map do |n|
+        n.localizations["en"]
+      end
 
       # puts "SCHEMA NAME ARM: #{schema_name}"
       file.puts("== #{schema_name}\n\n")
@@ -94,26 +102,31 @@ part_modules.each do |(bibdata, part_modules_arm, part_modules_mim)|
       schema_name = part_modules_mim.first.first
 
       # puts "SCHEMA NAME MIM: #{schema_name}"
-      concepts = part_modules_mim.first.last
+      concepts = part_modules_mim.first.last.to_a.map do |n|
+        n.localizations["en"]
+      end
       file.puts("== #{schema_name}\n\n")
       file.puts(concepts.map(&:to_mn_adoc).join("\n"))
     end
-
-  }
+  end
   log "INFO: written to: #{fn}"
 end
 
-File.open('031-stepmod-general.adoc', 'w') { |file|
-  file.puts(general_concepts.map(&:to_mn_adoc).join("\n"))
-}
+File.open("031-stepmod-general.adoc", "w") do |file|
+  file.puts(general_concepts.to_a.map do |n|
+              n.localizations["en"]
+            end.map(&:to_mn_adoc).join("\n"))
+end
 log "INFO: written to: 031-stepmod-general.adoc"
 
-File.open('041-stepmod-entities-resources.adoc', 'w') { |file|
-  file.puts(resource_concepts.map(&:to_mn_adoc).join("\n"))
-}
+File.open("041-stepmod-entities-resources.adoc", "w") do |file|
+  file.puts(resource_concepts.to_a.map do |n|
+              n.localizations["en"]
+            end.map(&:to_mn_adoc).join("\n"))
+end
 log "INFO: written to: 041-stepmod-entities-resources.adoc"
 
-File.open('991-generated-bibliography.adoc', 'w') { |file|
+File.open("991-generated-bibliography.adoc", "w") do |file|
   file.puts(parsed_bibliography.map(&:to_mn_adoc).sort.uniq.join("\n"))
-}
+end
 log "INFO: written to: 991-generated-bibliography.adoc"

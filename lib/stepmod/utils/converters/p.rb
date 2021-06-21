@@ -5,7 +5,7 @@ module Stepmod
     module Converters
       class P < ReverseAdoc::Converters::Base
         def convert(node, state = {})
-          id = node['id']
+          id = node["id"]
           anchor = id ? "[[#{id}]]\n" : ""
           if state[:tdsinglepara]
             "#{anchor}#{treat_children(node, state).strip}"

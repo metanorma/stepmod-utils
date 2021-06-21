@@ -1,8 +1,8 @@
 require "bundler/setup"
-require 'byebug'
+require "byebug"
 require "stepmod/utils"
 require "stepmod/utils/concept"
-require 'stepmod/utils/stepmod_definition_converter'
+require "stepmod/utils/stepmod_definition_converter"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

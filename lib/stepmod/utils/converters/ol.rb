@@ -5,14 +5,16 @@ module Stepmod
     module Converters
       class Ol < ReverseAdoc::Converters::Base
         def convert(node, state = {})
-          id = node['id']
+          id = node["id"]
           anchor = id ? "[[#{id}]]\n" : ""
           ol_count = state.fetch(:ol_count, 0) + 1
           attrs = ol_attrs(node)
-          res = "\n\n#{anchor}#{attrs}#{treat_children(node, state.merge(ol_count: ol_count, tdsinglepara: true))}\n"
+          "\n\n#{anchor}#{attrs}#{treat_children(node,
+                                                 state.merge(
+                                                   ol_count: ol_count, tdsinglepara: true,
+                                                 ))}\n"
           # Why do we add this?
           # res = "\n" + res if node.parent && node.parent.name == 'note'
-          res
         end
 
         def number_style(node)
@@ -22,8 +24,6 @@ module Stepmod
                   when "a" then "loweralpha"
                   when "I" then "upperroman"
                   when "i" then "lowerroman"
-                  else
-                    nil
                   end
         end
 

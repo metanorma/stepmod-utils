@@ -1,4 +1,4 @@
-require_relative 'lib/stepmod/utils/version'
+require_relative "lib/stepmod/utils/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "stepmod-utils"
@@ -22,16 +22,22 @@ Gem::Specification.new do |spec|
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
-  spec.files         = Dir.chdir(File.expand_path('..', __FILE__)) do
-    `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
+  spec.files = Dir.chdir(File.expand_path(__dir__)) do
+    `git ls-files -z`.split("\x0").reject do |f|
+      f.match(%r{^(test|spec|features)/})
+    end
   end
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_runtime_dependency "thor", ">= 0.20.3"
-  spec.add_runtime_dependency "reverse_adoc", ">= 0.2.9"
   spec.add_runtime_dependency "concurrent-ruby"
+  spec.add_runtime_dependency "glossarist", "~> 0.1.0"
   spec.add_runtime_dependency "ptools"
+  spec.add_runtime_dependency "reverse_adoc", ">= 0.2.9"
+  spec.add_runtime_dependency "thor", ">= 0.20.3"
   spec.add_development_dependency "byebug", "~> 11.1"
+  spec.add_development_dependency "rubocop", "1.12"
+  spec.add_development_dependency "rubocop-performance"
+  spec.add_development_dependency "rubocop-rails"
 end

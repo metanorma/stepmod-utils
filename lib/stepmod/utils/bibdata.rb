@@ -1,8 +1,6 @@
 module Stepmod
   module Utils
-
     class Bibdata
-
       DOCNUMBER = 10303
 
       attr_accessor *%w(
@@ -15,23 +13,25 @@ module Stepmod
         # module, resource, application_protocol, business_object_model
         @type = document.name
 
-        raise 'UnknownFileError' unless %w(module resource application_protocol business_object_model).include?(@type)
+        raise "UnknownFileError" unless %w(module resource
+                                           application_protocol business_object_model).include?(@type)
 
-        @doctype = document['status']
-        @part = document['part']
-        @title_en = document['title'] ||
-          document['name'].gsub('_', ' ').capitalize.gsub('2d','2D').gsub('3d','3D')
-        @title_fr = document['name.french']
-        @version = document['version']
-        @language = document['language']
+        @doctype = document["status"]
+        @part = document["part"]
+        @title_en = document["title"] ||
+          document["name"].gsub("_", " ").capitalize.gsub("2d", "2D").gsub("3d",
+                                                                           "3D")
+        @title_fr = document["name.french"]
+        @version = document["version"]
+        @language = document["language"]
 
         # Some publication.year contains month...
-        @pub_year = document['publication.year'].split('-').first
-        @pub_date = document['publication.date']
+        @pub_year = document["publication.year"].split("-").first
+        @pub_date = document["publication.date"]
 
         # puts to_mn_adoc
 
-        return self
+        self
         # <module
         #    name="security_classification"
         #    name.french="Classification des s&#233;curit&#233;s"
@@ -54,28 +54,27 @@ module Stepmod
         #    rcs.revision="$Revision: 1.26 $"
         #   development.folder="dvlp"
         # >
-
       end
 
       def docid
         no_date = case doctype
-        when "IS"
-          "ISO #{DOCNUMBER}-#{part}"
-        when "WD"
-          "ISO/WD #{DOCNUMBER}-#{part}"
-        when "CD"
-          "ISO/CD #{DOCNUMBER}-#{part}"
-        when "DIS"
-          "ISO/DIS #{DOCNUMBER}-#{part}"
-        when "FDIS"
-          "ISO/FDIS #{DOCNUMBER}-#{part}"
-        when "TS"
-          "ISO/TS #{DOCNUMBER}-#{part}"
-        when "CD-TS"
-          "ISO/CD TS #{DOCNUMBER}-#{part}"
-        else
-          "UNKNOWN DOCTYPE: (#{doctype})"
-        end
+                  when "IS"
+                    "ISO #{DOCNUMBER}-#{part}"
+                  when "WD"
+                    "ISO/WD #{DOCNUMBER}-#{part}"
+                  when "CD"
+                    "ISO/CD #{DOCNUMBER}-#{part}"
+                  when "DIS"
+                    "ISO/DIS #{DOCNUMBER}-#{part}"
+                  when "FDIS"
+                    "ISO/FDIS #{DOCNUMBER}-#{part}"
+                  when "TS"
+                    "ISO/TS #{DOCNUMBER}-#{part}"
+                  when "CD-TS"
+                    "ISO/CD TS #{DOCNUMBER}-#{part}"
+                  else
+                    "UNKNOWN DOCTYPE: (#{doctype})"
+                  end
 
         if pub_year
           "#{no_date}:#{pub_year}"
@@ -106,7 +105,7 @@ module Stepmod
       end
 
       def anchor
-        docid.gsub('/', '-').gsub(' ', '_').gsub(':', '_')
+        docid.gsub("/", "-").gsub(" ", "_").gsub(":", "_")
       end
 
       def to_mn_adoc
@@ -116,9 +115,6 @@ module Stepmod
           "* [[[#{anchor},#{docid}]]]"
         end
       end
-
     end
-
   end
 end
-

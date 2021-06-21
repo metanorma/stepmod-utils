@@ -4,7 +4,7 @@ module Stepmod
   module Utils
     module Converters
       class PassThrough < ReverseAdoc::Converters::Base
-        def convert(node, state = {})
+        def convert(node, _state = {})
           node.to_s
         end
       end

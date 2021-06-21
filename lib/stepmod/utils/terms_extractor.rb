@@ -1,6 +1,8 @@
-require 'stepmod/utils/stepmod_definition_converter'
-require 'stepmod/utils/bibdata'
-require 'stepmod/utils/concept'
+require "stepmod/utils/stepmod_definition_converter"
+require "stepmod/utils/bibdata"
+require "stepmod/utils/concept"
+require "glossarist"
+require "securerandom"
 
 ReverseAdoc.config.unknown_tags = :bypass
 
@@ -8,21 +10,21 @@ module Stepmod
   module Utils
     class TermsExtractor
       # TODO: we may want a command line option to override this in the future
-      ACCEPTED_STAGES = %w(IS DIS FDIS TS)
+      ACCEPTED_STAGES = %w(IS DIS FDIS TS).freeze
 
       attr_reader :stepmod_path,
-        :stepmod_dir,
-        :general_concepts,
-        :resource_concepts,
-        :parsed_bibliography,
-        :encountered_terms,
-        :cvs_mode,
-        :part_concepts,
-        :part_resources,
-        :part_modules,
-        :stdout
+                  :stepmod_dir,
+                  :general_concepts,
+                  :resource_concepts,
+                  :parsed_bibliography,
+                  :encountered_terms,
+                  :cvs_mode,
+                  :part_concepts,
+                  :part_resources,
+                  :part_modules,
+                  :stdout
 
-      def self.call(stepmod_dir, stdout = STDOUT)
+      def self.call(stepmod_dir, stdout = $stdout)
         new(stepmod_dir, stdout).call
       end
 
@@ -30,8 +32,8 @@ module Stepmod
         @stdout = stdout
         @stepmod_dir = stepmod_dir
         @stepmod_path = Pathname.new(stepmod_dir).realpath
-        @general_concepts = []
-        @resource_concepts = []
+        @general_concepts = Glossarist::Collection.new
+        @resource_concepts = Glossarist::Collection.new
         @parsed_bibliography = []
         @part_concepts = []
         @part_resources = []
@@ -39,13 +41,13 @@ module Stepmod
         @encountered_terms = {}
       end
 
-      def log message
+      def log(message)
         stdout.puts "[stepmod-utils] #{message}"
       end
 
       def term_special_category(bibdata)
         case bibdata.part.to_i
-        when 41,42,43,44,45,46,47,51
+        when 41, 42, 43, 44, 45, 46, 47, 51
           true
         when [56..112]
           true
@@ -56,47 +58,50 @@ module Stepmod
 
       def call
         # If we are using the stepmod CVS repository, provide the revision number per file
-        @cvs_mode = if Dir.exists?(stepmod_path.join('CVS'))
-          require 'ptools'
-          # ptools provides File.which
-          File.which("cvs")
-        end
+        @cvs_mode = if Dir.exists?(stepmod_path.join("CVS"))
+                      require "ptools"
+                      # ptools provides File.which
+                      File.which("cvs")
+                    end
 
         log "INFO: STEPmod directory set to #{stepmod_dir}."
 
         if cvs_mode
-          log "INFO: STEPmod directory is a CVS repository and will detect revisions."
-          log "INFO: [CVS] Detecting file revisions can be slow, please be patient!"
+          log "INFO: STEPmod directory is a \
+            CVS repository and will detect revisions."
+          log "INFO: [CVS] Detecting file revisions can be slow, \
+            please be patient!"
         else
-          log "INFO: STEPmod directory is not a CVS repository, skipping revision detection."
+          log "INFO: STEPmod directory is not a CVS repository, \
+            skipping revision detection."
         end
 
         log "INFO: Detecting paths..."
 
-        repo_index = Nokogiri::XML(File.read(stepmod_path.join('repository_index.xml'))).root
+        repo_index = Nokogiri::XML(File.read(stepmod_path.join("repository_index.xml"))).root
 
         files = []
 
         # add module paths
-        repo_index.xpath('//module').each do |x|
+        repo_index.xpath("//module").each do |x|
           path = Pathname.new("#{stepmod_dir}/modules/#{x['name']}/module.xml")
           files << path if File.exists? path
         end
 
         # add resource_docs paths
-        repo_index.xpath('//resource_doc').each do |x|
+        repo_index.xpath("//resource_doc").each do |x|
           path = Pathname.new("#{stepmod_dir}/resource_docs/#{x['name']}/resource.xml")
           files << path if File.exists? path
         end
 
         # add business_object_models paths
-        repo_index.xpath('//business_object_model').each do |x|
+        repo_index.xpath("//business_object_model").each do |x|
           path = Pathname.new("#{stepmod_dir}/business_object_models/#{x['name']}/business_object_model.xml")
           files << path if File.exists? path
         end
 
         # add application_protocols paths
-        repo_index.xpath('//application_protocol').each do |x|
+        repo_index.xpath("//application_protocol").each do |x|
           path = Pathname.new("#{stepmod_dir}/application_protocols/#{x['name']}/application_protocol.xml")
           files << path if File.exists? path
         end
@@ -110,7 +115,7 @@ module Stepmod
           parsed_bibliography,
           part_concepts,
           part_resources,
-          part_modules
+          part_modules,
         ]
       end
 
@@ -128,13 +133,14 @@ module Stepmod
           bibdata = nil
           begin
             bibdata = Stepmod::Utils::Bibdata.new(document: current_document)
-          rescue
+          rescue StandardError
             log "WARNING: Unknown file #{fpath}, skipped"
             next
           end
 
           unless ACCEPTED_STAGES.include? bibdata.doctype
-            log "INFO: skipped #{bibdata.docid} as it is not one of (#{ACCEPTED_STAGES.join(", ")})."
+            log "INFO: skipped #{bibdata.docid} as it is not \
+              one of (#{ACCEPTED_STAGES.join(', ')})."
             next
           end
 
@@ -153,9 +159,12 @@ module Stepmod
               status = `cvs status #{fpath}`
 
               unless status.empty?
-                working_rev = status.split(/\n/).grep(/Working revision:/).first.match(/revision:\s+(.+)$/)[1]
-                repo_rev = status.split(/\n/).grep(/Repository revision:/).first.match(/revision:\t(.+)\t/)[1]
-                log "INFO: CVS working rev (#{working_rev}), repo rev (#{repo_rev})"
+                working_rev = status.split(/\n/).grep(/Working revision:/)
+                  .first.match(/revision:\s+(.+)$/)[1]
+                repo_rev = status.split(/\n/).grep(/Repository revision:/)
+                  .first.match(/revision:\t(.+)\t/)[1]
+                log "INFO: CVS working rev (#{working_rev}), \
+                  repo rev (#{repo_rev})"
                 revision_string = "\n// CVS working rev: (#{working_rev}), repo rev (#{repo_rev})\n" +
                   "// CVS: revision #{working_rev == repo_rev ? 'up to date' : 'differs'}"
               end
@@ -163,11 +172,11 @@ module Stepmod
           end
 
           # read definitions
-          current_part_concepts = []
+          current_part_concepts = Glossarist::Collection.new
           definition_index = 0
-          current_document.xpath('//definition').each do |definition|
+          current_document.xpath("//definition").each do |definition|
             definition_index += 1
-            term_id = definition['id']
+            term_id = definition["id"]
             unless term_id.nil?
               if encountered_terms[term_id]
                 log "FATAL: Duplicated term with id: #{term_id}, #{fpath}"
@@ -183,22 +192,22 @@ module Stepmod
               definition,
               reference_anchor: bibdata.anchor,
               reference_clause: ref_clause,
-              file_path: fpath + revision_string
+              file_path: fpath + revision_string,
             )
             next unless concept
 
-            unless term_special_category(bibdata)
-              # log "INFO: this part is generic"
-              general_concepts << concept
-            else
+            if term_special_category(bibdata)
               # log "INFO: this part is special"
-              current_part_concepts << concept
+              find_or_initialize_concept(current_part_concepts, concept)
+            else
+              # log "INFO: this part is generic"
+              find_or_initialize_concept(general_concepts, concept)
             end
 
             parsed_bibliography << bibdata
           end
 
-          current_part_resources = []
+          current_part_resources = Glossarist::Collection.new
           current_part_modules_arm = {}
           current_part_modules_mim = {}
 
@@ -207,10 +216,12 @@ module Stepmod
           when /resource.xml$/
             log "INFO: Processing resource.xml for #{file_path}"
             # Assumption: every schema is only linked by a single resource_docs document.
-            current_document.xpath('//schema').each do |schema_node|
-              schema_name = schema_node['name']
+            current_document.xpath("//schema").each do |schema_node|
+              schema_name = schema_node["name"]
               if parsed_schema_names[schema_name]
-                log "ERROR: We have encountered this schema before: #{schema_name} from path #{parsed_schema_names[schema_name]}, now at #{file_path}"
+                log "ERROR: We have encountered this schema before: \
+                  #{schema_name} from path \
+                  #{parsed_schema_names[schema_name]}, now at #{file_path}"
                 next
               else
                 parsed_schema_names[schema_name] = file_path
@@ -219,24 +230,24 @@ module Stepmod
               Dir["#{stepmod_path}/resources/#{schema_name}/descriptions.xml"].each do |description_xml_path|
                 log "INFO: Processing resources schema #{description_xml_path}"
                 description_document = Nokogiri::XML(File.read(description_xml_path)).root
-                description_document.xpath('//ext_description').each do |ext_description|
-
+                description_document.xpath("//ext_description").each do |ext_description|
                   # log "INFO: Processing linkend[#{ext_description['linkend']}]"
 
                   concept = Stepmod::Utils::Concept.parse(
                     ext_description,
                     reference_anchor: bibdata.anchor,
                     reference_clause: nil,
-                    file_path: Pathname.new(description_xml_path).relative_path_from(stepmod_path)
+                    file_path: Pathname.new(description_xml_path)
+                                .relative_path_from(stepmod_path),
                   )
                   next unless concept
 
-                  unless term_special_category(bibdata)
-                    # log "INFO: this part is generic"
-                    resource_concepts << concept
-                  else
+                  if term_special_category(bibdata)
                     # log "INFO: this part is special"
-                    current_part_resources << concept
+                    find_or_initialize_concept(current_part_resources, concept)
+                  else
+                    # log "INFO: this part is generic"
+                    find_or_initialize_concept(resource_concepts, concept)
                   end
 
                   parsed_bibliography << bibdata
@@ -248,9 +259,11 @@ module Stepmod
             log "INFO: Processing module.xml for #{file_path}"
             # Assumption: every schema is only linked by a single module document.
             # puts current_document.xpath('//module').length
-            schema_name = current_document.xpath('//module').first['name']
+            schema_name = current_document.xpath("//module").first["name"]
             if parsed_schema_names[schema_name]
-              log "ERROR: We have encountered this schema before: #{schema_name} from path #{parsed_schema_names[schema_name]}, now at #{file_path}"
+              log "ERROR: We have encountered this schema before: \
+                #{schema_name} from path #{parsed_schema_names[schema_name]}, \
+                  now at #{file_path}"
               next
             else
               parsed_schema_names[schema_name] = file_path
@@ -260,20 +273,25 @@ module Stepmod
             log "INFO: Processing modules schema #{description_xml_path}"
 
             if File.exists?(description_xml_path)
-              description_document = Nokogiri::XML(File.read(description_xml_path)).root
-              description_document.xpath('//ext_description').each do |ext_description|
-
-                linkend_schema = ext_description['linkend'].split('.').first
+              description_document = Nokogiri::XML(
+                File.read(description_xml_path),
+              )
+                .root
+              description_document.xpath("//ext_description").each do |ext_description|
+                linkend_schema = ext_description["linkend"].split(".").first
                 concept = Stepmod::Utils::Concept.parse(
                   ext_description,
                   reference_anchor: bibdata.anchor,
                   reference_clause: nil,
-                  file_path: Pathname.new(description_xml_path).relative_path_from(stepmod_path)
+                  file_path: Pathname.new(description_xml_path)
+                              .relative_path_from(stepmod_path),
                 )
                 next unless concept
 
-                current_part_modules_arm[linkend_schema] ||= []
-                current_part_modules_arm[linkend_schema] << concept
+                current_part_modules_arm[linkend_schema] ||= Glossarist::Collection.new
+                find_or_initialize_concept(
+                  current_part_modules_arm[linkend_schema], concept
+                )
                 # puts part_modules_arm.inspect
                 parsed_bibliography << bibdata
               end
@@ -283,21 +301,28 @@ module Stepmod
             log "INFO: Processing modules schema #{description_xml_path}"
 
             if File.exists?(description_xml_path)
-              description_document = Nokogiri::XML(File.read(description_xml_path)).root
-              description_document.xpath('//ext_description').each do |ext_description|
-
-                linkend_schema = ext_description['linkend'].split('.').first
+              description_document = Nokogiri::XML(
+                File.read(description_xml_path),
+              )
+                .root
+              description_document.xpath("//ext_description").each do |ext_description|
+                linkend_schema = ext_description["linkend"].split(".").first
 
                 concept = Stepmod::Utils::Concept.parse(
                   ext_description,
                   reference_anchor: bibdata.anchor,
                   reference_clause: nil,
-                  file_path: Pathname.new(description_xml_path).relative_path_from(stepmod_path)
+                  file_path: Pathname
+                              .new(description_xml_path)
+                              .relative_path_from(stepmod_path),
                 )
                 next unless concept
 
-                current_part_modules_mim[linkend_schema] ||= []
-                current_part_modules_mim[linkend_schema] << concept
+                current_part_modules_mim[linkend_schema] ||=
+                  Glossarist::Collection.new
+                find_or_initialize_concept(
+                  current_part_modules_mim[linkend_schema], concept
+                )
 
                 parsed_bibliography << bibdata
               end
@@ -306,20 +331,38 @@ module Stepmod
           end
 
           log "INFO: Completed processing XML file #{fpath}"
-          if current_part_concepts.empty?
-            log "INFO: Skipping #{fpath} (#{bibdata.docid}) because it contains no concepts."
-          elsif current_part_concepts.length < 3
-            log "INFO: Skipping #{fpath} (#{bibdata.docid}) because it only has #{current_part_concepts.length} terms."
+          if current_part_concepts.to_a.empty?
+            log "INFO: Skipping #{fpath} (#{bibdata.docid}) \
+              because it contains no concepts."
+          elsif current_part_concepts.to_a.length < 3
+            log "INFO: Skipping #{fpath} (#{bibdata.docid}) \
+              because it only has #{current_part_concepts.to_a.length} terms."
 
-            current_part_concepts.each do |x|
-              general_concepts << x
+            current_part_concepts.to_a.each do |x|
+              general_concepts.store(x)
             end
           else
-            part_concepts << [bibdata, current_part_concepts] unless current_part_concepts.empty?
+            unless current_part_concepts.to_a.empty?
+              part_concepts << [bibdata,
+                                current_part_concepts]
+            end
           end
-          part_resources << [bibdata, current_part_resources] unless current_part_resources.empty?
-          part_modules << [bibdata, current_part_modules_arm, current_part_modules_mim] if current_part_modules_arm.size + current_part_modules_mim.size > 0
+          unless current_part_resources.to_a.empty?
+            part_resources << [bibdata,
+                               current_part_resources]
+          end
+          if (current_part_modules_arm.to_a.size +
+              current_part_modules_mim.to_a.size).positive?
+            part_modules << [bibdata, current_part_modules_arm,
+                             current_part_modules_mim]
+          end
         end
+      end
+
+      def find_or_initialize_concept(collection, localized_concept)
+        concept = collection
+          .store(Glossarist::Concept.new(id: SecureRandom.uuid))
+        concept.add_l10n(localized_concept)
       end
     end
   end

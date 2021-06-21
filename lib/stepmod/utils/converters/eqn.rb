@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'stepmod/utils/html_to_asciimath'
+require "stepmod/utils/html_to_asciimath"
 
 module Stepmod
   module Utils
@@ -21,30 +21,32 @@ module Stepmod
 
         def definition_node?(node)
           first_strong_node = node
-                                .children
-                                .find do |n|
-                                  return false if !n.text? && n.name != 'b'
+            .children
+            .find do |n|
+            return false if !n.text? && n.name != "b"
 
-                                  n.name == 'b'
-                                end
-          first_strong_node &&
-            first_strong_node.next &&
+            n.name == "b"
+          end
+          first_strong_node&.next &&
             first_strong_node.next.text? &&
             first_strong_node.next.content =~ /\s+:/
         end
 
         def definition_converted(cloned_node, state)
           first_strong_node = cloned_node
-                                .children
-                                .find do |n|
-                                  return false if !n.text? && n.name != 'b'
+            .children
+            .find do |n|
+            return false if !n.text? && n.name != "b"
 
-                                  n.name == 'b'
-                                end
-          first_strong_node.next.content = first_strong_node.next.content.gsub(/\s?:/, '')
+            n.name == "b"
+          end
+          first_strong_node.next.content = first_strong_node.next.content.gsub(
+            /\s?:/, ""
+          )
           term = first_strong_node.text.strip
           first_strong_node.remove
-          "\n\n#{term}:: #{remove_trash_symbols(treat_children(cloned_node, state))}\n"
+          "\n\n#{term}:: #{remove_trash_symbols(treat_children(cloned_node,
+                                                               state))}\n"
         end
 
         def stem_converted(cloned_node, state)
@@ -53,22 +55,22 @@ module Stepmod
           content = Stepmod::Utils::HtmlToAsciimath.new.call(internal_content)
           res = <<~TEMPLATE
 
-                [stem]
-                ++++
-                #{remove_trash_symbols(content.strip)}
-                ++++
+            [stem]
+            ++++
+            #{remove_trash_symbols(content.strip)}
+            ++++
 
-                TEMPLATE
-          res = "[[#{cloned_node['id']}]]\n#{res}" if cloned_node['id'] && cloned_node['id'].length > 0
+          TEMPLATE
+          res = "[[#{cloned_node['id']}]]\n#{res}" if cloned_node["id"]&.length&.positive?
           res
         end
 
         def remove_trash_symbols(content)
           content
-            .gsub(/ /, '')
+            .gsub(/ /, "")
             .strip
-            .gsub(/\(\d\)$/, '')
-            .gsub(/\b(\w*?[_]+\w+)\b/, '"\1"')
+            .gsub(/\(\d\)$/, "")
+            .gsub(/\b(\w*?_+\w+)\b/, '"\1"')
             .gsub(/([^\s])\s+_{/, '\1_{')
             .strip
         end
@@ -81,7 +83,7 @@ module Stepmod
             node
               .children
               .each do |n|
-                remove_tags_not_in_context(n) if n.children.length > 0
+                remove_tags_not_in_context(n) if n.children.length.positive?
                 next if n.name != tag_name
 
                 n.add_previous_sibling(n.children)
