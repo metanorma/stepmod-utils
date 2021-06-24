@@ -134,4 +134,53 @@ RSpec.describe Stepmod::Utils::Converters::Definition do
       expect(convert.strip).to eq(output)
     end
   end
+
+  context 'when term in definition xml has acronym' do
+    let(:input_xml) do
+      <<~TEXT
+        <definition>
+          <term>directed acyclic graph (DAG)</term>
+          <def>
+            collection of nodes and links such that no node is an ancestor (or descendant) of itself
+          </def>
+        </definition>
+      TEXT
+    end
+    let(:output) do
+      <<~XML
+      === directed acyclic graph
+      alt:[DAG]
+
+      collection of nodes and links such that no node is an ancestor (or descendant) of itself
+      XML
+    end
+
+    it "converts complex children block by rules" do
+      expect(convert).to eq(output.strip)
+    end
+  end
+
+  context 'when term in definition xml has braces' do
+    let(:input_xml) do
+      <<~TEXT
+        <definition>
+          <term>bill-of-material (BOM) data structure</term>
+          <def>
+            collection of nodes and links such that no node is an ancestor (or descendant) of itself
+          </def>
+        </definition>
+      TEXT
+    end
+    let(:output) do
+      <<~XML
+      === bill-of-material (BOM) data structure
+
+      collection of nodes and links such that no node is an ancestor (or descendant) of itself
+      XML
+    end
+
+    it "converts complex children block by rules" do
+      expect(convert).to eq(output.strip)
+    end
+  end
 end
