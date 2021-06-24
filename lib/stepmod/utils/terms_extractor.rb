@@ -11,6 +11,7 @@ module Stepmod
     class TermsExtractor
       # TODO: we may want a command line option to override this in the future
       ACCEPTED_STAGES = %w(IS DIS FDIS TS).freeze
+      WITHDRAWN_STATUS = "withdrawn".freeze
 
       attr_reader :stepmod_path,
                   :stepmod_dir,
@@ -84,24 +85,32 @@ module Stepmod
 
         # add module paths
         repo_index.xpath("//module").each do |x|
+          next if x['status'] == WITHDRAWN_STATUS
+
           path = Pathname.new("#{stepmod_dir}/modules/#{x['name']}/module.xml")
           files << path if File.exists? path
         end
 
         # add resource_docs paths
         repo_index.xpath("//resource_doc").each do |x|
+          next if x['status'] == WITHDRAWN_STATUS
+
           path = Pathname.new("#{stepmod_dir}/resource_docs/#{x['name']}/resource.xml")
           files << path if File.exists? path
         end
 
         # add business_object_models paths
         repo_index.xpath("//business_object_model").each do |x|
+          next if x['status'] == WITHDRAWN_STATUS
+
           path = Pathname.new("#{stepmod_dir}/business_object_models/#{x['name']}/business_object_model.xml")
           files << path if File.exists? path
         end
 
         # add application_protocols paths
         repo_index.xpath("//application_protocol").each do |x|
+          next if x['status'] == WITHDRAWN_STATUS
+
           path = Pathname.new("#{stepmod_dir}/application_protocols/#{x['name']}/application_protocol.xml")
           files << path if File.exists? path
         end
