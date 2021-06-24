@@ -91,7 +91,7 @@ RSpec.describe Stepmod::Utils::SmrlDescriptionConverter do
     let(:output) do
       <<~XML
         (*"Annotated_3d_model_equivalence_assembly_arm.Different_assembly_constraint_type"
-        A *Different_assembly_constraint_type* is a type of <<express:Annotated_3d_model_equivalence_assembly_arm.A3m_equivalence_criterion_of_detailed_assembly_data_content,A3m_equivalence_criterion_of_detailed_assembly_data_content>> that asserts that one or more assembly constraints between a component and its connected component in the comparing assembly data set have different type from that of the corresponding component and its connected component in the compared assembly data set.
+        A **Different_assembly_constraint_type** is a type of <<express:Annotated_3d_model_equivalence_assembly_arm.A3m_equivalence_criterion_of_detailed_assembly_data_content,A3m_equivalence_criterion_of_detailed_assembly_data_content>> that asserts that one or more assembly constraints between a component and its connected component in the comparing assembly data set have different type from that of the corresponding component and its connected component in the compared assembly data set.
 
         The inspection requirement corresponding to this criterion is,
 
@@ -111,7 +111,7 @@ RSpec.describe Stepmod::Utils::SmrlDescriptionConverter do
         Examples include: 3D continuum (volume elements in FEA); 2D continuum (shell elements in FEA); 1D continuum (beam elements in FEA); lumped masses (in a many-body problem).
         ====
 
-        A <<express:analysis_schema.numerical_model,numerical_model>> is a view of a *temporal_spatial_object* specificiation as a set or space. The members of the set or space may consist of:
+        A <<express:analysis_schema.numerical_model,numerical_model>> is a view of a **temporal_spatial_object** specificiation as a set or space. The members of the set or space may consist of:
 
         * points in space-time;
         * spatial or temporal aggregations that are finite in one or more dimensions.
