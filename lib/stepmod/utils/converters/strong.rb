@@ -8,12 +8,13 @@ module Stepmod
 
         def convert(node, state = {})
           content = treat_children(node, state.merge(already_strong: true))
+          strong_tag = state[:non_flanking_whitesapce] ? '**' : '*'
           if content.strip.empty? || state[:already_strong]
             content
           else
             handle_express_escape_seq(
               node,
-              "#{content[/^\s*/]}*#{content.strip}*#{content[/\s*$/]}"
+              "#{content[/^\s*/]}#{strong_tag}#{content.strip}#{strong_tag}#{content[/\s*$/]}"
             )
           end
         end

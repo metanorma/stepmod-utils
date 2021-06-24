@@ -27,10 +27,10 @@ RSpec.describe Stepmod::Utils::StepmodDefinitionConverter do
     let(:output) do
       <<~ADOC
         (*"aic_machining_feature.profile_floor"
-        A *profile_floor* is a type of *shape_aspect* that is the representation of the bottom condition for an *outside_profile* *feature_definition*.
+        A **profile_floor** is a type of *shape_aspect* that is the representation of the bottom condition for an *outside_profile* *feature_definition*.
         [NOTE]
         --
-        A *Profile_floor*, *General_profile_floor* or a *Planar_profile_floor* are defined in ISO 10303-1814 [5] and define the requirement for *profile_floor*.
+        A *Profile_floor*, *General_profile_floor* or a *Planar_profile_floor* are defined in ISO 10303-1814 [5] and define the requirement for **profile_floor**.
         --
         *)
       ADOC
