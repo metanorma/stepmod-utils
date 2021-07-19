@@ -12,7 +12,7 @@ RSpec.describe Stepmod::Utils::Converters::ClauseRef do
     '<clause_ref linkend="definition: individual   activity ">individual activity</clause_ref>'
   end
   let(:output) do
-    " term:[individual activity] "
+    " {{individual activity}} "
   end
 
   it "compacts and removes any whitespace" do

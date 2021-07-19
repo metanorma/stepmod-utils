@@ -5,7 +5,7 @@ module Stepmod
     module Converters
       class ClauseRef < ReverseAdoc::Converters::Base
         def convert(node, _state = {})
-          " term:[#{normalized_ref(node['linkend'])}] "
+          " {{#{normalized_ref(node['linkend'])}}} "
         end
 
         private

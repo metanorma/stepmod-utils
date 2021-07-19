@@ -9,7 +9,7 @@ RSpec.describe Stepmod::Utils::Converters::ModuleRef do
     '<module_ref linkend="product_as_individual:3_definition">individual products</module_ref>'
   end
   let(:output) do
-    "term:[individual products]"
+    "{{individual products}}"
   end
 
   it "when there is semicolum in linked attribute it converts by rules" do

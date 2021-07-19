@@ -12,11 +12,11 @@ module Stepmod
           # <module_ref linkend="product_as_individual:3_definition">individual products</module_ref>
           # We take the text value of the element and convert to this:
 
-          # term:[individual products]
+          # {{individual products}}
 
           ref = node.text.strip
           if !ref.empty?
-            " term:[#{normalized_ref(ref)}] "
+            " {{#{normalized_ref(ref)}}} "
           elsif
             ref = node["linkend"].split(":").first
             " *#{ref}*"
