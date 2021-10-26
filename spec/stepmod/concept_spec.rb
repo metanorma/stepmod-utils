@@ -67,6 +67,53 @@ RSpec.describe Stepmod::Utils::Concept do
     end
   end
 
+  context "when ext_description contains list" do
+    let(:input_xml) do
+      <<~XML
+        <ext_description linkend="set_theory_schema.complement"><p>A <b>complement</b> is a relationship that is between</p>
+        <ul><li>
+        set S1,</li><li>
+        set U, and</li><li>
+        set S2,</li></ul>
+        <p>that indicates set S2 consists of all members of U that are not members of S1.
+        </p></ext_description>
+      XML
+    end
+
+    let(:output) do
+      <<~OUTPUT
+        // STEPmod path:
+        === complement
+
+        domain:[STEP resource]
+
+        A *complement* is a relationship that is between
+
+        * set S1,
+        * set U, and
+        * set S2,
+
+        that indicates set S2 consists of all members of U that are not members of S1.
+
+
+        NOTE: This term is incompletely defined in this document.
+        Reference <<ISO_10303-41_2020>> for the complete definition.
+
+
+        [.source]
+        <<ISO_10303-41_2020>>
+
+      OUTPUT
+    end
+
+    it "correctly renders definition" do
+      expect(parse.to_mn_adoc).to eq(output)
+    end
+
+
+  end
+
+
   context "when definition xml" do
     let(:input_xml) do
       <<~XML

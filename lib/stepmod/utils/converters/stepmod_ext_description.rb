@@ -13,8 +13,11 @@ module Stepmod
           child_text = treat_children(node, state).strip
           return nil if child_text.empty?
 
-          # Only taking the first paragraph of the definition
-          child_text = child_text.split("\n").first
+          # If it contains a list, don't split
+          unless child_text =~ /\n\* /
+            # Only taking the first paragraph of the definition
+            child_text = child_text.split("\n").first
+          end
 
           # # Only taking the first sentence
           # if child_text.contains?(".")
