@@ -53,6 +53,22 @@ def part_to_title(bibdata)
   end
 end
 
+IMAGE_REPLACEMENTS = {
+  'image::eq01.gif[]' => 'stem:[H(A,B) = max {h(A, B), h(B,A)}]',
+  'image::eq02.gif[]' => 'stem:[max_{a in A} { min_{b in B} d(a,b) }]',
+  'image::vector_z_c.gif[]' => 'stem:[bar z_{c}]',
+  'image::one_direction_repeat_factor_expression.gif[]' => 'stem:[I + k cdot R;  k = -1, 1]',
+  'image::two_direction_repeat_factor_expression.gif[]' => 'stem:[I + k_1 cdot R_1 + k_2 cdot R_2;  k_1, k_2 = -1, 0, 1, k^2_1 + k^2_2 != 0]'
+}
+
+def replace_images(content)
+  IMAGE_REPLACEMENTS.each_pair do |k, v|
+    content.gsub!(k, v)
+  end
+
+  content
+end
+
 def log(message)
   puts "[stepmod-utils] #{message}"
 end
@@ -64,7 +80,7 @@ part_concepts.each do |(bibdata, current_part_concepts)|
   fn = "03x-stepmod-#{bibdata.part}.adoc"
   File.open(fn, "w") do |file|
     file.puts("== #{part_to_title(bibdata)}\n\n")
-    file.puts(current_part_concepts.map(&:to_mn_adoc).join("\n"))
+    file.puts(replace_images(current_part_concepts.map(&:to_mn_adoc).join("\n")))
   end
   log "INFO: written to: #{fn}"
 end
@@ -76,7 +92,7 @@ part_resources.each do |(bibdata, current_part_resources)|
   fn = "04x-stepmod-entities-resources-#{bibdata.part}.adoc"
   File.open(fn, "w") do |file|
     file.puts("== #{part_to_title(bibdata)}\n\n")
-    file.puts(current_part_resources.map(&:to_mn_adoc).join("\n"))
+    file.puts(replace_images(current_part_resources.map(&:to_mn_adoc).join("\n")))
   end
   log "INFO: written to: #{fn}"
 end
@@ -106,23 +122,32 @@ part_modules.each do |(bibdata, part_modules_arm, part_modules_mim)|
         n.localizations["en"]
       end
       file.puts("== #{schema_name}\n\n")
-      file.puts(concepts.map(&:to_mn_adoc).join("\n"))
+      file.puts(replace_images(concepts.map(&:to_mn_adoc).join("\n")))
     end
   end
   log "INFO: written to: #{fn}"
 end
 
 File.open("031-stepmod-general.adoc", "w") do |file|
-  file.puts(general_concepts.to_a.map do |n|
-              n.localizations["en"]
-            end.map(&:to_mn_adoc).join("\n"))
+  file.puts(
+    replace_images(
+      general_concepts.to_a.map do |n|
+        n.localizations["en"]
+      end.map(&:to_mn_adoc).join("\n")
+    )
+  )
 end
+
 log "INFO: written to: 031-stepmod-general.adoc"
 
 File.open("041-stepmod-entities-resources.adoc", "w") do |file|
-  file.puts(resource_concepts.to_a.map do |n|
-              n.localizations["en"]
-            end.map(&:to_mn_adoc).join("\n"))
+  file.puts(
+    replace_images(
+      resource_concepts.to_a.map do |n|
+        n.localizations["en"]
+      end.map(&:to_mn_adoc).join("\n")
+    )
+  )
 end
 log "INFO: written to: 041-stepmod-entities-resources.adoc"
 
