@@ -19,7 +19,7 @@ module Stepmod
             " {{#{normalized_ref(ref)}}} "
           elsif
             ref = node["linkend"].split(":").first
-            " *#{ref}*"
+            " *#{ref}* "
           end
         end
 

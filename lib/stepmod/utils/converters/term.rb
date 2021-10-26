@@ -6,10 +6,19 @@ module Stepmod
   module Utils
     module Converters
       class Term < ReverseAdoc::Converters::Base
+
+        # We strip all the children in the case for "stem:[d]-manifold"
+        # vs "stem:[d] -manifold"
+        def treat_children(node, state)
+          res = node.children.map { |child| treat(child, state) }
+          res.map(&:strip).reject(&:empty?).join("")
+        end
+
         def convert(node, state = {})
           first_child = node.children.find do |child|
             child.name == "text" && !child.text.to_s.strip.empty?
           end
+
           unless first_child &&
               node.text.split(";").length == 2 &&
               defined?(Stepmod::Utils::Converters::Synonym)
@@ -25,10 +34,10 @@ module Stepmod
         private
 
         def treat_acronym(term_def)
-          return term_def if term_def !~ /.+\(.+?\)$/
+          return term_def.strip if term_def !~ /.+\(.+?\)$/
 
           _, term_text, term_acronym = term_def.match(/(.+?)(\(.+\))$/).to_a
-          "#{term_text}\nalt:[#{term_acronym.gsub(/\(|\)/, '')}]"
+          "#{term_text.strip}\nalt:[#{term_acronym.gsub(/\(|\)/, '')}]"
         end
       end
 

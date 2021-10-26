@@ -11,8 +11,10 @@ module Stepmod
           if content.strip.empty? || state[:already_strong]
             content
           else
-            handle_express_escape_seq(node,
-                                      "#{content[/^\s*/]}*#{content.strip}*#{content[/\s*$/]}")
+            handle_express_escape_seq(
+              node,
+              "#{content[/^\s*/]}*#{content.strip}*#{content[/\s*$/]}"
+            )
           end
         end
 
