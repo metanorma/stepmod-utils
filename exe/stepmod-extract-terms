@@ -33,7 +33,7 @@ part_modules = Stepmod::Utils::TermsExtractor.call(stepmod_dir)
 def part_to_title(bibdata)
   case bibdata.part.to_i
   when 41
-    "Part 41"
+    "Fundamentals of product description and support"
   when 42
     "Geometric and topological representation"
   when 43
@@ -41,7 +41,7 @@ def part_to_title(bibdata)
   when 44
     "Product structure, concept and configuration"
   when 45
-    "Part 45"
+    "Material and other engineering properties"
   when 46
     "Visual presentation"
   when 47
