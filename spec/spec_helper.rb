@@ -1,5 +1,4 @@
 require "bundler/setup"
-require "byebug"
 require "stepmod/utils"
 require "stepmod/utils/concept"
 require "stepmod/utils/stepmod_definition_converter"

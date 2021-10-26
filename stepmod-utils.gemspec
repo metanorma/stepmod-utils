@@ -34,10 +34,9 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "concurrent-ruby"
   spec.add_runtime_dependency "glossarist", "~> 0.1.0"
   spec.add_runtime_dependency "ptools"
-  spec.add_runtime_dependency "reverse_adoc", ">= 0.2.9"
+  spec.add_runtime_dependency "reverse_adoc", ">= 0.3.5"
   spec.add_runtime_dependency "thor", ">= 0.20.3"
-  spec.add_development_dependency "byebug", "~> 11.1"
-  spec.add_development_dependency "rubocop", "1.12"
+  spec.add_development_dependency "rubocop"
   spec.add_development_dependency "rubocop-performance"
   spec.add_development_dependency "rubocop-rails"
 end
