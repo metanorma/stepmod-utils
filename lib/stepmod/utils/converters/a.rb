@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "uri"
-
 module Stepmod
   module Utils
     module Converters
@@ -31,9 +29,7 @@ module Stepmod
             name = title if name.empty?
             href = "link:#{href}" unless href.to_s&.match?(URI::DEFAULT_PARSER.make_regexp)
             link = "#{href}[#{name}]"
-            # link.prepend(' ')
             " #{link}"
-
           end
         end
       end
