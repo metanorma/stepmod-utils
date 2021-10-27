@@ -87,7 +87,7 @@ end
 
 File.open("03x-stepmod.adoc", "w") do |file|
   part_concepts.sort_by do |(bibdata, current_part_concepts)|
-    bibdata.part
+    bibdata.part.to_i
   end.each do |(bibdata, current_part_concepts)|
     fn = "03x-stepmod-#{bibdata.part}.adoc"
     file.puts("\ninclude::#{fn}[]\n")
@@ -110,7 +110,7 @@ end
 
 File.open("04x-stepmod-entities-resources.adoc", "w") do |file|
   part_resources.sort_by do |(bibdata, current_part_resources)|
-    bibdata.part
+    bibdata.part.to_i
   end.each do |(bibdata, current_part_resources)|
     fn = "04x-stepmod-entities-resources-#{bibdata.part}.adoc"
     file.puts("\ninclude::#{fn}[]\n")
@@ -152,7 +152,7 @@ end
 
 File.open("05x-stepmod-entities-modules.adoc", "w") do |file|
   part_modules.sort_by do |(bibdata, part_modules_arm, part_modules_mim)|
-    bibdata.part
+    bibdata.part.to_i
   end.each do |(bibdata, part_modules_arm, part_modules_mim)|
     fn = "05x-stepmod-entities-modules-#{bibdata.part}.adoc"
     file.puts("\ninclude::#{fn}[]\n")
