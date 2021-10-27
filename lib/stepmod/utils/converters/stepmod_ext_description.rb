@@ -13,10 +13,20 @@ module Stepmod
           child_text = treat_children(node, state).strip
           return nil if child_text.empty?
 
-          # If it contains a list, don't split
-          unless child_text =~ /\n\* /
+          # Unless the first paragraph ends with "between" and is followed by a
+          # list, don't split
+          first_child = child_text.split("\n").first
+
+          unless (
+            first_child =~ /between:?\s*\Z/ ||
+            first_child =~ /include:?\s*\Z/ ||
+            first_child =~ /of:?\s*\Z/ ||
+            first_child =~ /[:;]\s*\Z/
+            ) &&
+            child_text =~ /\n\n\*/
+
             # Only taking the first paragraph of the definition
-            child_text = child_text.split("\n").first
+            child_text = first_child
           end
 
           # # Only taking the first sentence
