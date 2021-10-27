@@ -85,6 +85,17 @@ part_concepts.each do |(bibdata, current_part_concepts)|
   log "INFO: written to: #{fn}"
 end
 
+File.open("03x-stepmod.adoc", "w") do |file|
+  part_concepts.sort_by do |(bibdata, current_part_concepts)|
+    bibdata.part
+  end.each do |(bibdata, current_part_concepts)|
+    fn = "03x-stepmod-#{bibdata.part}.adoc"
+    file.puts("\ninclude::#{fn}[]\n")
+  end
+end
+
+log "INFO: written summary file to: 03x-stepmod.adoc"
+
 part_resources.each do |(bibdata, current_part_resources)|
   current_part_resources = current_part_resources.to_a.map do |n|
     n.localizations["en"]
@@ -96,6 +107,17 @@ part_resources.each do |(bibdata, current_part_resources)|
   end
   log "INFO: written to: #{fn}"
 end
+
+File.open("04x-stepmod-entities-resources.adoc", "w") do |file|
+  part_resources.sort_by do |(bibdata, current_part_resources)|
+    bibdata.part
+  end.each do |(bibdata, current_part_resources)|
+    fn = "04x-stepmod-entities-resources-#{bibdata.part}.adoc"
+    file.puts("\ninclude::#{fn}[]\n")
+  end
+end
+
+log "INFO: written summary file to: 04x-stepmod-entities-resources.adoc"
 
 part_modules.each do |(bibdata, part_modules_arm, part_modules_mim)|
   fn = "05x-stepmod-entities-modules-#{bibdata.part}.adoc"
@@ -127,6 +149,17 @@ part_modules.each do |(bibdata, part_modules_arm, part_modules_mim)|
   end
   log "INFO: written to: #{fn}"
 end
+
+File.open("05x-stepmod-entities-modules.adoc", "w") do |file|
+  part_modules.sort_by do |(bibdata, part_modules_arm, part_modules_mim)|
+    bibdata.part
+  end.each do |(bibdata, part_modules_arm, part_modules_mim)|
+    fn = "05x-stepmod-entities-modules-#{bibdata.part}.adoc"
+    file.puts("\ninclude::#{fn}[]\n")
+  end
+end
+
+log "INFO: written summary file to: 05x-stepmod-entities-modules.adoc"
 
 File.open("031-stepmod-general.adoc", "w") do |file|
   file.puts(
