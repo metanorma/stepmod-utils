@@ -102,7 +102,7 @@ part_resources.each do |(bibdata, current_part_resources)|
   end
   fn = "04x-stepmod-entities-resources-#{bibdata.part}.adoc"
   File.open(fn, "w") do |file|
-    file.puts("== #{part_to_title(bibdata)}\n\n")
+    # file.puts("== #{part_to_title(bibdata)}\n\n")
     file.puts(replace_images(current_part_resources.map(&:to_mn_adoc).join("\n")))
   end
   log "INFO: written to: #{fn}"
