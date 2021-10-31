@@ -29,6 +29,13 @@ module Stepmod
             child_text = first_child
           end
 
+          # TEMP: Remove any whitespace (" ", not newlines) after an immediate
+          # newline due to:
+          # https://github.com/metanorma/iso-10303-2/issues/71
+          if child_text =~ /\n\ +/
+            child_text = child_text.gsub(/\n\ +/, "\n")
+          end
+
           # # Only taking the first sentence
           # if child_text.contains?(".")
           #   child_text = child_text.split(".").first
