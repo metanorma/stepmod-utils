@@ -56,7 +56,7 @@ module Stepmod
                                                                      options)
           return "" unless result
 
-          Stepmod::Utils::Cleaner.new.tidy(result)
+          Stepmod::Utils::Cleaner.new.tidy(result.dup)
         end
       end
     end
