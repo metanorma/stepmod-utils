@@ -56,7 +56,7 @@ module Stepmod
                                                                      options)
           return "" unless result
 
-          ReverseAdoc.cleaner.tidy(result.dup)
+          Stepmod::Utils::Cleaner.new.tidy(result)
         end
       end
     end
