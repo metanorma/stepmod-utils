@@ -39,7 +39,7 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
       <<~TEXT
         === action_directive
 
-        domain:[STEP resource]
+        domain:[ISO 10303 resource]
 
         An *action_directive* is an authoritative instrument that provides directions to achieve the specified results.
 
@@ -52,7 +52,7 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
       <<~TEXT
         === Activity
 
-        domain:[STEP module]
+        domain:[ISO 10303 application module]
 
         An *Activity* is the identification of the occurrence of an action that has taken place, is taking place, or is expected to take place in the future. The procedure executed during that *Activity* is identified with the <<express:Activity_method_arm.Activity_method,Activity_method>> that is referred to by the *chosen_method* attribute.
 
@@ -65,7 +65,7 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
       <<~TEXT
         === applied_action_assignment
 
-        domain:[STEP module]
+        domain:[ISO 10303 application module]
 
         An *applied_action_assignment* is an <<express:action_schema.action,action>> related to the data that are affected by the <<express:action_schema.action,action>>. An *applied_action_assignment* is a type of <<express:management_resources_schema.action_assignment,action_assignment>>.
 

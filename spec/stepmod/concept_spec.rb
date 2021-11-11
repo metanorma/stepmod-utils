@@ -47,7 +47,7 @@ RSpec.describe Stepmod::Utils::Concept do
         // STEPmod path:
         === supported_item
 
-        domain:[STEP resource]
+        domain:[ISO 10303 resource]
 
         The *supported_item* allows for the designation of an *action_directive*, an *action*, or an *action_method*.
 
@@ -85,7 +85,7 @@ RSpec.describe Stepmod::Utils::Concept do
         // STEPmod path:
         === complement
 
-        domain:[STEP resource]
+        domain:[ISO 10303 resource]
 
         A *complement* is a relationship that is between
 

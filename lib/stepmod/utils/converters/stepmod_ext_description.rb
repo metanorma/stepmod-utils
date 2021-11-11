@@ -43,10 +43,10 @@ module Stepmod
 
           domain =  case linkend.first
                     when /_mim$/, /_arm$/
-                      "STEP module"
+                      "ISO 10303 application module"
                     # when /_schema$/
                     else
-                      "STEP resource"
+                      "ISO 10303 resource"
                     end
 
           <<~TEMPLATE

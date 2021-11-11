@@ -14,7 +14,7 @@ module Stepmod
           # <<~TEXT
           # === #{node['name'].strip}
 
-          # <STEP module> #{treat_children(node, state).strip}
+          # <ISO 10303 application module> #{treat_children(node, state).strip}
           # TEXT
         end
       end
