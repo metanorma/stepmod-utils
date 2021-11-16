@@ -3,7 +3,7 @@ require 'stepmod/utils/terms_extractor'
 require 'stepmod/utils/converters/express_ref_express_description'
 
 RSpec.describe Stepmod::Utils::TermsExtractor do
-  subject(:call) { described_class.call(stepmod_dir, StringIO.new) }
+  subject(:call) { described_class.call(stepmod_dir, index_path, StringIO.new) }
 
   before do
     ReverseAdoc::Converters.unregister :express_ref
@@ -14,6 +14,7 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
 
   describe '.call' do
     let(:stepmod_dir) { fixtures_path('stepmod_terms_mock_directory') }
+    let(:index_path) { fixtures_path('stepmod_terms_mock_directory/repository_index.xml') }
     let(:resource_xml_converted_definition) do
       <<~TEXT
         === agreement of common understanding
