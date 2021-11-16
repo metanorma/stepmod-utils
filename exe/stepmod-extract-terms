@@ -21,14 +21,48 @@ end
 require "bundler/setup"
 require "stepmod/utils/terms_extractor"
 
-stepmod_dir = ARGV.first || Dir.pwd
+require 'optparse'
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: #{$0} [options]"
+
+  opts.on("-p", "--path STEPMOD_DATA_PATH", String, "Path to STEPmod CVS data directory") do |path|
+    options[:stepmod_dir] = path
+  end
+
+  opts.on("-i", "--index INDEX_PATH", String, "Path to repository_index.xml") do |path|
+    unless path.nil?
+      options[:index_path] = Pathname.new(path).to_s
+    end
+  end
+
+  opts.on_tail("-h", "--help", "Show this message") do
+    puts opts
+    exit
+  end
+end.parse!
+
+stepmod_dir = options[:stepmod_dir]
+if stepmod_dir.nil?
+  raise StandardError.new("STEPmod data path not set, set with the `-p` option.")
+else
+  log "STEPmod data path: `#{stepmod_dir}`"
+end
+
+index_path = options[:index_path] || File.join(stepmod_dir, "repository_index.xml")
+unless File.exists?(index_path)
+  raise StandardError.new("Index file not present at #{index_path}, set with the `-i` option.")
+else
+  log "Repository index path: `#{index_path}`"
+end
 
 general_concepts,
 resource_concepts,
 parsed_bibliography,
 part_concepts,
 part_resources,
-part_modules = Stepmod::Utils::TermsExtractor.call(stepmod_dir)
+part_modules = Stepmod::Utils::TermsExtractor.call(stepmod_dir, index_path)
 
 def part_to_title(bibdata)
   case bibdata.part.to_i

@@ -15,6 +15,7 @@ module Stepmod
 
       attr_reader :stepmod_path,
                   :stepmod_dir,
+                  :index_path,
                   :general_concepts,
                   :resource_concepts,
                   :parsed_bibliography,
@@ -25,14 +26,15 @@ module Stepmod
                   :part_modules,
                   :stdout
 
-      def self.call(stepmod_dir, stdout = $stdout)
-        new(stepmod_dir, stdout).call
+      def self.call(stepmod_dir, index_path, stdout = $stdout)
+        new(stepmod_dir, index_path, stdout).call
       end
 
-      def initialize(stepmod_dir, stdout)
+      def initialize(stepmod_dir, index_path, stdout)
         @stdout = stdout
         @stepmod_dir = stepmod_dir
         @stepmod_path = Pathname.new(stepmod_dir).realpath
+        @index_path = Pathname.new(index_path).to_s
         @general_concepts = Glossarist::Collection.new
         @resource_concepts = Glossarist::Collection.new
         @parsed_bibliography = []
@@ -79,7 +81,7 @@ module Stepmod
 
         log "INFO: Detecting paths..."
 
-        repo_index = Nokogiri::XML(File.read(stepmod_path.join("repository_index.xml"))).root
+        repo_index = Nokogiri::XML(File.read(@index_path)).root
 
         files = []
 

@@ -10,7 +10,8 @@ image:https://img.shields.io/github/commits-since/metanorma/stepmod-utils/latest
 
 == Purpose
 
-The `stepmod-utils` Ruby gem provides a number of tools to work with the STEPmod repository.
+The `stepmod-utils` Ruby gem provides a number of tools to work with the STEPmod
+repository.
 
 
 == CVS to Git migration procedures
@@ -31,11 +32,8 @@ Or include it in your gemspec.
 
 [source,sh]
 ----
-# Extracts from current directory
-$ stepmod-extract-terms
-
-# Extracts from specified stepmod/ or stepmod/data/ directory
-$ stepmod-extract-terms {stepmod-data-directory}
+# Extracts from specified stepmod/data/ directory
+$ stepmod-extract-terms -p {stepmod-data-directory} -i {path-to-repository_index.xml}
 ----
 
 Then these files will be created:
