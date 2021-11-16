@@ -20,8 +20,11 @@ end
 
 require "bundler/setup"
 require "stepmod/utils/terms_extractor"
-
 require 'optparse'
+
+def log(message)
+  puts "[stepmod-utils] #{message}"
+end
 
 options = {}
 OptionParser.new do |opts|
@@ -101,10 +104,6 @@ def replace_images(content)
   end
 
   content
-end
-
-def log(message)
-  puts "[stepmod-utils] #{message}"
 end
 
 part_concepts.each do |(bibdata, current_part_concepts)|
