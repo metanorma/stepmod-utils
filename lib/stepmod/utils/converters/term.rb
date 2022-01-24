@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "stepmod/utils/converters/synonym"
+require "stepmod/utils/term"
 require "glossarist"
 
 module Stepmod
@@ -24,33 +25,19 @@ module Stepmod
               node.text.split(";").length == 2 &&
               defined?(Stepmod::Utils::Converters::Synonym)
 
-            return to_mn_adoc(
-              Glossarist::Term.from_h(
-                "definition" => treat_children(node, state).strip,
-              ),
-            )
+            return Stepmod::Utils::Term.from_h(
+              "definition" => treat_children(node, state).strip,
+            ).to_mn_adoc
           end
 
           term_def, alt = node.text.split(";")
           alt_xml = Nokogiri::XML::Text.new(alt, Nokogiri::XML::Document.new)
           converted_alt = Stepmod::Utils::Converters::Synonym.new.convert(alt_xml)
 
-          term = Glossarist::Term.from_h(
+          Stepmod::Utils::Term.from_h(
             "definition" => term_def,
-            "synonyms" => converted_alt,
-          )
-
-          to_mn_adoc(term)
-        end
-
-        private
-
-        def to_mn_adoc(term)
-          mn_adoc = ["=== #{term.definition}"]
-          mn_adoc << "\nalt:[#{term.acronym}]" if term.acronym
-          mn_adoc << "\n\n#{term.synonyms}" if term.synonyms
-
-          mn_adoc.join
+            "synonyms" => [converted_alt],
+          ).to_mn_adoc
         end
       end
 
