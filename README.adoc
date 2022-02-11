@@ -14,11 +14,6 @@ The `stepmod-utils` Ruby gem provides a number of tools to work with the STEPmod
 repository.
 
 
-== CVS to Git migration procedures
-
-include::migrating_from_cvs.adoc[]
-
-
 == Installation
 
 [source,ruby]
@@ -116,48 +111,15 @@ expg_image:contract_schemaexpg1.xml[]
 expg_image:contract_schemaexpg2.xml[]
 ----
 
+== Git repository
 
-== CVS revision detection
-
-If the STEPmod repository is a CVS repository, it will display the
-working and repository revisions as comments.
-
-WARNING: CVS revision detection can be *slow*! Be patient.
-
-Sample output:
-
-[source,sh]
-----
-[stepmod-utils] INFO: STEPmod directory set to ../x/stepmod/.
-[stepmod-utils] INFO: STEPmod directory is a CVS repository and will detect revisions.
-[stepmod-utils] INFO: [CVS] Detecting file revisions can be slow, please be patient!
-[stepmod-utils] INFO: Detecting paths...
-[stepmod-utils] INFO: Processing XML file data/business_object_models/managed_model_based_3d_engineering/business_object_model.xml
-[stepmod-utils] INFO: Detecting CVS revision...
-[stepmod-utils] INFO: CVS working rev (1.148), repo rev (1.148)
-[stepmod-utils] INFO: Completed processing XML file data/business_object_models/managed_model_based_3d_engineering/business_object_model.xml
-[stepmod-utils] INFO: Processing XML file data/business_object_models/managed_model_based_3d_engineering_domain/business_object_model.xml
-[stepmod-utils] INFO: Detecting CVS revision...
-[stepmod-utils] INFO: CVS working rev (1.31), repo rev (1.31)
-[stepmod-utils] INFO: Completed processing XML file data/business_object_models/managed_model_based_3d_engineering_domain/business_object_model.xml
-...
- stepmod/data/business_object_models/managed_model_based_3d_engineering_domain/business_object_model.xml
-[stepmod-utils] INFO: written to: 031-generated-terms.adoc
-[stepmod-utils] INFO: written to: 991-generated-bibliography.adoc
-----
-
-
-== Non-CVS repository
-
-If the STEPmod repository is not a CVS repository, or if the `cvs` executable
-cannot be found, term extract will still work.
+If the STEPmod repository is a Git repository, term extract will work.
 
 Sample output:
 
 [source,sh]
 ----
 [stepmod-utils] INFO: STEPmod directory set to ../iso-10303-stepmod.
-[stepmod-utils] INFO: STEPmod directory is not a CVS repository, skipping revision detection.
 [stepmod-utils] INFO: Detecting paths...
 [stepmod-utils] INFO: Processing XML file data/application_protocols/boundary_representation_for_iso_14306_open_jt/application_protocol.xml
 [stepmod-utils] INFO: skipped ISO/CD 10303-243 as it is not IS, DIS or TS

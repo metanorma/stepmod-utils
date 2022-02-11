@@ -30,7 +30,7 @@ options = {}
 OptionParser.new do |opts|
   opts.banner = "Usage: #{$0} [options]"
 
-  opts.on("-p", "--path STEPMOD_DATA_PATH", String, "Path to STEPmod CVS data directory") do |path|
+  opts.on("-p", "--path STEPMOD_DATA_PATH", String, "Path to STEPmod data directory") do |path|
     options[:stepmod_dir] = path
   end
 
