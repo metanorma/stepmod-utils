@@ -20,7 +20,6 @@ module Stepmod
                   :resource_concepts,
                   :parsed_bibliography,
                   :encountered_terms,
-                  :cvs_mode,
                   :part_concepts,
                   :part_resources,
                   :part_modules,
@@ -60,25 +59,7 @@ module Stepmod
       end
 
       def call
-        # If we are using the stepmod CVS repository, provide the revision number per file
-        @cvs_mode = if Dir.exists?(stepmod_path.join("CVS"))
-                      require "ptools"
-                      # ptools provides File.which
-                      File.which("cvs")
-                    end
-
         log "INFO: STEPmod directory set to #{stepmod_dir}."
-
-        if cvs_mode
-          log "INFO: STEPmod directory is a \
-            CVS repository and will detect revisions."
-          log "INFO: [CVS] Detecting file revisions can be slow, \
-            please be patient!"
-        else
-          log "INFO: STEPmod directory is not a CVS repository, \
-            skipping revision detection."
-        end
-
         log "INFO: Detecting paths..."
 
         repo_index = Nokogiri::XML(File.read(@index_path)).root
@@ -161,27 +142,6 @@ module Stepmod
             next
           end
 
-          revision_string = "\n// CVS: revision not detected"
-          if cvs_mode
-            # Run `cvs status` to find out version
-
-            log "INFO: Detecting CVS revision..."
-            Dir.chdir(stepmod_path) do
-              status = `cvs status #{fpath}`
-
-              unless status.empty?
-                working_rev = status.split(/\n/).grep(/Working revision:/)
-                  .first.match(/revision:\s+(.+)$/)[1]
-                repo_rev = status.split(/\n/).grep(/Repository revision:/)
-                  .first.match(/revision:\t(.+)\t/)[1]
-                log "INFO: CVS working rev (#{working_rev}), \
-                  repo rev (#{repo_rev})"
-                revision_string = "\n// CVS working rev: (#{working_rev}), repo rev (#{repo_rev})\n" +
-                  "// CVS: revision #{working_rev == repo_rev ? 'up to date' : 'differs'}"
-              end
-            end
-          end
-
           # read definitions
           current_part_concepts = Glossarist::Collection.new
           definition_index = 0
@@ -203,7 +163,7 @@ module Stepmod
               definition,
               reference_anchor: bibdata.anchor,
               reference_clause: ref_clause,
-              file_path: fpath + revision_string,
+              file_path: fpath,
             )
             next unless concept
 
