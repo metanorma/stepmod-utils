@@ -142,6 +142,18 @@ module Stepmod
             next
           end
 
+          revision_string = ""
+
+          # Run `cvs status` to find out version
+          log "INFO: Detecting Git SHA..."
+          Dir.chdir(stepmod_path) do
+            git_sha = `git rev-parse HEAD`
+
+            unless git_sha.empty?
+              revision_string = "\n// Git: SHA #{git_sha}"
+            end
+          end
+
           # read definitions
           current_part_concepts = Glossarist::Collection.new
           definition_index = 0
@@ -163,7 +175,7 @@ module Stepmod
               definition,
               reference_anchor: bibdata.anchor,
               reference_clause: ref_clause,
-              file_path: fpath,
+              file_path: fpath + revision_string,
             )
             next unless concept
 
