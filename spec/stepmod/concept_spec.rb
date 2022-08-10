@@ -1,5 +1,7 @@
 require "spec_helper"
 require "support/smrl_converters_setup"
+require "expressir"
+require "expressir/express/parser"
 
 RSpec.describe Stepmod::Utils::Concept do
   subject(:parse) do
@@ -9,10 +11,12 @@ RSpec.describe Stepmod::Utils::Concept do
         reference_anchor: "ISO_10303-41_2020",
         reference_clause: nil,
         file_path: "",
+        exp_repo: repo,
       )
   end
 
   let(:input) { node_for(input_xml) }
+  let(:repo) { Expressir::Express::Parser.from_file("spec/fixtures/stepmod_terms_mock_directory/resources/action_schema/action_schema.exp") }
 
   original_ext_description = ReverseAdoc::Converters.lookup(:ext_description)
   original_express_ref = ReverseAdoc::Converters.lookup(:express_ref)
@@ -47,13 +51,11 @@ RSpec.describe Stepmod::Utils::Concept do
         // STEPmod path:
         === supported_item
 
-        domain:[ISO 10303 resource]
+        domain:[resource: action_schema]
 
-        The *supported_item* allows for the designation of an *action_directive*, an *action*, or an *action_method*.
+        entity data type that represents a/an supported_item entity
 
-
-        NOTE: This term is incompletely defined in this document.
-        Reference <<ISO_10303-41_2020>> for the complete definition.
+        NOTE: The *supported_item* allows for the designation of an *action_directive*, an *action*, or an *action_method*.
 
 
         [.source]
@@ -85,19 +87,17 @@ RSpec.describe Stepmod::Utils::Concept do
         // STEPmod path:
         === complement
 
-        domain:[ISO 10303 resource]
+        domain:[resource: action_schema]
 
-        A *complement* is a relationship that is between
+        entity data type that represents a/an complement entity
+
+        NOTE: A *complement* is a relationship that is between
 
         * set S1,
         * set U, and
         * set S2,
 
         that indicates set S2 consists of all members of U that are not members of S1.
-
-
-        NOTE: This term is incompletely defined in this document.
-        Reference <<ISO_10303-41_2020>> for the complete definition.
 
 
         [.source]

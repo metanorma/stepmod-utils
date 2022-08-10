@@ -1,6 +1,4 @@
 require "glossarist"
-require "expressir"
-require "expressir/express/parser"
 
 module Stepmod
   module Utils
