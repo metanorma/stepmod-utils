@@ -210,6 +210,9 @@ module Stepmod
                 parsed_schema_names[schema_name] = file_path
               end
 
+              description_exp_path = "#{stepmod_path}/resources/#{schema_name}/#{schema_name}.exp"
+              repo = Expressir::Express::Parser.from_file(description_exp_path)
+
               Dir["#{stepmod_path}/resources/#{schema_name}/descriptions.xml"].each do |description_xml_path|
                 log "INFO: Processing resources schema #{description_xml_path}"
                 description_document = Nokogiri::XML(File.read(description_xml_path)).root
@@ -222,6 +225,7 @@ module Stepmod
                     reference_clause: nil,
                     file_path: Pathname.new(description_xml_path)
                                 .relative_path_from(stepmod_path),
+                    exp_repo: repo,
                   )
                   next unless concept
 
@@ -253,6 +257,10 @@ module Stepmod
             end
 
             description_xml_path = "#{stepmod_path}/modules/#{schema_name}/arm_descriptions.xml"
+            description_exp_path = "#{stepmod_path}/modules/#{schema_name}/arm.exp"
+
+            repo = Expressir::Express::Parser.from_file(description_exp_path)
+
             log "INFO: Processing modules schema #{description_xml_path}"
 
             if File.exists?(description_xml_path)
@@ -268,6 +276,7 @@ module Stepmod
                   reference_clause: nil,
                   file_path: Pathname.new(description_xml_path)
                               .relative_path_from(stepmod_path),
+                  exp_repo: repo,
                 )
                 next unless concept
 
@@ -281,6 +290,9 @@ module Stepmod
             end
 
             description_xml_path = "#{stepmod_path}/modules/#{schema_name}/mim_descriptions.xml"
+            description_exp_path = "#{stepmod_path}/modules/#{schema_name}/mim.exp"
+
+            repo = Expressir::Express::Parser.from_file(description_exp_path)
             log "INFO: Processing modules schema #{description_xml_path}"
 
             if File.exists?(description_xml_path)
@@ -298,6 +310,7 @@ module Stepmod
                   file_path: Pathname
                               .new(description_xml_path)
                               .relative_path_from(stepmod_path),
+                  exp_repo: repo,
                 )
                 next unless concept
 
