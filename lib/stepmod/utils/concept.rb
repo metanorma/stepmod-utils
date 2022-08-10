@@ -1,4 +1,6 @@
 require "glossarist"
+require "expressir"
+require "expressir/express/parser"
 
 module Stepmod
   module Utils
@@ -11,25 +13,26 @@ module Stepmod
       )
 
       class << self
-        def parse(definition_xml, reference_anchor:, reference_clause:, file_path:, language_code: "en")
+        def parse(definition_xml, reference_anchor:, reference_clause:, file_path:, exp_repo: nil, language_code: "en")
           converted_definition = Stepmod::Utils::StepmodDefinitionConverter.convert(
             definition_xml,
             {
               # We don't want examples and notes
               no_notes_examples: true,
               reference_anchor: reference_anchor,
+              exp_repo: exp_repo,
             },
           )
 
           return nil if converted_definition.nil? || converted_definition.strip.empty?
 
           if definition_xml.name == "ext_description"
-            converted_definition = <<~TEXT
-              #{converted_definition}
+            # converted_definition = <<~TEXT
+            #   #{converted_definition}
 
-              NOTE: This term is incompletely defined in this document.
-              Reference <<#{reference_anchor}>> for the complete definition.
-            TEXT
+            #   NOTE: This term is incompletely defined in this document.
+            #   Reference <<#{reference_anchor}>> for the complete definition.
+            # TEXT
           end
 
           # https://github.com/metanorma/stepmod-utils/issues/86

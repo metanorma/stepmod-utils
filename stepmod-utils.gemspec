@@ -32,6 +32,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_runtime_dependency "concurrent-ruby"
+  spec.add_runtime_dependency "expressir"
   spec.add_runtime_dependency "glossarist", "~> 0.1.0"
   spec.add_runtime_dependency "ptools"
   spec.add_runtime_dependency "reverse_adoc", ">= 0.3.5"
