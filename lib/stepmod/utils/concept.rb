@@ -24,15 +24,6 @@ module Stepmod
 
           return nil if converted_definition.nil? || converted_definition.strip.empty?
 
-          if definition_xml.name == "ext_description"
-            # converted_definition = <<~TEXT
-            #   #{converted_definition}
-
-            #   NOTE: This term is incompletely defined in this document.
-            #   Reference <<#{reference_anchor}>> for the complete definition.
-            # TEXT
-          end
-
           # https://github.com/metanorma/stepmod-utils/issues/86
 
           # TODO: This portion DOES NOT HANDLE the <synonym> element. WTF??
