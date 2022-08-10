@@ -136,7 +136,6 @@ part_resources.each do |(bibdata, current_part_resources)|
   fn = "04x-stepmod-entities-resources-#{bibdata.part}.adoc"
   File.open(fn, "w") do |file|
     # file.puts("== #{part_to_title(bibdata)}\n\n")
-    file.puts("This term is incompletely defined in this document.\n")
     file.puts(replace_images(current_part_resources.map(&:to_mn_adoc).join("\n")))
   end
   log "INFO: written to: #{fn}"
@@ -165,7 +164,6 @@ part_modules.each do |(bibdata, part_modules_arm, part_modules_mim)|
 
       # puts "SCHEMA NAME ARM: #{schema_name}"
       file.puts("== #{schema_name}\n\n")
-      file.puts("This term is incompletely defined in this document.\n")
       file.puts(concepts.map(&:to_mn_adoc).join("\n"))
     end
 
