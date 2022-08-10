@@ -40,39 +40,33 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
       <<~TEXT
         === action_directive
 
-        domain:[ISO 10303 resource]
+        domain:[resource: action_schema]
 
-        An *action_directive* is an authoritative instrument that provides directions to achieve the specified results.
+        entity data type that represents a/an action_directive entity
 
-
-        NOTE: This term is incompletely defined in this document.
-        Reference <<ISO_10303-41_2021>> for the complete definition.
+        NOTE: An *action_directive* is an authoritative instrument that provides directions to achieve the specified results.
       TEXT
     end
     let(:arm_description_xml_converted_definition) do
       <<~TEXT
         === Activity
 
-        domain:[ISO 10303 application module]
+        domain:[module: Activity_arm]
 
-        An *Activity* is the identification of the occurrence of an action that has taken place, is taking place, or is expected to take place in the future. The procedure executed during that *Activity* is identified with the <<express:Activity_method_arm.Activity_method,Activity_method>> that is referred to by the *chosen_method* attribute.
+        entity data type that represents a/an Activity entity
 
-
-        NOTE: This term is incompletely defined in this document.
-        Reference <<ISO-TS_10303-1047_2014>> for the complete definition.
+        NOTE: An *Activity* is the identification of the occurrence of an action that has taken place, is taking place, or is expected to take place in the future. The procedure executed during that *Activity* is identified with the <<express:Activity_method_arm.Activity_method,Activity_method>> that is referred to by the *chosen_method* attribute.
       TEXT
     end
     let(:mim_description_converted_definition) do
       <<~TEXT
         === applied_action_assignment
 
-        domain:[ISO 10303 application module]
+        domain:[module: Activity_mim]
 
-        An *applied_action_assignment* is an <<express:action_schema.action,action>> related to the data that are affected by the <<express:action_schema.action,action>>. An *applied_action_assignment* is a type of <<express:management_resources_schema.action_assignment,action_assignment>>.
+        entity data type that is a type of action_assignment that represents a/an applied_action_assignment entity
 
-
-        NOTE: This term is incompletely defined in this document.
-        Reference <<ISO-TS_10303-1047_2014>> for the complete definition.
+        NOTE: An *applied_action_assignment* is an <<express:action_schema.action,action>> related to the data that are affected by the <<express:action_schema.action,action>>. An *applied_action_assignment* is a type of <<express:management_resources_schema.action_assignment,action_assignment>>.
       TEXT
     end
 

@@ -3,6 +3,8 @@ require "stepmod/utils/bibdata"
 require "stepmod/utils/concept"
 require "glossarist"
 require "securerandom"
+require "expressir"
+require "expressir/express/parser"
 
 ReverseAdoc.config.unknown_tags = :bypass
 
