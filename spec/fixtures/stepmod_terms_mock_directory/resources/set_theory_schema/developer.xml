@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: developer.xml,v 1.1 2002/09/16 09:24:30 robbod Exp $ -->
+<?xml-stylesheet type="text/xsl" href="../../../nav/xsl/schema_developer.xsl"?>
+<stylesheet_application directory="set_theory_schema"/>

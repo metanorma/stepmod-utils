@@ -1,6 +1,8 @@
 require "json"
 require "stepmod/utils/smrl_description_converter"
 require "stepmod/utils/smrl_resource_converter"
+require "stepmod/utils/converters/express_note"
+require "stepmod/utils/converters/express_example"
 
 module Stepmod
   module Utils
@@ -64,7 +66,27 @@ module Stepmod
       def convert_from_description_text(descriptions_file, description)
         Dir.chdir(File.dirname(descriptions_file)) do
           wrapper = "<ext_descriptions>#{description}</ext_descriptions>"
-          "\n#{Stepmod::Utils::SmrlDescriptionConverter.convert(wrapper)}"
+          notes = description.xpath("note")
+          examples = description.xpath("example")
+
+          converted_description = <<~DESCRIPTION
+
+            #{Stepmod::Utils::SmrlDescriptionConverter.convert(wrapper, no_notes_examples: true)}
+          DESCRIPTION
+
+          converted_examples = examples.map do |example|
+            Stepmod::Utils::Converters::ExpressExample
+              .new
+              .convert(example, schema_and_entity: description["linkend"])
+          end.join
+
+          converted_notes = notes.map do |note|
+            Stepmod::Utils::Converters::ExpressNote
+              .new
+              .convert(note, schema_and_entity: description["linkend"])
+          end.join
+
+          "#{converted_description}#{converted_examples}#{converted_notes}"
         end
       end
 
@@ -77,7 +99,7 @@ module Stepmod
 
         Dir.chdir(File.dirname(descriptions_file)) do
           wrapper = "<resource>#{schema}</resource>"
-          "\n#{Stepmod::Utils::SmrlResourceConverter.convert(wrapper)}"
+          "\n#{Stepmod::Utils::SmrlResourceConverter.convert(wrapper, no_notes_examples: true)}"
         end
       end
     end

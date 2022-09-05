@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="../../../xsl/express.xsl"?>
+<!DOCTYPE express SYSTEM "../../../dtd/express.dtd">
+
+<express description.file="descriptions.xml" language_version="2" rcs.date="$Date: 2014/04/08 08:44:45 $" rcs.revision="$Revision: 1.20 $" reference="ISO 10303-54">
+   <application name="JSDAI" owner="LKSoft" source="set_theory_schema schema_instance" url="www.lksoft.com" version="4.0 beta"/>
+   <schema name="set_theory_schema">
+      <interface kind="reference" schema="classification_schema">
+         <interfaced.item name="class"/>
+      </interface>
+      <interface kind="reference" schema="support_resource_schema">
+         <interfaced.item name="identifier"/>
+         <interfaced.item name="label"/>
+         <interfaced.item name="text"/>
+      </interface>
+      <entity name="complement">
+         <explicit name="id">
+            <typename name="identifier"/>
+         </explicit>
+         <explicit name="name">
+            <typename name="label"/>
+         </explicit>
+         <explicit name="description" optional="YES">
+            <typename name="text"/>
+         </explicit>
+         <explicit name="set_1">
+            <typename name="class"/>
+         </explicit>
+         <explicit name="set_2">
+            <typename name="class"/>
+         </explicit>
+         <explicit name="universe">
+            <typename name="class"/>
+         </explicit>
+         <where expression="NOT identical_sets(set_1, set_2)" label="complement_different"/>
+      </entity>
+      <entity name="intersection">
+         <explicit name="id">
+            <typename name="identifier"/>
+         </explicit>
+         <explicit name="name">
+            <typename name="label"/>
+         </explicit>
+         <explicit name="description" optional="YES">
+            <typename name="text"/>
+         </explicit>
+         <explicit name="operand">
+            <aggregate lower="2" type="SET" upper="?"/>
+            <typename name="class"/>
+         </explicit>
+         <explicit name="resultant">
+            <typename name="class"/>
+         </explicit>
+      </entity>
+      <entity name="power_set">
+         <explicit name="id">
+            <typename name="identifier"/>
+         </explicit>
+         <explicit name="name">
+            <typename name="label"/>
+         </explicit>
+         <explicit name="description" optional="YES">
+            <typename name="text"/>
+         </explicit>
+         <explicit name="base">
+            <typename name="class"/>
+         </explicit>
+         <explicit name="derived">
+            <typename name="class"/>
+         </explicit>
+         <where expression="NOT identical_sets(base, derived)" label="derived_different"/>
+      </entity>
+      <entity name="proper_subset" supertypes="subset">
+         <where expression="NOT identical_sets(superset, subset)" label="subset_different"/>
+      </entity>
+      <entity name="same_membership">
+         <explicit name="id">
+            <typename name="identifier"/>
+         </explicit>
+         <explicit name="name">
+            <typename name="label"/>
+         </explicit>
+         <explicit name="description" optional="YES">
+            <typename name="text"/>
+         </explicit>
+         <explicit name="set_1">
+            <typename name="class"/>
+         </explicit>
+         <explicit name="set_2">
+            <typename name="class"/>
+         </explicit>
+      </entity>
+      <entity name="subset">
+         <explicit name="id">
+            <typename name="identifier"/>
+         </explicit>
+         <explicit name="name">
+            <typename name="label"/>
+         </explicit>
+         <explicit name="description" optional="YES">
+            <typename name="text"/>
+         </explicit>
+         <explicit name="subset">
+            <typename name="class"/>
+         </explicit>
+         <explicit name="superset">
+            <typename name="class"/>
+         </explicit>
+      </entity>
+      <entity name="union">
+         <explicit name="id">
+            <typename name="identifier"/>
+         </explicit>
+         <explicit name="name">
+            <typename name="label"/>
+         </explicit>
+         <explicit name="description" optional="YES">
+            <typename name="text"/>
+         </explicit>
+         <explicit name="operand">
+            <aggregate lower="2" type="SET" upper="?"/>
+            <typename name="class"/>
+         </explicit>
+         <explicit name="resultant">
+            <typename name="class"/>
+         </explicit>
+      </entity>
+      <entity name="union_of_all_members">
+         <explicit name="id">
+            <typename name="identifier"/>
+         </explicit>
+         <explicit name="name">
+            <typename name="label"/>
+         </explicit>
+         <explicit name="description" optional="YES">
+            <typename name="text"/>
+         </explicit>
+         <explicit name="operand">
+            <typename name="class"/>
+         </explicit>
+         <explicit name="resultant">
+            <typename name="class"/>
+         </explicit>
+         <where expression="NOT identical_sets(operand, resultant)" label="resultant_different"/>
+      </entity>
+      <function name="identical_sets">
+         <parameter name="set_a">
+            <typename name="class"/>
+         </parameter>
+         <parameter name="set_b">
+            <typename name="class"/>
+         </parameter>
+         <builtintype type="BOOLEAN"/>
+         <algorithm>LOCAL
+    set_of_sets : SET OF class := [];
+  END_LOCAL;
+  
+  IF (set_a = set_b) THEN
+    RETURN (TRUE);
+  END_IF;
+  
+  set_of_sets := set_of_sets + set_b;
+  RETURN (identical_to_one_of_set_of_sets(set_a, set_of_sets));</algorithm>
+      </function>
+      <function name="identical_to_one_of_set_of_sets">
+         <parameter name="set_a">
+            <typename name="class"/>
+         </parameter>
+         <parameter name="set_of_sets">
+            <aggregate lower="0" type="SET" upper="?"/>
+            <typename name="class"/>
+         </parameter>
+         <builtintype type="BOOLEAN"/>
+         <algorithm>LOCAL
+    i                            : INTEGER;
+    initial_size                 : INTEGER;
+    augmented_size               : INTEGER;
+    set_of_forward_equivalences  : SET OF same_membership := [];
+    set_of_backward_equivalences : SET OF same_membership := [];
+    augmented_set_of_sets        : SET OF class := [];
+  END_LOCAL;
+  
+  --  test membership of the specified set of sets
+  
+  IF (set_a IN set_of_sets) THEN
+    RETURN (TRUE);
+  END_IF;
+  
+  --  extend the specified set to include all sets that have the same membership
+  --  as an existing member
+  
+  initial_size := SIZEOF(set_of_sets);
+  IF (initial_size = 0) THEN
+    RETURN (FALSE);
+  END_IF;
+  REPEAT i := 1 TO initial_size;
+    set_of_forward_equivalences := set_of_forward_equivalences +
+      USEDIN(set_of_sets[i], 'SET_THEORY_SCHEMA.SAME_MEMBERSHIP.SET_1');
+    set_of_backward_equivalences := set_of_forward_equivalences +
+      USEDIN(set_of_sets[i], 'SET_THEORY_SCHEMA.SAME_MEMBERSHIP.SET_2');
+  END_REPEAT;
+  
+  augmented_set_of_sets := set_of_sets;
+  IF (SIZEOF(set_of_forward_equivalences) &gt; 0) THEN
+    REPEAT i := 1 to HIINDEX(set_of_forward_equivalences);
+      augmented_set_of_sets := augmented_set_of_sets +
+        set_of_forward_equivalences[i].set_2;
+    END_REPEAT;
+  END_IF;
+  IF (SIZEOF(set_of_backward_equivalences) &gt; 0) THEN
+    REPEAT i := 1 to HIINDEX(set_of_backward_equivalences);
+      augmented_set_of_sets := augmented_set_of_sets +
+        set_of_backward_equivalences[i].set_1;
+    END_REPEAT;
+  END_IF;
+  
+  -- if the specified set of sets has been augmented, then test membership
+  
+  augmented_size := SIZEOF(augmented_set_of_sets);
+  IF augmented_size = initial_size THEN
+    RETURN (FALSE);
+  END_IF;
+  
+  RETURN (identical_to_one_of_set_of_sets(set_a, augmented_set_of_sets));</algorithm>
+      </function>
+   </schema>
+</express>

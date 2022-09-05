@@ -5,6 +5,7 @@ require "glossarist"
 require "securerandom"
 require "expressir"
 require "expressir/express/parser"
+require "indefinite_article"
 
 ReverseAdoc.config.unknown_tags = :bypass
 
@@ -200,7 +201,7 @@ module Stepmod
           case file_path.to_s
           when /resource.xml$/
             log "INFO: Processing resource.xml for #{file_path}"
-            # Assumption: every schema is only linked by a single resource_docs document.
+
             current_document.xpath("//schema").each do |schema_node|
               schema_name = schema_node["name"]
               if parsed_schema_names[schema_name]
@@ -212,23 +213,36 @@ module Stepmod
                 parsed_schema_names[schema_name] = file_path
               end
 
-              description_exp_path = "#{stepmod_path}/resources/#{schema_name}/#{schema_name}.exp"
-              repo = Expressir::Express::Parser.from_file(description_exp_path)
+              exp_annotated_path =
+                "#{stepmod_path}/resources/#{schema_name}/#{schema_name}_annotated.exp"
 
-              Dir["#{stepmod_path}/resources/#{schema_name}/descriptions.xml"].each do |description_xml_path|
-                log "INFO: Processing resources schema #{description_xml_path}"
-                description_document = Nokogiri::XML(File.read(description_xml_path)).root
-                description_document.xpath("//ext_description").each do |ext_description|
-                  # log "INFO: Processing linkend[#{ext_description['linkend']}]"
+              log "INFO: Processing resources schema #{exp_annotated_path}"
 
-                  concept = Stepmod::Utils::Concept.parse(
-                    ext_description,
-                    reference_anchor: bibdata.anchor,
-                    reference_clause: nil,
-                    file_path: Pathname.new(description_xml_path)
+              if File.exists?(exp_annotated_path)
+                repo = Expressir::Express::Parser.from_file(exp_annotated_path)
+                schema = repo.schemas.first
+
+                schema.entities.each do |entity|
+                  old_definition = entity.remarks.first
+
+                  domain = "resource: #{schema.id}"
+                  entity_definition = generate_entity_definition(entity, domain, old_definition)
+
+                  reference_anchor = bibdata.anchor
+                  reference_clause = nil
+
+                  concept = Stepmod::Utils::Concept.new(
+                    designations: [entity.id],
+                    definition: old_definition,
+                    converted_definition: entity_definition,
+                    id: "#{reference_anchor}.#{reference_clause}",
+                    reference_anchor: reference_anchor,
+                    reference_clause: reference_clause,
+                    file_path: Pathname.new(file_path)
                                 .relative_path_from(stepmod_path),
-                    exp_repo: repo,
+                    language_code: "en",
                   )
+
                   next unless concept
 
                   if term_special_category(bibdata)
@@ -258,71 +272,89 @@ module Stepmod
               parsed_schema_names[schema_name] = file_path
             end
 
-            description_xml_path = "#{stepmod_path}/modules/#{schema_name}/arm_descriptions.xml"
-            description_exp_path = "#{stepmod_path}/modules/#{schema_name}/arm.exp"
+            exp_annotated_path =
+              "#{stepmod_path}/modules/#{schema_name}/arm_annotated.exp"
 
-            repo = Expressir::Express::Parser.from_file(description_exp_path)
+            log "INFO: Processing modules schema #{exp_annotated_path}"
 
-            log "INFO: Processing modules schema #{description_xml_path}"
+            if File.exists?(exp_annotated_path)
+              repo = Expressir::Express::Parser.from_file(exp_annotated_path)
 
-            if File.exists?(description_xml_path)
-              description_document = Nokogiri::XML(
-                File.read(description_xml_path),
-              )
-                .root
-              description_document.xpath("//ext_description").each do |ext_description|
-                linkend_schema = ext_description["linkend"].split(".").first
-                concept = Stepmod::Utils::Concept.parse(
-                  ext_description,
-                  reference_anchor: bibdata.anchor,
-                  reference_clause: nil,
-                  file_path: Pathname.new(description_xml_path)
-                              .relative_path_from(stepmod_path),
-                  exp_repo: repo,
-                )
-                next unless concept
+              repo.schemas.each do |schema|
+                schema.entities.each do |entity|
+                  old_definition = entity.remarks.first
 
-                current_part_modules_arm[linkend_schema] ||= Glossarist::Collection.new
-                find_or_initialize_concept(
-                  current_part_modules_arm[linkend_schema], concept
-                )
-                # puts part_modules_arm.inspect
-                parsed_bibliography << bibdata
+                  domain = "application module: #{schema.id}"
+                  entity_definition = generate_entity_definition(entity, domain, old_definition)
+
+                  reference_anchor = bibdata.anchor
+                  reference_clause = nil
+
+                  concept = Stepmod::Utils::Concept.new(
+                    designations: [entity.id],
+                    definition: old_definition,
+                    converted_definition: entity_definition,
+                    id: "#{reference_anchor}.#{reference_clause}",
+                    reference_anchor: reference_anchor,
+                    reference_clause: reference_clause,
+                    file_path: Pathname.new(file_path)
+                                .relative_path_from(stepmod_path),
+                    language_code: "en",
+                  )
+
+                  next unless concept
+
+                  current_part_modules_arm[schema.id] ||=
+                    Glossarist::Collection.new
+                  find_or_initialize_concept(
+                    current_part_modules_arm[schema.id], concept
+                  )
+
+                  # puts part_modules_arm.inspect
+                  parsed_bibliography << bibdata
+                end
               end
             end
 
-            description_xml_path = "#{stepmod_path}/modules/#{schema_name}/mim_descriptions.xml"
-            description_exp_path = "#{stepmod_path}/modules/#{schema_name}/mim.exp"
+            mim_exp_annotated_path = "#{stepmod_path}/modules/#{schema_name}/mim_annotated.exp"
 
-            repo = Expressir::Express::Parser.from_file(description_exp_path)
-            log "INFO: Processing modules schema #{description_xml_path}"
+            log "INFO: Processing modules schema #{mim_exp_annotated_path}"
 
-            if File.exists?(description_xml_path)
-              description_document = Nokogiri::XML(
-                File.read(description_xml_path),
-              )
-                .root
-              description_document.xpath("//ext_description").each do |ext_description|
-                linkend_schema = ext_description["linkend"].split(".").first
+            if File.exists?(mim_exp_annotated_path)
+              repo = Expressir::Express::Parser.from_file(mim_exp_annotated_path)
 
-                concept = Stepmod::Utils::Concept.parse(
-                  ext_description,
-                  reference_anchor: bibdata.anchor,
-                  reference_clause: nil,
-                  file_path: Pathname
-                              .new(description_xml_path)
-                              .relative_path_from(stepmod_path),
-                  exp_repo: repo,
-                )
-                next unless concept
+              repo.schemas.each do |schema|
+                schema.entities.each do |entity|
+                  old_definition = entity.remarks.first
 
-                current_part_modules_mim[linkend_schema] ||=
-                  Glossarist::Collection.new
-                find_or_initialize_concept(
-                  current_part_modules_mim[linkend_schema], concept
-                )
+                  domain = "application module: #{schema.id}"
+                  definition = generate_entity_definition(entity, domain, old_definition)
 
-                parsed_bibliography << bibdata
+                  reference_anchor = bibdata.anchor
+                  reference_clause = nil
+
+                  concept = Stepmod::Utils::Concept.new(
+                    designations: [entity.id],
+                    definition: old_definition,
+                    converted_definition: definition,
+                    id: "#{reference_anchor}.#{reference_clause}",
+                    reference_anchor: reference_anchor,
+                    reference_clause: reference_clause,
+                    file_path: Pathname.new(file_path)
+                                .relative_path_from(stepmod_path),
+                    language_code: "en",
+                  )
+
+                  next unless concept
+
+                  current_part_modules_mim[schema.id] ||=
+                    Glossarist::Collection.new
+                  find_or_initialize_concept(
+                    current_part_modules_mim[schema.id], concept
+                  )
+
+                  parsed_bibliography << bibdata
+                end
               end
             end
 
@@ -358,9 +390,61 @@ module Stepmod
       end
 
       def find_or_initialize_concept(collection, localized_concept)
+        concept_id = SecureRandom.uuid
+
         concept = collection
-          .store(Glossarist::Concept.new(id: SecureRandom.uuid))
+          .store(Glossarist::Concept.new(id: concept_id))
         concept.add_l10n(localized_concept)
+      end
+
+      # rubocop:disable Layout/LineLength
+      def generate_entity_definition(entity, domain, old_definition)
+        return "" if entity.nil?
+
+        entity_text = if entity.subtype_of.size.zero?
+                        "entity data type that represents #{entity.id.with_indefinite_article} entity"
+                      else
+                        "entity data type that is a type of #{entity.subtype_of.map(&:id).join(' and ')} that represents #{entity.id.with_indefinite_article} entity"
+                      end
+
+        definition = <<~DEFINITION
+          === #{entity.id}
+          domain:[#{domain}]
+
+          #{entity_text}
+
+          [NOTE]
+          --
+          #{old_definition&.strip}
+          --
+        DEFINITION
+
+        definition + format_remark_items(entity.remark_items)
+      end
+
+      def format_remark_items(remark_items)
+        notes = remark_items.detect { |i| i.id == "__note" }&.remarks
+        examples = remark_items.detect { |i| i.id == "__example" }&.remarks
+
+        formatted_notes = format_remarks(notes, "NOTE", "--")
+        formatted_examples = format_remarks(examples, "EXAMPLE", "====")
+
+        formatted_notes + formatted_examples
+      end
+      # rubocop:enable Layout/LineLength
+
+      def format_remarks(remarks, remark_item_name, remark_item_symbol)
+        return "" if remarks.nil?
+
+        remarks.map do |remark|
+          <<~REMARK
+
+            [#{remark_item_name}]
+            #{remark_item_symbol}
+            #{remark}
+            #{remark_item_symbol}
+          REMARK
+        end.join
       end
     end
   end

@@ -1,0 +1,45 @@
+(*
+$Id: mim.exp,v 1.17 2009/12/11 13:39:31 mikeward Exp $
+ISO TC184/SC4/WG12 N1157 - ISO/TS 10303-1047 Activity - EXPRESS MIM
+*) 
+
+
+SCHEMA Activity_mim;
+
+USE FROM action_schema   -- ISO 10303-41
+  (action,
+   action_relationship,
+   action_status,
+   executed_action); 
+
+USE FROM Activity_method_mim;    -- ISO/TS 10303-1049
+
+USE FROM basic_attribute_schema   -- ISO 10303-41
+  (id_attribute,
+   object_role); 
+
+USE FROM management_resources_schema   -- ISO 10303-41
+  (action_assignment); 
+
+
+TYPE action_items = EXTENSIBLE GENERIC_ENTITY SELECT;
+END_TYPE; 
+
+ENTITY applied_action_assignment
+  SUBTYPE OF (action_assignment);
+  items : SET[1:?] OF action_items;
+END_ENTITY;
+
+END_SCHEMA;  -- Activity_mim
+
+(*"Activity_mim.applied_action_assignment"
+An *applied_action_assignment* is an <<express:action_schema.action,action>> related to the data that are affected by the <<express:action_schema.action,action>>. An *applied_action_assignment* is a type of <<express:management_resources_schema.action_assignment,action_assignment>>.
+*)
+
+
+
+(*"Activity_mim.applied_action_assignment.items"
+the product or activity data that are affected by the <<express:action_schema.action,action>>.
+*)
+
+

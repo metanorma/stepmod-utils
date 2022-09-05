@@ -1,0 +1,544 @@
+<?xml version="1.0"?>
+<?xml-stylesheet 
+  type="text/xsl" 
+  href="../../../xsl/descriptions.xsl"?>
+<!DOCTYPE ext_descriptions SYSTEM "../../../dtd/description.dtd">
+<ext_descriptions module_directory="set_theory_schema" schema_file="set_theory_schema.xml" describe.selects="YES" describe.subtype_constraints="YES" rcs.date="$Date: 2004/11/11 01:28:37 $" rcs.revision="$Revision: 1.13 $">
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  Schema: set_theory_schema
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="set_theory_schema">
+</ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: complement  
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.complement"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.complement"><p>A <b>complement</b> is a relationship that is between</p>
+<ul><li>
+set S1,</li><li>
+set U, and</li><li>
+set S2,</li></ul>
+<p>that indicates set S2 consists of all members of U that are not members of S1.
+</p></ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: complement  Attribute: id 
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.complement.id"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.complement.id">
+the <express_ref linkend="support_resource_schema:ir_express:support_resource_schema.identifier"/> for the complement relationship.</ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: complement  Attribute: name 
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.complement.name"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.complement.name">
+the <express_ref linkend="support_resource_schema:ir_express:support_resource_schema.label"/>
+
+ by which the <b>complement</b> relationship is known.</ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: complement  Attribute: description 
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.complement.description"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.complement.description">
+the <express_ref linkend="support_resource_schema:ir_express:support_resource_schema.text"/>
+
+ that characterizes the  complement relationship.  The value of this attribute need not be specified.</ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: complement  Attribute: set_1 
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.complement.set_1"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.complement.set_1">
+the class that has  <b>set_2</b> as its complement within <b>universe</b>.</ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: complement  Attribute: set_2 
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.complement.set_2"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.complement.set_2">
+the class that has <b>set_1</b> as its complement within <b>universe</b>.</ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: complement  Where: complement_different 
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.complement.wr:complement_different"/>
+
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.complement.wr:complement_different">
+a class shall not be explicitly stated to be identical to its complement.</ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: complement  Attribute: universe 
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.complement.universe"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.complement.universe">
+the class that is the union of <b>set_1</b> and <b>set_2</b>.</ext_description>
+
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: intersection  
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.intersection"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.intersection"><p>An <b>intersection</b> is a relationship that is between</p> 
+<ul><li>
+set R and</li><li>
+set of sets {Si},</li></ul>
+<p>that indicates set R consists of each thing that is a member of each set within {Si}.</p>
+</ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: intersection  Attribute: id 
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.intersection.id"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.intersection.id">
+the <express_ref linkend="support_resource_schema:ir_express:support_resource_schema.identifier"/> for the intersection relationship. </ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: intersection  Attribute: name 
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.intersection.name"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.intersection.name">
+the <express_ref linkend="support_resource_schema:ir_express:support_resource_schema.label"/>
+
+ by which the  <b>intersection</b> relationship is known..</ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: intersection  Attribute: description 
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.intersection.description"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.intersection.description">
+the <express_ref linkend="support_resource_schema:ir_express:support_resource_schema.text"/>
+
+ that characterizes the <b>intersection</b> relationship.   The value of this attribute need not be specified.</ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: intersection  Attribute: operand 
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.intersection.operand"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.intersection.operand">
+the set of sets that have the resultant as their intersection.</ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: intersection  Attribute: resultant 
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.intersection.resultant"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.intersection.resultant">
+the set that consists of each thing that is a member of each set within the operand.</ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: power_set  
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.power_set"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.power_set"><p>A <b>power_set</b> is a relationship that is between</p>
+<ul><li>
+set S and</li><li> 
+set S*, 
+</li></ul>
+<p>that indicates S* is the set of all subsets of S.</p>
+
+<example><p>Consider the following three instances of class:</p>
+<ul><li>
+'pump' - a class that has individual pumps as members;</li><li>
+'commodity class' - a class that has commodity classes used for procurement as members;</li><li>
+'pump commodity class' - a class that has commodity classes used for procurement of pumps.</li></ul>
+<p>'Pump commodity class' is the intersection of 'commodity class' and the <b>power_set</b> of 'pump'.</p></example>
+</ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: power_set  Attribute: id 
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.power_set.id"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.power_set.id">
+the <express_ref linkend="support_resource_schema:ir_express:support_resource_schema.identifier"/> for the <b>power_set</b> relationship. </ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: power_set  Attribute: name 
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.power_set.name"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.power_set.name">
+the <express_ref linkend="support_resource_schema:ir_express:support_resource_schema.label"/>
+
+ by which the  <b>power_set</b> relationship is known.</ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: power_set  Attribute: description 
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.power_set.description"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.power_set.description">
+the <express_ref linkend="support_resource_schema:ir_express:support_resource_schema.text"/>
+
+ that characterizes the   <b>power_set</b> relationship.    The value of this attribute need not be specified.</ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: power_set  Attribute: base 
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.power_set.base"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.power_set.base">
+<p>the set whose <b>power_set</b> is the <b>derived</b> set.</p> <note>The base is the union of the <b>derived</b>.</note></ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: power_set  Attribute: derived 
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.power_set.derived"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.power_set.derived">
+the set of all subsets of the <b>base</b>.</ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: power_set  Where: derived_different 
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.power_set.wr:derived_different"/>
+
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.power_set.wr:derived_different">
+A <express_ref linkend="classification_and_set_theory:ir:classification_schema.class"/>
+
+ shall not be explicitly stated to be identical to the <express_ref linkend="classification_and_set_theory:ir:classification_schema.class"/>
+
+ from which it is derived as power set.</ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: proper_subset  
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.proper_subset"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.proper_subset"><p>A <b>proper_subset</b> is a type of <express_ref linkend="classification_and_set_theory:ir:set_theory_schema.subset"/>
+that is a relationship  between</p>
+<ul><li>
+set A and</li><li> 
+set B,</li></ul>
+<p>that indicates the following:</p>
+<ul><li>
+each member of set A is also a member of set B;</li><li>
+set A does not equal set B. </li></ul></ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: proper_subset  Where: subset_different 
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.proper_subset.wr:subset_different"/>
+
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.proper_subset.wr:subset_different">a <express_ref linkend="classification_and_set_theory:ir:classification_schema.class"/>
+
+ that is a proper subset shall not be explicitly stated to be identical to its superset.
+</ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: same_membership  
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.same_membership"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.same_membership"><p>A <b>same_membership</b> is a relationship that is between</p>
+<ul><li>
+set S1 and</li><li>
+set S2,</li></ul>
+<p>that indicates the sets have the same members. Hence, set S1 and set S1 are the same set.</p>
+</ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: same_membership  Attribute: id 
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.same_membership.id"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.same_membership.id">
+the <express_ref linkend="support_resource_schema:ir_express:support_resource_schema.identifier"/>
+
+ for the <b>same_membership</b> relationship.</ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: same_membership  Attribute: name 
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.same_membership.name"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.same_membership.name">
+the <express_ref linkend="support_resource_schema:ir_express:support_resource_schema.label"/>
+
+ by which the  <b>same_membership</b> relationship is known.</ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: same_membership  Attribute: description 
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.same_membership.description"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.same_membership.description">
+the <express_ref linkend="support_resource_schema:ir_express:support_resource_schema.text"/>
+
+ that characterizes the   <b>same_membership</b> relationship.    The value of this attribute need not be specified.</ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: same_membership  Attribute: set_1 
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.same_membership.set_1"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.same_membership.set_1">
+the <express_ref linkend="classification_and_set_theory:ir:classification_schema.class"/>
+
+ that contains the same members as <b>set_2</b>.</ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: same_membership  Attribute: set_2 
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.same_membership.set_2"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.same_membership.set_2">
+the <express_ref linkend="classification_and_set_theory:ir:classification_schema.class"/>
+
+ that contains the same members as <b>set_1</b>.</ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: subset  
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.subset"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.subset"><p>A <b>subset</b> is a relationship that is between</p> 
+<ul>
+<li>set A and </li>
+<li>
+set B,</li></ul><p>
+that indicates each member of set A is also a member of set B. </p>
+<note>Set A may be equal to B.</note>
+</ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: subset  Attribute: id 
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.subset.id"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.subset.id">
+the <express_ref linkend="support_resource_schema:ir_express:support_resource_schema.identifier"/> for the subset relationship.</ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: subset  Attribute: name 
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.subset.name"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.subset.name">
+the <express_ref linkend="support_resource_schema:ir_express:support_resource_schema.label"/>
+
+ by which the  <b>subset</b> relationship is known.</ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: subset  Attribute: description 
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.subset.description"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.subset.description">
+the <express_ref linkend="support_resource_schema:ir_express:support_resource_schema.text"/>
+
+ that characterizes the   subset relationship.  The value of this attribute need not be specified.</ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: subset  Attribute: subset 
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.subset.subset"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.subset.subset">
+the <express_ref linkend="classification_and_set_theory:ir:classification_schema.class"/>
+
+ that contains only members of superset.</ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: subset  Attribute: superset 
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.subset.superset"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.subset.superset">
+the <express_ref linkend="classification_and_set_theory:ir:classification_schema.class"/>
+
+ that contains all members of subset.</ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: union  
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.union"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.union"><p>A <b>union</b> is a relationship that is between</p>
+<ul><li>
+set R and </li><li>set of sets {Si},</li></ul>
+<p>that indicates set R consists of each thing that is a member of a set within {Si}.</p>
+</ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: union  Attribute: id 
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.union.id"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.union.id">
+the <express_ref linkend="support_resource_schema:ir_express:support_resource_schema.identifier"/>
+
+ for the <b>union</b> relationship. </ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: union  Attribute: name 
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.union.name"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.union.name">
+the <express_ref linkend="support_resource_schema:ir_express:support_resource_schema.label"/>
+
+ by which the  <b>union</b> relationship is known.</ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: union  Attribute: description 
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.union.description"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.union.description">
+the <express_ref linkend="support_resource_schema:ir_express:support_resource_schema.text"/>
+
+ that characterizes the   <b>union</b> relationship.  The value of this attribute need not be specified.</ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: union  Attribute: operand 
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.union.operand"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.union.operand">
+the set of sets that have the <b>resultant</b> as their <b>union</b>.</ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: union  Attribute: resultant 
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.union.resultant"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.union.resultant">
+the set that consists of each thing that is a member of a set within the operand.</ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: union_of_all_members  
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.union_of_all_members"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.union_of_all_members"><p>A <b>union_of_all_members</b> is a relationship that is between</p> 
+<ul><li>
+set R and</li><li>
+sets S,
+</li></ul>
+<p>where each of the members of S is a set, 
+that indicates set R consists of each thing that is a member of a set within S.</p>
+
+<example><p>Consider the class that is the temperature range 10 to 20 degrees Celsius. A temperature such as 15 degrees Celsius is a member of the range.</p>
+<p>The temperature 15 degrees Celsius is a member of the class that is the temperature range 10 to 20 degrees Celsius.
+</p>
+<p>
+The class that consists of all objects with a thermodynamic energy in the range 15 to 20 degrees Celsius is the <b>union_of_all_members</b> of the temperature range 10 to 20 degrees Celsius.
+</p></example>
+
+<note>The entity <b>union_of_all_members</b> is equivalent to <express_ref linkend="classification_and_set_theory:ir:set_theory_schema.union"/>, and is used where the <express_ref linkend="classification_and_set_theory:ir:set_theory_schema.union_of_all_members.operand"/>
+
+ set has a large or infinite number of members.</note>
+</ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: union_of_all_members  Attribute: description 
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.union_of_all_members.description"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.union_of_all_members.description">
+ the <express_ref linkend="support_resource_schema:ir_express:support_resource_schema.text"/>
+
+ that characterizes the   <b>union_of_all_members</b> relationship.  The value of this attribute need not be specified.</ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: union_of_all_members  Attribute: id 
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.union_of_all_members.id"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.union_of_all_members.id">
+the <express_ref linkend="support_resource_schema:ir_express:support_resource_schema.identifier"/>
+
+ for the <b>union_of_all_members</b> relationship.</ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: union_of_all_members  Attribute: name 
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.union_of_all_members.name"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.union_of_all_members.name">
+the <express_ref linkend="support_resource_schema:ir_express:support_resource_schema.label"/>
+
+ by which the  <b>union_of_all_members</b> relationship is known.</ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: union_of_all_members  Attribute: operand 
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.union_of_all_members.operand"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.union_of_all_members.operand">
+the set of sets that have the <express_ref linkend="classification_and_set_theory:ir:set_theory_schema.union_of_all_members.resultant"/>
+ as their <express_ref linkend="classification_and_set_theory:ir:set_theory_schema.union"/>.</ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: union_of_all_members  Attribute: resultant 
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.union_of_all_members.resultant"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.union_of_all_members.resultant">
+the set that consists of each thing that is a member of a set within the operand.</ext_description><!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Entity: union_of_all_members  Where: resultant_different 
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.union_of_all_members.wr:resultant_different"/>
+
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.union_of_all_members.wr:resultant_different">a <express_ref linkend="classification_schema:ir_express:classification_schema.class"/>
+
+ that is the <express_ref linkend="classification_and_set_theory:ir:set_theory_schema.union"/>
+ of a set of other classes shall not be explicitly stated to be identical to the set of classes.
+</ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Function: identical_sets 
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.identical_sets"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.identical_sets">
+An <b>identical_sets</b> tests whether two instances of class are the same, or are explicitly stated to be the same by a chain of one or more instances of <express_ref linkend="classification_and_set_theory:ir:set_theory_schema.same_membership"/>.</ext_description>
+
+<ext_description linkend="set_theory_schema.identical_sets.set_a">
+an instance of <express_ref linkend="classification_and_set_theory:ir:classification_schema.class"/>
+
+ that is tested against <b>set_b</b>.</ext_description>
+<ext_description linkend="set_theory_schema.identical_sets.set_b">
+an instance of <express_ref linkend="classification_and_set_theory:ir:classification_schema.class"/>
+
+ that is tested against <b>set_a</b>.</ext_description>
+<!-- 
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   Schema: set_theory_schema  Function: identical_to_one_of_set_of_sets 
+   <express_ref linkend="set_theory_schema:ir_express:set_theory_schema.identical_to_one_of_set_of_sets"/>
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+  -->
+<ext_description linkend="set_theory_schema.identical_to_one_of_set_of_sets">
+An <b>identical_to_one_of_set_of_sets</b> tests whether an instance of <express_ref linkend="classification_schema:ir_express:classification_schema.class"/> is the same also a member of a set of sets, or is explicitly stated to be the same as a member of a set of sets by a chain of one or more instances of <express_ref linkend="classification_and_set_theory:ir:set_theory_schema.same_membership"/>.
+</ext_description>
+<ext_description linkend="set_theory_schema.identical_to_one_of_set_of_sets.set_a">
+an instance of <express_ref linkend="classification_and_set_theory:ir:classification_schema.class"/>
+
+ that is tested against <b>set_of_sets</b>.</ext_description>
+<ext_description linkend="set_theory_schema.identical_to_one_of_set_of_sets.set_of_sets">
+a set of instances of <express_ref linkend="classification_and_set_theory:ir:classification_schema.class"/> that are tested against set.
+</ext_description>
+</ext_descriptions>

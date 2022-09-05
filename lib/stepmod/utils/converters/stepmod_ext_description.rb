@@ -43,46 +43,20 @@ module Stepmod
 
           domain =  case linkend.first
                     when /_mim$/, /_arm$/
-                      "module"
+                      "application module"
                     # when /_schema$/
                     else
                       "resource"
                     end
 
-          schema = state[:exp_repo].schemas.first
-          # entities = schema.entities.map do |entity|
-          #   if entity.subtype_of.size.zero?
-
-          # end
-          entity = schema.entities.select { |e| e.id == linkend.last }.first
-          entity_text = extract_entity_text(entity, linkend.last)
-
           <<~TEMPLATE
             === #{linkend.last}
+            #{domain ? "domain:[#{domain}: #{linkend.first}]" : ''}
 
-            #{domain ? "domain:[#{domain}: #{schema.id}]" : ''}
-
-            #{entity_text}
-
-            NOTE: #{child_text}
+            #{child_text.strip}
           TEMPLATE
         end
-
-        private
-
-        def extract_entity_text(entity, entity_name)
-          if entity.nil?
-            "entity data type that represents a/an #{entity_name} entity"
-          elsif entity.subtype_of.size.zero?
-            "entity data type that represents a/an #{entity.id} entity"
-          elsif entity.subtype_of.size == 1
-            "entity data type that is a type of #{entity.subtype_of[0].id} that represents a/an #{entity.id} entity"
-          else
-            "entity data type that is a type of #{entity.subtype_of.map(&:id).join(' and ')} that represents a/an #{entity.id} entity"
-          end
-        end
       end
-
       ReverseAdoc::Converters.register :ext_description,
                                        StepmodExtDescription.new
     end
