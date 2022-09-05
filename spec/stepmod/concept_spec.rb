@@ -11,12 +11,10 @@ RSpec.describe Stepmod::Utils::Concept do
         reference_anchor: "ISO_10303-41_2020",
         reference_clause: nil,
         file_path: "",
-        exp_repo: repo,
       )
   end
 
   let(:input) { node_for(input_xml) }
-  let(:repo) { Expressir::Express::Parser.from_file("spec/fixtures/stepmod_terms_mock_directory/resources/action_schema/action_schema.exp") }
 
   original_ext_description = ReverseAdoc::Converters.lookup(:ext_description)
   original_express_ref = ReverseAdoc::Converters.lookup(:express_ref)
@@ -29,19 +27,11 @@ RSpec.describe Stepmod::Utils::Concept do
   end
 
   context "when action_schema" do
+    let(:entity_definition) { nil }
     let(:input_xml) do
       <<~XML
         <ext_description linkend="action_schema.supported_item">
-          The <b>supported_item</b> allows for the designation of an
-          <express_ref linkend="action_schema:ir_express:action_schema.action_directive"/>,
-          an
-          <express_ref linkend="action_schema:ir_express:action_schema.action"/>,
-          or an
-          <express_ref linkend="action_schema:ir_express:action_schema.action_method"/>.
-          <note>
-            This specifies the use of an
-            <express_ref linkend="action_schema:ir_express:action_schema.action_resource"/>.
-          </note>
+          Old Definition
         </ext_description>
       XML
     end
@@ -50,12 +40,53 @@ RSpec.describe Stepmod::Utils::Concept do
       <<~OUTPUT
         // STEPmod path:
         === supported_item
-
         domain:[resource: action_schema]
 
-        entity data type that represents a/an supported_item entity
+        Old Definition
 
-        NOTE: The *supported_item* allows for the designation of an *action_directive*, an *action*, or an *action_method*.
+
+        [.source]
+        <<ISO_10303-41_2020>>
+
+      OUTPUT
+    end
+
+    it "correctly renders nil because entity in exp file does not exist" do
+      expect(parse.to_mn_adoc).to eq(output)
+    end
+  end
+
+  context "when action" do
+    let(:entity_definition) { "domain:[resource: action_schema]\n\nentity data type that represents an action entity" }
+
+    let(:input_xml) do
+      <<~XML
+        <ext_description linkend="action_schema.action">
+          An <b>action</b> is the identification of the occurrence of an activity and a description of its result.
+          <p>
+          An <b>action</b> identifies an activity that has taken place, is taking place, or is expected to take place in the future.
+          </p>
+          <p>
+          An action has a definition that is specified by an
+          <express_ref linkend="action_schema:ir_express:action_schema.action_method"/>.
+          </p>
+          <note number="1">
+            In particular application domains, terms such as task, process, activity, operation, and event may be synonyms for <b>action</b>.
+          </note>
+          <example>
+            Change, distilling, design, a process to drill a hole, and a task such as training someone are examples of actions.
+          </example>
+        </ext_description>
+      XML
+    end
+
+    let(:output) do
+      <<~OUTPUT
+        // STEPmod path:
+        === action
+        domain:[resource: action_schema]
+
+        An *action* is the identification of the occurrence of an activity and a description of its result.
 
 
         [.source]
@@ -70,6 +101,8 @@ RSpec.describe Stepmod::Utils::Concept do
   end
 
   context "when ext_description contains list" do
+    let(:entity_definition) { "domain:[resource: set_theory_schema]\n\nentity data type that represents a complement entity" }
+
     let(:input_xml) do
       <<~XML
         <ext_description linkend="set_theory_schema.complement"><p>A <b>complement</b> is a relationship that is between</p>
@@ -86,12 +119,9 @@ RSpec.describe Stepmod::Utils::Concept do
       <<~OUTPUT
         // STEPmod path:
         === complement
+        domain:[resource: set_theory_schema]
 
-        domain:[resource: action_schema]
-
-        entity data type that represents a/an complement entity
-
-        NOTE: A *complement* is a relationship that is between
+        A *complement* is a relationship that is between
 
         * set S1,
         * set U, and
@@ -109,12 +139,10 @@ RSpec.describe Stepmod::Utils::Concept do
     it "correctly renders definition" do
       expect(parse.to_mn_adoc).to eq(output)
     end
-
-
   end
 
-
   context "when definition xml" do
+    let(:entity_definition) { nil }
     let(:input_xml) do
       <<~XML
         <definition>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<?xml-stylesheet 
+      type="text/xsl" 
+      href="../../../xsl/res_doc/imgfile.xsl"
+    ?> <!DOCTYPE imgfile.content SYSTEM "../../../dtd/text.ent">
+<imgfile.content module="classification_and_set_theory" file="set_theory_schemaexpg2.xml">
+<img src="set_theory_schemaexpg2.gif">
+<img.area shape="poly" coords="19,20,19,59,161,59,161,20,19,20" href="../../resources/classification_schema/classification_schema.xml#classification_schema.class" />
+<img.area shape="poly" coords="177,481,177,520,332,520,332,481,177,481" href="../../resources/classification_schema/classification_schema.xml#classification_schema.class" />
+<img.area shape="poly" coords="208,983,208,1020,359,1020,359,983,208,983" href="../../resources/classification_schema/classification_schema.xml#classification_schema.class" />
+<img.area shape="poly" coords="207,19,207,56,388,56,388,19,207,19" href="../../resources/support_resource_schema/support_resource_schema.xml#support_resource_schema.identifier" />
+<img.area shape="poly" coords="207,284,207,329,388,329,388,284,207,284" href="../../resources/support_resource_schema/support_resource_schema.xml#support_resource_schema.identifier" />
+<img.area shape="poly" coords="171,847,171,888,355,888,355,847,171,847" href="../../resources/support_resource_schema/support_resource_schema.xml#support_resource_schema.identifier" />
+<img.area shape="poly" coords="171,635,171,672,355,672,355,635,171,635" href="../../resources/support_resource_schema/support_resource_schema.xml#support_resource_schema.identifier" />
+<img.area shape="poly" coords="216,113,216,151,385,151,385,113,216,113" href="../../resources/support_resource_schema/support_resource_schema.xml#support_resource_schema.label" />
+<img.area shape="poly" coords="208,227,208,264,369,264,369,227,208,227" href="../../resources/support_resource_schema/support_resource_schema.xml#support_resource_schema.label" />
+<img.area shape="poly" coords="169,684,169,721,335,721,335,684,169,684" href="../../resources/support_resource_schema/support_resource_schema.xml#support_resource_schema.label" />
+<img.area shape="poly" coords="171,789,171,835,340,835,340,789,171,789" href="../../resources/support_resource_schema/support_resource_schema.xml#support_resource_schema.label" />
+<img.area shape="poly" coords="208,171,208,208,369,208,369,171,208,171" href="../../resources/support_resource_schema/support_resource_schema.xml#support_resource_schema.text" />
+<img.area shape="poly" coords="171,737,171,775,332,775,332,737,171,737" href="../../resources/support_resource_schema/support_resource_schema.xml#support_resource_schema.text" />
+<img.area shape="poly" coords="95,364,95,392,169,392,169,364,95,364" href="../../resources/set_theory_schema/set_theory_schema.xml#set_theory_schema.complement" />
+<img.area shape="poly" coords="76,601,76,627,151,627,151,601,76,601" href="../../resources/set_theory_schema/set_theory_schema.xml#set_theory_schema.intersection" />
+<img.area shape="poly" coords="405,601,405,631,463,631,463,601,405,601" href="../../resources/set_theory_schema/set_theory_schema.xml#set_theory_schema.power_set" />
+<img.area shape="poly" coords="19,967,19,1000,97,1000,97,967,19,967" href="../../resources/set_theory_schema/set_theory_schema.xml#set_theory_schema.proper_subset" />
+<img.area shape="poly" coords="376,359,376,392,489,392,489,359,376,359" href="../../resources/set_theory_schema/set_theory_schema.xml#set_theory_schema.same_membership" />
+<img.area shape="poly" coords="100,927,100,956,151,956,151,927,100,927" href="../../resources/set_theory_schema/set_theory_schema.xml#set_theory_schema.subset" />
+<img.area shape="poly" coords="424,908,424,931,471,931,471,908,424,908" href="../../resources/set_theory_schema/set_theory_schema.xml#set_theory_schema.union" />
+<img.area shape="poly" coords="29,121,29,147,145,147,145,121,29,121" href="../../resources/set_theory_schema/set_theory_schema.xml#set_theory_schema.union_of_all_members" />
+</img>
+</imgfile.content>

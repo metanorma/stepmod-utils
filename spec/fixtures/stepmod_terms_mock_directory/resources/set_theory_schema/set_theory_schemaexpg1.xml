@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<?xml-stylesheet 
+      type="text/xsl" 
+      href="../../../xsl/res_doc/imgfile.xsl"
+    ?> <!DOCTYPE imgfile.content SYSTEM "../../../dtd/text.ent">
+<imgfile.content module="classification_and_set_theory" file="set_theory_schemaexpg1.xml">
+<img src="set_theory_schemaexpg1.gif">
+<img.area shape="poly" coords="19,67,19,113,132,113,132,67,19,67" href="../../resources/classification_schema/classification_schema.xml#classification_schema" />
+<img.area shape="poly" coords="29,227,29,272,132,272,132,227,29,227" href="../../resources/set_theory_schema/set_theory_schema.xml#set_theory_schema" />
+<img.area shape="poly" coords="208,35,208,76,377,76,377,35,208,35" href="../../resources/management_resources_schema/management_resources_schema.xml#management_resources_schema" />
+<img.area shape="poly" coords="189,128,189,173,281,173,281,128,189,128" href="../../resources/group_schema/group_schema.xml#group_schema" />
+<img.area shape="poly" coords="227,235,227,283,360,283,360,235,227,235" href="../../resources/support_resource_schema/support_resource_schema.xml#support_resource_schema" />
+</img>
+</imgfile.content>

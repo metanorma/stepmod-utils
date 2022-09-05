@@ -11,14 +11,13 @@ module Stepmod
       )
 
       class << self
-        def parse(definition_xml, reference_anchor:, reference_clause:, file_path:, exp_repo: nil, language_code: "en")
+        def parse(definition_xml, reference_anchor:, reference_clause:, file_path:, language_code: "en")
           converted_definition = Stepmod::Utils::StepmodDefinitionConverter.convert(
             definition_xml,
             {
               # We don't want examples and notes
               no_notes_examples: true,
               reference_anchor: reference_anchor,
-              exp_repo: exp_repo,
             },
           )
 
