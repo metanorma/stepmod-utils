@@ -6,7 +6,7 @@ module Stepmod
       class ExpressNote < ReverseAdoc::Converters::Base
         def convert(node, state = {})
           <<~TEMPLATE
-            (*"#{state['schema_and_entity']}.__note"
+            (*"#{state[:schema_and_entity]}.__note"
             #{treat_children(node, state).strip}
             *)
           TEMPLATE
