@@ -420,7 +420,10 @@ module Stepmod
           --
         DEFINITION
 
-        definition + format_remark_items(entity.remark_items)
+        # We no longer add Notes and Examples to the extracted terms
+        # definition + format_remark_items(entity.remark_items)
+
+        definition
       end
 
       def format_remark_items(remark_items)
