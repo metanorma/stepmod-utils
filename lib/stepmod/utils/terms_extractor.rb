@@ -403,11 +403,11 @@ module Stepmod
 
         entity_text = if entity.subtype_of.size.zero?
                         "entity data type that represents " +
-                        "**#{entity.id}**".with_indefinite_article + " entity"
+                        entity.id.indefinite_article + " **#{entity.id}** entity"
                       else
                         "entity data type that is a type of "+
                         "**#{entity.subtype_of.map(&:id).join('** and **')}** that represents " +
-                        "**#{entity.id}**".with_indefinite_article + " entity"
+                        entity.id.indefinite_article + " **#{entity.id}** entity"
                       end
 
         definition = <<~DEFINITION

@@ -41,17 +41,12 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
         === action_directive
         domain:[resource: action_schema]
 
-        entity data type that represents an action_directive entity
+        entity data type that represents an **action_directive** entity
 
         [NOTE]
         --
         An *action_directive* is an authoritative instrument that provides directions to achieve the specified results.
         --
-
-        [example]
-        ====
-        ISO Directives Part 3 provides guidance for the development of standards documents within ISO.
-        ====
       TEXT
     end
     let(:arm_description_xml_converted_definition) do
@@ -59,27 +54,12 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
         === Activity
         domain:[application module: Activity_arm]
 
-        entity data type that represents an Activity entity
+        entity data type that represents an **Activity** entity
 
         [NOTE]
         --
         An *Activity* is the identification of the occurrence of an action that has taken place, is taking place, or is expected to take place in the future. The procedure executed during that *Activity* is identified with the <<express:Activity_method_arm.Activity_method,Activity_method>> that is referred to by the *chosen_method* attribute.
         --
-
-        [NOTE]
-        --
-        Status information identifying the level of completion of each activity may be provided within an instance of <<express:Activity_arm.Activity_status,Activity_status>>.
-        --
-
-        [NOTE]
-        --
-        The items that are affected by an *Activity*, for example as input or output, may be identified within an instance of <<express:Activity_arm.Applied_activity_assignment,Applied_activity_assignment>>.
-        --
-
-        [example]
-        ====
-        Change, distilling, design, a process to drill a hole, and a task such as training someone, are examples of activities.
-        ====
       TEXT
     end
     let(:mim_description_converted_definition) do
@@ -87,7 +67,7 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
         === applied_action_assignment
         domain:[application module: Activity_mim]
 
-        entity data type that is a type of action_assignment that represents an applied_action_assignment entity
+        entity data type that is a type of **action_assignment** that represents an **applied_action_assignment** entity
 
         [NOTE]
         --
@@ -233,16 +213,11 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
             === action_schema
             domain:[resource: action_schema]
 
-            entity data type that represents an action_schema entity
+            entity data type that represents an **action_schema** entity
 
             [NOTE]
             --
             Old definition
-            --
-
-            [NOTE]
-            --
-            Some old note
             --
           OUTPUT
         end
@@ -267,7 +242,7 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
             === executed_action
             domain:[resource: action_schema]
 
-            entity data type that is a type of action that represents an executed_action entity
+            entity data type that is a type of **action** that represents an **executed_action** entity
 
             [NOTE]
             --
@@ -297,7 +272,7 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
             === executed_action
             domain:[resource: action_schema]
 
-            entity data type that is a type of action_1 and action_2 that represents an executed_action entity
+            entity data type that is a type of **action_1** and **action_2** that represents an **executed_action** entity
 
             [NOTE]
             --
