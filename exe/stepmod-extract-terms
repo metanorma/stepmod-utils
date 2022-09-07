@@ -106,28 +106,29 @@ def replace_images(content)
   content
 end
 
-part_concepts.each do |(bibdata, current_part_concepts)|
-  current_part_concepts = current_part_concepts.to_a.map do |n|
-    n.localizations["en"]
-  end
-  fn = "03x-stepmod-#{bibdata.part}.adoc"
-  File.open(fn, "w") do |file|
-    file.puts("== #{part_to_title(bibdata)}\n\n")
-    file.puts(replace_images(current_part_concepts.map(&:to_mn_adoc).join("\n")))
-  end
-  log "INFO: written to: #{fn}"
-end
+## Skip all Clause 3 terms
+# part_concepts.each do |(bibdata, current_part_concepts)|
+#   current_part_concepts = current_part_concepts.to_a.map do |n|
+#     n.localizations["en"]
+#   end
+#   fn = "03x-stepmod-#{bibdata.part}.adoc"
+#   File.open(fn, "w") do |file|
+#     file.puts("== #{part_to_title(bibdata)}\n\n")
+#     file.puts(replace_images(current_part_concepts.map(&:to_mn_adoc).join("\n")))
+#   end
+#   log "INFO: written to: #{fn}"
+# end
 
-File.open("03x-stepmod.adoc", "w") do |file|
-  part_concepts.sort_by do |(bibdata, current_part_concepts)|
-    bibdata.part.to_i
-  end.each do |(bibdata, current_part_concepts)|
-    fn = "03x-stepmod-#{bibdata.part}.adoc"
-    file.puts("\ninclude::#{fn}[]\n")
-  end
-end
+# File.open("03x-stepmod.adoc", "w") do |file|
+#   part_concepts.sort_by do |(bibdata, current_part_concepts)|
+#     bibdata.part.to_i
+#   end.each do |(bibdata, current_part_concepts)|
+#     fn = "03x-stepmod-#{bibdata.part}.adoc"
+#     file.puts("\ninclude::#{fn}[]\n")
+#   end
+# end
 
-log "INFO: written summary file to: 03x-stepmod.adoc"
+# log "INFO: written summary file to: 03x-stepmod.adoc"
 
 part_resources.each do |(bibdata, current_part_resources)|
   current_part_resources = current_part_resources.to_a.map do |n|
@@ -194,17 +195,18 @@ end
 
 log "INFO: written summary file to: 05x-stepmod-entities-modules.adoc"
 
-File.open("031-stepmod-general.adoc", "w") do |file|
-  file.puts(
-    replace_images(
-      general_concepts.to_a.map do |n|
-        n.localizations["en"]
-      end.map(&:to_mn_adoc).join("\n")
-    )
-  )
-end
+## Skipping all Clause 3 terms
+# File.open("031-stepmod-general.adoc", "w") do |file|
+#   file.puts(
+#     replace_images(
+#       general_concepts.to_a.map do |n|
+#         n.localizations["en"]
+#       end.map(&:to_mn_adoc).join("\n")
+#     )
+#   )
+# end
 
-log "INFO: written to: 031-stepmod-general.adoc"
+# log "INFO: written to: 031-stepmod-general.adoc"
 
 File.open("041-stepmod-entities-resources.adoc", "w") do |file|
   file.puts(
