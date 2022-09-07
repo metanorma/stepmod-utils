@@ -427,7 +427,7 @@ module Stepmod
         examples = remark_items.detect { |i| i.id == "__example" }&.remarks
 
         formatted_notes = format_remarks(notes, "NOTE", "--")
-        formatted_examples = format_remarks(examples, "EXAMPLE", "====")
+        formatted_examples = format_remarks(examples, "example", "====")
 
         formatted_notes + formatted_examples
       end
