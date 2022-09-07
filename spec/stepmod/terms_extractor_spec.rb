@@ -48,7 +48,7 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
         An *action_directive* is an authoritative instrument that provides directions to achieve the specified results.
         --
 
-        [EXAMPLE]
+        [example]
         ====
         ISO Directives Part 3 provides guidance for the development of standards documents within ISO.
         ====
@@ -76,7 +76,7 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
         The items that are affected by an *Activity*, for example as input or output, may be identified within an instance of <<express:Activity_arm.Applied_activity_assignment,Applied_activity_assignment>>.
         --
 
-        [EXAMPLE]
+        [example]
         ====
         Change, distilling, design, a process to drill a hole, and a task such as training someone, are examples of activities.
         ====
@@ -346,7 +346,7 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
             Some old note
             --
 
-            [EXAMPLE]
+            [example]
             ====
             Some old example
             ====
