@@ -402,9 +402,11 @@ module Stepmod
         return "" if entity.nil?
 
         entity_text = if entity.subtype_of.size.zero?
-                        "entity data type that represents " + "**#{entity.id}**".with_indefinite_article + " entity"
+                        "entity data type that represents " +
+                        "**#{entity.id}**".with_indefinite_article + " entity"
                       else
-                        "entity data type that is a type of **#{entity.subtype_of.map(&:id).join('** and **')} that represents " +
+                        "entity data type that is a type of "+
+                        "**#{entity.subtype_of.map(&:id).join('** and **')}** that represents " +
                         "**#{entity.id}**".with_indefinite_article + " entity"
                       end
 
@@ -414,11 +416,16 @@ module Stepmod
 
           #{entity_text}
 
-          [NOTE]
-          --
-          #{old_definition&.strip}
-          --
         DEFINITION
+
+        unless old_definition.nil? || old_definition.blank?
+          definition << <<~OLD_DEFINITION
+            [NOTE]
+            --
+            #{old_definition&.strip}
+            --
+          OLD_DEFINITION
+        end
 
         # We no longer add Notes and Examples to the extracted terms
         # definition + format_remark_items(entity.remark_items)
