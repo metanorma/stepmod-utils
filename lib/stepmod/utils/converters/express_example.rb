@@ -6,7 +6,7 @@ module Stepmod
       class ExpressExample < ReverseAdoc::Converters::Base
         def convert(node, state = {})
           <<~TEMPLATE
-            (*"#{state['schema_and_entity']}.__example"
+            (*"#{state[:schema_and_entity]}.__example"
             #{treat_children(node, state).strip}
             *)
           TEMPLATE
