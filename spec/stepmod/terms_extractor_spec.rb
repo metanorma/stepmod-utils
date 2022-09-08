@@ -58,7 +58,7 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
 
         [NOTE]
         --
-        An *Activity* is the identification of the occurrence of an action that has taken place, is taking place, or is expected to take place in the future. The procedure executed during that *Activity* is identified with the <<express:Activity_method_arm.Activity_method,Activity_method>> that is referred to by the *chosen_method* attribute.
+        An *Activity* is the identification of the occurrence of an action that has taken place, is taking place, or is expected to take place in the future.
         --
       TEXT
     end
@@ -71,7 +71,7 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
 
         [NOTE]
         --
-        An *applied_action_assignment* is an <<express:action_schema.action,action>> related to the data that are affected by the <<express:action_schema.action,action>>. An *applied_action_assignment* is a type of <<express:management_resources_schema.action_assignment,action_assignment>>.
+        An *applied_action_assignment* is an <<express:action_schema.action,action>> related to the data that are affected by the <<express:action_schema.action,action>>.
         --
       TEXT
     end
