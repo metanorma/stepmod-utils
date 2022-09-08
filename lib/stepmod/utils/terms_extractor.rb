@@ -390,10 +390,8 @@ module Stepmod
       end
 
       def find_or_initialize_concept(collection, localized_concept)
-        concept_id = SecureRandom.uuid
-
         concept = collection
-          .store(Glossarist::Concept.new(id: concept_id))
+          .store(Glossarist::Concept.new(id: SecureRandom.uuid))
         concept.add_l10n(localized_concept)
       end
 

@@ -13,7 +13,7 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
   end
 
   describe '.call' do
-    let(:stepmod_dir) { fixtures_path('stepmod_terms_mock_directory') }
+    let(:stepmod_dir) { fixtures_path('stepmod_terms_mock_directory/data') }
     let(:index_path) { fixtures_path('stepmod_terms_mock_directory/repository_index.xml') }
     let(:resource_xml_converted_definition) do
       <<~TEXT
@@ -58,7 +58,7 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
 
         [NOTE]
         --
-        An *Activity* is the identification of the occurrence of an action that has taken place, is taking place, or is expected to take place in the future.
+        An **Activity** is the identification of the occurrence of an action that has taken place, is taking place, or is expected to take place in the future.
         --
       TEXT
     end
@@ -71,7 +71,7 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
 
         [NOTE]
         --
-        An *applied_action_assignment* is an <<express:action_schema.action,action>> related to the data that are affected by the <<express:action_schema.action,action>>.
+        An **applied_action_assignment** is an <<express:action_schema.action,action>> related to the data that are affected by the <<express:action_schema.action,action>>.
         --
       TEXT
     end

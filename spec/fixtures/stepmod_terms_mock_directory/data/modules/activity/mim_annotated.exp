@@ -33,13 +33,11 @@ END_ENTITY;
 END_SCHEMA;  -- Activity_mim
 
 (*"Activity_mim.applied_action_assignment"
-An *applied_action_assignment* is an <<express:action_schema.action,action>> related to the data that are affected by the <<express:action_schema.action,action>>. An *applied_action_assignment* is a type of <<express:management_resources_schema.action_assignment,action_assignment>>.
+An **applied_action_assignment** is an <<express:action_schema.action,action>> related to the data that are affected by the <<express:action_schema.action,action>>. An **applied_action_assignment** is a type of <<express:management_resources_schema.action_assignment,action_assignment>>.
 *)
-
 
 
 (*"Activity_mim.applied_action_assignment.items"
 the product or activity data that are affected by the <<express:action_schema.action,action>>.
 *)
-
 
