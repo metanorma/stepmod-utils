@@ -397,6 +397,81 @@ module Stepmod
         concept.add_l10n(localized_concept)
       end
 
+      def combine_paragraphs(full_paragraph, next_paragraph)
+        # If full_paragraph already contains a period, extract that.
+        if m = full_paragraph.match(/\A(?<inner_first>[^\n]*?\.)\s/)
+          # puts "CONDITION 1"
+          if m[:inner_first]
+            return m[:inner_first]
+          else
+            return full_paragraph
+          end
+        end
+
+        # If full_paragraph ends with a period, this is the last.
+        if full_paragraph =~ /\.\s*\Z/
+          # puts "CONDITION 2"
+          return full_paragraph
+        end
+
+        # If next_paragraph is a list
+        if next_paragraph.match(/\A\*/)
+          # puts "CONDITION 3"
+          return full_paragraph + "\n\n" + next_paragraph
+        end
+
+        # If next_paragraph is a continuation of a list
+        if next_paragraph.match(/\Awhich/) || next_paragraph.match(/\Athat/)
+          # puts "CONDITION 4"
+          return full_paragraph + "\n\n" + next_paragraph
+        end
+
+        # puts "CONDITION 5"
+        full_paragraph
+      end
+
+      def trim_definition(definition)
+        # Unless the first paragraph ends with "between" and is followed by a
+        # list, don't split
+        paragraphs = definition.split("\n\n")
+
+        # puts paragraphs.inspect
+
+        first_paragraph = paragraphs.first
+
+        if paragraphs.length > 1
+          combined = paragraphs[1..-1].inject(first_paragraph) do |acc, p|
+            combine_paragraphs(acc, p)
+          end
+        else
+          combined = combine_paragraphs(first_paragraph, "")
+        end
+
+        # puts "combined--------- #{combined}"
+
+        # Remove comments until end of line
+        combined = combined + "\n"
+        combined.gsub!(/\n\/\/.*?\n/, "\n")
+        combined.strip!
+
+        combined
+        # # TODO: If the definition contains a list immediately after the first paragraph, don't split
+        # return definition if definition =~ /\n\* /
+
+        # unless (
+        #   first_paragraph =~ /between:?\s*\Z/ ||
+        #   first_paragraph =~ /include:?\s*\Z/ ||
+        #   first_paragraph =~ /of:?\s*\Z/ ||
+        #   first_paragraph =~ /[:;]\s*\Z/
+        #   ) &&
+        #   definition =~ /\n\n\*/
+
+        #   # Only taking the first paragraph of the definition
+        #   first_paragraph
+        # end
+      end
+
+
       # rubocop:disable Layout/LineLength
       def generate_entity_definition(entity, domain, old_definition)
         return "" if entity.nil?
@@ -419,10 +494,12 @@ module Stepmod
         DEFINITION
 
         unless old_definition.nil? || old_definition.blank?
+          old_definition = trim_definition(old_definition)
+
           definition << <<~OLD_DEFINITION
             [NOTE]
             --
-            #{old_definition&.strip}
+            #{old_definition.strip}
             --
           OLD_DEFINITION
         end
