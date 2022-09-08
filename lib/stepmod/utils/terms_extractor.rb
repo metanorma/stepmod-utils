@@ -238,7 +238,7 @@ module Stepmod
                     id: "#{reference_anchor}.#{reference_clause}",
                     reference_anchor: reference_anchor,
                     reference_clause: reference_clause,
-                    file_path: Pathname.new(file_path)
+                    file_path: Pathname.new(exp_annotated_path)
                                 .relative_path_from(stepmod_path),
                     language_code: "en",
                   )
@@ -297,7 +297,7 @@ module Stepmod
                     id: "#{reference_anchor}.#{reference_clause}",
                     reference_anchor: reference_anchor,
                     reference_clause: reference_clause,
-                    file_path: Pathname.new(file_path)
+                    file_path: Pathname.new(exp_annotated_path)
                                 .relative_path_from(stepmod_path),
                     language_code: "en",
                   )
@@ -340,7 +340,7 @@ module Stepmod
                     id: "#{reference_anchor}.#{reference_clause}",
                     reference_anchor: reference_anchor,
                     reference_clause: reference_clause,
-                    file_path: Pathname.new(file_path)
+                    file_path: Pathname.new(exp_annotated_path)
                                 .relative_path_from(stepmod_path),
                     language_code: "en",
                   )
