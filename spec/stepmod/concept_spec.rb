@@ -31,7 +31,16 @@ RSpec.describe Stepmod::Utils::Concept do
     let(:input_xml) do
       <<~XML
         <ext_description linkend="action_schema.supported_item">
-          Old Definition
+          The <b>supported_item</b> allows for the designation of an
+          <express_ref linkend="action_schema:ir_express:action_schema.action_directive"/>,
+          an
+          <express_ref linkend="action_schema:ir_express:action_schema.action"/>,
+          or an
+          <express_ref linkend="action_schema:ir_express:action_schema.action_method"/>.
+          <note>
+            This specifies the use of an
+            <express_ref linkend="action_schema:ir_express:action_schema.action_resource"/>.
+          </note>
         </ext_description>
       XML
     end
@@ -42,7 +51,7 @@ RSpec.describe Stepmod::Utils::Concept do
         === supported_item
         domain:[resource: action_schema]
 
-        Old Definition
+        The *supported_item* allows for the designation of an *action_directive*, an *action*, or an *action_method*.
 
 
         [.source]
