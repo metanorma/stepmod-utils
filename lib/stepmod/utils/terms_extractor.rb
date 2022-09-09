@@ -284,7 +284,8 @@ module Stepmod
                 schema.entities.each do |entity|
                   old_definition = entity.remarks.first
 
-                  domain = "application module: #{schema.id}"
+                  # See: metanorma/iso-10303-2#90
+                  domain = "application object: #{schema.id}"
                   entity_definition = generate_entity_definition(entity, domain, old_definition)
 
                   reference_anchor = bibdata.anchor
@@ -469,19 +470,45 @@ module Stepmod
         # end
       end
 
+      def entity_name_to_text(entity_id)
+        entity_id.downcase.gsub(/_/, " ")
+      end
 
       # rubocop:disable Layout/LineLength
       def generate_entity_definition(entity, domain, old_definition)
         return "" if entity.nil?
 
-        entity_text = if entity.subtype_of.size.zero?
-                        "entity data type that represents " +
-                        entity.id.indefinite_article + " **#{entity.id}** entity"
-                      else
-                        "entity data type that is a type of "+
-                        "**#{entity.subtype_of.map(&:id).join('** and **')}** that represents " +
-                        entity.id.indefinite_article + " **#{entity.id}** entity"
-                      end
+        # See: metanorma/iso-10303-2#90
+        # TODO: This is not DRY in case we have to further customize
+        entity_text = if domain =~ /\Aapplication object:/
+
+          if entity.subtype_of.size.zero?
+            "application object that represents the " +
+            "{{#{entity.id},#{entity_name_to_text(entity.id)}}} entity"
+          else
+            entity_subtypes = entity.subtype_of.map do |e|
+              "{{#{e.id},#{entity_name_to_text(e.id)}}}"
+            end
+            "application object that is a type of " +
+            "#{entity_subtypes.join(' and ')} that represents the " +
+            "{{#{entity.id},#{entity_name_to_text(entity.id)}}} entity"
+          end
+
+        else
+
+          # Not "application object"
+          if entity.subtype_of.size.zero?
+            "entity data type that represents " +
+            entity.id.indefinite_article + " {{#{entity.id}}} entity"
+          else
+            entity_subtypes = entity.subtype_of.map do |e|
+              "{{#{e.id}}}"
+            end
+            "entity data type that is a type of "+
+            "#{entity_subtypes.join(' and ')} that represents " +
+            entity.id.indefinite_article + " {{#{entity.id}}} entity"
+          end
+        end
 
         definition = <<~DEFINITION
           === #{entity.id}
