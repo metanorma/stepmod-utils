@@ -153,10 +153,13 @@ end
 
 log "INFO: written summary file to: 04x-stepmod-entities-resources.adoc"
 
-part_modules.each do |(bibdata, part_modules_arm, part_modules_mim)|
+part_modules.sort_by do |(bibdata, part_modules_arm, part_modules_mim)|
+  bibdata.part.to_i
+end.each do |(bibdata, part_modules_arm, part_modules_mim)|
   fn = "05x-stepmod-entities-modules-#{bibdata.part}.adoc"
   File.open(fn, "w") do |file|
     file.puts("")
+
     unless part_modules_arm.empty?
       schema_name = part_modules_arm.first.first
       concepts = part_modules_arm.first.last.to_a.map do |n|
@@ -181,6 +184,7 @@ part_modules.each do |(bibdata, part_modules_arm, part_modules_mim)|
       file.puts(replace_images(concepts.map(&:to_mn_adoc).join("\n")))
     end
   end
+
   log "INFO: written to: #{fn}"
 end
 
