@@ -134,8 +134,8 @@ module Stepmod
           end
 
           unless ACCEPTED_STAGES.include? bibdata.doctype
-            log "INFO: skipped #{bibdata.docid} as it is not \
-              one of (#{ACCEPTED_STAGES.join(', ')})."
+            log "INFO: skipped #{bibdata.docid} as it is not " \
+              "one of (#{ACCEPTED_STAGES.join(', ')})."
             next
           end
 
@@ -363,11 +363,11 @@ module Stepmod
 
           log "INFO: Completed processing XML file #{fpath}"
           if current_part_concepts.to_a.empty?
-            log "INFO: Skipping #{fpath} (#{bibdata.docid}) \
-              because it contains no concepts."
+            log "INFO: Skipping #{fpath} (#{bibdata.docid}) " \
+              "because it contains no concepts."
           elsif current_part_concepts.to_a.length < 3
-            log "INFO: Skipping #{fpath} (#{bibdata.docid}) \
-              because it only has #{current_part_concepts.to_a.length} terms."
+            log "INFO: Skipping #{fpath} (#{bibdata.docid}) " \
+              "because it only has #{current_part_concepts.to_a.length} terms."
 
             current_part_concepts.to_a.each do |x|
               general_concepts.store(x)
@@ -378,15 +378,18 @@ module Stepmod
                                 current_part_concepts]
             end
           end
+
           unless current_part_resources.to_a.empty?
             part_resources << [bibdata,
                                current_part_resources]
           end
+
           if (current_part_modules_arm.to_a.size +
               current_part_modules_mim.to_a.size).positive?
             part_modules << [bibdata, current_part_modules_arm,
                              current_part_modules_mim]
           end
+
         end
       end
 
