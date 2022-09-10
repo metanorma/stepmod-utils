@@ -200,7 +200,7 @@ module Stepmod
           log "INFO: FILE PATH IS #{file_path}"
           case file_path.to_s
           when /resource.xml$/
-            log "INFO: Processing resource.xml for #{file_path}"
+            log "INFO: Processing resource.xml for #{fpath}"
 
             current_document.xpath("//schema").each do |schema_node|
               schema_name = schema_node["name"]
@@ -259,7 +259,7 @@ module Stepmod
             end
 
           when /module.xml$/
-            log "INFO: Processing module.xml for #{file_path}"
+            log "INFO: Processing module.xml for #{fpath}"
             # Assumption: every schema is only linked by a single module document.
             # puts current_document.xpath('//module').length
             schema_name = current_document.xpath("//module").first["name"]
