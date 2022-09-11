@@ -444,7 +444,11 @@ module Stepmod
         combined.gsub!(/\n\/\/.*?\n/, "\n")
         combined.strip!
 
-        combined
+        # Replace `<<express:{schema}.{entity},{render}>>` with
+        # {{entity,render}}
+        combined.gsub(/<<express:([^\.]+)\.([^,>]+),([^>]+)>>/, '{{\2,\3}}')
+
+        # combined
         # # TODO: If the definition contains a list immediately after the first paragraph, don't split
         # return definition if definition =~ /\n\* /
 

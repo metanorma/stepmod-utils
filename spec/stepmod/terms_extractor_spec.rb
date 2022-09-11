@@ -71,7 +71,7 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
 
         [NOTE]
         --
-        An **applied_action_assignment** is an <<express:action_schema.action,action>> related to the data that are affected by the <<express:action_schema.action,action>>.
+        An **applied_action_assignment** is an {{action,action}} related to the data that are affected by the {{action,action}}.
         --
       TEXT
     end
