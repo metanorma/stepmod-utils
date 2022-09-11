@@ -446,7 +446,9 @@ module Stepmod
 
         # Replace `<<express:{schema}.{entity},{render}>>` with
         # {{entity,render}}
-        combined.gsub(/<<express:([^\.]+)\.([^,>]+),([^>]+)>>/, '{{\2,\3}}')
+        combined.gsub(/<<express:([^,]+),([^>]+)>>/) do |match|
+          "{{#{Regexp.last_match[1].split('.').last},#{Regexp.last_match[2]}}}"
+        end
 
         # combined
         # # TODO: If the definition contains a list immediately after the first paragraph, don't split
