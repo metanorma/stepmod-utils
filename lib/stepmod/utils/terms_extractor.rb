@@ -315,6 +315,8 @@ module Stepmod
                   parsed_bibliography << bibdata
                 end
               end
+            else
+              log "INFO: Modules schema #{exp_annotated_path} not found"
             end
 
             mim_exp_annotated_path = "#{stepmod_path}/modules/#{schema_name}/mim_annotated.exp"
@@ -341,7 +343,7 @@ module Stepmod
                     id: "#{reference_anchor}.#{reference_clause}",
                     reference_anchor: reference_anchor,
                     reference_clause: reference_clause,
-                    file_path: Pathname.new(exp_annotated_path)
+                    file_path: Pathname.new(mim_exp_annotated_path)
                                 .relative_path_from(stepmod_path),
                     language_code: "en",
                   )
@@ -357,6 +359,8 @@ module Stepmod
                   parsed_bibliography << bibdata
                 end
               end
+            else
+              log "INFO: Modules schema #{mim_exp_annotated_path} not found"
             end
 
           end
@@ -483,23 +487,23 @@ module Stepmod
 
         # See: metanorma/iso-10303-2#90
         # TODO: This is not DRY in case we have to further customize
-        entity_text = if domain =~ /\Aapplication object:/
+        entity_text = if domain_type = domain.match(/\A(application.*?):/)
 
           if entity.subtype_of.size.zero?
-            "application object that represents the " +
+            "#{domain_type[1]} that represents the " +
             "{{#{entity.id},#{entity_name_to_text(entity.id)}}} entity"
           else
             entity_subtypes = entity.subtype_of.map do |e|
               "{{#{e.id},#{entity_name_to_text(e.id)}}}"
             end
-            "application object that is a type of " +
+            "#{domain_type[1]} that is a type of " +
             "#{entity_subtypes.join(' and ')} that represents the " +
             "{{#{entity.id},#{entity_name_to_text(entity.id)}}} entity"
           end
 
         else
 
-          # Not "application object"
+          # Not "application object" or "application module"
           if entity.subtype_of.size.zero?
             "entity data type that represents " +
             entity.id.indefinite_article + " {{#{entity.id}}} entity"
@@ -521,6 +525,7 @@ module Stepmod
 
         DEFINITION
 
+        # If there is a definition, we add it as the first NOTE
         unless old_definition.nil? || old_definition.blank?
           old_definition = trim_definition(old_definition)
 
