@@ -154,7 +154,7 @@ module Stepmod
 
           # read definitions
           current_part_concepts = Glossarist::Collection.new
-          current_document.xpath("//definition").each_with_index do |definition, definition_index|
+          current_document.xpath("//definition").each.with_index(1) do |definition, definition_index|
             term_id = definition["id"]
             unless term_id.nil?
               if encountered_terms[term_id]

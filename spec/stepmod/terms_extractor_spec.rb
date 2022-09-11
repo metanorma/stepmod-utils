@@ -67,7 +67,7 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
         === applied_action_assignment
         domain:[application module: Activity_mim]
 
-        entity data type that is a type of {{action_assignment}} that represents an {{applied_action_assignment}} entity
+        application module that is a type of {{action_assignment,action assignment}} that represents the {{applied_action_assignment,applied action assignment}} entity
 
         [NOTE]
         --
@@ -76,13 +76,13 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
       TEXT
     end
 
-    it "returns general_concepts, \
-      resource_concepts, parsed_bibliography lists" do
-      expect(call.map(&:to_a).map(&:length)).to(eq([8, 0, 41, 1, 1, 1]))
+    it "returns general_concepts," \
+      "resource_concepts, parsed_bibliography lists" do
+      expect(call.map(&:to_a).map(&:length)).to(eq([8, 0, 37, 1, 1, 1]))
     end
 
-    it "For resource.xml terms takes only the \
-      first paragraph and no additonal tags " do
+    it "For resource.xml terms takes only the" \
+      "first paragraph and no additonal tags " do
       agreement_common_understanding_concept = call[3][0][1]
         .find do |concept|
           concept.localizations["en"].reference_anchor == "ISO_10303-41_2021" &&
@@ -93,8 +93,8 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
         .to(eq(resource_xml_converted_definition.strip))
     end
 
-    it "For module.xml terms takes only the first \
-      paragraph and no additonal tags " do
+    it "For module.xml terms takes only the first" \
+      "paragraph and no additonal tags " do
       activity_concept = call[0]
         .find do |concept|
           concept
