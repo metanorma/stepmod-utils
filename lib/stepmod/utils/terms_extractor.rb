@@ -313,8 +313,10 @@ module Stepmod
 
           if (current_part_modules_arm.to_a.size +
               current_part_modules_mim.to_a.size).positive?
+
             part_modules << [bibdata, current_part_modules_arm,
                              current_part_modules_mim]
+            parsed_bibliography << bibdata
           end
 
         end
