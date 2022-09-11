@@ -10,6 +10,8 @@ module Stepmod
         file_path
       )
 
+      # TODO: converted_definition is not supposed to be an attribute, it is
+      # supposed to be a method!
       class << self
         def parse(definition_xml, reference_anchor:, reference_clause:, file_path:, language_code: "en")
           converted_definition = Stepmod::Utils::StepmodDefinitionConverter.convert(
@@ -35,6 +37,8 @@ module Stepmod
             ).strip
           end
 
+          # TODO: `designations:` should include the `alt:[...]` terms here,
+          # they are now only included in definition_xml_converted_definition.
           new(
             designations: [designation],
             definition: definition,

@@ -26,7 +26,8 @@ module Stepmod
                   :part_concepts,
                   :part_resources,
                   :part_modules,
-                  :stdout
+                  :stdout,
+                  :git_rev
 
       def self.call(stepmod_dir, index_path, stdout = $stdout)
         new(stepmod_dir, index_path, stdout).call
@@ -64,6 +65,12 @@ module Stepmod
       def call
         log "INFO: STEPmod directory set to #{stepmod_dir}."
         log "INFO: Detecting paths..."
+
+        # Run `cvs status` to find out version
+        log "INFO: Detecting Git SHA..."
+        Dir.chdir(stepmod_path) do
+          @git_rev = `git rev-parse HEAD` || nil
+        end
 
         repo_index = Nokogiri::XML(File.read(@index_path)).root
 
@@ -145,23 +152,9 @@ module Stepmod
             next
           end
 
-          revision_string = ""
-
-          # Run `cvs status` to find out version
-          log "INFO: Detecting Git SHA..."
-          Dir.chdir(stepmod_path) do
-            git_sha = `git rev-parse HEAD`
-
-            unless git_sha.empty?
-              revision_string = "\n// Git: SHA #{git_sha}"
-            end
-          end
-
           # read definitions
           current_part_concepts = Glossarist::Collection.new
-          definition_index = 0
-          current_document.xpath("//definition").each do |definition|
-            definition_index += 1
+          current_document.xpath("//definition").each_with_index do |definition, definition_index|
             term_id = definition["id"]
             unless term_id.nil?
               if encountered_terms[term_id]
@@ -178,7 +171,7 @@ module Stepmod
               definition,
               reference_anchor: bibdata.anchor,
               reference_clause: ref_clause,
-              file_path: fpath + revision_string,
+              file_path: fpath,
             )
             next unless concept
 
@@ -197,7 +190,7 @@ module Stepmod
           current_part_modules_arm = {}
           current_part_modules_mim = {}
 
-          log "INFO: FILE PATH IS #{file_path}"
+          # log "INFO: FILE PATH IS #{file_path}"
           case file_path.to_s
           when /resource.xml$/
             log "INFO: Processing resource.xml for #{fpath}"
@@ -272,97 +265,27 @@ module Stepmod
               parsed_schema_names[schema_name] = file_path
             end
 
-            exp_annotated_path =
-              "#{stepmod_path}/modules/#{schema_name}/arm_annotated.exp"
+            arm_schema, arm_concepts = parse_annotated_module(
+              type: :arm,
+              stepmod_path: stepmod_path,
+              path: "modules/#{schema_name}/arm_annotated.exp",
+              bibdata: bibdata
+            )
 
-            log "INFO: Processing modules schema #{exp_annotated_path}"
+            mim_schema, mim_concepts = parse_annotated_module(
+              type: :mim,
+              stepmod_path: stepmod_path,
+              path: "modules/#{schema_name}/mim_annotated.exp",
+              bibdata: bibdata
+            )
 
-            if File.exists?(exp_annotated_path)
-              repo = Expressir::Express::Parser.from_file(exp_annotated_path)
-
-              repo.schemas.each do |schema|
-                schema.entities.each do |entity|
-                  old_definition = entity.remarks.first
-
-                  # See: metanorma/iso-10303-2#90
-                  domain = "application object: #{schema.id}"
-                  entity_definition = generate_entity_definition(entity, domain, old_definition)
-
-                  reference_anchor = bibdata.anchor
-                  reference_clause = nil
-
-                  concept = Stepmod::Utils::Concept.new(
-                    designations: [entity.id],
-                    definition: old_definition,
-                    converted_definition: entity_definition,
-                    id: "#{reference_anchor}.#{reference_clause}",
-                    reference_anchor: reference_anchor,
-                    reference_clause: reference_clause,
-                    file_path: Pathname.new(exp_annotated_path)
-                                .relative_path_from(stepmod_path),
-                    language_code: "en",
-                  )
-
-                  next unless concept
-
-                  current_part_modules_arm[schema.id] ||=
-                    Glossarist::Collection.new
-                  find_or_initialize_concept(
-                    current_part_modules_arm[schema.id], concept
-                  )
-
-                  # puts part_modules_arm.inspect
-                  parsed_bibliography << bibdata
-                end
-              end
-            else
-              log "INFO: Modules schema #{exp_annotated_path} not found"
+            if arm_concepts.to_a.size > 0
+              current_part_modules_arm[arm_schema] = arm_concepts
             end
 
-            mim_exp_annotated_path = "#{stepmod_path}/modules/#{schema_name}/mim_annotated.exp"
-
-            log "INFO: Processing modules schema #{mim_exp_annotated_path}"
-
-            if File.exists?(mim_exp_annotated_path)
-              repo = Expressir::Express::Parser.from_file(mim_exp_annotated_path)
-
-              repo.schemas.each do |schema|
-                schema.entities.each do |entity|
-                  old_definition = entity.remarks.first
-
-                  domain = "application module: #{schema.id}"
-                  definition = generate_entity_definition(entity, domain, old_definition)
-
-                  reference_anchor = bibdata.anchor
-                  reference_clause = nil
-
-                  concept = Stepmod::Utils::Concept.new(
-                    designations: [entity.id],
-                    definition: old_definition,
-                    converted_definition: definition,
-                    id: "#{reference_anchor}.#{reference_clause}",
-                    reference_anchor: reference_anchor,
-                    reference_clause: reference_clause,
-                    file_path: Pathname.new(mim_exp_annotated_path)
-                                .relative_path_from(stepmod_path),
-                    language_code: "en",
-                  )
-
-                  next unless concept
-
-                  current_part_modules_mim[schema.id] ||=
-                    Glossarist::Collection.new
-                  find_or_initialize_concept(
-                    current_part_modules_mim[schema.id], concept
-                  )
-
-                  parsed_bibliography << bibdata
-                end
-              end
-            else
-              log "INFO: Modules schema #{mim_exp_annotated_path} not found"
+            if mim_concepts.to_a.size > 0
+              current_part_modules_mim[mim_schema] = mim_concepts
             end
-
           end
 
           log "INFO: Completed processing XML file #{fpath}"
@@ -395,6 +318,65 @@ module Stepmod
           end
 
         end
+      end
+
+      def parse_annotated_module(type:, stepmod_path:, path:, bibdata:)
+        log "INFO: parse_annotated_module: Processing modules schema #{path}"
+
+        fpath = File.join(stepmod_path, path)
+
+        unless File.exists?(fpath)
+          log "ERROR: parse_annotated_module: No module schema exists at #{fpath}."
+          return
+        end
+
+        repo = Expressir::Express::Parser.from_file(fpath)
+
+        unless repo
+          log "ERROR: parse_annotated_module: failed to parse EXPRESS file at #{path}."
+          return
+        end
+
+        # See: metanorma/iso-10303-2#90
+        domain_prefix = case type
+        when :mim
+          "application module"
+        when :arm
+          "application object"
+        end
+
+        if repo.schemas.length > 1
+          raise StandardError.new(
+            "ERROR: FATAL: #{fpath} contains more than one schema:" +
+            "#{repo.schemas.map(&:id).join(", ")} (not supposed to happen!!)"
+          )
+        end
+
+        schema = repo.schemas.first
+        collection = Glossarist::Collection.new
+        domain = "#{domain_prefix}: #{schema.id}"
+
+        schema.entities.each do |entity|
+          old_definition = entity.remarks.first
+          new_definition = generate_entity_definition(entity, domain, old_definition)
+
+          concept = Stepmod::Utils::Concept.new(
+            designations: [entity.id],
+            definition: old_definition,
+            converted_definition: new_definition,
+            # TODO: Find a proper ID for this
+            id: "#{bibdata.anchor}.",
+            reference_anchor: bibdata.anchor,
+            reference_clause: nil,
+            file_path: path,
+            language_code: "en",
+          )
+
+          next unless concept
+          find_or_initialize_concept(collection, concept)
+        end
+
+        [schema.id, collection]
       end
 
       def find_or_initialize_concept(collection, localized_concept)
