@@ -482,33 +482,37 @@ module Stepmod
 
         # See: metanorma/iso-10303-2#90
         # TODO: This is not DRY in case we have to further customize
-        entity_text = if domain_type = domain.match(/\A(application.*?):/)
+        entity_text = if domain_type = domain.match(/\A(application object):/)
+
+          entity_ref = if entity.id == entity_name_to_text(entity.id)
+            "{{#{entity.id}}}"
+          else
+            "{{#{entity.id},#{entity_name_to_text(entity.id)}}}"
+          end
 
           if entity.subtype_of.size.zero?
-            "#{domain_type[1]} that represents the " +
-            "{{#{entity.id},#{entity_name_to_text(entity.id)}}} entity"
+            "#{domain_type[1]} that represents the " + entity_ref + " entity"
           else
             entity_subtypes = entity.subtype_of.map do |e|
               "{{#{e.id},#{entity_name_to_text(e.id)}}}"
             end
             "#{domain_type[1]} that is a type of " +
             "#{entity_subtypes.join(' and ')} that represents the " +
-            "{{#{entity.id},#{entity_name_to_text(entity.id)}}} entity"
+            entity_ref + " entity"
           end
 
         else
 
-          # Not "application object" or "application module"
+          # Not "application object"
           if entity.subtype_of.size.zero?
-            "entity data type that represents " +
-            entity.id.indefinite_article + " {{#{entity.id}}} entity"
+            "entity data type that represents the {{#{entity.id}}} entity"
           else
             entity_subtypes = entity.subtype_of.map do |e|
               "{{#{e.id}}}"
             end
-            "entity data type that is a type of "+
-            "#{entity_subtypes.join(' and ')} that represents " +
-            entity.id.indefinite_article + " {{#{entity.id}}} entity"
+            "entity data type that is a type of " +
+            "#{entity_subtypes.join(' and ')} that represents the " +
+            "{{#{entity.id}}} entity"
           end
         end
 
