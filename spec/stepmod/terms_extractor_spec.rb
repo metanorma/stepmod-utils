@@ -41,7 +41,7 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
         === action_directive
         domain:[resource: action_schema]
 
-        entity data type that represents an {{action_directive}} entity
+        entity data type that represents the {{action_directive,action directive}} entity
 
         [NOTE]
         --
@@ -67,7 +67,7 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
         === applied_action_assignment
         domain:[application module: Activity_mim]
 
-        application module that is a type of {{action_assignment,action assignment}} that represents the {{applied_action_assignment,applied action assignment}} entity
+        entity data type that is a type of {{action_assignment}} that represents the {{applied_action_assignment,applied action assignment}} entity
 
         [NOTE]
         --
@@ -202,7 +202,7 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
 
           instance_double(
             "entity",
-            id: "action_schema",
+            id: "action_item",
             subtype_of: [],
             remark_items: remark_items,
           )
@@ -210,10 +210,10 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
 
         let(:expected_output) do
           <<~OUTPUT
-            === action_schema
+            === action_item
             domain:[resource: action_schema]
 
-            entity data type that represents an {{action_schema}} entity
+            entity data type that represents the {{action_item,action item}} entity
 
             [NOTE]
             --
@@ -242,7 +242,7 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
             === executed_action
             domain:[resource: action_schema]
 
-            entity data type that is a type of {{action}} that represents an {{executed_action}} entity
+            entity data type that is a type of {{action}} that represents the {{executed_action,executed action}} entity
 
             [NOTE]
             --
@@ -272,7 +272,7 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
             === executed_action
             domain:[resource: action_schema]
 
-            entity data type that is a type of {{action_1}} and {{action_2}} that represents an {{executed_action}} entity
+            entity data type that is a type of {{action_1}} and {{action_2}} that represents the {{executed_action,executed action}} entity
 
             [NOTE]
             --
