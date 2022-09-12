@@ -444,11 +444,7 @@ module Stepmod
         combined.gsub!(/\n\/\/.*?\n/, "\n")
         combined.strip!
 
-        # Replace `<<express:{schema}.{entity},{render}>>` with
-        # {{entity,render}}
-        combined.gsub(/<<express:([^,]+),([^>]+)>>/) do |match|
-          "{{#{Regexp.last_match[1].split('.').last},#{Regexp.last_match[2]}}}"
-        end
+        express_reference_to_mention(combined)
 
         # combined
         # # TODO: If the definition contains a list immediately after the first paragraph, don't split
@@ -465,6 +461,15 @@ module Stepmod
         #   # Only taking the first paragraph of the definition
         #   first_paragraph
         # end
+      end
+
+      # Replace `<<express:{schema}.{entity},{render}>>` with {{entity,render}}
+      def express_reference_to_mention(description)
+        # TODO: Use Expressir to check whether the "entity" is really an
+        # EXPRESS ENTITY. If not, skip the mention.
+        description.gsub(/<<express:([^,]+),([^>]+)>>/) do |match|
+          "{{#{Regexp.last_match[1].split('.').last},#{Regexp.last_match[2]}}}"
+        end
       end
 
       def entity_name_to_text(entity_id)
