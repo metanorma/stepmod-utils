@@ -94,8 +94,8 @@ IMAGE_REPLACEMENTS = {
   'image::eq01.gif[]' => 'stem:[H(A,B) = max {h(A, B), h(B,A)}]',
   'image::eq02.gif[]' => 'stem:[max_{a in A} { min_{b in B} d(a,b) }]',
   'image::vector_z_c.gif[]' => 'stem:[bar z_{c}]',
-  'image::one_direction_repeat_factor_expression.gif[]' => 'stem:[I + k cdot R;  k = -1, 1]',
-  'image::two_direction_repeat_factor_expression.gif[]' => 'stem:[I + k_1 cdot R_1 + k_2 cdot R_2;  k_1, k_2 = -1, 0, 1, k^2_1 + k^2_2 != 0]'
+  'image::one_direction_repeat_factor_expression.gif[]' => 'stem:[I + k cdot R; k = -1, 1]',
+  'image::two_direction_repeat_factor_expression.gif[]' => 'stem:[I + k_1 cdot R_1 + k_2 cdot R_2; k_1, k_2 = -1, 0, 1, k^2_1 + k^2_2 != 0]',
 }
 
 TEXT_REPLACEMENTS = {
