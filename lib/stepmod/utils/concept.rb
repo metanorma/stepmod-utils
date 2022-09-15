@@ -17,7 +17,7 @@ module Stepmod
           converted_definition = Stepmod::Utils::StepmodDefinitionConverter.convert(
             definition_xml,
             {
-              # We don't want examples and notes
+              # We don't want examples, notes, figures and tables
               no_notes_examples: true,
               reference_anchor: reference_anchor,
             },
@@ -87,7 +87,7 @@ module Stepmod
             .convert(
               Nokogiri::XML(wrapper).root,
               {
-                # We don't want examples and notes
+                # We don't want examples, notes, figures and tables
                 no_notes_examples: true,
                 reference_anchor: reference_anchor,
               },

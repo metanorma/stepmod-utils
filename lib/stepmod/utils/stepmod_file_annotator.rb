@@ -3,6 +3,8 @@ require "stepmod/utils/smrl_description_converter"
 require "stepmod/utils/smrl_resource_converter"
 require "stepmod/utils/converters/express_note"
 require "stepmod/utils/converters/express_example"
+require "stepmod/utils/converters/express_figure"
+require "stepmod/utils/converters/express_table"
 
 module Stepmod
   module Utils
@@ -68,16 +70,28 @@ module Stepmod
           wrapper = "<ext_descriptions>#{description}</ext_descriptions>"
           notes = description.xpath("note")
           examples = description.xpath("example")
+          figures = description.xpath("figure")
+          tables = description.xpath("table")
 
           converted_description = <<~DESCRIPTION
 
             #{Stepmod::Utils::SmrlDescriptionConverter.convert(wrapper, no_notes_examples: true)}
           DESCRIPTION
 
-          converted_examples = examples.map do |example|
-            Stepmod::Utils::Converters::ExpressExample
+          if description["linkend"].nil?
+            raise StandardError.new("[stepmod-file-annotator] ERROR: no linkend for #{descriptions_file}!")
+          end
+
+          converted_figures = figures.map do |figure|
+            Stepmod::Utils::Converters::ExpressFigure
               .new
-              .convert(example, schema_and_entity: description["linkend"])
+              .convert(figure, schema_and_entity: description["linkend"])
+          end.join
+
+          converted_tables = tables.map do |table|
+            Stepmod::Utils::Converters::ExpressTable
+              .new
+              .convert(table, schema_and_entity: description["linkend"])
           end.join
 
           converted_notes = notes.map do |note|
@@ -86,20 +100,39 @@ module Stepmod
               .convert(note, schema_and_entity: description["linkend"])
           end.join
 
-          "#{converted_description}#{converted_examples}#{converted_notes}"
+          converted_examples = examples.map do |example|
+            Stepmod::Utils::Converters::ExpressExample
+              .new
+              .convert(example, schema_and_entity: description["linkend"])
+          end.join
+
+          [
+            converted_description,
+            converted_figures,
+            converted_tables,
+            converted_examples,
+            converted_notes,
+          ].join("")
         end
       end
 
       def convert_from_resource_file(resource_docs_dir, stepmod_dir, linked, descriptions_file)
         resource_docs_file = File.join(stepmod_dir, "data/resource_docs",
                                        resource_docs_dir, "resource.xml")
-        puts(resource_docs_file)
+        # puts(resource_docs_file)
         resource_docs = Nokogiri::XML(File.read(resource_docs_file)).root
         schema = resource_docs.xpath("schema[@name='#{linked}']")
 
         Dir.chdir(File.dirname(descriptions_file)) do
           wrapper = "<resource>#{schema}</resource>"
-          "\n#{Stepmod::Utils::SmrlResourceConverter.convert(wrapper, no_notes_examples: true)}"
+
+          "\n" + Stepmod::Utils::SmrlResourceConverter.convert(
+            wrapper,
+            {
+              no_notes_examples: false,
+              schema_and_entity: linked
+            }
+          )
         end
       end
     end

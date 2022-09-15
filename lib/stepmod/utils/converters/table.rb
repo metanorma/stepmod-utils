@@ -4,9 +4,22 @@ module Stepmod
   module Utils
     module Converters
       class Table < ReverseAdoc::Converters::Base
+
+        def self.pattern(state, id)
+          if state[:schema_and_entity].nil?
+            raise StandardError.new("[table]: no state given, #{id}")
+          end
+
+          schema = state[:schema_and_entity].split(".").first
+          "table-#{schema}-#{id}"
+        end
+
         def convert(node, state = {})
+          # If we want to skip this node
+          return "" if state[:no_notes_examples]
+
           id = node["id"]
-          anchor = id ? "[[#{id}]]\n" : ""
+          anchor = id ? "[[table-#{self.class.pattern(state, id)}]]\n" : ""
           title = node["caption"].to_s
           title = ".#{title}\n" unless title.empty?
           attrs = style(node)
