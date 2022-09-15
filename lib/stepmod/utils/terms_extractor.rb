@@ -476,13 +476,14 @@ module Stepmod
         entity_id.downcase.gsub(/_/, " ")
       end
 
-      def entity_ref(entity_id)
-        if entity_id == entity_name_to_text(entity_id)
-          "{{#{entity_id}}}"
-        else
-          "{{#{entity_id},#{entity_name_to_text(entity_id)}}}"
-        end
-      end
+      # No longer used
+      # def entity_ref(entity_id)
+      #   if entity_id == entity_name_to_text(entity_id)
+      #     "{{#{entity_id}}}"
+      #   else
+      #     "{{#{entity_id},#{entity_name_to_text(entity_id)}}}"
+      #   end
+      # end
 
       # rubocop:disable Layout/LineLength
       def generate_entity_definition(entity, domain, old_definition)
@@ -490,21 +491,21 @@ module Stepmod
 
         # See: metanorma/iso-10303-2#90
         entity_type = if domain_type = domain.match(/\A(application object):/)
-          domain_type[1]
+          "{{#{domain_type[1]}}}"
         else
-          "entity data type"
+          "{{entity data type}}"
         end
 
         entity_text = if entity.subtype_of.size.zero?
           "#{entity_type} " +
-          "that represents the " + entity_ref(entity.id) + " entity"
+          "that represents the " + entity_name_to_text(entity.id) + " {{entity}}"
         else
           entity_subtypes = entity.subtype_of.map do |e|
             "{{#{e.id}}}"
           end
           "#{entity_type} that is a type of " +
           "#{entity_subtypes.join(' and ')} " +
-          "that represents the " + entity_ref(entity.id) + " entity"
+          "that represents the " + entity_name_to_text(entity.id) + " {{entity}}"
         end
 
         definition = <<~DEFINITION
