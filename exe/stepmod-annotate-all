@@ -13,7 +13,7 @@ resource_docs_cache_file = `mktemp`
 # annotate each file
 files = `"#{File.join(__dir__,
                       "stepmod-find-express-files")}" "#{stepmod_dir}"`.strip.split("\n")
-MAX_THREADS = [2, Concurrent.processor_count].max * 2
+MAX_THREADS = 1 #[2, Concurrent.processor_count].max * 2
 MAX_QUEUE_SIZE = MAX_THREADS * 4
 # https://github.com/ruby-concurrency/concurrent-ruby/blob/master/docs-source/thread_pools.md
 pool = Concurrent::ThreadPoolExecutor.new(
