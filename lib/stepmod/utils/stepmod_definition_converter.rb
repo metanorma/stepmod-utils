@@ -17,6 +17,7 @@ require "stepmod/utils/converters/term"
 require "stepmod/utils/converters/synonym"
 require "stepmod/utils/converters/uof"
 require "stepmod/utils/converters/figure"
+require "stepmod/utils/converters/table"
 require "stepmod/utils/cleaner"
 
 require "reverse_adoc/converters/a"
