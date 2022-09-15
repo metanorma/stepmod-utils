@@ -98,8 +98,16 @@ IMAGE_REPLACEMENTS = {
   'image::two_direction_repeat_factor_expression.gif[]' => 'stem:[I + k_1 cdot R_1 + k_2 cdot R_2;  k_1, k_2 = -1, 0, 1, k^2_1 + k^2_2 != 0]'
 }
 
-def replace_images(content)
+TEXT_REPLACEMENTS = {
+  ' (see <module_ref linkend="ply_orientation_specification:4_entities:figure:f2"> Figure 2</module_ref>)' => '',
+  ' (see <module_ref linkend="ply_orientation_specification:4_entities:figure:f3"> Figure 3</module_ref>)' => ''
+}
+
+def replace_content(content)
   IMAGE_REPLACEMENTS.each_pair do |k, v|
+    content.gsub!(k, v)
+  end
+  TEXT_REPLACEMENTS.each_pair do |k, v|
     content.gsub!(k, v)
   end
 
@@ -137,7 +145,7 @@ part_resources.each do |(bibdata, current_part_resources)|
   fn = "04x-stepmod-entities-resources-#{bibdata.part}.adoc"
   File.open(fn, "w") do |file|
     # file.puts("== #{part_to_title(bibdata)}\n\n")
-    file.puts(replace_images(current_part_resources.map(&:to_mn_adoc).join("\n")))
+    file.puts(replace_content(current_part_resources.map(&:to_mn_adoc).join("\n")))
   end
   log "INFO: written to: #{fn}"
 end
@@ -181,7 +189,7 @@ end.each do |(bibdata, part_modules_arm, part_modules_mim)|
         n.localizations["en"]
       end
       file.puts("== #{schema_name}\n\n")
-      file.puts(replace_images(concepts.map(&:to_mn_adoc).join("\n")))
+      file.puts(replace_content(concepts.map(&:to_mn_adoc).join("\n")))
     end
   end
 
@@ -214,7 +222,7 @@ log "INFO: written summary file to: 05x-stepmod-entities-modules.adoc"
 
 File.open("041-stepmod-entities-resources.adoc", "w") do |file|
   file.puts(
-    replace_images(
+    replace_content(
       resource_concepts.to_a.map do |n|
         n.localizations["en"]
       end.map(&:to_mn_adoc).join("\n")
