@@ -61,6 +61,9 @@ module Stepmod
         end
 
         output_express
+      rescue StandardError => e
+        puts "[ERROR]!!! #{e.message}"
+        puts e.backtrace
       end
 
       private
