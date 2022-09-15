@@ -41,7 +41,7 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
         === action_directive
         domain:[resource: action_schema]
 
-        entity data type that represents the {{action_directive,action directive}} entity
+        {{entity data type}} that represents the action directive {{entity}}
 
         [NOTE]
         --
@@ -54,7 +54,7 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
         === Activity
         domain:[application object: Activity_arm]
 
-        application object that represents the {{Activity,activity}} entity
+        {{application object}} that represents the activity {{entity}}
 
         [NOTE]
         --
@@ -67,7 +67,7 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
         === applied_action_assignment
         domain:[application module: Activity_mim]
 
-        entity data type that is a type of {{action_assignment}} that represents the {{applied_action_assignment,applied action assignment}} entity
+        {{entity data type}} that is a type of {{action_assignment}} that represents the applied action assignment {{entity}}
 
         [NOTE]
         --
@@ -213,7 +213,7 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
             === action_item
             domain:[resource: action_schema]
 
-            entity data type that represents the {{action_item,action item}} entity
+            {{entity data type}} that represents the action item {{entity}}
 
             [NOTE]
             --
@@ -242,7 +242,7 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
             === executed_action
             domain:[resource: action_schema]
 
-            entity data type that is a type of {{action}} that represents the {{executed_action,executed action}} entity
+            {{entity data type}} that is a type of {{action}} that represents the executed action {{entity}}
 
             [NOTE]
             --
@@ -272,7 +272,7 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
             === executed_action
             domain:[resource: action_schema]
 
-            entity data type that is a type of {{action_1}} and {{action_2}} that represents the {{executed_action,executed action}} entity
+            {{entity data type}} that is a type of {{action_1}} and {{action_2}} that represents the executed action {{entity}}
 
             [NOTE]
             --
