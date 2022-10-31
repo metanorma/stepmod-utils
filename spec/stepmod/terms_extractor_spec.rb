@@ -65,7 +65,7 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
     let(:mim_description_converted_definition) do
       <<~TEXT
         === applied_action_assignment
-        domain:[application module: Activity_mim]
+        domain:[application object: Activity_mim]
 
         {{entity data type}} that is a type of {{action_assignment}} that represents the applied action assignment {{entity}}
 
