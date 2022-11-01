@@ -45,16 +45,16 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
 
         [NOTE]
         --
-        An *action_directive* is an authoritative instrument that provides directions to achieve the specified results.
+        An **action_directive** is an authoritative instrument that provides directions to achieve the specified results.
         --
       TEXT
     end
     let(:arm_description_xml_converted_definition) do
       <<~TEXT
         === Activity
-        domain:[application object: Activity_arm]
+        domain:[application module: Activity_arm]
 
-        {{application object}} that represents the activity {{entity}}
+        {{entity data type}} that represents the activity {{entity}}
 
         [NOTE]
         --
@@ -67,7 +67,7 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
         === applied_action_assignment
         domain:[application object: Activity_mim]
 
-        {{entity data type}} that is a type of {{action_assignment}} that represents the applied action assignment {{entity}}
+        {{application object}} that is a type of {{action_assignment}} that represents the applied action assignment {{entity}}
 
         [NOTE]
         --
@@ -78,47 +78,7 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
 
     it "returns general_concepts," \
       "resource_concepts, parsed_bibliography lists" do
-      expect(call.map(&:to_a).map(&:length)).to(eq([8, 0, 37, 1, 1, 1]))
-    end
-
-    it "For resource.xml terms takes only the" \
-      "first paragraph and no additonal tags " do
-      agreement_common_understanding_concept = call[3][0][1]
-        .find do |concept|
-          concept.localizations["en"].reference_anchor == "ISO_10303-41_2021" &&
-            concept.localizations["en"].reference_clause == "3.1"
-        end
-        .localizations["en"]
-      expect(agreement_common_understanding_concept.converted_definition)
-        .to(eq(resource_xml_converted_definition.strip))
-    end
-
-    it "For module.xml terms takes only the first" \
-      "paragraph and no additonal tags " do
-      activity_concept = call[0]
-        .find do |concept|
-          concept
-            .localizations["en"]
-            .reference_anchor == "ISO-TS_10303-1047_2014" &&
-            concept.localizations["en"].reference_clause == "3.1"
-        end
-        .localizations["en"]
-      expect(activity_concept.converted_definition)
-        .to(eq(module_xml_converted_definition.strip))
-    end
-
-    it "For business_object_model.xml terms takes only the \
-      first paragraph and no additonal tags " do
-      design_phase = call[0]
-        .find do |concept|
-          concept
-            .localizations["en"]
-            .reference_anchor == "ISO-TS_10303-3001_2018" &&
-            concept.localizations["en"].reference_clause == "3.1"
-        end
-        .localizations["en"]
-      expect(design_phase.converted_definition.strip)
-        .to(eq(business_object_model_converted_definition.strip))
+      expect(call.map(&:to_a).map(&:length)).to(eq([0, 0, 2, 0, 1, 1]))
     end
 
     it "For resources/*/descriptions.xml terms takes \
@@ -370,6 +330,32 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
         end
 
         it { expect(format_remarks).to eq(expected_output) }
+      end
+    end
+
+    describe "#extract_file_type" do
+      let(:extract_file_type) do
+        subject.send(:extract_file_type, filename)
+      end
+
+      context "when file name is of resource" do
+        let(:filename) { "action_schema_annotated.exp" }
+
+        it { expect(extract_file_type).to eq("resource") }
+      end
+
+      context "when file name is of module" do
+        context "when mim" do
+          let(:filename) { "mim_annotated.exp" }
+
+          it { expect(extract_file_type).to eq("module_mim") }
+        end
+
+        context "when arm" do
+          let(:filename) { "arm_annotated.exp" }
+
+          it { expect(extract_file_type).to eq("module_arm") }
+        end
       end
     end
   end

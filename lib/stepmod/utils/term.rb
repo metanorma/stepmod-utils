@@ -24,7 +24,7 @@ module Stepmod
           hash["acronym"] = acronym.gsub(/\(|\)/, "") if acronym
           add_designations(hash, hash["synonyms"]) if hash["synonyms"]
 
-          new(hash)
+          new(hash.reject { |k, _| k == "synonyms" })
         end
 
         private
