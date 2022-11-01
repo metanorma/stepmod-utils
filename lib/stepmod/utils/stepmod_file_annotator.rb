@@ -8,7 +8,6 @@ require "stepmod/utils/converters/express_table"
 require "expressir"
 require "expressir/express/parser"
 require "pubid-iso"
-require "pry"
 
 module Stepmod
   module Utils

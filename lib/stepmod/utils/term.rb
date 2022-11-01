@@ -1,5 +1,4 @@
 require "glossarist"
-require "pry"
 
 module Stepmod
   module Utils
