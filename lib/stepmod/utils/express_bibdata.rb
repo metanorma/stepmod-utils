@@ -14,7 +14,7 @@ module Stepmod
         # raise "UnknownFileError" unless %w(module resource
         #                                    application_protocol business_object_model).include?(@type)
 
-        @published_info = extract_remarks(schema, "__published_in")&.first
+        @published_info = schema.find("__published_in")&.remarks&.first
         @schema = schema
 
         if !published_info.nil?
@@ -31,20 +31,18 @@ module Stepmod
           raise "PublishedInfoNotFound" if published_info.nil?
         end
 
-        @doctype = extract_remarks(schema, "__status")&.first
+        @doctype = schema.find("__status")&.remarks&.first
         self
       end
 
-      def extract_remarks(schema, remark_name)
-        schema.remark_items.find { |remark| remark.id == remark_name }&.remarks
-      end
-
       def title_en
-        @title_en ||= extract_remarks(@schema, "__title").first
-                                                         .gsub("_", " ")
-                                                         .capitalize
-                                                         .gsub("2d", "2D")
-                                                         .gsub("3d", "3D")
+        @title_en ||= @schema.find("__title")
+                             .remarks
+                             .first
+                             .gsub("_", " ")
+                             .capitalize
+                             .gsub("2d", "2D")
+                             .gsub("3d", "3D")
       end
 
       def docid
