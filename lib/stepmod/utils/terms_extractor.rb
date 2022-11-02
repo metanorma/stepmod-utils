@@ -1,11 +1,12 @@
 require "stepmod/utils/stepmod_definition_converter"
-require "stepmod/utils/bibdata"
+require "stepmod/utils/express_bibdata"
 require "stepmod/utils/concept"
 require "glossarist"
 require "securerandom"
 require "expressir"
 require "expressir/express/parser"
 require "indefinite_article"
+require "pubid-iso"
 
 ReverseAdoc.config.unknown_tags = :bypass
 
@@ -38,12 +39,13 @@ module Stepmod
         @stepmod_dir = stepmod_dir
         @stepmod_path = Pathname.new(stepmod_dir).realpath
         @index_path = Pathname.new(index_path).to_s
-        @general_concepts = Glossarist::Collection.new
-        @resource_concepts = Glossarist::Collection.new
+        @general_concepts = Glossarist::ManagedConceptCollection.new
+        @resource_concepts = Glossarist::ManagedConceptCollection.new
         @parsed_bibliography = []
+        @added_bibdata = {}
         @part_concepts = []
-        @part_resources = []
-        @part_modules = []
+        @part_resources = {}
+        @part_modules = {}
         @encountered_terms = {}
       end
 
@@ -80,313 +82,243 @@ module Stepmod
         repo_index.xpath("//module").each do |x|
           next if x['status'] == WITHDRAWN_STATUS
 
-          path = Pathname.new("#{stepmod_dir}/modules/#{x['name']}/module.xml")
-          files << path if File.exists? path
+          arm_path = Pathname.new("#{stepmod_dir}/modules/#{x['name']}/arm_annotated.exp")
+          mim_path = Pathname.new("#{stepmod_dir}/modules/#{x['name']}/mim_annotated.exp")
+
+          files << arm_path if File.exists? arm_path
+          files << mim_path if File.exists? mim_path
         end
 
-        # add resource_docs paths
-        repo_index.xpath("//resource_doc").each do |x|
+        # Should ignore these because the `<resource_docs>` elements do not provide any EXPRESS schemas
+        # # add resource_docs paths
+        # repo_index.xpath("//resource_doc").each do |x|
+        #   next if x['status'] == WITHDRAWN_STATUS
+
+        #   path = Pathname.new("#{stepmod_dir}/resource_docs/#{x['name']}/resource.xml")
+        #   files << path if File.exists? path
+        # end
+
+        # add resource paths
+        repo_index.xpath("//resource").each do |x|
           next if x['status'] == WITHDRAWN_STATUS
 
-          path = Pathname.new("#{stepmod_dir}/resource_docs/#{x['name']}/resource.xml")
+          path = Pathname.new("#{stepmod_dir}/resources/#{x['name']}/#{x['name']}_annotated.exp")
           files << path if File.exists? path
         end
 
+        # Should ignore these because we are skiping Clause 3 terms
         # add business_object_models paths
-        repo_index.xpath("//business_object_model").each do |x|
-          next if x['status'] == WITHDRAWN_STATUS
+        # repo_index.xpath("//business_object_model").each do |x|
+        #   next if x['status'] == WITHDRAWN_STATUS
 
-          path = Pathname.new("#{stepmod_dir}/business_object_models/#{x['name']}/business_object_model.xml")
-          files << path if File.exists? path
-        end
+        #   annotated_path = Pathname.new("#{stepmod_dir}/business_object_models/#{x['name']}/bom_annotated.exp")
+        #   path = Pathname.new("#{stepmod_dir}/business_object_models/#{x['name']}/bom.exp")
+        #   files << if File.exists?(annotated_path)
+        #              annotated_path
+        #            elsif File.exists?(path)
+        #              path
+        #            end
+        # end
 
-        # add application_protocols paths
-        repo_index.xpath("//application_protocol").each do |x|
-          next if x['status'] == WITHDRAWN_STATUS
+        # Should ignore these because there are no EXPRESS schemas here (they are implemented inside modules
+        # # add application_protocols paths
+        # repo_index.xpath("//application_protocol").each do |x|
+        #   next if x['status'] == WITHDRAWN_STATUS
 
-          path = Pathname.new("#{stepmod_dir}/application_protocols/#{x['name']}/application_protocol.xml")
-          files << path if File.exists? path
-        end
+        #   path = Pathname.new("#{stepmod_dir}/application_protocols/#{x['name']}/application_protocol.xml")
+        #   files << path if File.exists? path
+        # end
 
-        files.sort!.uniq!
+        files.compact.sort!.uniq!
         process_term_files(files)
 
         [
-          general_concepts,
+          general_concepts, # Should be empty because skiping all Clause 3 terms
           resource_concepts,
           parsed_bibliography,
-          part_concepts,
-          part_resources,
-          part_modules,
+          part_concepts, # Should be empty because skiping all Clause 3 terms
+          part_resources.values.compact,
+          part_modules.values.compact,
         ]
       end
 
       private
 
       def process_term_files(files)
-        parsed_schema_names = {}
-        files.each do |file_path|
-          file_path = file_path.realpath
-          fpath = file_path.relative_path_from(stepmod_path)
+        repo = Expressir::Express::Parser.from_files(files)
 
-          log "INFO: Processing XML file #{fpath}"
-          current_document = Nokogiri::XML(File.read(file_path)).root
+        repo.schemas.each do |schema|
+          parsed_schema_names = {}
 
-          bibdata = nil
+          schema_name = schema.id
+          file_path = schema.file
+          type = extract_file_type(file_path)
+
+          if parsed_schema_names[schema_name]
+            log <<~ERROR.gsub("\n", " ")
+              ERROR: We have encountered this schema before: #{schema_name} from
+              path #{parsed_schema_names[schema_name]}, now at #{schema.file}
+            ERROR
+
+            next
+          else
+            parsed_schema_names[schema_name] = file_path
+          end
+
+          log "INFO: Processing schema: #{schema.id}"
+
           begin
-            bibdata = Stepmod::Utils::Bibdata.new(document: current_document)
-          rescue StandardError
-            log "WARNING: Unknown file #{fpath}, skipped"
+            bibdata = Stepmod::Utils::ExpressBibdata.new(schema: schema)
+          rescue => e
+            log e
+            log "ERROR: while processing bibdata for `#{schema_name}`"
+
             next
           end
 
           unless ACCEPTED_STAGES.include? bibdata.doctype
-            log "INFO: skipped #{bibdata.docid} as it is not " \
-              "one of (#{ACCEPTED_STAGES.join(', ')})."
+            log "INFO: skipped #{bibdata.doctype} as it is not " \
+                "one of (#{ACCEPTED_STAGES.join(', ')})."
             next
           end
 
           if bibdata.part.to_s.empty?
-            log "FATAL: missing `part` attribute: #{fpath}"
-            log "INFO: skipped #{bibdata.docid} as it is missing `part` attribute."
+            log "FATAL: missing `part` attribute: #{file_path}"
+            log "INFO:  skipped #{schema.id} as it is missing `part` attribute."
             next
           end
 
-          # read definitions
-          current_part_concepts = Glossarist::Collection.new
-          current_document.xpath("//definition").each.with_index(1) do |definition, definition_index|
-            term_id = definition["id"]
-            unless term_id.nil?
-              if encountered_terms[term_id]
-                log "FATAL: Duplicated term with id: #{term_id}, #{fpath}"
-              end
-              encountered_terms[term_id] = true
-            end
-
-            # Assume that definition is located in clause 3 of the ISO document
-            # in order. We really don't have a good reference here.
-            ref_clause = "3.#{definition_index}"
-
-            concept = Stepmod::Utils::Concept.parse(
-              definition,
-              reference_anchor: bibdata.anchor,
-              reference_clause: ref_clause,
-              file_path: fpath,
+          case type
+          when "module_arm"
+            arm_concepts = parse_annotated_module(
+              schema: schema,
+              bibdata: bibdata,
+              # See: metanorma/iso-10303-2#90
+              domain_prefix: "application module",
             )
-            next unless concept
-
-            if term_special_category(bibdata)
-              # log "INFO: this part is special"
-              find_or_initialize_concept(current_part_concepts, concept)
-            else
-              # log "INFO: this part is generic"
-              find_or_initialize_concept(general_concepts, concept)
-            end
-
-            parsed_bibliography << bibdata
-          end
-
-          current_part_resources = Glossarist::Collection.new
-          current_part_modules_arm = {}
-          current_part_modules_mim = {}
-
-          # log "INFO: FILE PATH IS #{file_path}"
-          case file_path.to_s
-          when /resource.xml$/
-            log "INFO: Processing resource.xml for #{fpath}"
-
-            current_document.xpath("//schema").each do |schema_node|
-              schema_name = schema_node["name"]
-              if parsed_schema_names[schema_name]
-                log "ERROR: We have encountered this schema before: \
-                  #{schema_name} from path \
-                  #{parsed_schema_names[schema_name]}, now at #{file_path}"
-                next
-              else
-                parsed_schema_names[schema_name] = file_path
-              end
-
-              exp_annotated_path =
-                "#{stepmod_path}/resources/#{schema_name}/#{schema_name}_annotated.exp"
-
-              log "INFO: Processing resources schema #{exp_annotated_path}"
-
-              if File.exists?(exp_annotated_path)
-                repo = Expressir::Express::Parser.from_file(exp_annotated_path)
-                schema = repo.schemas.first
-
-                schema.entities.each do |entity|
-                  old_definition = entity.remarks.first
-
-                  domain = "resource: #{schema.id}"
-                  entity_definition = generate_entity_definition(entity, domain, old_definition)
-
-                  reference_anchor = bibdata.anchor
-                  reference_clause = nil
-
-                  concept = Stepmod::Utils::Concept.new(
-                    designations: [entity.id],
-                    definition: old_definition,
-                    converted_definition: entity_definition,
-                    id: "#{reference_anchor}.#{reference_clause}",
-                    reference_anchor: reference_anchor,
-                    reference_clause: reference_clause,
-                    file_path: Pathname.new(exp_annotated_path)
-                                .relative_path_from(stepmod_path),
-                    language_code: "en",
-                  )
-
-                  next unless concept
-
-                  if term_special_category(bibdata)
-                    # log "INFO: this part is special"
-                    find_or_initialize_concept(current_part_resources, concept)
-                  else
-                    # log "INFO: this part is generic"
-                    find_or_initialize_concept(resource_concepts, concept)
-                  end
-
-                  parsed_bibliography << bibdata
-                end
-              end
-            end
-
-          when /module.xml$/
-            log "INFO: Processing module.xml for #{fpath}"
-            # Assumption: every schema is only linked by a single module document.
-            # puts current_document.xpath('//module').length
-            schema_name = current_document.xpath("//module").first["name"]
-            if parsed_schema_names[schema_name]
-              log "ERROR: We have encountered this schema before: \
-                #{schema_name} from path #{parsed_schema_names[schema_name]}, \
-                  now at #{file_path}"
-              next
-            else
-              parsed_schema_names[schema_name] = file_path
-            end
-
-            arm_schema, arm_concepts = parse_annotated_module(
-              type: :arm,
-              stepmod_path: stepmod_path,
-              path: "modules/#{schema_name}/arm_annotated.exp",
-              bibdata: bibdata
+          when "module_mim"
+            mim_concepts = parse_annotated_module(
+              schema: schema,
+              bibdata: bibdata,
+              # See: metanorma/iso-10303-2#90
+              domain_prefix: "application object",
             )
-
-            mim_schema, mim_concepts = parse_annotated_module(
-              type: :mim,
-              stepmod_path: stepmod_path,
-              path: "modules/#{schema_name}/mim_annotated.exp",
-              bibdata: bibdata
-            )
-
-            if arm_concepts.to_a.size > 0
-              current_part_modules_arm[arm_schema] = arm_concepts
-            end
-
-            if mim_concepts.to_a.size > 0
-              current_part_modules_mim[mim_schema] = mim_concepts
-            end
+          when "resource"
+            parse_annotated_resource(schema: schema, bibdata: bibdata)
           end
-
-          log "INFO: Completed processing XML file #{fpath}"
-          if current_part_concepts.to_a.empty?
-            log "INFO: Skipping #{fpath} (#{bibdata.docid}) " \
-              "because it contains no concepts."
-          elsif current_part_concepts.to_a.length < 3
-            log "INFO: Skipping #{fpath} (#{bibdata.docid}) " \
-              "because it only has #{current_part_concepts.to_a.length} terms."
-
-            current_part_concepts.to_a.each do |x|
-              general_concepts.store(x)
-            end
-          else
-            unless current_part_concepts.to_a.empty?
-              part_concepts << [bibdata,
-                                current_part_concepts]
-            end
-          end
-
-          unless current_part_resources.to_a.empty?
-            part_resources << [bibdata,
-                               current_part_resources]
-          end
-
-          if (current_part_modules_arm.to_a.size +
-              current_part_modules_mim.to_a.size).positive?
-
-            part_modules << [bibdata, current_part_modules_arm,
-                             current_part_modules_mim]
-            parsed_bibliography << bibdata
-          end
-
         end
       end
 
-      def parse_annotated_module(type:, stepmod_path:, path:, bibdata:)
-        log "INFO: parse_annotated_module: Processing modules schema #{path}"
+      def extract_file_type(filename)
+        match = filename.match(/(arm|mim|bom)_annotated\.exp$/)
+        return "resource" unless match
 
-        fpath = File.join(stepmod_path, path)
+        {
+          "arm" => "module_arm",
+          "mim" => "module_mim",
+          "bom" => "business_object_model",
+        }[match.captures[0]] || "resource"
+      end
 
-        unless File.exists?(fpath)
-          log "ERROR: parse_annotated_module: No module schema exists at #{fpath}."
-          return
-        end
+      def parse_annotated_module(schema:, bibdata:, domain_prefix:)
+        log "INFO: parse_annotated_module: " \
+            "Processing modules schema #{schema.file}"
 
-        repo = Expressir::Express::Parser.from_file(fpath)
-
-        unless repo
-          log "ERROR: parse_annotated_module: failed to parse EXPRESS file at #{path}."
-          return
-        end
-
-        # See: metanorma/iso-10303-2#90
-        domain_prefix = case type
-        when :mim
-          "application module"
-        when :arm
-          "application object"
-        end
-
-        if repo.schemas.length > 1
-          raise StandardError.new(
-            "ERROR: FATAL: #{fpath} contains more than one schema:" +
-            "#{repo.schemas.map(&:id).join(", ")} (not supposed to happen!!)"
-          )
-        end
-
-        schema = repo.schemas.first
-        collection = Glossarist::Collection.new
-        domain = "#{domain_prefix}: #{schema.id}"
+        collection = Glossarist::ManagedConceptCollection.new
 
         schema.entities.each do |entity|
-          old_definition = entity.remarks.first
-          new_definition = generate_entity_definition(entity, domain, old_definition)
-
-          concept = Stepmod::Utils::Concept.new(
-            designations: [entity.id],
-            definition: old_definition,
-            converted_definition: new_definition,
-            # TODO: Find a proper ID for this
-            id: "#{bibdata.anchor}.",
-            reference_anchor: bibdata.anchor,
-            reference_clause: nil,
-            file_path: path,
-            language_code: "en",
+          concept = generate_concept_from_entity(
+            entity: entity,
+            domain: "#{domain_prefix}: #{schema.id}",
+            reference: { anchor: bibdata.anchor, clause: nil },
           )
 
           next unless concept
+
           find_or_initialize_concept(collection, concept)
         end
 
-        [schema.id, collection]
+        if collection.to_a.size.positive?
+          part_index = domain_prefix == "application module" ? 1 : 2
+          part_modules[bibdata.part] ||= [bibdata, {}, {}]
+          part_modules[bibdata.part][part_index][schema.id] = collection
+        end
+
+        if collection && !@added_bibdata[bibdata.part]
+          parsed_bibliography << bibdata
+          @added_bibdata[bibdata.part] = true
+        end
+
+        collection
+      end
+
+      def parse_annotated_resource(schema:, bibdata:)
+        log "INFO: parse_annotated_resource: " \
+            "Processing resources schema #{schema.file}"
+
+        schema.entities.each do |entity|
+          log "INFO:   Processing entity: #{entity.id}"
+
+          concept = generate_concept_from_entity(
+            entity: entity,
+            domain: "resource: #{schema.id}",
+            reference: { anchor: bibdata.anchor, clause: nil },
+          )
+
+          next unless concept
+
+          if term_special_category(bibdata)
+            part_resources[bibdata.part] ||= [
+              bibdata,
+              Glossarist::ManagedConceptCollection.new,
+            ]
+            # log "INFO: this part is special"
+            find_or_initialize_concept(part_resources[bibdata.part][1], concept)
+          else
+            # log "INFO: this part is generic"
+            find_or_initialize_concept(resource_concepts, concept)
+          end
+
+          unless @added_bibdata[bibdata.part]
+            parsed_bibliography << bibdata
+            @added_bibdata[bibdata.part] = true
+          end
+        end
+      end
+
+      # rubocop:disable Metrics/MethodLength
+      def generate_concept_from_entity(entity:, domain:, reference:)
+        old_definition = entity.remarks.first
+        definition = generate_entity_definition(entity, domain, old_definition)
+
+        Stepmod::Utils::Concept.new(
+          designations: [
+            { "designation" => entity.id, "type" => "expression" },
+          ],
+          definition: [old_definition],
+          converted_definition: definition,
+          id: "#{reference[:anchor]}.#{reference[:clause]}",
+          reference_anchor: reference[:anchor],
+          reference_clause: reference[:clause],
+          file_path: extract_file_path(entity),
+          language_code: "en",
+        )
+      end
+      # rubocop:enable Metrics/MethodLength
+
+      def extract_file_path(entity)
+        Pathname
+          .new(entity.parent.file)
+          .realpath
+          .relative_path_from(stepmod_path)
       end
 
       def find_or_initialize_concept(collection, localized_concept)
-        concept = collection
-          .store(Glossarist::Concept.new(id: SecureRandom.uuid))
+        concept = collection.fetch_or_initialize(SecureRandom.uuid)
         concept.add_l10n(localized_concept)
       end
 
+      # rubocop:disable Metrics/MethodLength
       def combine_paragraphs(full_paragraph, next_paragraph)
         # If full_paragraph already contains a period, extract that.
         if m = full_paragraph.match(/\A(?<inner_first>[^\n]*?\.)\s/)
@@ -429,25 +361,26 @@ module Stepmod
 
         first_paragraph = paragraphs.first
 
-        if paragraphs.length > 1
-          combined = paragraphs[1..-1].inject(first_paragraph) do |acc, p|
-            combine_paragraphs(acc, p)
-          end
-        else
-          combined = combine_paragraphs(first_paragraph, "")
-        end
+        combined = if paragraphs.length > 1
+                     paragraphs[1..-1].inject(first_paragraph) do |acc, p|
+                       combine_paragraphs(acc, p)
+                     end
+                   else
+                     combine_paragraphs(first_paragraph, "")
+                   end
 
         # puts "combined--------- #{combined}"
 
         # Remove comments until end of line
-        combined = combined + "\n"
+        combined = "#{combined}\n"
         combined.gsub!(/\n\/\/.*?\n/, "\n")
         combined.strip!
 
         express_reference_to_mention(combined)
 
         # combined
-        # # TODO: If the definition contains a list immediately after the first paragraph, don't split
+        # # TODO: If the definition contains a list immediately after
+        # # the first paragraph, don't split
         # return definition if definition =~ /\n\* /
 
         # unless (
@@ -462,6 +395,7 @@ module Stepmod
         #   first_paragraph
         # end
       end
+      # rubocop:enable Metrics/MethodLength
 
       # Replace `<<express:{schema}.{entity},{render}>>` with {{entity,render}}
       def express_reference_to_mention(description)
@@ -491,22 +425,25 @@ module Stepmod
 
         # See: metanorma/iso-10303-2#90
         entity_type = if domain_type = domain.match(/\A(application object):/)
-          "{{#{domain_type[1]}}}"
-        else
-          "{{entity data type}}"
-        end
+                        "{{#{domain_type[1]}}}"
+                      else
+                        "{{entity data type}}"
+                      end
 
         entity_text = if entity.subtype_of.size.zero?
-          "#{entity_type} " +
-          "that represents the " + entity_name_to_text(entity.id) + " {{entity}}"
-        else
-          entity_subtypes = entity.subtype_of.map do |e|
-            "{{#{e.id}}}"
-          end
-          "#{entity_type} that is a type of " +
-          "#{entity_subtypes.join(' and ')} " +
-          "that represents the " + entity_name_to_text(entity.id) + " {{entity}}"
-        end
+                        "#{entity_type} " \
+                          "that represents the " \
+                          "#{entity_name_to_text(entity.id)} {{entity}}"
+                      else
+                        entity_subtypes = entity.subtype_of.map do |e|
+                          "{{#{e.id}}}"
+                        end
+
+                        "#{entity_type} that is a type of " \
+                          "#{entity_subtypes.join(' and ')} " \
+                          "that represents the " \
+                          "#{entity_name_to_text(entity.id)} {{entity}}"
+                      end
 
         definition = <<~DEFINITION
           === #{entity.id}

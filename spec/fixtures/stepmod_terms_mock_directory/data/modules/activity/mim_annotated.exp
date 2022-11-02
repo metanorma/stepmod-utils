@@ -32,6 +32,23 @@ END_ENTITY;
 
 END_SCHEMA;  -- Activity_mim
 
+(*"Activity_mim.__published_in"
+ISO 10303-1047:2014 ED3
+*)
+
+(*"Activity_mim.__identifier"
+ISO/TC 184/SC 4/WG 12 N1157
+*)
+
+(*"Activity_mim.__status"
+TS
+*)
+
+(*"Activity_mim.__title"
+activity
+*)
+
+
 (*"Activity_mim.applied_action_assignment"
 An **applied_action_assignment** is an <<express:action_schema.action,action>> related to the data that are affected by the <<express:action_schema.action,action>>. An **applied_action_assignment** is a type of <<express:management_resources_schema.action_assignment,action_assignment>>.
 *)

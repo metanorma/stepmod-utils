@@ -14,44 +14,56 @@ RSpec.describe Stepmod::Utils::Concept do
       )
   end
 
+  subject(:new_concept) do
+    reference = { anchor: "ISO_10303-41_2020" }
+
+    described_class.new(
+      designations: [
+        { "designation" => entity_name, "type" => "expression" },
+      ],
+      definition: [old_definition],
+      converted_definition: new_definition,
+      id: "#{reference[:anchor]}.#{reference[:clause]}",
+      reference_anchor: reference[:anchor],
+      reference_clause: reference[:clause],
+      file_path: "",
+      language_code: "en",
+    )
+  end
+
   let(:input) { node_for(input_xml) }
 
   original_ext_description = ReverseAdoc::Converters.lookup(:ext_description)
   original_express_ref = ReverseAdoc::Converters.lookup(:express_ref)
   before do
     require "stepmod/utils/converters/stepmod_ext_description"
-    ReverseAdoc::Converters.register :ext_description,
-                                     Stepmod::Utils::Converters::StepmodExtDescription.new
-    ReverseAdoc::Converters.register :express_ref,
-                                     Stepmod::Utils::Converters::ExpressRef.new
+    ReverseAdoc::Converters.register(
+      :ext_description, Stepmod::Utils::Converters::StepmodExtDescription.new
+    )
+
+    ReverseAdoc::Converters.register(
+      :express_ref, Stepmod::Utils::Converters::ExpressRef.new
+    )
   end
 
   context "when action_schema" do
-    let(:entity_definition) { nil }
-    let(:input_xml) do
-      <<~XML
-        <ext_description linkend="action_schema.supported_item">
-          The <b>supported_item</b> allows for the designation of an
-          <express_ref linkend="action_schema:ir_express:action_schema.action_directive"/>,
-          an
-          <express_ref linkend="action_schema:ir_express:action_schema.action"/>,
-          or an
-          <express_ref linkend="action_schema:ir_express:action_schema.action_method"/>.
-          <note>
-            This specifies the use of an
-            <express_ref linkend="action_schema:ir_express:action_schema.action_resource"/>.
-          </note>
-        </ext_description>
-      XML
+    let(:entity_name) { "action_schema" }
+    let(:old_definition) { "old definition" }
+
+    let(:new_definition) do
+      <<~DEFINITION
+        domain:[resource: action_schema]
+
+        new generated definition
+      DEFINITION
     end
 
     let(:output) do
       <<~OUTPUT
         // STEPmod path:
-        === supported_item
         domain:[resource: action_schema]
 
-        The *supported_item* allows for the designation of an *action_directive*, an *action*, or an *action_method*.
+        new generated definition
 
 
         [.source]
@@ -61,7 +73,7 @@ RSpec.describe Stepmod::Utils::Concept do
     end
 
     it "correctly renders nil because entity in exp file does not exist" do
-      expect(parse.to_mn_adoc).to eq(output)
+      expect(new_concept.to_mn_adoc).to eq(output)
     end
   end
 
@@ -110,7 +122,11 @@ RSpec.describe Stepmod::Utils::Concept do
   end
 
   context "when ext_description contains list" do
-    let(:entity_definition) { "domain:[resource: set_theory_schema]\n\nentity data type that represents a complement entity" }
+    let(:entity_definition) do
+      "domain:[resource: set_theory_schema]
+
+      entity data type that represents a complement entity"
+    end
 
     let(:input_xml) do
       <<~XML
@@ -183,14 +199,25 @@ RSpec.describe Stepmod::Utils::Concept do
     end
 
     let(:designation) do
-      {
-        accepted: "boundary representation solid model",
-        alt: [" B-rep ", " Test "],
-      }
+      [
+        {
+          "designation" => "boundary representation solid model",
+          "type" => "expression",
+          "normative_status" => "preferred",
+        },
+        {
+          "designation" => " B-rep ",
+          "type" => "expression",
+        },
+        {
+          "designation" => " Test ",
+          "type" => "expression",
+        },
+      ]
     end
 
     it "correctly parses and stores designation" do
-      expect(parse.designations).to(eq([designation]))
+      expect(parse.designations.map(&:to_h)).to(eq(designation))
     end
 
     it "correctly renders ascidoc output" do

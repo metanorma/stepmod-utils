@@ -40,8 +40,8 @@ module Stepmod
           # TODO: `designations:` should include the `alt:[...]` terms here,
           # they are now only included in definition_xml_converted_definition.
           new(
-            designations: [designation],
-            definition: definition,
+            designations: designation,
+            definition: [definition],
             converted_definition: converted_definition,
             id: "#{reference_anchor}.#{reference_clause}",
             reference_anchor: reference_anchor,
@@ -65,11 +65,16 @@ module Stepmod
               definition_xml.xpath(".//term").first
             )
 
-          {
-            # [4..-1] because we want to skip the initial `=== {title}`
-            accepted: term[4..-1],
-            alt: alts,
-          }
+          # [4..-1] because we want to skip the initial `=== {title}`
+          designations = [
+            { "designation" => term[4..-1], "type" => "expression", "normative_status" => "preferred" },
+          ]
+
+          alts.each do |alt|
+            designations << { "designation" => alt, "type" => "expression" }
+          end
+
+          designations
         end
 
         def definition_xml_definition(definition_xml, reference_anchor)
@@ -95,12 +100,24 @@ module Stepmod
         end
 
         def definition_xml_converted_definition(designation, definition)
-          if designation[:alt].length.positive?
-            alt_notation = "alt:[#{designation[:alt].map(&:strip).join(',')}]"
+          accepted_designation = designation.select do |des|
+            des["normative_status"] == "preferred"
+          end
+
+          alt_designations = designation.reject do |des|
+            des["normative_status"] == "preferred"
+          end
+
+          if alt_designations.length.positive?
+            alt_designations_text = alt_designations.map do |d|
+              d["designation"].strip
+            end.join(",")
+
+            alt_notation = "alt:[#{alt_designations_text}]"
           end
 
           result = <<~TEXT
-            === #{designation[:accepted].strip}
+            === #{accepted_designation.map { |d| d['designation'].strip }.join(',')}
           TEXT
 
           if alt_notation

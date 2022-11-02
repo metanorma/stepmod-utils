@@ -23,6 +23,11 @@ def fixtures_path(path)
   File.join(File.expand_path("./fixtures", __dir__), path)
 end
 
+def resource_annotated_exp_path(name)
+  resources_path = "stepmod_terms_mock_directory/data/resources"
+  fixtures_path("#{resources_path}/#{name}/#{name}_annotated.exp")
+end
+
 def cleaned_adoc(adoc)
   adoc.gsub(/ \n/, "\n")
 end
