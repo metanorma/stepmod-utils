@@ -4,7 +4,7 @@ module Stepmod
       DOCNUMBER = 10303
 
       attr_accessor *%w(
-        type doctype part title_en version pub_year pubid published_info
+        type doctype part title_en version pub_year pubid published_info number
       )
 
       def initialize(schema:)
@@ -15,6 +15,7 @@ module Stepmod
         #                                    application_protocol business_object_model).include?(@type)
 
         @published_info = schema.find("__published_in")&.remarks&.first
+        @number = schema.find("__identifier")&.remarks&.first&.split("N")&.last
         @schema = schema
 
         if !published_info.nil?
@@ -28,7 +29,7 @@ module Stepmod
           @version = schema.version.items.find { |i| i.name == "part" }.value
           @pub_year = schema.version.items.find { |i| i.name == "part" }.value
         else
-          raise "PublishedInfoNotFound" if published_info.nil?
+          raise "PublishedInfoNotFound"
         end
 
         @doctype = schema.find("__status")&.remarks&.first

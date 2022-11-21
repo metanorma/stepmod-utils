@@ -58,3 +58,7 @@ An **applied_action_assignment** is an <<express:action_schema.action,action>> r
 the product or activity data that are affected by the <<express:action_schema.action,action>>.
 *)
 
+
+(*"Activity_mim.__schema_file"
+data/modules/activity/module.xml
+*)

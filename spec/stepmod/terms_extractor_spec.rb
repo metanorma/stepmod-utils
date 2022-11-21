@@ -36,44 +36,32 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
         period during which the engineering representation of a product is dynamic
       TEXT
     end
-    let(:resource_description_converted_definition) do
-      <<~TEXT
-        === action_directive
-        domain:[resource: action_schema]
 
-        {{entity data type}} that represents the action directive {{entity}}
-
-        [NOTE]
-        --
-        An **action_directive** is an authoritative instrument that provides directions to achieve the specified results.
-        --
-      TEXT
+    let(:resource_description_hash) do
+      {
+        designation: "action_directive",
+        domain: "resource: action_schema",
+        definition: "{{entity data type}} that represents the action directive {{entity}}",
+        old_definition: "An **action_directive** is an authoritative instrument that provides directions to achieve the specified results.",
+      }
     end
-    let(:arm_description_xml_converted_definition) do
-      <<~TEXT
-        === Activity
-        domain:[application module: Activity_arm]
 
-        {{entity data type}} that represents the activity {{entity}}
-
-        [NOTE]
-        --
-        An **Activity** is the identification of the occurrence of an action that has taken place, is taking place, or is expected to take place in the future.
-        --
-      TEXT
+    let(:arm_description_hash) do
+      {
+        designation: "Activity",
+        domain: "application module: Activity_arm",
+        definition: "{{entity data type}} that represents the activity {{entity}}",
+        old_definition: "An **Activity** is the identification of the occurrence of an action that has taken place, is taking place, or is expected to take place in the future.",
+      }
     end
-    let(:mim_description_converted_definition) do
-      <<~TEXT
-        === applied_action_assignment
-        domain:[application object: Activity_mim]
 
-        {{application object}} that is a type of {{action_assignment}} that represents the applied action assignment {{entity}}
-
-        [NOTE]
-        --
-        An **applied_action_assignment** is an {{action,action}} related to the data that are affected by the {{action,action}}.
-        --
-      TEXT
+    let(:mim_description_hash) do
+      {
+        designation: "applied_action_assignment",
+        domain: "application object: Activity_mim",
+        definition: "{{application object}} that is a type of {{action_assignment}} that represents the applied action assignment {{entity}}",
+        old_definition: "An **applied_action_assignment** is an {{action,action}} related to the data that are affected by the {{action,action}}.",
+      }
     end
 
     it "returns general_concepts," \
@@ -88,14 +76,23 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
         .register(:ext_description,
                   Stepmod::Utils::Converters::StepmodExtDescription.new)
       action_directive_concept = call[4][0][1]
-        .find do |concept|
-          concept
-            .localizations["en"]
-            .converted_definition =~ /^=== action_directive/
-        end
-        .localizations["en"]
-      expect(action_directive_concept.converted_definition.strip)
-        .to(eq(resource_description_converted_definition.strip))
+                                 .find do |concept|
+                                   concept
+                                     .localizations["en"]
+                                     .designations
+                                     .first
+                                     .designation == "action_directive"
+                                 end
+                                 .localizations["en"]
+
+      expect(action_directive_concept.designations.first.designation)
+        .to(eq(resource_description_hash[:designation]))
+      expect(action_directive_concept.domain)
+        .to(eq(resource_description_hash[:domain]))
+      expect(action_directive_concept.definition.first.content)
+        .to(eq(resource_description_hash[:definition]))
+      expect(action_directive_concept.notes.first.content)
+        .to(eq(resource_description_hash[:old_definition]))
     end
 
     it "For modules/*/aim_descriptions.xml terms takes only the first \
@@ -104,11 +101,19 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
       ReverseAdoc::Converters
         .register(:ext_description,
                   Stepmod::Utils::Converters::StepmodExtDescription.new)
-      activity_arm_concept = call[-1][0][1]["Activity_arm"]
+      activity_arm_concept =
+        call[-1][0][1]["Activity_arm"]
         .to_a.map { |n| n.localizations["en"] }
-        .find { |concept| concept.converted_definition =~ /^=== Activity/ }
-      expect(activity_arm_concept.converted_definition.strip)
-        .to(eq(arm_description_xml_converted_definition.strip))
+        .find { |concept| concept.designations.first.designation == "Activity" }
+
+      expect(activity_arm_concept.designations.first.designation)
+        .to(eq(arm_description_hash[:designation]))
+      expect(activity_arm_concept.definition.first.content)
+        .to(eq(arm_description_hash[:definition]))
+      expect(activity_arm_concept.domain)
+        .to(eq(arm_description_hash[:domain]))
+      expect(activity_arm_concept.notes.first.content)
+        .to(eq(arm_description_hash[:old_definition]))
     end
 
     it "For modules/*/mim_descriptions.xml terms takes only the first \
@@ -117,13 +122,21 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
       ReverseAdoc::Converters
         .register(:ext_description,
                   Stepmod::Utils::Converters::StepmodExtDescription.new)
-      applied_action_assignment_concept = call[-1][0][2]["Activity_mim"]
+      applied_action_assignment_concept =
+        call[-1][0][2]["Activity_mim"]
         .to_a.map { |n| n.localizations["en"] }
         .find do |concept|
-          concept.converted_definition =~ /^=== applied_action_assignment/
+          concept.designations.first.designation == "applied_action_assignment"
         end
-      expect(applied_action_assignment_concept.converted_definition.strip)
-        .to(eq(mim_description_converted_definition.strip))
+
+      expect(applied_action_assignment_concept.designations.first.designation)
+        .to(eq(mim_description_hash[:designation]))
+      expect(applied_action_assignment_concept.definition.first.content)
+        .to(eq(mim_description_hash[:definition]))
+      expect(applied_action_assignment_concept.domain)
+        .to(eq(mim_description_hash[:domain]))
+      expect(applied_action_assignment_concept.notes.first.content)
+        .to(eq(mim_description_hash[:old_definition]))
     end
   end
 
@@ -138,7 +151,7 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
 
     describe "#generate_entity_definition" do
       let(:generate_entity_definition) do
-        subject.send(:generate_entity_definition, entity, domain, old_definition)
+        subject.send(:generate_entity_definition, entity, domain)
       end
 
       let(:domain) { "resource: action_schema" }
@@ -169,17 +182,7 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
         end
 
         let(:expected_output) do
-          <<~OUTPUT
-            === action_item
-            domain:[resource: action_schema]
-
-            {{entity data type}} that represents the action item {{entity}}
-
-            [NOTE]
-            --
-            Old definition
-            --
-          OUTPUT
+          "{{entity data type}} that represents the action item {{entity}}"
         end
 
         it { expect(generate_entity_definition).to eq(expected_output) }
@@ -198,17 +201,7 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
         end
 
         let(:expected_output) do
-          <<~OUTPUT
-            === executed_action
-            domain:[resource: action_schema]
-
-            {{entity data type}} that is a type of {{action}} that represents the executed action {{entity}}
-
-            [NOTE]
-            --
-            Old definition
-            --
-          OUTPUT
+          "{{entity data type}} that is a type of {{action}} that represents the executed action {{entity}}"
         end
 
         it { expect(generate_entity_definition).to eq(expected_output) }
@@ -228,17 +221,7 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
         end
 
         let(:expected_output) do
-          <<~OUTPUT
-            === executed_action
-            domain:[resource: action_schema]
-
-            {{entity data type}} that is a type of {{action_1}} and {{action_2}} that represents the executed action {{entity}}
-
-            [NOTE]
-            --
-            Old definition
-            --
-          OUTPUT
+          "{{entity data type}} that is a type of {{action_1}} and {{action_2}} that represents the executed action {{entity}}"
         end
 
         it { expect(generate_entity_definition).to eq(expected_output) }
