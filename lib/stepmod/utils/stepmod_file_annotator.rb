@@ -36,7 +36,6 @@ module Stepmod
                                       descriptions_base)
 
         output_express = File.read(express_file)
-        resource_docs_cache = JSON.parse(File.read(resource_docs_cache_file))
         converted_description = ""
         base_linked = ""
 
@@ -100,6 +99,10 @@ module Stepmod
       end
 
       private
+
+      def resource_docs_cache
+        @resource_docs_cache ||= JSON.parse(File.read(resource_docs_cache_file))
+      end
 
       def convert_from_description_text(descriptions_file, description)
         Dir.chdir(File.dirname(descriptions_file)) do
@@ -189,6 +192,12 @@ module Stepmod
           *)
         TITLE
 
+        document = <<~DOCUMENT if bibdata_file
+          (*"#{schema_and_entity}.__schema_file"
+          #{Pathname(bibdata_file).relative_path_from(@stepmod_dir)}
+          *)
+        DOCUMENT
+
         @added_bibdata[schema_and_entity] = true
 
         [
@@ -198,6 +207,7 @@ module Stepmod
           status,
           title,
           description,
+          document,
         ].compact.join("\n")
       end
 

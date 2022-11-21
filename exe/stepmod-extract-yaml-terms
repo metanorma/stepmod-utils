@@ -1,0 +1,149 @@
+#!/usr/bin/env ruby
+# encoding: UTF-8
+
+require "pry"
+# resolve bin path, ignoring symlinks
+require "pathname"
+bin_file = Pathname.new(__FILE__).realpath
+
+# add self to libpath
+$:.unshift File.expand_path("../../lib", bin_file)
+
+# Fixes https://github.com/rubygems/rubygems/issues/1420
+require "rubygems/specification"
+
+module Gem
+  class Specification
+    def this; self; end
+  end
+end
+
+require "bundler/setup"
+require_relative "../lib/stepmod/utils/terms_extractor"
+require "optparse"
+
+def log(message)
+  puts "[stepmod-utils] #{message}"
+end
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: #{$0} [options]"
+
+  opts.on(
+    "-p",
+    "--path STEPMOD_DATA_PATH",
+    String,
+    "Path to STEPmod data directory",
+  ) do |path|
+    options[:stepmod_dir] = path
+  end
+
+  opts.on(
+    "-i",
+    "--index INDEX_PATH",
+    String,
+    "Path to repository_index.xml",
+  ) do |path|
+    unless path.nil?
+      options[:index_path] = Pathname.new(path).to_s
+    end
+  end
+
+  opts.on_tail("-h", "--help", "Show this message") do
+    puts opts
+    exit
+  end
+end.parse!
+
+stepmod_dir = options[:stepmod_dir]
+if stepmod_dir.nil?
+  raise StandardError.new(
+    "STEPmod data path not set, set with the `-p` option.",
+  )
+else
+  log "STEPmod data path: `#{stepmod_dir}`"
+end
+
+default_index_path = File.join(stepmod_dir, "repository_index.xml")
+index_path = options[:index_path] || default_index_path
+if File.exists?(index_path)
+  log "Repository index path: `#{index_path}`"
+else
+  raise StandardError.new(
+    "Index file not present at #{index_path}, set with the `-i` option.",
+  )
+end
+
+_general_concepts,
+resource_concepts,
+_parsed_bibliography,
+_part_concepts,
+part_resources,
+part_modules = Stepmod::Utils::TermsExtractor.call(stepmod_dir, index_path)
+
+def part_to_title(bibdata)
+  {
+    41 => "Fundamentals of product description and support",
+    42 => "Geometric and topological representation",
+    43 => "Foundation representation",
+    44 => "Product structure, concept and configuration",
+    45 => "Material and other engineering properties",
+    46 => "Visual presentation",
+    47 => "Shape tolerance",
+    51 => "Mathematical representation",
+  }[bibdata.part.to_i] || bibdata.title_en
+end
+
+# rubocop:disable Layout/LineLength
+IMAGE_REPLACEMENTS = {
+  "image::eq01.gif[]" => "stem:[H(A,B) = max {h(A, B), h(B,A)}]",
+  "image::eq02.gif[]" => "stem:[max_{a in A} { min_{b in B} d(a,b) }]",
+  "image::vector_z_c.gif[]" => "stem:[bar z_{c}]",
+  "image::one_direction_repeat_factor_expression.gif[]" => "stem:[I + k cdot R; k = -1, 1]",
+  "image::two_direction_repeat_factor_expression.gif[]" => "stem:[I + k_1 cdot R_1 + k_2 cdot R_2; k_1, k_2 = -1, 0, 1, k^2_1 + k^2_2 != 0]",
+}.freeze
+
+TEXT_REPLACEMENTS = {
+  ' (see <module_ref linkend="ply_orientation_specification:4_entities:figure:f2"> Figure 2</module_ref>)' => "",
+  ' (see <module_ref linkend="ply_orientation_specification:4_entities:figure:f3"> Figure 3</module_ref>)' => "",
+}.freeze
+# rubocop:enable Layout/LineLength
+
+def replace_content(content)
+  IMAGE_REPLACEMENTS.each_pair do |k, v|
+    content.gsub!(k, v)
+  end
+  TEXT_REPLACEMENTS.each_pair do |k, v|
+    content.gsub!(k, v)
+  end
+
+  content
+end
+
+part_resources.each do |(_bibdata, current_part_resources)|
+  current_part_resources.save_to_files("./")
+end
+log "INFO: part_resources written to yaml files"
+
+
+log "INFO: written summary file to: 04x-stepmod-entities-resources.adoc"
+part_modules.sort_by do |(bibdata, _part_modules_arm, _part_modules_mim)|
+  bibdata.part.to_i
+end.each do |(_bibdata, part_modules_arm, part_modules_mim)|
+  unless part_modules_arm.empty?
+    part_modules_arm.values.map do |managed_concept|
+      managed_concept.save_to_files("./")
+    end
+  end
+
+  unless part_modules_mim.empty?
+    part_modules_mim.values.map do |managed_concept|
+      managed_concept.save_to_files("./")
+    end
+  end
+end
+log "INFO: part_modules written to yaml files"
+
+resource_concepts.save_to_files("./")
+log "INFO: resource_concepts written to yaml files"

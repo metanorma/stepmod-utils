@@ -174,3 +174,7 @@ Where applicable, the following values shall be used for role:
 * 'constraint': the concepts represented by the items influence the execution of the Activity.
 *)
 
+
+(*"Activity_arm.__schema_file"
+data/modules/activity/module.xml
+*)

@@ -47,6 +47,7 @@ module Stepmod
         @part_resources = {}
         @part_modules = {}
         @encountered_terms = {}
+        @sequence = 0
       end
 
       def log(message)
@@ -227,10 +228,23 @@ module Stepmod
         collection = Glossarist::ManagedConceptCollection.new
 
         schema.entities.each do |entity|
+          @sequence += 1
+          document = entity.find("__schema_file")&.remarks&.first
+
           concept = generate_concept_from_entity(
             entity: entity,
             domain: "#{domain_prefix}: #{schema.id}",
-            reference: { anchor: bibdata.anchor, clause: nil },
+            schema: {
+              "name" => schema.id,
+              "type" => "module",
+              "path" => extract_file_path(entity.parent.file),
+            },
+            document: {
+              "type" => "module",
+              "module" => document && document.split("/")[-2],
+              "path" => document,
+            },
+            bibdata: bibdata,
           )
 
           next unless concept
@@ -257,12 +271,25 @@ module Stepmod
             "Processing resources schema #{schema.file}"
 
         schema.entities.each do |entity|
+          @sequence += 1
           log "INFO:   Processing entity: #{entity.id}"
+
+          document = entity.find("__schema_file")&.remarks&.first
 
           concept = generate_concept_from_entity(
             entity: entity,
             domain: "resource: #{schema.id}",
-            reference: { anchor: bibdata.anchor, clause: nil },
+            schema: {
+              "name" => schema.id,
+              "type" => "resource",
+              "path" => extract_file_path(entity.parent.file),
+            },
+            document: {
+              "type" => "resource",
+              "resource" => document && document.split("/")[-2],
+              "path" => document,
+            },
+            bibdata: bibdata,
           )
 
           next unless concept
@@ -287,34 +314,47 @@ module Stepmod
       end
 
       # rubocop:disable Metrics/MethodLength
-      def generate_concept_from_entity(entity:, domain:, reference:)
-        old_definition = entity.remarks.first
-        definition = generate_entity_definition(entity, domain, old_definition)
+      def generate_concept_from_entity(entity:, schema:, domain:, bibdata:, document:)
+        old_definition = trim_definition(entity.remarks.first)
+        definition = generate_entity_definition(entity, domain)
 
         Stepmod::Utils::Concept.new(
           designations: [
-            { "designation" => entity.id, "type" => "expression" },
+            {
+              "type" => "expression",
+              "normative_status" => "preferred",
+              "designation" => entity.id,
+            },
           ],
-          definition: [old_definition],
-          converted_definition: definition,
-          id: "#{reference[:anchor]}.#{reference[:clause]}",
-          reference_anchor: reference[:anchor],
-          reference_clause: reference[:clause],
-          file_path: extract_file_path(entity),
+          domain: domain,
+          definition: [definition.strip],
+          id: "#{bibdata.part}-#{@sequence}",
+          sources: [
+            {
+              "type" => "authoritative",
+              "ref" => bibdata.docid,
+              "link" => "https://www.iso.org/standard/32858.html",
+            },
+          ],
+          notes: [old_definition].compact,
           language_code: "en",
+          part: bibdata.part,
+          schema: schema,
+          document: document,
         )
       end
       # rubocop:enable Metrics/MethodLength
 
-      def extract_file_path(entity)
+      def extract_file_path(file_path)
         Pathname
-          .new(entity.parent.file)
+          .new(file_path)
           .realpath
           .relative_path_from(stepmod_path)
+          .to_s
       end
 
       def find_or_initialize_concept(collection, localized_concept)
-        concept = collection.fetch_or_initialize(SecureRandom.uuid)
+        concept = collection.fetch_or_initialize(localized_concept.id)
         concept.add_l10n(localized_concept)
       end
 
@@ -353,6 +393,8 @@ module Stepmod
       end
 
       def trim_definition(definition)
+        return nil if definition.nil? || definition.empty?
+
         # Unless the first paragraph ends with "between" and is followed by a
         # list, don't split
         paragraphs = definition.split("\n\n")
@@ -420,7 +462,7 @@ module Stepmod
       # end
 
       # rubocop:disable Layout/LineLength
-      def generate_entity_definition(entity, domain, old_definition)
+      def generate_entity_definition(entity, domain)
         return "" if entity.nil?
 
         # See: metanorma/iso-10303-2#90
@@ -430,45 +472,20 @@ module Stepmod
                         "{{entity data type}}"
                       end
 
-        entity_text = if entity.subtype_of.size.zero?
-                        "#{entity_type} " \
-                          "that represents the " \
-                          "#{entity_name_to_text(entity.id)} {{entity}}"
-                      else
-                        entity_subtypes = entity.subtype_of.map do |e|
-                          "{{#{e.id}}}"
-                        end
+        if entity.subtype_of.size.zero?
+          "#{entity_type} " \
+            "that represents the " \
+            "#{entity_name_to_text(entity.id)} {{entity}}"
+        else
+          entity_subtypes = entity.subtype_of.map do |e|
+            "{{#{e.id}}}"
+          end
 
-                        "#{entity_type} that is a type of " \
-                          "#{entity_subtypes.join(' and ')} " \
-                          "that represents the " \
-                          "#{entity_name_to_text(entity.id)} {{entity}}"
-                      end
-
-        definition = <<~DEFINITION
-          === #{entity.id}
-          domain:[#{domain}]
-
-          #{entity_text}
-
-        DEFINITION
-
-        # If there is a definition, we add it as the first NOTE
-        unless old_definition.nil? || old_definition.blank?
-          old_definition = trim_definition(old_definition)
-
-          definition << <<~OLD_DEFINITION
-            [NOTE]
-            --
-            #{old_definition.strip}
-            --
-          OLD_DEFINITION
+          "#{entity_type} that is a type of " \
+            "#{entity_subtypes.join(' and ')} " \
+            "that represents the " \
+            "#{entity_name_to_text(entity.id)} {{entity}}"
         end
-
-        # We no longer add Notes and Examples to the extracted terms
-        # definition + format_remark_items(entity.remark_items)
-
-        definition
       end
 
       def format_remark_items(remark_items)

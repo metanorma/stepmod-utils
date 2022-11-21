@@ -33,7 +33,7 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency "concurrent-ruby"
   spec.add_runtime_dependency "expressir"
-  spec.add_runtime_dependency "glossarist-new", "~> 1.0.0"
+  spec.add_runtime_dependency "glossarist-new", "~> 1.0.1"
   spec.add_runtime_dependency "indefinite_article"
   spec.add_runtime_dependency "ptools"
   spec.add_runtime_dependency "pubid-iso"

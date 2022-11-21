@@ -8,6 +8,10 @@ module Stepmod
         reference_anchor
         converted_definition
         file_path
+        schema
+        part
+        domain
+        document
       )
 
       # TODO: converted_definition is not supposed to be an attribute, it is
@@ -132,6 +136,15 @@ module Stepmod
             #{definition}
           TEXT
         end
+      end
+
+      def to_h
+        super.merge({
+          "domain" => domain,
+          "part" => part,
+          "schema" => schema,
+          "document" => document,
+        }.compact)
       end
 
       def to_mn_adoc
