@@ -21,5 +21,9 @@
   "product_property_representation_schema": "fundamentals_of_product_description_and_support",
   "qualifications_schema": "fundamentals_of_product_description_and_support",
   "security_classification_schema": "fundamentals_of_product_description_and_support",
-  "support_resource_schema": "fundamentals_of_product_description_and_support"
+  "support_resource_schema": "fundamentals_of_product_description_and_support",
+  "presentation_organization_schema": "visual_presentation",
+  "presentation_definition_schema": "visual_presentation",
+  "presentation_appearance_schema": "visual_presentation",
+  "presentation_resource_schema": "visual_presentation"
 }
