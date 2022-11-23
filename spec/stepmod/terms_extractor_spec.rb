@@ -66,7 +66,7 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
 
     it "returns general_concepts," \
       "resource_concepts, parsed_bibliography lists" do
-      expect(call.map(&:to_a).map(&:length)).to(eq([0, 0, 2, 0, 1, 1]))
+      expect(call.map(&:to_a).map(&:length)).to(eq([0, 0, 3, 0, 2, 1]))
     end
 
     it "For resources/*/descriptions.xml terms takes \

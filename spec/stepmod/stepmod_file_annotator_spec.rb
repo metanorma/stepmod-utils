@@ -23,22 +23,39 @@ RSpec.describe Stepmod::Utils::StepmodFileAnnotator do
     )
   end
 
+  # rubocop:disable Layout/LineLength
   describe "#call" do
-    let(:express_file) do
-      fixtures_path("stepmod_terms_mock_directory/data/modules/activity/mim.exp")
+    context "when file do not contains (*)" do
+      let(:express_file) do
+        fixtures_path("stepmod_terms_mock_directory/data/modules/activity/mim.exp")
+      end
+
+      let(:expected_output) do
+        File.read(fixtures_path("stepmod_terms_mock_directory/data/modules/activity/mim_annotated.exp"))
+      end
+
+      it "should return correct annotated text" do
+        output = subject.call
+        expect(output).to eq(expected_output)
+      end
     end
 
-    let(:expected_output) do
-      File.read(fixtures_path("stepmod_terms_mock_directory/data/modules/activity/mim_annotated.exp"))
-    end
+    context "when file contains (*)" do
+      let(:express_file) do
+        fixtures_path("stepmod_terms_mock_directory/data/resources/presentation_appearance_schema/presentation_appearance_schema.exp")
+      end
 
-    it "shout return correct annotated text" do
-      output = subject.call
-      expect(output).to eq(expected_output)
+      let(:expected_output) do
+        File.read(fixtures_path("stepmod_terms_mock_directory/data/resources/presentation_appearance_schema/presentation_appearance_schema_annotated.exp"))
+      end
+
+      it "should return correct annotated text" do
+        output = subject.call
+        expect(output).to eq(expected_output)
+      end
     end
   end
 
-  # rubocop:disable Layout/LineLength
   describe "#convert_from_description_text" do
     let(:express_file) { fixtures_path("stepmod_terms_mock_directory/data/modules/activity/arm.exp") }
     let(:description_file) { fixtures_path("stepmod_terms_mock_directory/data/modules/activity/arm_descriptions.xml") }
@@ -52,7 +69,6 @@ RSpec.describe Stepmod::Utils::StepmodFileAnnotator do
           <example>
             Change, distilling, design, a process to drill a hole, and a task such as training someone, are examples of activities.
           </example>
-
 
           <note number="1">
             Status information identifying the level of completion of each activity may be provided within an instance of <express_ref linkend="Activity:arm:Activity_arm.Activity_status"/>.

@@ -81,24 +81,31 @@ module Stepmod
                      resource_docs_file_path(stepmod_dir, bib_file_name)
                    end
 
-        if bib_file && File.exists?(bib_file)
-          output_express << prepend_bibdata(
-            converted_description || "",
-            # bib_file will not be present for resouces that are not in
-            # resource_docs cache e.g hierarchy_schema
-            bib_file,
-            @schema_name,
-            match,
-          )
-        end
+        output_express << if bib_file && File.exists?(bib_file)
+                            prepend_bibdata(
+                              converted_description || "",
+                              # bib_file will not be present for resouces
+                              # that are not in resource_docs cache.
+                              # e.g hierarchy_schema
+                              bib_file,
+                              @schema_name,
+                              match,
+                            )
+                          else
+                            converted_description
+                          end
 
-        output_express
+        sanitize(output_express)
       rescue StandardError => e
         puts "[ERROR]!!! #{e.message}"
         puts e.backtrace
       end
 
       private
+
+      def sanitize(file_content)
+        file_content.gsub("(*)", "(`*`)")
+      end
 
       def resource_docs_cache
         @resource_docs_cache ||= JSON.parse(File.read(resource_docs_cache_file))
