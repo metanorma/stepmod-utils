@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="../../../xsl/res_doc/imgfile.xsl"?>
+<!DOCTYPE imgfile.content SYSTEM "../../../dtd/text.ent">
+<imgfile.content module="visual_presentation" file="presentation_appearance_schemaexpg5.xml">
+<img src="presentation_appearance_schemaexpg5.gif">
+<img.area shape="rect" coords="613,262,707,468" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.curve_or_render" />
+<img.area shape="rect" coords="10,210,211,233" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.surface_style_element_select" />
+<img.area shape="rect" coords="144,654,331,677" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.rendering_properties_select" />
+<img.area shape="rect" coords="351,45,526,68" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.surface_side_style_select" />
+<img.area shape="rect" coords="259,220,412,243" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.direction_count_select" />
+<img.area shape="poly" coords="454,489,461,501,579,501,586,489,579,478,461,478,454,489" href="./presentation_appearance_schemaexpg8.xml" />
+<img.area shape="poly" coords="689,495,696,507,799,507,806,495,799,484,696,484,689,495" href="./presentation_appearance_schemaexpg3.xml" />
+<img.area shape="poly" coords="50,56,57,68,109,68,116,56,109,45,57,45,50,56" href="./presentation_appearance_schemaexpg4.xml" />
+<img.area shape="poly" coords="115,455,122,467,174,467,181,455,174,444,122,444,115,455" href="./presentation_appearance_schemaexpg2.xml" />
+<img.area shape="poly" coords="115,372,122,384,174,384,181,372,174,361,122,361,115,372" href="./presentation_appearance_schemaexpg2.xml" />
+<img.area shape="poly" coords="49,28,56,40,108,40,115,28,108,17,56,17,49,28" href="./presentation_appearance_schemaexpg2.xml" />
+<img.area shape="poly" coords="115,414,122,426,174,426,181,414,174,403,122,403,115,414" href="./presentation_appearance_schemaexpg2.xml" />
+<img.area shape="poly" coords="45,86,52,98,104,98,111,86,104,75,52,75,45,86" href="./presentation_appearance_schemaexpg2.xml" />
+<img.area shape="poly" coords="115,328,122,340,174,340,181,328,174,317,122,317,115,328" href="./presentation_appearance_schemaexpg2.xml" />
+<img.area shape="poly" coords="115,289,122,301,174,301,181,289,174,278,122,278,115,289" href="./presentation_appearance_schemaexpg2.xml" />
+<img.area shape="poly" coords="115,497,122,509,174,509,181,497,174,486,122,486,115,497" href="./presentation_appearance_schemaexpg2.xml" />
+<img.area shape="rect" coords="237,110,437,139" href="../../resources/support_resource_schema/support_resource_schema.xml#support_resource_schema.label" />
+<img.area shape="rect" coords="407,555,644,584" href="../../resources/presentation_resource_schema/presentation_resource_schema.xml#presentation_resource_schema.colour" />
+<img.area shape="rect" coords="644,647,881,676" href="../../resources/presentation_resource_schema/presentation_resource_schema.xml#presentation_resource_schema.colour" />
+<img.area shape="rect" coords="638,896,875,925" href="../../resources/presentation_resource_schema/presentation_resource_schema.xml#presentation_resource_schema.colour" />
+<img.area shape="rect" coords="542,44,828,73" href="../../resources/external_reference_schema/external_reference_schema.xml#external_reference_schema.pre_defined_item" />
+<img.area shape="rect" coords="351,17,440,40" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.surface_side" />
+<img.area shape="rect" coords="738,430,895,453" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.shading_curve_method" />
+<img.area shape="rect" coords="478,520,647,543" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.shading_surface_method" />
+<img.area shape="rect" coords="45,109,176,140" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.surface_side_style" />
+<img.area shape="rect" coords="690,521,835,552" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.curve_style_rendering" />
+<img.area shape="rect" coords="149,16,243,70" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.surface_style_usage" />
+<img.area shape="rect" coords="199,432,418,463" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.surface_style_segmentation_curve" />
+<img.area shape="rect" coords="297,725,518,756" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.surface_style_reflectance_ambient" />
+<img.area shape="rect" coords="328,838,486,925" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.surface_style_reflectance_ambient_diffuse_specular" />
+<img.area shape="rect" coords="199,349,370,380" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.surface_style_control_grid" />
+<img.area shape="rect" coords="273,782,542,813" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.surface_style_reflectance_ambient_diffuse" />
+<img.area shape="rect" coords="296,686,470,717" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.surface_style_transparent" />
+<img.area shape="rect" coords="199,305,354,336" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.surface_style_boundary" />
+<img.area shape="rect" coords="669,586,856,617" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.surface_rendering_properties" />
+<img.area shape="rect" coords="199,266,395,297" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.surface_style_parameter_line" />
+<img.area shape="rect" coords="199,516,355,547" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.surface_style_rendering" />
+<img.area shape="rect" coords="534,104,736,135" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.pre_defined_surface_side_style" />
+<img.area shape="rect" coords="199,474,348,505" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.surface_style_fill_area" />
+<img.area shape="rect" coords="107,597,369,628" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.surface_style_rendering_with_properties" />
+<img.area shape="rect" coords="199,391,355,422" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.surface_style_silhouette" />
+<img.area shape="rect" coords="482,163,600,186" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.u_direction_count" />
+<img.area shape="rect" coords="483,192,601,215" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.v_direction_count" />
+</img>
+</imgfile.content>

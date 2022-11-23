@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="../../../xsl/res_doc/imgfile.xsl"?>
+<!DOCTYPE imgfile.content SYSTEM "../../../dtd/text.ent">
+<imgfile.content module="visual_presentation" file="presentation_appearance_schemaexpg11.xml">
+<img src="presentation_appearance_schemaexpg11.gif">
+<img.area shape="rect" coords="140,478,436,501" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.tessellated_face_or_tessellated_surface_set" />
+<img.area shape="poly" coords="645,397,652,409,866,409,873,397,866,386,652,386,645,397" href="./presentation_appearance_schemaexpg4.xml" />
+<img.area shape="poly" coords="63,94,70,106,136,106,143,94,136,83,70,83,63,94" href="./presentation_appearance_schemaexpg8.xml" />
+<img.area shape="poly" coords="10,174,17,186,76,186,83,174,76,163,17,163,10,174" href="./presentation_appearance_schemaexpg4.xml" />
+<img.area shape="poly" coords="13,397,20,409,79,409,86,397,79,386,20,386,13,397" href="./presentation_appearance_schemaexpg4.xml" />
+<img.area shape="rect" coords="638,267,838,296" href="../../resources/support_resource_schema/support_resource_schema.xml#support_resource_schema.label" />
+<img.area shape="rect" coords="376,551,686,580" href="../../resources/geometric_model_schema/geometric_model_schema.xml#geometric_model_schema.tessellated_surface_set" />
+<img.area shape="rect" coords="377,516,644,545" href="../../resources/geometric_model_schema/geometric_model_schema.xml#geometric_model_schema.tessellated_face" />
+<img.area shape="rect" coords="152,10,386,39" href="../../resources/representation_schema/representation_schema.xml#representation_schema.founded_item" />
+<img.area shape="rect" coords="638,242,755,265" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.texture_file_type" />
+<img.area shape="rect" coords="112,382,465,413" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.styled_tessellated_face_or_surface_with_single_texture" />
+<img.area shape="rect" coords="261,211,420,323" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.single_texture_style_tessellation_specification" />
+<img.area shape="rect" coords="126,159,412,190" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.texture_style_tessellation_specification" />
+<img.area shape="rect" coords="162,79,376,110" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.texture_style_specification" />
+<img.area shape="rect" coords="638,214,759,237" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.non_negative_real" />
+</img>
+</imgfile.content>

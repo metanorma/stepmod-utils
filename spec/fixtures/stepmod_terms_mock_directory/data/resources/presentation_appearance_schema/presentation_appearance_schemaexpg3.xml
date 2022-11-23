@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="../../../xsl/res_doc/imgfile.xsl"?>
+<!DOCTYPE imgfile.content SYSTEM "../../../dtd/text.ent">
+<imgfile.content module="visual_presentation" file="presentation_appearance_schemaexpg3.xml">
+<img src="presentation_appearance_schemaexpg3.gif">
+<img.area shape="rect" coords="10,508,87,531" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.size_select" />
+<img.area shape="rect" coords="351,426,450,449" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.marker_select" />
+<img.area shape="poly" coords="415,508,422,520,577,520,584,508,577,497,422,497,415,508" href="./presentation_appearance_schemaexpg7.xml" />
+<img.area shape="poly" coords="402,91,409,103,694,103,701,91,694,80,409,80,402,91" href="./presentation_appearance_schemaexpg10.xml" />
+<img.area shape="poly" coords="212,21,219,33,271,33,278,21,271,10,219,10,212,21" href="./presentation_appearance_schemaexpg2.xml" />
+<img.area shape="poly" coords="89,402,96,414,148,414,155,402,148,391,96,391,89,402" href="./presentation_appearance_schemaexpg4.xml" />
+<img.area shape="poly" coords="180,320,187,332,239,332,246,320,239,309,187,309,180,320" href="./presentation_appearance_schemaexpg2.xml" />
+<img.area shape="rect" coords="88,609,354,638" href="../../resources/measure_schema/measure_schema.xml#measure_schema.positive_length_measure" />
+<img.area shape="rect" coords="402,46,602,75" href="../../resources/support_resource_schema/support_resource_schema.xml#support_resource_schema.label" />
+<img.area shape="rect" coords="88,535,321,564" href="../../resources/measure_schema/measure_schema.xml#measure_schema.measure_with_unit" />
+<img.area shape="rect" coords="377,252,591,281" href="../../resources/measure_schema/measure_schema.xml#measure_schema.length_measure" />
+<img.area shape="rect" coords="402,108,639,137" href="../../resources/presentation_resource_schema/presentation_resource_schema.xml#presentation_resource_schema.colour" />
+<img.area shape="rect" coords="350,388,587,417" href="../../resources/presentation_resource_schema/presentation_resource_schema.xml#presentation_resource_schema.colour" />
+<img.area shape="rect" coords="88,646,374,675" href="../../resources/external_reference_schema/external_reference_schema.xml#external_reference_schema.pre_defined_item" />
+<img.area shape="rect" coords="350,352,550,381" href="../../resources/support_resource_schema/support_resource_schema.xml#support_resource_schema.label" />
+<img.area shape="rect" coords="88,572,330,601" href="../../resources/measure_schema/measure_schema.xml#measure_schema.descriptive_measure" />
+<img.area shape="rect" coords="417,461,506,484" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.marker_type" />
+<img.area shape="rect" coords="23,276,260,299" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.squared_or_rounded" />
+<img.area shape="rect" coords="392,184,577,215" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.curve_style_with_extension" />
+<img.area shape="rect" coords="174,683,288,714" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.pre_defined_size" />
+<img.area shape="rect" coords="203,45,289,138" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.curve_style" />
+<img.area shape="rect" coords="23,179,261,210" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.curve_style_with_ends_and_corners" />
+<img.area shape="rect" coords="180,349,246,455" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.point_style" />
+</img>
+</imgfile.content>

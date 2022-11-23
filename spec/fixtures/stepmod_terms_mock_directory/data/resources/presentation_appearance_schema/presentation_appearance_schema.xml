@@ -1,0 +1,890 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="../../../xsl/express.xsl"?><!DOCTYPE express SYSTEM "../../../dtd/express.dtd">
+<express description.file="descriptions.xml" language_version="2" rcs.date="$Date: 2018/11/06 15:38:16 $" rcs.revision="$Revision: 1.39 $" reference="ISO 10303-46">
+   <application name="JSDAI" owner="LKSoft" source="presentation_appearance_schema schema_instance" url="www.lksoft.com" version="4.0 beta"/>
+   <schema name="presentation_appearance_schema">
+      <interface kind="reference" schema="external_reference_schema">
+         <interfaced.item name="externally_defined_item"/>
+         <interfaced.item name="pre_defined_item"/>
+      </interface>
+      <interface kind="reference" schema="geometric_model_schema">
+         <interfaced.item name="complex_triangulated_face"/>
+         <interfaced.item name="coordinates_list"/>
+         <interfaced.item name="tessellated_edge"/>
+         <interfaced.item name="tessellated_face"/>
+         <interfaced.item name="tessellated_item"/>
+         <interfaced.item name="tessellated_shell"/>
+         <interfaced.item name="tessellated_solid"/>
+         <interfaced.item name="tessellated_surface_set"/>
+         <interfaced.item name="tessellated_vertex"/>
+         <interfaced.item name="triangulated_face"/>
+      </interface>
+      <interface kind="reference" schema="geometry_schema">
+         <interfaced.item name="axis2_placement"/>
+         <interfaced.item name="b_spline_curve"/>
+         <interfaced.item name="cartesian_point"/>
+         <interfaced.item name="composite_curve"/>
+         <interfaced.item name="curve"/>
+         <interfaced.item name="geometric_representation_item"/>
+         <interfaced.item name="point"/>
+         <interfaced.item name="polyline"/>
+         <interfaced.item name="vector"/>
+      </interface>
+      <interface kind="reference" schema="group_schema">
+         <interfaced.item name="group"/>
+      </interface>
+      <interface kind="reference" schema="measure_schema">
+         <interfaced.item name="descriptive_measure"/>
+         <interfaced.item name="length_measure"/>
+         <interfaced.item name="measure_with_unit"/>
+         <interfaced.item name="plane_angle_measure"/>
+         <interfaced.item name="positive_length_measure"/>
+         <interfaced.item name="positive_ratio_measure"/>
+         <interfaced.item name="ratio_measure"/>
+      </interface>
+      <interface kind="reference" schema="presentation_definition_schema">
+         <interfaced.item name="annotation_curve_occurrence"/>
+         <interfaced.item name="annotation_fill_area"/>
+         <interfaced.item name="annotation_symbol_occurrence"/>
+         <interfaced.item name="annotation_text_with_delineation"/>
+         <interfaced.item name="symbol_representation_with_blanking_box"/>
+      </interface>
+      <interface kind="reference" schema="presentation_organization_schema">
+         <interfaced.item name="area_dependent_annotation_representation"/>
+         <interfaced.item name="presentation_area"/>
+         <interfaced.item name="presentation_layer_assignment"/>
+         <interfaced.item name="presentation_layer_usage"/>
+         <interfaced.item name="presentation_representation"/>
+         <interfaced.item name="presentation_set"/>
+         <interfaced.item name="presentation_view"/>
+         <interfaced.item name="product_data_representation_view"/>
+         <interfaced.item name="view_dependent_annotation_representation"/>
+      </interface>
+      <interface kind="reference" schema="presentation_resource_schema">
+         <interfaced.item name="character_glyph_symbol_outline"/>
+         <interfaced.item name="character_glyph_symbol_stroke"/>
+         <interfaced.item name="colour"/>
+      </interface>
+      <interface kind="reference" schema="product_property_representation_schema">
+         <interfaced.item name="context_dependent_shape_representation"/>
+      </interface>
+      <interface kind="reference" schema="representation_schema">
+         <interfaced.item name="founded_item"/>
+         <interfaced.item name="mapped_item"/>
+         <interfaced.item name="representation"/>
+         <interfaced.item name="representation_item"/>
+         <interfaced.item name="representation_map"/>
+         <interfaced.item name="representation_or_representation_reference"/>
+         <interfaced.item name="representation_relationship"/>
+         <interfaced.item name="using_representations"/>
+      </interface>
+      <interface kind="reference" schema="support_resource_schema">
+         <interfaced.item name="bag_to_set"/>
+         <interfaced.item name="label"/>
+      </interface>
+      <interface kind="reference" schema="topology_schema">
+         <interfaced.item name="topological_representation_item"/>
+      </interface>
+      <type name="approximation_method">
+         <enumeration extensible="NO" items="chordal_deviation chordal_length"/>
+      </type>
+      <type name="box_characteristic_select">
+         <select extensible="NO" genericentity="NO" selectitems="box_height box_width box_slant_angle box_rotate_angle"/>
+      </type>
+      <type name="box_height">
+         <typename name="positive_ratio_measure"/>
+      </type>
+      <type name="box_rotate_angle">
+         <typename name="plane_angle_measure"/>
+      </type>
+      <type name="box_slant_angle">
+         <typename name="plane_angle_measure"/>
+      </type>
+      <type name="box_width">
+         <typename name="positive_ratio_measure"/>
+      </type>
+      <type name="character_spacing_select">
+         <select extensible="NO" genericentity="NO" selectitems="length_measure ratio_measure measure_with_unit descriptive_measure pre_defined_character_spacing"/>
+      </type>
+      <type name="character_style_select">
+         <select extensible="NO" genericentity="NO" selectitems="character_glyph_style_stroke character_glyph_style_outline text_style_for_defined_font"/>
+      </type>
+      <type name="colour_type_enum">
+         <enumeration extensible="NO" items="RGB8 RGBT8"/>
+      </type>
+      <type name="curve_font_or_scaled_curve_font_select">
+         <select extensible="NO" genericentity="NO" selectitems="curve_style_font_select curve_style_font_and_scaling"/>
+      </type>
+      <type name="curve_or_annotation_curve_occurrence">
+         <select extensible="NO" genericentity="NO" selectitems="curve annotation_curve_occurrence"/>
+      </type>
+      <type name="curve_or_render">
+         <select extensible="NO" genericentity="NO" selectitems="curve_style curve_style_rendering"/>
+      </type>
+      <type name="curve_style_font_select">
+         <select extensible="NO" genericentity="NO" selectitems="curve_style_font pre_defined_curve_font externally_defined_curve_font"/>
+      </type>
+      <type name="curve_tolerance_deviation">
+         <typename name="positive_length_measure"/>
+      </type>
+      <type name="curve_tolerance_parameter">
+         <builtintype fixed="NO" type="REAL"/>
+      </type>
+      <type name="direction_count_select">
+         <select extensible="NO" genericentity="NO" selectitems="u_direction_count v_direction_count"/>
+      </type>
+      <type name="fill_area_style_tile_shape_select">
+         <select extensible="NO" genericentity="NO" selectitems="fill_area_style_tile_curve_with_style fill_area_style_tile_coloured_region fill_area_style_tile_symbol_with_style pre_defined_tile externally_defined_tile"/>
+      </type>
+      <type name="fill_style_select">
+         <select extensible="NO" genericentity="NO" selectitems="fill_area_style_colour pre_defined_tile_style externally_defined_tile_style fill_area_style_tiles pre_defined_hatch_style externally_defined_hatch_style fill_area_style_hatching texture_style_specification"/>
+      </type>
+      <type name="hiding_or_blanking_select">
+         <select extensible="NO" genericentity="NO" selectitems="presentation_area presentation_view product_data_representation_view annotation_fill_area area_dependent_annotation_representation view_dependent_annotation_representation annotation_text_with_delineation character_glyph_symbol_stroke character_glyph_symbol_outline symbol_representation_with_blanking_box"/>
+      </type>
+      <type name="invisibility_context">
+         <select extensible="YES" genericentity="YES" selectitems="presentation_layer_usage presentation_representation presentation_set"/>
+      </type>
+      <type name="invisible_item">
+         <select extensible="YES" genericentity="YES" selectitems="styled_item presentation_layer_assignment representation"/>
+      </type>
+      <type name="marker_select">
+         <select extensible="NO" genericentity="NO" selectitems="marker_type pre_defined_marker"/>
+      </type>
+      <type name="marker_type">
+         <enumeration extensible="NO" items="dot x plus asterisk ring square triangle"/>
+      </type>
+      <type name="non_negative_real">
+         <builtintype fixed="NO" type="REAL"/>
+         <where expression="0.0 &lt;= SELF" label="WR1"/>
+      </type>
+      <type name="null_style">
+         <enumeration extensible="NO" items="null"/>
+      </type>
+      <type name="presentation_style_select">
+         <select extensible="NO" genericentity="NO" selectitems="pre_defined_presentation_style point_style curve_style surface_style_usage symbol_style fill_area_style text_style texture_style_tessellation_specification approximation_tolerance externally_defined_style null_style"/>
+      </type>
+      <type name="product_or_presentation_space">
+         <enumeration extensible="NO" items="product_shape_space presentation_area_space"/>
+      </type>
+      <type name="rendering_properties_select">
+         <select extensible="NO" genericentity="NO" selectitems="surface_style_reflectance_ambient surface_style_transparent"/>
+      </type>
+      <type name="shading_curve_method">
+         <enumeration extensible="NO" items="constant_colour linear_colour"/>
+      </type>
+      <type name="shading_surface_method">
+         <enumeration extensible="NO" items="constant_shading colour_shading dot_shading normal_shading"/>
+      </type>
+      <type name="size_select">
+         <select extensible="NO" genericentity="NO" selectitems="positive_length_measure measure_with_unit descriptive_measure pre_defined_size"/>
+      </type>
+      <type name="squared_or_rounded">
+         <enumeration extensible="NO" items="squared rounded"/>
+      </type>
+      <type name="style_context_select">
+         <select extensible="NO" genericentity="NO" selectitems="group context_dependent_shape_representation presentation_layer_assignment presentation_set representation representation_item representation_relationship"/>
+      </type>
+      <type name="styled_item_target">
+         <select extensible="NO" genericentity="NO" selectitems="geometric_representation_item mapped_item representation_or_representation_reference topological_representation_item"/>
+      </type>
+      <type name="surface_side">
+         <enumeration extensible="NO" items="positive negative both"/>
+      </type>
+      <type name="surface_side_style_select">
+         <select extensible="NO" genericentity="NO" selectitems="surface_side_style pre_defined_surface_side_style"/>
+      </type>
+      <type name="surface_style_element_select">
+         <select extensible="NO" genericentity="NO" selectitems="surface_style_fill_area surface_style_boundary surface_style_silhouette surface_style_segmentation_curve surface_style_control_grid surface_style_parameter_line surface_style_rendering"/>
+      </type>
+      <type name="surface_tolerance_deviation">
+         <typename name="positive_length_measure"/>
+      </type>
+      <type name="surface_tolerance_parameter">
+         <builtintype fixed="NO" type="REAL"/>
+      </type>
+      <type name="symbol_style_select">
+         <select extensible="NO" genericentity="NO" selectitems="symbol_element_style symbol_colour"/>
+      </type>
+      <type name="tessellated_face_or_tessellated_surface_set">
+         <select extensible="NO" genericentity="NO" selectitems="tessellated_face tessellated_surface_set"/>
+      </type>
+      <type name="tessellated_surface_item">
+         <select extensible="NO" genericentity="NO" selectitems="tessellated_face tessellated_shell tessellated_solid tessellated_surface_set"/>
+      </type>
+      <type name="text_justification">
+         <typename name="label"/>
+      </type>
+      <type name="texture_file_type">
+         <enumeration extensible="NO" items="JPEG PNG GIF TIFF BMP DDS TGA other"/>
+      </type>
+      <type name="tolerance_deviation_select">
+         <select extensible="NO" genericentity="NO" selectitems="curve_tolerance_deviation surface_tolerance_deviation"/>
+      </type>
+      <type name="tolerance_parameter_select">
+         <select extensible="NO" genericentity="NO" selectitems="curve_tolerance_parameter surface_tolerance_parameter"/>
+      </type>
+      <type name="tolerance_select">
+         <select extensible="NO" genericentity="NO" selectitems="approximation_tolerance_deviation approximation_tolerance_parameter"/>
+      </type>
+      <type name="u_direction_count">
+         <builtintype fixed="NO" type="INTEGER"/>
+         <where expression="SELF &gt; 1" label="WR1"/>
+      </type>
+      <type name="unsigned_8_bit_integer">
+         <builtintype fixed="NO" type="INTEGER"/>
+         <where expression="{ 0 &lt;= SELF &lt;= 255 }" label="WR1"/>
+      </type>
+      <type name="v_direction_count">
+         <builtintype fixed="NO" type="INTEGER"/>
+         <where expression="SELF &gt; 1" label="WR1"/>
+      </type>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="approximation_tolerance" supertypes="founded_item">
+         <explicit name="tolerance" optional="NO">
+            <typename name="tolerance_select"/>
+         </explicit>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="approximation_tolerance_deviation" supertypes="founded_item">
+         <explicit name="tessellation_type" optional="NO">
+            <typename name="approximation_method"/>
+         </explicit>
+         <explicit name="tolerances" optional="NO">
+            <aggregate lower="1" optional="NO" type="SET" unique="NO" upper="2"/>
+            <typename name="tolerance_deviation_select"/>
+         </explicit>
+         <explicit name="definition_space" optional="NO">
+            <typename name="product_or_presentation_space"/>
+         </explicit>
+         <where expression="(HIINDEX(tolerances) = 1)&#10;            XOR&#10;        (TYPEOF(tolerances[1]) &lt;&gt; TYPEOF(tolerances[2]))" label="WR1"/>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="approximation_tolerance_parameter" supertypes="founded_item">
+         <explicit name="tolerances" optional="NO">
+            <aggregate lower="1" optional="NO" type="SET" unique="NO" upper="2"/>
+            <typename name="tolerance_parameter_select"/>
+         </explicit>
+         <where expression="(HIINDEX (tolerances) = 1 )&#10;             XOR&#10;        (TYPEOF (tolerances[1]) &lt;&gt; TYPEOF (tolerances[2]))" label="WR1"/>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="character_glyph_style_outline" supertypes="founded_item">
+         <explicit name="outline_style" optional="NO">
+            <typename name="curve_style"/>
+         </explicit>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="character_glyph_style_outline_with_characteristics" supertypes="character_glyph_style_outline">
+         <explicit name="characteristics" optional="NO">
+            <typename name="fill_area_style"/>
+         </explicit>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="character_glyph_style_stroke" supertypes="founded_item">
+         <explicit name="stroke_style" optional="NO">
+            <typename name="curve_style"/>
+         </explicit>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="context_dependent_invisibility" supertypes="invisibility">
+         <explicit name="presentation_context" optional="NO">
+            <typename name="invisibility_context"/>
+         </explicit>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="context_dependent_over_riding_styled_item" supertypes="over_riding_styled_item">
+         <explicit name="style_context" optional="NO">
+            <aggregate lower="1" optional="NO" type="LIST" unique="NO" upper="?"/>
+            <typename name="style_context_select"/>
+         </explicit>
+         <where expression="(SIZEOF(QUERY(sc &lt;* style_context | 'REPRESENTATION_SCHEMA.REPRESENTATION_ITEM' IN TYPEOF(sc)))= 1) OR&#10;(SIZEOF(QUERY(sc &lt;* style_context |&#10;     ('REPRESENTATION_SCHEMA.MAPPED_ITEM' IN TYPEOF(sc))&#10;  OR ('PRESENTATION_APPEARANCE_SCHEMA.CONTEXT_DEPENDENT_SHAPE_REPRESENTATION' IN TYPEOF(sc))&#10;  OR ('REPRESENTATION_SCHEMA.REPRESENTATION_RELATIONSHIP' IN TYPEOF(sc)) ))&#10;  = SIZEOF(style_context))" label="WR1"/>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="curve_style" supertypes="founded_item">
+         <explicit name="name" optional="NO">
+            <typename name="label"/>
+         </explicit>
+         <explicit name="curve_font" optional="YES">
+            <typename name="curve_font_or_scaled_curve_font_select"/>
+         </explicit>
+         <explicit name="curve_width" optional="YES">
+            <typename name="size_select"/>
+         </explicit>
+         <explicit name="curve_colour" optional="YES">
+            <typename name="colour"/>
+         </explicit>
+         <where expression="EXISTS(curve_font) OR EXISTS(curve_width) OR EXISTS(curve_colour)" label="WR1"/>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="curve_style_curve_pattern" supertypes="geometric_representation_item">
+         <explicit name="pattern" optional="NO">
+            <typename name="annotation_curve_occurrence"/>
+         </explicit>
+         <explicit name="pattern_length" optional="NO">
+            <typename name="positive_length_measure"/>
+         </explicit>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="curve_style_curve_pattern_set" supertypes="curve_style_font geometric_representation_item">
+         <explicit name="pattern_set" optional="NO">
+            <aggregate lower="1" optional="NO" type="SET" unique="NO" upper="?"/>
+            <typename name="curve_style_curve_pattern"/>
+         </explicit>
+      <where label="IP1"/>
+         <where label="IP2"/>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="curve_style_font" supertypes="founded_item">
+         <explicit name="name" optional="NO">
+            <typename name="label"/>
+         </explicit>
+         <explicit name="pattern_list" optional="NO">
+            <aggregate lower="1" optional="NO" type="LIST" unique="NO" upper="?"/>
+            <typename name="curve_style_font_pattern"/>
+         </explicit>
+      <where label="IP1"/>
+         <where label="IP2"/>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="curve_style_font_and_scaling" supertypes="founded_item">
+         <explicit name="name" optional="NO">
+            <typename name="label"/>
+         </explicit>
+         <explicit name="curve_font" optional="NO">
+            <typename name="curve_style_font_select"/>
+         </explicit>
+         <explicit name="curve_font_scaling" optional="NO">
+            <builtintype fixed="NO" type="REAL"/>
+         </explicit>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="curve_style_font_pattern" supertypes="founded_item">
+         <explicit name="visible_segment_length" optional="NO">
+            <typename name="positive_length_measure"/>
+         </explicit>
+         <explicit name="invisible_segment_length" optional="NO">
+            <typename name="positive_length_measure"/>
+         </explicit>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="curve_style_rendering">
+         <explicit name="rendering_method" optional="NO">
+            <typename name="shading_curve_method"/>
+         </explicit>
+         <explicit name="rendering_properties" optional="NO">
+            <typename name="surface_rendering_properties"/>
+         </explicit>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="curve_style_wide" supertypes="curve_style_font">
+         <explicit name="interior_style" optional="NO">
+            <typename name="fill_area_style"/>
+         </explicit>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="curve_style_with_ends_and_corners" supertypes="curve_style">
+         <explicit name="curve_ends" optional="NO">
+            <typename name="squared_or_rounded"/>
+         </explicit>
+         <explicit name="curve_corners" optional="NO">
+            <typename name="squared_or_rounded"/>
+         </explicit>
+         <where expression="EXISTS(curve_width)" label="WR1"/>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="curve_style_with_extension" supertypes="curve_style">
+         <explicit name="curve_extensions" optional="NO">
+            <typename name="length_measure"/>
+         </explicit>
+         <where expression="EXISTS(curve_width)" label="WR1"/>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="draughting_pre_defined_curve_font" supertypes="pre_defined_curve_font">
+         <where expression="SELF\pre_defined_item.name IN&#10;        ['continuous',&#10;         'chain',&#10;         'chain double dash',&#10;         'dashed',&#10;         'dotted']" label="WR1"/>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="externally_defined_curve_font" supertypes="externally_defined_item"/>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="externally_defined_hatch_style" supertypes="externally_defined_item geometric_representation_item"/>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="externally_defined_style" supertypes="externally_defined_item founded_item"/>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="externally_defined_tile" supertypes="externally_defined_item"/>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="externally_defined_tile_style" supertypes="externally_defined_item geometric_representation_item"/>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="fill_area_style" supertypes="founded_item">
+         <explicit name="name" optional="NO">
+            <typename name="label"/>
+         </explicit>
+         <explicit name="fill_styles" optional="NO">
+            <aggregate lower="1" optional="NO" type="SET" unique="NO" upper="?"/>
+            <typename name="fill_style_select"/>
+         </explicit>
+         <where expression="SIZEOF(QUERY(fill_style &lt;* fill_styles |&#10;         'PRESENTATION_APPEARANCE_SCHEMA.'+&#10;         'FILL_AREA_STYLE_COLOUR' IN&#10;         TYPEOF(fill_style)&#10;         )) &lt;= 1" label="WR1"/>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="fill_area_style_colour">
+         <explicit name="name" optional="NO">
+            <typename name="label"/>
+         </explicit>
+         <explicit name="fill_colour" optional="NO">
+            <typename name="colour"/>
+         </explicit>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="fill_area_style_hatching" supertypes="geometric_representation_item">
+         <explicit name="hatch_line_appearance" optional="NO">
+            <typename name="curve_style"/>
+         </explicit>
+         <explicit name="start_of_next_hatch_line" optional="NO">
+            <typename name="one_direction_repeat_factor"/>
+         </explicit>
+         <explicit name="point_of_reference_hatch_line" optional="NO">
+            <typename name="cartesian_point"/>
+         </explicit>
+         <explicit name="pattern_start" optional="NO">
+            <typename name="cartesian_point"/>
+         </explicit>
+         <explicit name="hatch_line_angle" optional="NO">
+            <typename name="plane_angle_measure"/>
+         </explicit>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="fill_area_style_tile_coloured_region" supertypes="geometric_representation_item">
+         <explicit name="closed_curve" optional="NO">
+            <typename name="curve_or_annotation_curve_occurrence"/>
+         </explicit>
+         <explicit name="region_colour" optional="NO">
+            <typename name="colour"/>
+         </explicit>
+         <where expression="(NOT('GEOMETRY_SCHEMA.CURVE' IN TYPEOF (closed_curve))) OR &#10;        ('GEOMETRY_SCHEMA.CIRCLE' IN TYPEOF (closed_curve)) OR &#10;        ('GEOMETRY_SCHEMA.ELLIPSE' IN TYPEOF (closed_curve)) OR &#10;        ( ('GEOMETRY_SCHEMA.B_SPLINE_CURVE' IN TYPEOF (closed_curve)) &#10;             AND (closed_curve\b_spline_curve.closed_curve = TRUE) ) OR &#10;        ( ('GEOMETRY_SCHEMA.COMPOSITE_CURVE' IN TYPEOF (closed_curve)) &#10;             AND (closed_curve\composite_curve.closed_curve = TRUE) ) OR &#10;        ( ('GEOMETRY_SCHEMA.POLYLINE' IN TYPEOF (closed_curve)) &#10;             AND (closed_curve\polyline.points[LOINDEX(closed_curve\polyline.points)] = &#10;                  closed_curve\polyline.points[HIINDEX(closed_curve\polyline.points)]) )" label="WR1"/>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="fill_area_style_tile_curve_with_style" supertypes="geometric_representation_item">
+         <explicit name="styled_curve" optional="NO">
+            <typename name="annotation_curve_occurrence"/>
+         </explicit>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="fill_area_style_tile_symbol_with_style" supertypes="geometric_representation_item">
+         <explicit name="symbol" optional="NO">
+            <typename name="annotation_symbol_occurrence"/>
+         </explicit>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="fill_area_style_tiles" supertypes="geometric_representation_item">
+         <explicit name="tiling_pattern" optional="NO">
+            <typename name="two_direction_repeat_factor"/>
+         </explicit>
+         <explicit name="tiles" optional="NO">
+            <aggregate lower="1" optional="NO" type="SET" unique="NO" upper="?"/>
+            <typename name="fill_area_style_tile_shape_select"/>
+         </explicit>
+         <explicit name="tiling_scale" optional="NO">
+            <typename name="positive_ratio_measure"/>
+         </explicit>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="invisibility">
+         <explicit name="invisible_items" optional="NO">
+            <aggregate lower="1" optional="NO" type="SET" unique="NO" upper="?"/>
+            <typename name="invisible_item"/>
+         </explicit>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="occlusion_precedence">
+         <explicit name="higher_precedence" optional="NO">
+            <typename name="hiding_or_blanking_select"/>
+         </explicit>
+         <explicit name="lower_precedence" optional="NO">
+            <typename name="hiding_or_blanking_select"/>
+         </explicit>
+         <explicit name="occlusion_context" optional="NO">
+            <typename name="representation"/>
+         </explicit>
+         <where expression="acyclic_occlusion_precedence (SELF, [lower_precedence])" label="WR1"/>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="one_direction_repeat_factor" supertypes="geometric_representation_item">
+         <explicit name="repeat_factor" optional="NO">
+            <typename name="vector"/>
+         </explicit>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="over_riding_styled_item" supertypes="styled_item">
+         <explicit name="over_ridden_style" optional="NO">
+            <typename name="styled_item"/>
+         </explicit>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="point_style" supertypes="founded_item">
+         <explicit name="name" optional="NO">
+            <typename name="label"/>
+         </explicit>
+         <explicit name="marker" optional="YES">
+            <typename name="marker_select"/>
+         </explicit>
+         <explicit name="marker_size" optional="YES">
+            <typename name="size_select"/>
+         </explicit>
+         <explicit name="marker_colour" optional="YES">
+            <typename name="colour"/>
+         </explicit>
+         <where expression="EXISTS(marker) OR EXISTS(marker_size) OR EXISTS(marker_colour)" label="WR1"/>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="pre_defined_character_spacing" supertypes="pre_defined_item"/>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="pre_defined_curve_font" supertypes="pre_defined_item"/>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="pre_defined_hatch_style" supertypes="pre_defined_item geometric_representation_item"/>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="pre_defined_marker" supertypes="pre_defined_item"/>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="pre_defined_presentation_style" supertypes="founded_item pre_defined_item"/>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="pre_defined_size" supertypes="pre_defined_item"/>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="pre_defined_surface_side_style" supertypes="pre_defined_item"/>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="pre_defined_tile" supertypes="pre_defined_item"/>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="pre_defined_tile_style" supertypes="pre_defined_item geometric_representation_item"/>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="presentation_style_assignment" supertypes="founded_item">
+         <explicit name="styles" optional="NO">
+            <aggregate lower="1" optional="NO" type="SET" unique="NO" upper="?"/>
+            <typename name="presentation_style_select"/>
+         </explicit>
+         <where expression="SIZEOF (QUERY (style1 &lt;* styles |&#10;           NOT (SIZEOF (QUERY (style2 &lt;* (styles - style1) |&#10;           NOT ((TYPEOF (style1) &lt;&gt; TYPEOF (style2)) OR&#10;             (SIZEOF (['PRESENTATION_APPEARANCE_SCHEMA.' + &#10;                       'SURFACE_STYLE_USAGE',&#10;                       'PRESENTATION_APPEARANCE_SCHEMA.'+&#10;                       'EXTERNALLY_DEFINED_STYLE'] *&#10;                     TYPEOF (style1)) = 1)&#10;           ))) = 0&#10;         ))) = 0" label="WR1"/>
+         <where expression="SIZEOF (QUERY (style1 &lt;* styles |&#10;         'PRESENTATION_APPEARANCE_SCHEMA.SURFACE_STYLE_USAGE' IN&#10;         TYPEOF(style1)&#10;         )) &lt;= 2" label="WR2"/>
+         <where expression="SIZEOF (QUERY (style1 &lt;* styles |&#10;         ('PRESENTATION_APPEARANCE_SCHEMA.SURFACE_STYLE_USAGE' IN TYPEOF (style1)) AND &#10;         (SIZEOF (QUERY (style2 &lt;* (styles - style1) |&#10;           ('PRESENTATION_APPEARANCE_SCHEMA.SURFACE_STYLE_USAGE' IN TYPEOF (style2)) AND &#10;           ((style1\surface_style_usage.side = both) OR &#10;           (style2\surface_style_usage.side = both) OR &#10;           (style1\surface_style_usage.side = style2\surface_style_usage.side)) )) &gt; 0))) = 0" label="WR3"/>
+      <where label="IP1"/>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="presentation_style_by_context" supertypes="presentation_style_assignment">
+         <explicit name="style_context" optional="NO">
+            <typename name="style_context_select"/>
+         </explicit>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="single_texture_style_tessellation_specification" supertypes="texture_style_tessellation_specification">
+         <explicit name="texture_image" optional="NO">
+            <typename name="label"/>
+         </explicit>
+         <explicit name="texture_coordinates" optional="NO">
+            <aggregate lower="1" optional="NO" type="LIST" unique="NO" upper="?"/>
+            <aggregate lower="2" optional="NO" type="LIST" unique="NO" upper="2"/>
+            <typename name="non_negative_real"/>
+         </explicit>
+         <explicit name="texture_format" optional="NO">
+            <typename name="texture_file_type"/>
+         </explicit>
+         <explicit name="repeating_pattern" optional="NO">
+            <builtintype fixed="NO" type="BOOLEAN"/>
+         </explicit>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="styled_item" supertypes="representation_item">
+         <explicit name="styles" optional="NO">
+            <aggregate lower="0" optional="NO" type="SET" unique="NO" upper="?"/>
+            <typename name="presentation_style_assignment"/>
+         </explicit>
+         <explicit name="item" optional="NO">
+            <typename name="styled_item_target"/>
+         </explicit>
+         <where expression="(SIZEOF(styles) = 0) AND ( 'PRESENTATION_APPEARANCE_SCHEMA.STYLED_TESSELLATED_ITEM_WITH_COLOURS' IN TYPEOF(self))&#10;           OR&#10;           (SIZEOF(styles) = 1)&#10;           OR&#10;           (SIZEOF(styles) &gt; 1) AND (SIZEOF(QUERY(pres_style &lt;* styles | NOT ('PRESENTATION_APPEARANCE_SCHEMA.' + 'PRESENTATION_STYLE_BY_CONTEXT' IN TYPEOF(pres_style)))) = 0)" label="WR1"/>
+         <where expression="NOT ('PRESENTATION_APPEARANCE_SCHEMA.STYLED_ITEM' IN TYPEOF(item))" label="WR2"/>
+         <where expression="('REPRESENTATION_SCHEMA.MAPPED_ITEM' IN TYPEOF(item)) OR&#10;           ('GEOMETRY_SCHEMA.GEOMETRIC_REPRESENTATION_ITEM' IN TYPEOF(item)) OR&#10;           ('PRESENTATION_APPEARANCE_SCHEMA.CONTEXT_DEPENDENT_OVER_RIDING_STYLED_ITEM' IN TYPEOF(SELF))" label="WR3"/>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="styled_tessellated_face_or_surface_with_single_texture" supertypes="styled_item">
+         <explicit name="styles" optional="NO">
+            <aggregate lower="1" optional="NO" type="SET" unique="NO" upper="1"/>
+            <typename name="presentation_style_assignment"/>
+            <redeclaration entity-ref="styled_item"/>
+         </explicit>
+         <explicit name="item" optional="NO">
+            <typename name="tessellated_face_or_tessellated_surface_set"/>
+            <redeclaration entity-ref="styled_item"/>
+         </explicit>
+         <derived expression="styles[LOINDEX(styles)]\presentation_style_assignment.styles[LOINDEX(styles)]" name="texture_style_specification">
+            <typename name="texture_style_tessellation_specification"/>
+         </derived>
+         <where expression="('PRESENTATION_APPEARANCE_SCHEMA.SINGLE_TEXTURE_STYLE_TESSELLATION_SPECIFICATION' IN TYPEOF(styles[LOINDEX(styles)]\presentation_style_assignment.styles[LOINDEX(styles)]))&#10;          AND (SIZEOF(styles[LOINDEX(styles)]\presentation_style_assignment.styles) = 1)" label="WR1"/>
+         <where expression="NOT ('GEOMETRIC_MODEL_SCHEMA.TRIANGULATED_FACE' IN TYPEOF(item))&#10;          OR&#10;           ((&#10;            ((SIZEOF(item\triangulated_face.pnindex) &gt; 0) AND (SIZEOF(texture_style_specification\single_texture_style_tessellation_specification.texture_coordinates) = SIZEOF(item\triangulated_face.pnindex))))&#10;            OR&#10;            ((SIZEOF(item\triangulated_face.pnindex) = 0) AND (SIZEOF(texture_style_specification\single_texture_style_tessellation_specification.texture_coordinates) = item\tessellated_face.coordinates\coordinates_list.npoints)))" label="WR2"/>
+         <where expression="NOT ('GEOMETRIC_MODEL_SCHEMA.COMPLEX_TRIANGULATED_FACE' IN TYPEOF(item))&#10;         OR&#10;            ((SIZEOF(item\complex_triangulated_face.pnindex) &gt; 0) AND (SIZEOF(texture_style_specification\single_texture_style_tessellation_specification.texture_coordinates) = SIZEOF(item\complex_triangulated_face.pnindex)))&#10;            OR&#10;            ((SIZEOF(item\complex_triangulated_face.pnindex) = 0) AND (SIZEOF(texture_style_specification\single_texture_style_tessellation_specification.texture_coordinates) = item\tessellated_face.coordinates\coordinates_list.npoints))" label="WR3"/>
+         <where expression="NOT ('GEOMETRIC_MODEL_SCHEMA.TESSELLATED_SURFACE_SET' IN TYPEOF(item))&#10;         OR&#10;         (SIZEOF(texture_style_specification\single_texture_style_tessellation_specification.texture_coordinates) = item\tessellated_surface_set.coordinates\coordinates_list.npoints)" label="WR4"/>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="styled_tessellated_item_with_colours" supertypes="styled_item">
+         <explicit name="item" optional="NO">
+            <typename name="tessellated_surface_item"/>
+            <redeclaration entity-ref="styled_item"/>
+         </explicit>
+         <explicit name="colour_type" optional="NO">
+            <typename name="colour_type_enum"/>
+         </explicit>
+         <explicit name="colour_values" optional="NO">
+            <aggregate lower="1" optional="NO" type="LIST" unique="NO" upper="?"/>
+            <aggregate lower="3" optional="NO" type="LIST" unique="NO" upper="4"/>
+            <typename name="unsigned_8_bit_integer"/>
+         </explicit>
+         <derived expression="get_coordinate_values(item )" name="coloured_coordinate_values">
+            <typename name="coordinates_list"/>
+         </derived>
+         <where expression="SIZEOF(SELF\styled_item.styles)= 0" label="WR1"/>
+         <where expression="((colour_type = RGB8) AND (SIZEOF(QUERY(clist &lt;* colour_values | NOT (SIZEOF(clist) = 3)))= 0)) OR&#10;           ((colour_type = RGBT8) AND (SIZEOF(QUERY(clist &lt;* colour_values | NOT (SIZEOF(clist) = 4)))= 0))" label="WR2"/>
+         <where expression="SIZEOF(colour_values) = coloured_coordinate_values\coordinates_list.npoints" label="WR3"/>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="surface_rendering_properties">
+         <explicit name="rendered_colour" optional="NO">
+            <typename name="colour"/>
+         </explicit>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="surface_side_style" supertypes="founded_item">
+         <explicit name="name" optional="NO">
+            <typename name="label"/>
+         </explicit>
+         <explicit name="styles" optional="NO">
+            <aggregate lower="1" optional="NO" type="SET" unique="NO" upper="7"/>
+            <typename name="surface_style_element_select"/>
+         </explicit>
+         <where expression="SIZEOF(QUERY( style1 &lt;* styles |&#10;           SIZEOF(QUERY( style2 &lt;* styles - style1 |&#10;           TYPEOF(style1) = TYPEOF(style2)&#10;           )) &gt; 0&#10;           )) = 0" label="WR1"/>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="surface_style_boundary" supertypes="founded_item">
+         <explicit name="style_of_boundary" optional="NO">
+            <typename name="curve_or_render"/>
+         </explicit>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="surface_style_control_grid" supertypes="founded_item">
+         <explicit name="style_of_control_grid" optional="NO">
+            <typename name="curve_or_render"/>
+         </explicit>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="surface_style_fill_area" supertypes="founded_item">
+         <explicit name="fill_area" optional="NO">
+            <typename name="fill_area_style"/>
+         </explicit>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="surface_style_parameter_line" supertypes="founded_item">
+         <explicit name="style_of_parameter_lines" optional="NO">
+            <typename name="curve_or_render"/>
+         </explicit>
+         <explicit name="direction_counts" optional="NO">
+            <aggregate lower="1" optional="NO" type="SET" unique="NO" upper="2"/>
+            <typename name="direction_count_select"/>
+         </explicit>
+         <where expression="(HIINDEX(direction_counts) = 1)&#10;                        XOR&#10;         (TYPEOF(direction_counts[1]) &lt;&gt;&#10;          TYPEOF(direction_counts[2]))" label="WR1"/>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="surface_style_reflectance_ambient">
+         <explicit name="ambient_reflectance" optional="NO">
+            <builtintype fixed="NO" type="REAL"/>
+         </explicit>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="surface_style_reflectance_ambient_diffuse" supertypes="surface_style_reflectance_ambient">
+         <explicit name="diffuse_reflectance" optional="NO">
+            <builtintype fixed="NO" type="REAL"/>
+         </explicit>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="surface_style_reflectance_ambient_diffuse_specular" supertypes="surface_style_reflectance_ambient_diffuse">
+         <explicit name="specular_reflectance" optional="NO">
+            <builtintype fixed="NO" type="REAL"/>
+         </explicit>
+         <explicit name="specular_exponent" optional="NO">
+            <builtintype fixed="NO" type="REAL"/>
+         </explicit>
+         <explicit name="specular_colour" optional="NO">
+            <typename name="colour"/>
+         </explicit>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="surface_style_rendering">
+         <explicit name="rendering_method" optional="NO">
+            <typename name="shading_surface_method"/>
+         </explicit>
+         <explicit name="surface_colour" optional="NO">
+            <typename name="colour"/>
+         </explicit>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="surface_style_rendering_with_properties" supertypes="surface_style_rendering">
+         <explicit name="properties" optional="NO">
+            <aggregate lower="1" optional="NO" type="SET" unique="NO" upper="2"/>
+            <typename name="rendering_properties_select"/>
+         </explicit>
+         <where expression="(HIINDEX(properties) = 1)&#10;                   XOR&#10;         (TYPEOF(properties[1]) &lt;&gt; TYPEOF(properties[2]))" label="WR1"/>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="surface_style_segmentation_curve" supertypes="founded_item">
+         <explicit name="style_of_segmentation_curve" optional="NO">
+            <typename name="curve_or_render"/>
+         </explicit>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="surface_style_silhouette" supertypes="founded_item">
+         <explicit name="style_of_silhouette" optional="NO">
+            <typename name="curve_or_render"/>
+         </explicit>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="surface_style_transparent">
+         <explicit name="transparency" optional="NO">
+            <builtintype fixed="NO" type="REAL"/>
+         </explicit>
+         <where expression="{0.0 &lt;= transparency &lt;= 1.0}" label="WR1"/>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="surface_style_usage" supertypes="founded_item">
+         <explicit name="side" optional="NO">
+            <typename name="surface_side"/>
+         </explicit>
+         <explicit name="style" optional="NO">
+            <typename name="surface_side_style_select"/>
+         </explicit>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="symbol_colour">
+         <explicit name="colour_of_symbol" optional="NO">
+            <typename name="colour"/>
+         </explicit>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="symbol_element_style" supertypes="founded_item">
+         <explicit name="style_of_symbol" optional="NO">
+            <typename name="presentation_style_assignment"/>
+         </explicit>
+         <where expression="SIZEOF (QUERY ( style &lt;* style_of_symbol\presentation_style_assignment.styles |&#10;           'PRESENTATION_APPEARANCE_SCHEMA.SYMBOL_STYLE' IN&#10;           TYPEOF (style))) = 0" label="WR1"/>
+         <where expression="NOT ('PRESENTATION_APPEARANCE_SCHEMA.' +&#10;                'PRESENTATION_STYLE_BY_CONTEXT' IN&#10;              TYPEOF (style_of_symbol)&#10;           )" label="WR2"/>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="symbol_style" supertypes="founded_item">
+         <explicit name="name" optional="NO">
+            <typename name="label"/>
+         </explicit>
+         <explicit name="style_of_symbol" optional="NO">
+            <typename name="symbol_style_select"/>
+         </explicit>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="text_style" supertypes="founded_item">
+         <explicit name="name" optional="NO">
+            <typename name="label"/>
+         </explicit>
+         <explicit name="character_appearance" optional="NO">
+            <typename name="character_style_select"/>
+         </explicit>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="text_style_for_defined_font">
+         <explicit name="text_colour" optional="NO">
+            <typename name="colour"/>
+         </explicit>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="text_style_with_box_characteristics" supertypes="text_style">
+         <explicit name="characteristics" optional="NO">
+            <aggregate lower="1" optional="NO" type="SET" unique="NO" upper="4"/>
+            <typename name="box_characteristic_select"/>
+         </explicit>
+         <where expression="SIZEOF( QUERY( c1 &lt;* characteristics |&#10;           SIZEOF( QUERY( c2 &lt;* characteristics - c1 |&#10;           TYPEOF (c1) = TYPEOF (c2)&#10;           )) &gt; 0&#10;           )) = 0" label="WR1"/>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="text_style_with_justification" supertypes="text_style">
+         <explicit name="justification" optional="NO">
+            <typename name="text_justification"/>
+         </explicit>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="text_style_with_mirror" supertypes="text_style">
+         <explicit name="mirror_placement" optional="NO">
+            <typename name="axis2_placement"/>
+         </explicit>
+      <where label="IP1"/>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="text_style_with_spacing" supertypes="text_style">
+         <explicit name="character_spacing" optional="NO">
+            <typename name="character_spacing_select"/>
+         </explicit>
+      </entity>
+      <entity abstract.entity="NO" abstract.supertype="YES" name="texture_style_specification" supertypes="founded_item"/>
+      <entity abstract.entity="NO" abstract.supertype="YES" name="texture_style_tessellation_specification" supertypes="texture_style_specification"/>
+      <entity abstract.entity="NO" abstract.supertype="NO" name="two_direction_repeat_factor" supertypes="one_direction_repeat_factor">
+         <explicit name="second_repeat_factor" optional="NO">
+            <typename name="vector"/>
+         </explicit>
+      </entity>
+      <subtype.constraint abstract.supertype="NO" entity="founded_item" name="founded_item_subtypes" super.expression="ONEOF (approximation_tolerance, approximation_tolerance_deviation, approximation_tolerance_parameter, character_glyph_style_outline, character_glyph_style_stroke, curve_style, curve_style_font, curve_style_font_and_scaling, curve_style_font_pattern, externally_defined_style, fill_area_style, point_style, pre_defined_presentation_style, presentation_style_assignment, surface_side_style, surface_style_boundary, surface_style_control_grid, surface_style_fill_area, surface_style_parameter_line, surface_style_segmentation_curve, surface_style_silhouette, surface_style_usage, symbol_element_style, symbol_style, text_style)"/>
+      <subtype.constraint abstract.supertype="NO" entity="geometric_representation_item" name="pas_geometric_representation_item_subtypes" super.expression="ONEOF (curve, curve_style_curve_pattern, curve_style_curve_pattern_set, externally_defined_hatch_style, externally_defined_tile_style, fill_area_style_hatching, fill_area_style_tile_coloured_region, fill_area_style_tile_curve_with_style, fill_area_style_tile_symbol_with_style, fill_area_style_tiles, one_direction_repeat_factor, point, pre_defined_hatch_style, pre_defined_tile_style, vector)"/>
+      <function name="acyclic_occlusion_precedence">
+         <parameter name="relation">
+            <typename name="occlusion_precedence"/>
+         </parameter>
+         <parameter name="set_of_lower">
+            <aggregate lower="0" optional="NO" type="SET" unique="NO" upper="?"/>
+            <typename name="hiding_or_blanking_select"/>
+         </parameter>
+         <builtintype fixed="NO" type="BOOLEAN"/>
+         <algorithm>LOCAL
+      x : SET OF occlusion_precedence;
+      local_set_of_lower : SET OF hiding_or_blanking_select;
+    END_LOCAL;
+    REPEAT i:=1 TO HIINDEX(set_of_lower);
+      IF relation.higher_precedence :=: set_of_lower[i] THEN
+        RETURN(FALSE);
+      END_IF;
+    END_REPEAT;
+    x := bag_to_set (USEDIN ( relation.higher_precedence,
+                   'PRESENTATION_APPEARANCE_SCHEMA.'+
+           'OCCLUSION_PRECEDENCE.LOWER_PRECEDENCE'));
+    local_set_of_lower := set_of_lower + relation.higher_precedence;
+    IF SIZEOF (x) &gt; 0 THEN
+      REPEAT i:=1 TO HIINDEX (x);
+        IF NOT acyclic_occlusion_precedence(x[i] ,
+                                     local_set_of_lower) THEN
+            RETURN (FALSE);
+        END_IF;
+      END_REPEAT;
+    END_IF;
+    RETURN (TRUE);</algorithm>
+      </function>
+      <function name="get_coordinate_values">
+         <parameter name="source">
+            <typename name="tessellated_surface_item"/>
+         </parameter>
+         <typename name="coordinates_list"/>
+         <algorithm>LOCAL
+      coordinate_values : coordinates_list;
+      max : INTEGER;
+ END_LOCAL;
+       (* If source is of type tessellated_face its single coordinates_list is returned *)  
+    CASE TRUE OF
+    'GEOMETRIC_MODEL_SCHEMA.TESSELLATED_FACE' IN TYPEOF(source): --first case 
+    BEGIN
+      coordinate_values := source\tessellated_face.coordinates;
+      RETURN(coordinate_values);
+    END;
+       (* If source is of type tessellated_surface_set its single coordinates_list is returned *)  
+   'GEOMETRIC_MODEL_SCHEMA.TESSELLATED_SURFACE_SET' IN TYPEOF(source): --second case
+    BEGIN
+      coordinate_values := source\tessellated_surface_set.coordinates;
+      RETURN(coordinate_values);
+    END;    
+       (* For complex cases of tessellated_solid or tessellated_shell multiple coordinates_lists
+        may occur. A valid return is only possible if a single coordinates_list is used for all components of the shell or solid *)
+       (*  A tessellated_solid, or tessellated_shell  has a SET of teessellated_structured_items which must be inspected, the local variable coordinate_values is 
+        set to the coordinates_list referenced by items[1] and is later compared to other referenced coordinates_lists *)
+   'GEOMETRIC_MODEL_SCHEMA.TESSELLATED_SOLID' IN TYPEOF(source): -- third case
+    BEGIN
+      IF 'GEOMETRIC_MODEL_SCHEMA.TESSELLATED_FACE' IN TYPEOF(source\tessellated_solid.items[1]) THEN
+        coordinate_values := source\tessellated_solid.items[1]\tessellated_face.coordinates;
+      END_IF;
+     IF 'GEOMETRIC_MODEL_SCHEMA.TESSELLATED_EDGE' IN TYPEOF(source\tessellated_solid.items[1]) THEN
+       coordinate_values := source\tessellated_solid.items[1]\tessellated_edge.coordinates;
+     END_IF;
+     IF 'GEOMETRIC_MODEL_SCHEMA.TESSELLATED_VERTEX' IN TYPEOF(source\tessellated_solid.items[1]) THEN
+       coordinate_values := source\tessellated_solid.items[1]\tessellated_vertex.coordinates;
+     END_IF;
+     max := SIZEOF(source\tessellated_solid.items);
+      IF   max = 1 THEN 
+       RETURN(coordinate_values);
+     (* simple case with only 1 item in the list *)
+      ELSE REPEAT i := 2 TO max;
+       (* check that each item on the list references the same coordintes_list as items[1], if NOT rerurn ? *) 
+        IF 'GEOMETRIC_MODEL_SCHEMA.TESSELLATED_FACE' IN TYPEOF(source\tessellated_solid.items[i]) THEN
+          IF NOT(coordinate_values :=: source\tessellated_solid.items[i]\tessellated_face.coordinates) THEN 
+           RETURN (?);
+          END_IF;  
+        END_IF;
+        IF 'GEOMETRIC_MODEL_SCHEMA.TESSELLATED_EDGE' IN TYPEOF(source\tessellated_solid.items[i]) THEN
+          IF NOT(coordinate_values :=: source\tessellated_solid.items[i]\tessellated_edge.coordinates) THEN
+           RETURN(?);
+          END_IF;
+        END_IF;  
+        IF 'GEOMETRIC_MODEL_SCHEMA.TESSELLATED_VERTEX' IN TYPEOF(source\tessellated_solid.items[i]) THEN
+         IF NOT(coordinate_values :=: source\tessellated_solid.items[i]\tessellated_vertex.coordinates) THEN
+           RETURN(?);
+         END_IF;  
+       END_IF; 
+     END_REPEAT;
+     RETURN(coordinate_values);
+      (* all items referenced by the tessellated_solid share the same coordinates list which is now returned. *) 
+    END_IF;
+  END;   
+      (* tessellated_shell has a SET of tessellated_structured_items which must be inspected *)
+   'GEOMETRIC_MODEL_SCHEMA.TESSELLATED_SHELL' IN TYPEOF(source): --fourth case
+    BEGIN
+        IF 'GEOMETRIC_MODEL_SCHEMA.TESSELLATED_FACE' IN TYPEOF(source\tessellated_shell.items[1]) THEN
+         coordinate_values := source\tessellated_shell.items[1]\tessellated_face.coordinates;
+        END_IF;
+       IF 'GEOMETRIC_MODEL_SCHEMA.TESSELLATED_EDGE' IN TYPEOF(source\tessellated_shell.items[1]) THEN
+         coordinate_values := source\tessellated_shell.items[1]\tessellated_edge.coordinates;
+       END_IF;
+       IF 'GEOMETRIC_MODEL_SCHEMA.TESSELLATED_VERTEX' IN TYPEOF(source\tessellated_shell.items[1]) THEN
+        coordinate_values := source\tessellated_shell.items[1]\tessellated_vertex.coordinates;
+       END_IF;
+       max := SIZEOF(source\tessellated_shell.items);
+       IF  max = 1 THEN RETURN(coordinate_values);
+       (* simple case with only 1 item in the list *)
+       ELSE REPEAT i := 2 TO max;
+        (* check that each item on the list references the same coordinates_list as item[1], if NOT rerurn ? *) 
+        IF 'GEOMETRIC_MODEL_SCHEMA.TESSELLATED_FACE' IN TYPEOF(source\tessellated_shell.items[i]) THEN
+         IF NOT(coordinate_values :=: source\tessellated_shell.items[i]\tessellated_face.coordinates) THEN 
+           RETURN (?);
+         END_IF;  
+        END_IF;
+        IF 'GEOMETRIC_MODEL_SCHEMA.TESSELLATED_EDGE' IN TYPEOF(source\tessellated_shell.items[i]) THEN
+          IF NOT (coordinate_values :=: source\tessellated_shell.items[i]\tessellated_edge.coordinates) THEN
+            RETURN(?);
+          END_IF;
+        END_IF;  
+        IF 'GEOMETRIC_MODEL_SCHEMA.TESSELLATED_VERTEX' IN TYPEOF(source\tessellated_shell.items[i]) THEN
+         IF NOT (coordinate_values :=: source\tessellated_shell.items[i]\tessellated_vertex.coordinates) THEN
+           RETURN(?);
+         END_IF;  
+        END_IF; 
+      END_REPEAT;
+      RETURN(coordinate_values);
+       (* all items referenced by the tessellated_shell share the same coordinates_list which is now returned. *) 
+     END_IF;
+   END;
+   END_CASE;</algorithm>
+      </function>
+   </schema>
+</express>

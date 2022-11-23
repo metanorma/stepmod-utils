@@ -1,0 +1,3086 @@
+<?xml version="1.0"?>
+<?xml-stylesheet
+type="text/xsl"
+href="../../../xsl/descriptions.xsl"?>
+<!DOCTYPE ext_descriptions SYSTEM "../../../dtd/description.dtd">
+<ext_descriptions module_directory="presentation_appearance_schema" schema_file="presentation_appearance_schema.xml"
+rcs.date="$Date: 2019/04/16 09:36:33 $" rcs.revision="$Revision: 1.30 $"
+describe.selects="YES"
+describe.subtype_constraints="YES"
+>
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Schema: presentation_appearance_schema
+<express_ref linkend="presentation_appearance_schema::presentation_appearance_schema_mim"/>
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema">
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPE: style_context_select
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.style_context_select">
+	The <b>style_context_select</b> selects between the entities which can be a context for the assignment or over-riding of presentation style.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPE: presentation_style_select
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.presentation_style_select">
+	The <b>presentation_style_select</b> is used by a
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.presentation_style_assignment"/> 
+	to associate style with a
+	<express_ref linkend="representation_schema:ir_express:representation_schema.representation_item"/>. 
+	A different style is provided for each kind of 
+	<express_ref linkend="representation_schema:ir_express:representation_schema.representation_item"/> 
+	to be styled.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPE: null_style
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.null_style">
+	The <b>null_style</b> specifies that no specific style is assigned directly to an item that is to be 
+	presented. The style or styles to be used in presenting the item are specified within the definition of 
+	the item. 
+	If no styles are specified within the definition, then it is up to the
+	receiving system on how to present the item.
+	<example>
+		A symbol is defined using two 
+		<express_ref linkend="presentation_definition_schema:ir_express:presentation_definition_schema.annotation_curve_occurrence"/>s, 
+		which are styled such that one is red and the other is blue. If an instance of the symbol 
+		is assigned <b>null_style</b>, it will be presented using the colours specified in the definition.
+	</example>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: null_style.null
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.null_style.null"> 
+	the 
+	<express_ref linkend="representation_schema:ir_express:representation_schema.representation_item"/> 
+	to which the style is applied shall be presented using the style or styles contained in its definition, if any.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPE: marker_select
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.marker_select">
+	The <b>marker_select</b> is a selection of a specific marker or a pre-defined marker used for the presentation of points.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPE: marker_type
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.marker_type">
+	The <b>marker_type</b> specifies the form for the presentation of points.
+</ext_description>
+
+<ext_description linkend="presentation_appearance_schema.non_negative_real">
+	<p>The <b>non_negative_real</b> type is a real and its value is restricted to be zero or positive.</p>
+</ext_description>
+<ext_description linkend="presentation_appearance_schema.non_negative_real.wr:WR1">
+	<p>The value of the real shall be greater than or equal to zero.</p>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: marker_type.square
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.marker_type.square"> 
+	points are presented as squares  (&#9633;).
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: marker_type.triangle
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.marker_type.triangle"> 
+	points are presented as triangles (&#9651;).
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: marker_type.ring
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.marker_type.ring"> 
+	points are presented as circles (&#9702;).
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: marker_type.plus
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.marker_type.plus"> 
+	points are presented as plus signs (+).
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: marker_type.dot
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.marker_type.dot"> 
+	points are presented as dots (.).
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: marker_type.x
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.marker_type.x"> 
+	points are presented as diagonal crosses (x).
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: marker_type.asterisk
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.marker_type.asterisk"> 
+	points are presented as asterisks (*).
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPE: size_select
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.size_select">
+	The <b>size_select</b> is used to specify the size of marker symbols or the width of curves.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPE: curve_font_or_scaled_curve_font_select
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.curve_font_or_scaled_curve_font_select">
+	The <b>curve_font_or_scaled_curve_font_select</b> is used to specify the font for presenting a curve.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPE: curve_style_font_select
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.curve_style_font_select">
+	The <b>curve_style_font_select</b> is used to specify an unscaled font for presenting a curve.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPE: squared_or_rounded
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.squared_or_rounded">
+The <b>squared_or_rounded</b> type specifies the appearance of curves at their corners or ends.
+	<note>
+		See figure 20.
+	</note>
+		<figure id="fig_squared_or_rounded" number="20">
+		<title>Squared or rounded</title>
+		<img src="squared_or_rounded.gif"/>
+	</figure>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: squared_or_rounded.squared
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.squared_or_rounded.squared"> 
+	the curve is squared off at its end points and corners.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: squared_or_rounded.rounded
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.squared_or_rounded.rounded"> 
+	a filled semi-circular arc with diameter equal to the curve width is drawn around the curve's end points and corners.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPE: fill_style_select
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.fill_style_select">
+	The <b>fill_style_select</b> is a selection between different fill styles.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPE: fill_area_style_tile_shape_select
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.fill_area_style_tile_shape_select">
+	The <b>fill_area_style_tile_shape_select</b> is used for the definition of 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.fill_area_style_tiles"/>. 
+	It selects between different shapes and sources of tiles.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPE: curve_or_annotation_curve_occurrence
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.curve_or_annotation_curve_occurrence">
+	The <b>curve_or_annotation_curve_occurrence</b> provides a 
+	<express_ref linkend="geometry_schema:ir_express:geometry_schema.curve"/> 
+	or an 
+	<express_ref linkend="presentation_definition_schema:ir_express:presentation_definition_schema.annotation_curve_occurrence"/> 
+	for defining the boundary of a 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.fill_area_style_tile_coloured_region"/>.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPE: surface_side
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_side">
+	The <b>surface_side</b> is used by 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.surface_style_usage"/> 
+	to specify the sides of a surface to which a surface style is applied.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: surface_side.positive
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_side.positive"> 
+	the side of a surface which is in the same direction as the surface normal.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: surface_side.negative
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_side.negative"> 
+	the side of a surface which is in the opposite direction than the surface normal.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: surface_side.both
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_side.both"> 
+	both sides.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPE: surface_side_style_select
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_side_style_select">
+	
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPE: surface_style_element_select
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_style_element_select">
+	The <b>surface_style_element_select</b> is a selection of the different surface styles to use in the presentation of the side of a surface.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPE: curve_or_render
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.curve_or_render">
+	The <b>curve_or_render</b> select type is used in the definition of several surface styles to control the appearance of curves on a surface.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPE: shading_curve_method
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.shading_curve_method">
+	The <b>shading_curve_method</b> specifies the method which shall be used
+	for the shading of curves. Shading of curves (approximated by polylines) is
+	the colouring of the line segments according to colour values at certain
+	points of the curve.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: shading_curve_method.constant_colour
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.shading_curve_method.constant_colour"> 
+	if the curve has a colour association table and is
+	approximated by i polyline segments, the colour state at the segment
+	boundaries shall be interpolated in this table according to the state variable
+	value at each boundary. The i-th polyline segment shall then be shaded in
+	constant colour according to the colour state at the i-th segment start.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: shading_curve_method.linear_colour
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.shading_curve_method.linear_colour"> 
+	if the curve has a colour association table and is
+	approximated by i polyline segments, the colour state at the segment
+	boundaries shall be interpolated in this table according to the state variable
+	value at each boundary. The i-th polyline segment shall then be shaded in
+	linearly interpolated colour according to the colour states at both segment boundaries.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPE: direction_count_select
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.direction_count_select">
+	The <b>direction_count_select</b> is a selection between a
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.u_direction_count"/> 
+	and a 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.v_direction_count"/> 
+	for use in presenting parameter lines of a surface.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPE: u_direction_count
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.u_direction_count">
+	The <b>u_direction_count</b> is a positive integer indicating the number of parameter curves in the u direction of a parametric surface.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: u_direction_count.wr:WR1
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.u_direction_count.wr:WR1">
+<p>
+	The u direction count shall be greater than 1.
+</p>
+</ext_description>
+
+<ext_description linkend="presentation_appearance_schema.unsigned_8_bit_integer">
+	<p>The <b>unsigned_8_bit_integer</b> type is an unsigned integer with binary representation of eight bits.
+	</p>
+</ext_description>
+
+<ext_description linkend="presentation_appearance_schema.unsigned_8_bit_integer.wr:WR1">
+	<p>The value of the integer shall be in the range 0 to 255 inclusive.
+	</p>
+</ext_description>
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPE: v_direction_count
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.v_direction_count">
+	The <b>v_direction_count</b> is a positive integer indicating the number of parameter curves in the v direction of a parametric surface.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: v_direction_count.wr:WR1
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.v_direction_count.wr:WR1"> 
+<p>
+	The v direction count shall be greater than 1.
+</p>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPE: shading_surface_method
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.shading_surface_method">
+	The <b>shading_surface_method</b> specifies the method which shall be used for the shading of surfaces.
+	<note number="1">
+		The descriptions of the different types of surface shading show that in some cases the method involves interpolating results from
+		the lighting, and in other case it involves performing the reflectance calculation after interpolation.  For this reason,
+		the shading method may be thought of as selecting a location in a display system's graphics pipeline where interpolation takes place.
+	</note>
+	<note number="2">
+		The results of the shading methods should produce the effects according to the enumerated item definitions. One particular case where the
+		effects are difficult to define is when the silhouette of a surface intersects itself or another silhouette of the same surface. 
+		In this case, the effect is implementation-dependent.
+	</note>
+	<note number="3">
+		The shading methods correspond to those provided by PHIGS PLUS [10].
+	</note>
+	
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: shading_surface_method.normal_shading
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.shading_surface_method.normal_shading"> 
+	<p>
+	the surface normals are interpolated linearly across the surface. The reflectance calculation is performed at each interpolated
+	position of the surface to produce a reflected colour based on the interpolated surface normal and the 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.surface_style_rendering.surface_colour"/>
+	of the relevant
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.surface_style_rendering"/> entity.
+	</p>
+	<p>
+	If the 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.surface_style_rendering.surface_colour"/>
+	is specified through a
+	<express_ref linkend="presentation_resource_schema:ir_express:presentation_resource_schema.colour_specification"/>, 
+	the interpolation of colours shall be performed in the colour model of that specification. Otherwise the interpolation may be
+	performed in an arbitrary model.
+	</p>
+	<note number="4">
+		The result of colour interpolation depends on the colour model in which interpolation is performed.
+	</note>
+	<note number="5">
+		Examples of colour models are RGB, HSV, HLS.
+	</note>
+	<note number="6"> 
+		More information about colour models and colour interpolation can be found in [13], pp. 611-620.
+	</note>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: shading_surface_method.constant_shading
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.shading_surface_method.constant_shading"> 
+	a reflectance calculation is performed for each facet of the approximated surface to produce one reflected colour per facet.
+	The point on the facet used in the calculation is implementation-dependent. The colour used in the reflectance calculation is the 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.surface_style_rendering.surface_colour"/>
+	specified in the relevant 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.surface_style_rendering"/> entity.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: shading_surface_method.dot_shading
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.shading_surface_method.dot_shading"> 
+	any dot products needed by the reflectance equation are calculated from surface normals at a set of positions on the surface. These dot
+	products are interpolated linearly across the surface. The reflectance calculation is performed at each interpolated position of the surface to
+	produce a reflected colour based on the interpolated dot products and the
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.surface_style_rendering.surface_colour"/> 
+	of the relevant 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.surface_style_rendering"/>
+	entity.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: shading_surface_method.colour_shading
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.shading_surface_method.colour_shading"> 
+	a reflectance calculation is performed at each vertex of each facet of the approximated product shape, using the 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.surface_style_rendering.surface_colour"/>
+	and the surface normals in the vertices. The resulting reflected colours are interpolated linearly across each facet.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPE: rendering_properties_select
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.rendering_properties_select">
+	The <b>rendering_properties_select</b> is a selection between two kinds of properties for a surface: reflectance and transparency.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPE: character_style_select
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.character_style_select">
+	
+</ext_description>
+
+<ext_description linkend="presentation_appearance_schema.colour_type_enum">
+<p>The <b>colour_type_enum</b> is an enumeration of colour formats to be associated with vertices of tessellated geometry.
+</p>
+</ext_description>
+
+<ext_description linkend="presentation_appearance_schema.colour_type_enum.RGB8">
+	<p>Red Green Blue eight-bit-integer storage colour-model format.</p>
+</ext_description>
+
+<ext_description linkend="presentation_appearance_schema.colour_type_enum.RGBT8">
+		<p>Red Green Blue Transparency 8-bit integer storage colour model format.</p>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPE: text_justification
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.text_justification">
+	The <b>text_justification</b> type is provided to control the justification of text. 
+	<note>
+		Application Protocols shall specify legal values of the <b>text_justification</b> and shall associate precise meaning to these values.
+	</note>
+</ext_description>
+
+<ext_description linkend="presentation_appearance_schema.texture_file_type">
+	<p>The <b>texture_file_type</b> type is an enumeration list of file formats that specifies the image format of a texture mapped to a 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.single_texture_style_tessellation_specification"/>.</p>
+</ext_description>
+
+<ext_description linkend="presentation_appearance_schema.texture_file_type.JPEG">
+	<p>Joint Photographic Experts Group image file format.</p>
+</ext_description>
+
+<ext_description linkend="presentation_appearance_schema.texture_file_type.PNG">
+	<p>Portable Network Graphics image file format.</p>
+</ext_description>
+
+<ext_description linkend="presentation_appearance_schema.texture_file_type.GIF">
+	<p>Graphics Interchange Format image file format.</p>
+</ext_description>
+
+<ext_description linkend="presentation_appearance_schema.texture_file_type.TIFF">
+	<p>Tagged Image File Format image file format.</p>
+</ext_description>
+
+<ext_description linkend="presentation_appearance_schema.texture_file_type.BMP">
+	<p>Bitmap image file format.</p>
+		<note number="1">This format is defined by Microsoft Windows Bitmap Format [16]</note>
+</ext_description>
+
+<ext_description linkend="presentation_appearance_schema.texture_file_type.DDS">
+	<p>DirectDraw Surface image file format.</p>
+	<note number="2">This file format is defined by Microsoft DirectX 7 [17].</note>
+</ext_description>
+
+<ext_description linkend="presentation_appearance_schema.texture_file_type.TGA">
+	<p>Truevision Graphics Adapter image file format.</p>
+<note number="3"> This file format is defined by Truevision Inc. [18].</note>
+</ext_description>
+
+<ext_description linkend="presentation_appearance_schema.texture_file_type.other">
+	<p>other image file format.</p>
+</ext_description>
+
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPE: box_characteristic_select
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- <ext_description linkend="presentation_appearance_schema.box_characteristic_select">
+	The <b>box_characteristic_select</b> is a selection between
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.box_height"/>, 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.box_width"/>, 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.box_slant_angle"/>
+	and 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.box_rotate_angle"/>.
+</ext_description>  -->
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPE: box_height
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.box_height">
+	The <b>box_height</b> is a height scaling factor used in the definition of a character glyph.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPE: box_width
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.box_width">
+	The <b>box_width</b> is a width scaling factor used in the definition of a character glyph.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPE: box_slant_angle
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.box_slant_angle">
+<p>
+	A <b>box_slant_angle</b> is an angle which indicates that the box for a character glyph shall be presented as a parallelogram, 
+	with the angle being between the character up line and an axis perpendicular to the character base line.
+</p>
+	<note>
+		Figure 19
+		shows the definition of <b>box_slant_angle</b>.
+	</note>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: box_slant_angle.wr:IP1
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.box_slant_angle.wr:IP1"> 
+	The <b>box_slant_angle</b> shall be between 0 and 90 degree.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPE: box_rotate_angle
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.box_rotate_angle">
+<p>
+	The <b>box_rotate_angle</b> is an angle which indicates that the box for a character glyph shall be presented at an angle to the baseline of the text
+	string within which the glyph occurs, the angle being that between the baseline of the glyph and an axis perpendicular to the baseline of the
+	text string.
+</p>
+	<note>
+		Figure 19 
+		shows the definition of <b>box_rotate_angle</b>.
+	</note>
+	<figure id="fig_slant_angle" number="19">
+		<title>Box slant and rotate angle</title>
+		<img src="box_slant_and_rotate_angle.gif"/>
+	</figure>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPE: character_spacing_select
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.character_spacing_select">
+	The <b>character_spacing_select</b> is used to specify the method of spacing between adjacent characters in a text string.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPE: symbol_style_select
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.symbol_style_select">
+	The <b>symbol_style_select</b> is used to specify the style to be applied to elements of a symbol, or the colour to be applied to an entire symbol.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPE: tolerance_select
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.tolerance_select">
+	The <b>tolerance_select</b> is used by the 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.approximation_tolerance"/>
+	to select either an 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.approximation_tolerance_deviation"/> 
+	or an
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.approximation_tolerance_parameter"/>.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPE: approximation_method
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.approximation_method">
+	The <b>approximation_method</b> is used to enumerate two possible
+	methods for the tessellation of curves and surfaces with line
+	segments or meshes of planar polygons.
+	<note>
+		Figure 18 
+		shows the definition of <b>chordal_deviation</b> and <b>chordal_length</b>.
+	</note>
+		 
+	<figure id="fig_chordal_deviation_and_length" number="18">
+		<title>Chordal deviation and length</title>
+		<img src="chordal_deviation_and_length.gif"/>
+	</figure>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: approximation_method.chordal_deviation
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.approximation_method.chordal_deviation"> 
+	curves are approximated in a way that the distance between the curve and the line segment does not exceed a given deviation value. 
+	Surfaces are approximated in a way that the distance between the surface and the polygon does not exceed a given deviation value. 
+	The distance is measured in the normal direction to the line segment or the planar polygon. 
+	The <b>chordal_deviation</b> is measured either in product shape space units or
+	<express_ref linkend="presentation_organization_schema:ir_express:presentation_organization_schema.presentation_area"/> 
+	units as specified by an
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.approximation_tolerance_deviation"/>.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: approximation_method.chordal_length
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.approximation_method.chordal_length"> 
+	curves are approximated in a way that the resulting line segments have uniform length. 
+	Surfaces are approximated in a way that the edges of the resulting planar polygons have uniform length. 
+	The <b>chordal_length</b> is measured either in product shape space units or
+	<express_ref linkend="presentation_organization_schema:ir_express:presentation_organization_schema.presentation_area"/> 
+	units as specified by an
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.approximation_tolerance_deviation"/>.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPE: tolerance_deviation_select
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.tolerance_deviation_select">
+	The <b>tolerance_deviation_select</b> is used by an
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.approximation_tolerance_deviation"/> 
+	to select either a
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.curve_tolerance_deviation"/> 
+	or a
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.surface_tolerance_deviation"/>.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPE: curve_tolerance_deviation
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.curve_tolerance_deviation">
+	The <b>curve_tolerance_deviation</b> specifies an approximation tolerance for a curve by providing a deviation value.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPE: surface_tolerance_deviation
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_tolerance_deviation">
+	The <b>surface_tolerance_deviation</b> specifies an approximation tolerance for a surface by providing a deviation value.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPE: product_or_presentation_space
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.product_or_presentation_space">
+	The <b>product_or_presentation_space</b> is used by an 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.approximation_tolerance_deviation"/> 
+	to specify the space in which the tolerance values are defined.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: product_or_presentation_space.presentation_area_space
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.product_or_presentation_space.presentation_area_space"> 
+	the coordinate space in which the 
+	<express_ref linkend="presentation_organization_schema:ir_express:presentation_organization_schema.presentation_area"/> 
+	is founded.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: product_or_presentation_space.product_shape_space
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.product_or_presentation_space.product_shape_space"> 
+	the definition space of the product shape item to be presented.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPE: tolerance_parameter_select
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.tolerance_parameter_select">
+	The <b>tolerance_parameter_select</b> is used by an
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.approximation_tolerance_parameter"/> 
+	to select either a
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.curve_tolerance_parameter"/> 
+	or a
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.surface_tolerance_parameter"/>.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPE: curve_tolerance_parameter
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.curve_tolerance_parameter">
+	The <b>curve_tolerance_parameter</b> specifies an approximation tolerance for curves in parameter space units.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPE: surface_tolerance_parameter
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_tolerance_parameter">
+	The <b>surface_tolerance_parameter</b> specifies an approximation tolerance for surfaces in parameter space units.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPE: hiding_or_blanking_select
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.hiding_or_blanking_select">
+	The <b>hiding_or_blanking_select</b> selects the entities which can hide or blank other entities in a presentation.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPE: invisibility_context
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.invisibility_context">
+	The <b>invisibility_context</b> type selects the context in which elements of a picture may be denoted as invisible.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPE: invisible_item
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.invisible_item">
+	The <b>invisible_item</b> type selects elements of a picture that may be denoted as invisible.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: styled_item
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.styled_item">
+	A <b>styled_item</b> is a type of
+	<express_ref linkend="representation_schema:ir_express:representation_schema.representation_item"/> 
+	with associated presentation style. 
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: styled_item.styles
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.styled_item.styles"> 
+	the styles assigned to the item.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: styled_item.item
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.styled_item.item"> 
+	the item to which styles are assigned.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: styled_item.wr:WR1
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.styled_item.wr:WR1"> 
+<p>
+The set <b>styles</b> shall contain only one style 
+or all members of the set shall be
+<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.presentation_style_by_context"/> entities.
+</p>
+  <note>This is to ensure that there are no style conflicts;
+    more than one style may be specified only when the context
+    in which each style applies is given.</note></ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: styled_item.wr:WR2
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.styled_item.wr:WR2"> 
+The <b>item</b> to be styled shall not be a  
+<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.styled_item"/>.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: styled_item.wr:WR3
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.styled_item.wr:WR3"> 
+	Unless the <b>styled_item</b> is a
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.context_dependent_over_riding_styled_item"/>,
+	the styled <b>item</b> shall either be a 
+	<express_ref linkend="representation_schema:ir_express:representation_schema.mapped_item"/>
+	or a
+	<express_ref linkend="geometry_schema:ir_express:geometry_schema.geometric_representation_item"/>.
+</ext_description>
+
+<ext_description linkend="presentation_appearance_schema.styled_tessellated_item_with_colours">
+        <p>A <b>styled_tessellated_item_with_colours</b> is a type of
+		<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.styled_item"/> 
+		that assigns colour values to the vertices of tessellated surfaces.
+        </p>
+</ext_description>
+
+<ext_description linkend="presentation_appearance_schema.styled_tessellated_item_with_colours.item">
+	<p>the tessellated geometry to which the colours are assigned, this may be a  
+	<express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.tessellated_face"/>,  a 
+	<express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.tessellated_shell"/>, a 
+	<express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.tessellated_solid"/>, or a 
+	<express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.tessellated_surface_set"/>. 
+ </p>
+</ext_description>
+
+<ext_description linkend="presentation_appearance_schema.styled_tessellated_item_with_colours.colour_type">
+	<p>the colour formats used by the <b>colour_values</b> attribute.</p>
+	<p>
+	</p>
+</ext_description>
+
+<ext_description linkend="presentation_appearance_schema.styled_tessellated_item_with_colours.colour_values">
+		<p>an unlimited list of three or four integers representing a vertex colour.</p>
+</ext_description>
+
+<ext_description linkend="presentation_appearance_schema.styled_tessellated_item_with_colours.coloured_coordinate_values">
+		<p>the <b>coordinates_list</b> of the 
+		<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.tessellated_surface_item"/> 
+		specified by the <b>item</b> attribute; this <b>coordinates_list</b> is populated by the 
+		<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.get_coordinate_values"/> 
+		 function.</p>
+</ext_description>
+
+<ext_description linkend="presentation_appearance_schema.styled_tessellated_item_with_colours.wr:WR1">
+	<p>
+		The inherited <b>styles</b> attribute be an empty SET.
+	</p>
+</ext_description>
+
+<ext_description linkend="presentation_appearance_schema.styled_tessellated_item_with_colours.wr:WR2">
+	<p>
+		If the <b>colour_type</b> is RGB8 then <b>colour_values</b> shall be a list of three unsigned eight-bit integers, or, 
+		if the  <b>colour_type</b> is RGBT8 then <b>colour_values</b> shall be a list of four unsigned eight-bit integers.
+	</p>
+</ext_description>
+
+<ext_description linkend="presentation_appearance_schema.styled_tessellated_item_with_colours.wr:WR3">
+	<p>
+		The number of <b>colour_values</b> shall be equal to the number of points in the associated <b>coordinates_list</b>.
+	</p>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: over_riding_styled_item
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.over_riding_styled_item">
+	An <b>over_riding_styled_item</b> is a type of
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.styled_item"/>
+	where the style assignment takes precedence over another assigned style. 
+	The precedence happens when the <b>over_ridden_style</b> 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.styled_item"/> 
+	and the <b>over_riding_styled_item</b> are both included, directly or indirectly, in the same presentation.
+	
+	<example>
+		A circle instance is used by a 
+		<express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.geometric_curve_set"/> 
+		which is an item in a 
+		<express_ref linkend="representation_schema:ir_express:representation_schema.representation"/>. 
+		A 
+		<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.styled_item"/> 
+		instance is an item in the same 
+		<express_ref linkend="representation_schema:ir_express:representation_schema.representation"/>. 
+		That 
+		<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.styled_item"/> 
+		has the 
+		<express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.geometric_curve_set"/> 
+		as its item, and a 
+		<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.presentation_style_assignment"/> 
+		with a 
+		<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.curve_style"/> 
+		which has a colour of blue. An  instance of <b>over_riding_styled_item</b> is also an item in the same representation.  
+		That <b>over_riding_styled_item</b> has the circle instance as its item, the 
+		<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.styled_item"/> 
+		instance as its <b>over_ridden_style</b>, and a 
+		<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.presentation_style_assignment"/> 
+		with a 
+		<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.curve_style"/> 
+		which has a colour of red.  The red colour for the circle takes precedence over the blue colour of the 
+		<express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.geometric_curve_set"/> 
+		for a presentation of the 
+		<express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.geometric_curve_set"/>.
+	</example>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: over_riding_styled_item.over_ridden_style
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.over_riding_styled_item.over_ridden_style"> 
+	the 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.styled_item"/> 
+	that will have its style overridden.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: context_dependent_over_riding_styled_item
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.context_dependent_over_riding_styled_item">
+	A <b>context_dependent_over_riding_styled_item</b> is a type of 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.over_riding_styled_item"/> 
+	where the style assignment takes precedence over another assigned style based on a 
+	<express_ref linkend="representation_schema:ir_express:representation_schema.representation"/>, 
+	<express_ref linkend="representation_schema:ir_express:representation_schema.representation_item"/>, 
+	or combination of 
+	<express_ref linkend="representation_schema:ir_express:representation_schema.representation"/> 
+	and 
+	<express_ref linkend="representation_schema:ir_express:representation_schema.representation_item"/> 
+	in which the item being styled is used.
+	<example>
+		A circle instance is used by 
+		<express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.geometric_curve_set"/> 
+		instance 1 which is an item in 
+		<express_ref linkend="representation_schema:ir_express:representation_schema.representation"/> 
+		instance 1. In this example the instance of circle represents the head of a screw in a door hinge. A 
+		<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.styled_item"/> 
+		instance is an item in 
+		<express_ref linkend="representation_schema:ir_express:representation_schema.representation"/> 
+		instance 1. That 
+		<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.styled_item"/> 
+		has the 
+		<express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.geometric_curve_set"/> 
+		as its item, and a 
+		<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.presentation_style_assignment"/> 
+		with a 
+		<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.curve_style"/> 
+		which has a colour of blue. The 
+		<express_ref linkend="representation_schema:ir_express:representation_schema.representation"/> 
+		instance 1 is included in 
+		<express_ref linkend="representation_schema:ir_express:representation_schema.representation"/> 
+		instance 2 through the use of 
+		<express_ref linkend="representation_schema:ir_express:representation_schema.representation_map"/> 
+		instance 1 and 
+		<express_ref linkend="representation_schema:ir_express:representation_schema.mapped_item"/> 
+		instance 1, as one hinge on a door. The 
+		<express_ref linkend="representation_schema:ir_express:representation_schema.representation"/> 
+		instance 1 is included in a different location in 
+		<express_ref linkend="representation_schema:ir_express:representation_schema.representation"/> 
+		instance 2 through 
+		<express_ref linkend="representation_schema:ir_express:representation_schema.representation_map"/> 
+		2 and 
+		<express_ref linkend="representation_schema:ir_express:representation_schema.mapped_item"/> 
+		instance 2 as a second hinge. An instance of <b>context_dependent_over_riding_styled_item</b> is also an item in 
+		<express_ref linkend="representation_schema:ir_express:representation_schema.representation"/> 
+		instance 2. That <b>context_dependent_over_riding_styled_item</b> has the circle instance as its item, the 
+		<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.styled_item"/> 
+		instance as its 
+		<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.over_riding_styled_item.over_ridden_style"/>, 
+		a 
+		<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.presentation_style_assignment"/> 
+		with a 
+		<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.curve_style"/> 
+		which has a colour of red, and a <b>style_context</b> of 
+		<express_ref linkend="representation_schema:ir_express:representation_schema.mapped_item"/> 
+		instance 1. The red color for the circle takes precedence over the blue color of the 
+		<express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.geometric_curve_set"/> 
+		for a 
+		<express_ref linkend="representation_schema:ir_express:representation_schema.representation"/> 
+		of the 
+		<express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.geometric_curve_set"/> 
+		as it is included in the presentation through 
+		<express_ref linkend="representation_schema:ir_express:representation_schema.mapped_item"/> 
+		instance 1. A presentation of 
+		<express_ref linkend="representation_schema:ir_express:representation_schema.representation"/> 
+		instance 2 would have the 
+		<express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.geometric_curve_set"/> 
+		presented in two different places, the first having a red screw head and all the other curves blue, the second having all the curves blue.
+	</example>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: context_dependent_over_riding_styled_item.style_context
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.context_dependent_over_riding_styled_item.style_context"> 
+	a list of one or more contexts for the overriding of the overridden style.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: context_dependent_over_riding_styled_item.wr:WR1
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.context_dependent_over_riding_styled_item.wr:WR1"> 
+	There shall be only one 
+	<express_ref linkend="representation_schema:ir_express:representation_schema.representation_item"/> 
+	or all <b>style_context</b>s are
+	<express_ref linkend="representation_schema:ir_express:representation_schema.mapped_item">mapped_items</express_ref> 
+	or all <b>style_context</b>s are 
+	<express_ref linkend="product_property_representation_schema:ir_express:product_property_representation_schema.context_dependent_shape_representation">context_dependent_shape_representation</express_ref>
+	or
+	<express_ref linkend="representation_schema:ir_express:representation_schema.representation_relationship">representation_relationships</express_ref>.
+</ext_description>
+
+
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: presentation_style_assignment
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.presentation_style_assignment">
+	A <b>presentation_style_assignment</b> is a type of
+	<express_ref linkend="representation_schema:ir_express:representation_schema.founded_item"/>.	
+	A <b>presentation_style_assignment</b> is a set of styles which are assigned to a 
+	<express_ref linkend="representation_schema:ir_express:representation_schema.representation_item"/> 
+	for the purpose of presenting the item.
+	Style definitions have an effect only on the appearance of an element of a special type.
+	Surface style has only an effect on surfaces. Fill area style and curve style have only an effect on curves and surfaces. 
+	Point style has an effect on points, curves, and surfaces. Text style has only an effect on the appearance of annotation text. 
+	Symbol style has only an effect on symbols.
+	<example>
+		If a line is given a style which is a curve style, it shall appear.
+		If a line is given both curve and point style, both the curve and its related cartesian points shall appear.
+	</example>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: presentation_style_assignment.styles
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.presentation_style_assignment.styles"> 
+	the set of presentation styles that are assigned to a
+	<express_ref linkend="representation_schema:ir_express:representation_schema.representation_item"/>.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: presentation_style_assignment.wr:WR1
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.presentation_style_assignment.wr:WR1"> 
+<p>
+	The same style shall not appear more than once in the set of styles, except for 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.externally_defined_style"/> 
+	and 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.surface_style_usage"/>.
+</p>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: presentation_style_assignment.wr:WR2
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.presentation_style_assignment.wr:WR2">
+<p>
+	The
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.surface_style_usage"/> 
+	shall not occur more than twice in the set of styles.
+</p>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: presentation_style_assignment.wr:WR3
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.presentation_style_assignment.wr:WR3">
+	<p>
+	If there are two instances of 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.surface_style_usage"/> 
+	in the set of styles, each shall specify the style for opposite sides of the surface being styled.
+	</p>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: presentation_style_assignment.wr:IP1
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.presentation_style_assignment.wr:IP1">
+<p>
+	Externally defined styles shall not conflict with other styles in the same <b>presentation_style_assignment</b> entity, including other externally defined styles.
+</p>
+	<note>
+		For one style to conflict with the other, it specifies a different style for the same characteristic, such as colour or width. 
+		For example, one style might say blue, the other green, and both be applied to the same entity.
+	</note>
+</ext_description>
+
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: presentation_style_by_context
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.presentation_style_by_context">
+	A <b>presentation_style_by_context</b> is a type of
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.presentation_style_assignment"/> 
+	which is assigned to a
+	<express_ref linkend="representation_schema:ir_express:representation_schema.representation_item"/> 
+	and is applicable only in a specified presentation context.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: presentation_style_by_context.style_context
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.presentation_style_by_context.style_context"> 
+	the presentation context in which a style is assigned to a 
+	<express_ref linkend="representation_schema:ir_express:representation_schema.representation_item"/>.
+</ext_description>
+
+
+<ext_description linkend="presentation_appearance_schema.single_texture_style_tessellation_specification">
+        <p>A <b>single_texture_style_tessellation_specification</b> is a type of
+        <express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.texture_style_tessellation_specification" /> 
+         that defines a visual texture.
+		The <b>texture_coordinates</b> is an array, whose elements are implicitly associated to 
+		coordinates in the tessellated geometry that is associated with this entity when it is used.
+		The texture is defined in an external file.</p>
+</ext_description>
+
+<ext_description linkend="presentation_appearance_schema.single_texture_style_tessellation_specification.texture_image">
+	<p>the name of the external image file containing the texture to be mapped to a 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.tessellated_face_or_tessellated_surface_set"/>
+	. 
+	</p>
+<note>The name should include the format extension corresponding to one of the formats enumerated in 
+<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.texture_file_type"/>.</note>
+</ext_description>
+
+<ext_description linkend="presentation_appearance_schema.single_texture_style_tessellation_specification.texture_coordinates">
+	<p>
+   		the list of (U,V) texture coordinates associated to the 3D coordinates of the points of the associated tessellated geometry. 
+   		When the texture is mapped on a 
+		<express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.tessellated_face"/> 
+		without 
+		<express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.triangulated_face.pnindex"/>, 
+		the first element of the list is the texture (U,V) value of the first point of the associated 
+		<express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.coordinates_list"/>. 
+		When the texture is mapped on a <express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.tessellated_face"/> 
+		with <express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.triangulated_face.pnindex"/> , 
+		the first element of the list is the texture (U,V) value of the first point indicated by 
+		<express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.triangulated_face.pnindex"/>. 
+		When the texture is mapped on a <express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.tessellated_surface_set"/>, 
+		the first element of the list is the texture (U,V) value of the first point of the associated 
+		<express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.coordinates_list"/>. 
+	</p>
+</ext_description>
+
+<ext_description linkend="presentation_appearance_schema.single_texture_style_tessellation_specification.texture_format">
+	<p>the name of the format extension of the external image file containing the texture to be mapped to the 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.tessellated_face_or_tessellated_surface_set"/>.
+	</p>
+</ext_description>
+
+<ext_description linkend="presentation_appearance_schema.single_texture_style_tessellation_specification.repeating_pattern">
+	<p>
+		when <b>repeating_pattern</b> is FALSE, U and V value range for <b>texture_coordinates</b> shall be 0.0 to 1.0, 
+		where (0,0) is the bottom-left corner and (1,1) is the top-right corner of the texture image. 
+		When <b>repeating_pattern</b> is TRUE, U and V values greater than 0.0 are permitted; 
+		in this case the integer part is subtracted to obtain a number in a range 0.0 to 1.0 for the texture mapping. 
+	</p>
+</ext_description>
+
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: pre_defined_presentation_style
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.pre_defined_presentation_style">
+	A <b>pre_defined_presentation_style</b> is a type of
+	<express_ref linkend="representation_schema:ir_express:representation_schema.founded_item"/>
+	and a type of
+	<express_ref linkend="external_reference_schema:ir_express:external_reference_schema.pre_defined_item"/>.
+	A <b>pre_defined_presentation_style</b> may be used to fix certain application-specific aspects of appearance attributes defined in this schema.
+	<note>
+		Application Resources or Application Protocols specify the use of this entity.
+	</note>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: externally_defined_style
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.externally_defined_style">
+	An <b>externally_defined_style</b> is a type of
+	<express_ref linkend="external_reference_schema:ir_express:external_reference_schema.externally_defined_item"/>
+	and a type of
+	<express_ref linkend="representation_schema:ir_express:representation_schema.founded_item"/>.
+	An <b>externally_defined_style</b> is an external reference to a presentation style.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: point_style
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.point_style">
+	A <b>point_style</b> is a type of
+	<express_ref linkend="representation_schema:ir_express:representation_schema.founded_item"/>.
+	A <b>point_style</b> specifies the visual appearance of points.
+</ext_description>
+
+<ext_description linkend="presentation_appearance_schema.point_style.wr:WR1">
+		at least one of the OPTIONAL attributes <b>marker</b>, <b>marker_style</b> or <b>marker_colour</b> shall exist. 
+	</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: point_style.name
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.point_style.name"> 
+	the word, or group of words, by which the <b>point_style</b> is referred to.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: point_style.marker
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.point_style.marker"> 
+	the kind of marker which shall be used to present a point.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: point_style.marker_size
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.point_style.marker_size"> 
+	the size in 
+	<express_ref linkend="presentation_organization_schema:ir_express:presentation_organization_schema.presentation_area"/> 
+	units used for drawing the marker.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: point_style.marker_colour
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.point_style.marker_colour"> 
+	the 
+	<express_ref linkend="presentation_resource_schema:ir_express:presentation_resource_schema.colour"/> 
+	to be applied to the marker.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: pre_defined_marker
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.pre_defined_marker">
+	A <b>pre_defined_marker</b> is a type of
+	<express_ref linkend="external_reference_schema:ir_express:external_reference_schema.pre_defined_item"/>.
+	A <b>pre_defined_marker</b> may be used to define an application-specific marker symbol.
+	<note>
+		Application Resources or Application Protocols specify the use of this entity.
+	</note>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: pre_defined_size
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.pre_defined_size">
+	A <b>pre_defined_size</b> is a type of
+	<express_ref linkend="external_reference_schema:ir_express:external_reference_schema.pre_defined_item"/>.
+	A <b>pre_defined_size</b> may be used to define an application-specific size for markers.
+	<note>
+		Application Resources or Application Protocols specify the use of this entity.
+	</note>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: curve_style
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.curve_style">
+	A <b>curve_style</b> is a type of
+	<express_ref linkend="representation_schema:ir_express:representation_schema.founded_item"/>.
+	A <b>curve_style</b> specifies the visual appearance of a curve.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: curve_style.curve_width
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.curve_style.curve_width"> 
+	the width of the visible part of the presented curve in
+	<express_ref linkend="presentation_organization_schema:ir_express:presentation_organization_schema.presentation_area"/> 
+	units.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: curve_style.curve_font
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.curve_style.curve_font"> 
+	the <express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.curve_style_font"/>, 
+	scaled
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.curve_style_font"/>, 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.pre_defined_curve_font"/>, 
+	scaled 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.pre_defined_curve_font"/>, 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.externally_defined_curve_font"/>, 
+	or scaled
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.externally_defined_curve_font"/> 
+	which is used to present a curve.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: curve_style.name
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.curve_style.name"> 
+	the word, or group of words, by which the <b>curve_style</b> is referred to.
+ </ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: curve_style.curve_colour
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.curve_style.curve_colour"> 
+	the 
+	<express_ref linkend="presentation_resource_schema:ir_express:presentation_resource_schema.colour"/> 
+	of the visible part of the curve.
+</ext_description>
+
+<ext_description linkend="presentation_appearance_schema.curve_style.wr:WR1">
+	At least one of  
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.curve_style.curve_font"/>,
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.curve_style.curve_width"/> or
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.curve_style.curve_colour"/>
+	shall be defined.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: curve_style_with_ends_and_corners
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.curve_style_with_ends_and_corners">
+	A <b>curve_style_with_ends_and_corners</b> is a type of
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.curve_style"/> 
+	which specifies the visual appearance of the ends and corners of a curve.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: curve_style_with_ends_and_corners.curve_ends
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.curve_style_with_ends_and_corners.curve_ends"> 
+	an indication of how to present the ends of a curve.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: curve_style_with_ends_and_corners.curve_corners
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.curve_style_with_ends_and_corners.curve_corners"> 
+	an indication of how to present the corners of a curve.
+</ext_description>
+
+<ext_description linkend="presentation_appearance_schema.curve_style_with_ends_and_corners.wr:WR1">
+	A value for   
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.curve_style.curve_width"/> 
+	shall be provided.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: curve_style_with_extension
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.curve_style_with_extension">
+	A <b>curve_style_with_extension</b> is a type of
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.curve_style"/> 
+	that indicates how the curve ends shall appear when presented, either extended or shortened.
+	
+
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: curve_style_with_extension.curve_extensions
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.curve_style_with_extension.curve_extensions"> 
+<p>
+	a 
+	<express_ref linkend="measure_schema:ir_express:measure_schema.length_measure"/> 
+	indicating how to lengthen or shorten the ends of a curve. If the 
+	<express_ref linkend="measure_schema:ir_express:measure_schema.length_measure"/> 
+	is positive, the curve shall be extended at both ends in a tangential direction by the specified length in 
+	<express_ref linkend="presentation_organization_schema:ir_express:presentation_organization_schema.presentation_area"/> 
+	units. If the 
+	<express_ref linkend="measure_schema:ir_express:measure_schema.length_measure"/> 
+	is negative, the curve shall be shortened by the absolute value of the specified length in 
+	<express_ref linkend="presentation_organization_schema:ir_express:presentation_organization_schema.presentation_area"/> 
+	units.
+</p>
+	<note>
+		See figure 22.
+	</note>
+	<figure id="fig_curve_style_with_extension" number="22">
+		<title>Curve style with extension</title>
+		<img src="curve_style_with_extension.gif"/>
+	</figure>
+</ext_description>
+
+<ext_description linkend="presentation_appearance_schema.curve_style_with_extension.wr:WR1">
+	A value for   
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.curve_style.curve_width"/> 
+	shall be provided.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: draughting_pre_defined_curve_font
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.draughting_pre_defined_curve_font">
+	A <b>draughting_pre_defined_curve_font</b> is a type of
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.pre_defined_curve_font"/>
+	that is identified by name.
+<p>
+	Table 1	states the lengths of each line segment and space, in millimetres, corresponding to each of the
+	predefined curve fonts that are specified in this part of ISO 10303.
+	If the 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.pre_defined_curve_font"/> 
+	is used as part of the definition of a 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.curve_style_font_and_scaling"/>, 
+	then the given lengths are those when the 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.curve_style_font_and_scaling.curve_font_scaling"/> 
+	attribute has the value 1.0.
+</p>
+	<note number="1">
+		The 
+		<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.curve_style_font_and_scaling"/> 
+		is defined in ISO 10303-46.
+	</note>
+	<note number="2">
+		Illustrations of curve fonts are given in 
+		Figure 23.
+	</note>
+	<table caption="Line segment and space lengths for predefined curve fonts" number="1" id="table_1">
+		<tr>
+		  <th>Curve pattern name</th><th><p>Segment</p>(mm)</th><th><p>Space</p> (mm)</th><th><p>Segment</p> (mm)</th>
+		  <th><p>Space</p> (mm)</th><th><p>Segment</p> (mm)</th><th><p>Space</p> (mm)</th><th>Number of segments</th>	  
+		</tr>
+		<tr><td>Continuous</td><td></td><td></td><td></td><td></td><td></td><td></td><td>0</td></tr>
+		<tr><td>Dashed</td><td>4.0</td><td>1.5</td><td> </td><td> </td><td> </td><td> </td><td>2</td></tr>
+		<tr><td>Chain</td><td>7.0</td><td>1.0</td><td>1.0</td><td>1.0</td><td> </td><td> </td><td>4</td></tr>
+		<tr><td>Chain double dash</td><td>7.0</td><td>1.0</td><td>1.0</td><td>1.0</td><td>1.0</td><td>1.0</td><td>6</td></tr>
+		<tr><td>Dotted</td><td>1.0</td><td>1.0</td><td></td><td></td><td></td><td></td><td>2</td></tr> 
+    </table>
+    <figure id="fig_illustration_of_predefined_curve_fonts" number="23">
+		<title>Illustration of predefined curve fonts</title>
+		<img src="illustration_of_predefined_curve_fonts.gif"/>
+	</figure>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: draughting_pre_defined_curve_font.WR1
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.draughting_pre_defined_curve_font.wr:WR1">
+	The 
+	<express_ref linkend="external_reference_schema:ir_express:external_reference_schema.pre_defined_item.name"/> 
+	of the <b>draughting_pre_defined_curve_font</b> shall be ’continuous’, ’chain’, ’chain double dash’, ’dashed’, or ’dotted’.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: pre_defined_curve_font
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.pre_defined_curve_font">
+	A <b>pre_defined_curve_font</b> is a type of
+	<express_ref linkend="external_reference_schema:ir_express:external_reference_schema.pre_defined_item"/>.
+	A <b>pre_defined_curve_font</b> may be used to define application-specific curve fonts.
+	<note>
+		Application Resources or Application Protocols specify the use of this entity.
+	</note>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: externally_defined_curve_font
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.externally_defined_curve_font">
+	An <b>externally_defined_curve_font</b> is a type of
+	<express_ref linkend="external_reference_schema:ir_express:external_reference_schema.externally_defined_item"/>.
+	An <b>externally_defined_curve_font</b> makes an external reference to a curve font.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: curve_style_font
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.curve_style_font">
+	A <b>curve_style_font</b> is a type of
+	<express_ref linkend="representation_schema:ir_express:representation_schema.founded_item"/>.
+	A <b>curve_style_font</b> combines several
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.curve_style_font_pattern">curve_style_font_patterns</express_ref>
+	into a pattern. The resulting pattern is repeated along the curve.
+</ext_description>
+
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: curve_style_font.pattern_list
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.curve_style_font.pattern_list"> 
+	a list of 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.curve_style_font_pattern">curve_style_font_patterns</express_ref>
+	that contains the patterns used for drawing curves. The patterns are applied in the order in which they occur in the list.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: curve_style_font.name
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.curve_style_font.name"> 
+	the word, or group of words, by which the <b>curve_style_font</b> is referred to.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: curve_style_font.wr:IP1
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.curve_style_font.wr:IP1"> 
+<p>
+	The curve starts always with a complete pattern.
+</p>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: curve_style_font.wr:IP2
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.curve_style_font.wr:IP2"> 
+<p>
+	The font pattern is clipped off at the end of the curve and may therefore be incomplete.
+</p>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: curve_style_font_pattern
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.curve_style_font_pattern">
+	A <b>curve_style_font_pattern</b> is a type of
+	<express_ref linkend="representation_schema:ir_express:representation_schema.founded_item"/>.
+	A <b>curve_style_font_pattern</b> is a pair of visible and invisible curve segment lengths measured in 
+	<express_ref linkend="presentation_organization_schema:ir_express:presentation_organization_schema.presentation_area"/> 
+	units.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: curve_style_font_pattern.visible_segment_length
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.curve_style_font_pattern.visible_segment_length"> 
+	the length of the visible segment in the pattern definition measured in 
+	<express_ref linkend="presentation_organization_schema:ir_express:presentation_organization_schema.presentation_area"/> 
+	units.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: curve_style_font_pattern.invisible_segment_length
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.curve_style_font_pattern.invisible_segment_length"> 
+	the length of the invisible segment in the pattern definition measured in 
+	<express_ref linkend="presentation_organization_schema:ir_express:presentation_organization_schema.presentation_area"/>
+	units.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: curve_style_wide
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.curve_style_wide">
+	A <b>curve_style_wide</b> is a type of
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.curve_style_font"/>.
+	A <b>curve_style_wide</b> defines a style for filling the visible curve segments.
+	The 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.curve_style"/> 
+	used for styling the tile curves or hatch lines is also applied to the boundary of the curve segments.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: curve_style_wide.interior_style
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.curve_style_wide.interior_style"> 
+	the style for filling the visible curve segments with tiles or hatches. 
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: curve_style_curve_pattern_set
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.curve_style_curve_pattern_set">
+	A <b>curve_style_curve_pattern_set</b> is a type of
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.curve_style_font"/>
+	and a type of
+	<express_ref linkend="geometry_schema:ir_express:geometry_schema.geometric_representation_item"/>.
+	A <b>curve_style_curve_pattern_set</b> defines a style for filling the visible curve segments with a set of repetitive patterns. 
+	This <b>pattern_set</b> is repeated along the visible curve segments.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: curve_style_curve_pattern_set.pattern_set
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.curve_style_curve_pattern_set.pattern_set"> 
+	the repetitive <b>pattern_set</b> consists of a set of 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.curve_style_curve_pattern">curve_style_curve_patterns</express_ref>.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: curve_style_curve_pattern_set.wr:IP1
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.curve_style_curve_pattern_set.wr:IP1"> 
+<p>
+	The curve starts always with a complete pattern.
+</p>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: curve_style_curve_pattern_set.wr:IP2
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.curve_style_curve_pattern_set.wr:IP2"> 
+<p>
+	The curve pattern is clipped off at the end of the curve and may therefore be incomplete.
+</p>
+</ext_description>
+
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: curve_style_curve_pattern
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.curve_style_curve_pattern">
+	A <b>curve_style_curve_pattern</b> is a type of
+	<express_ref linkend="geometry_schema:ir_express:geometry_schema.geometric_representation_item"/>. 
+	A <b>curve_style_curve_pattern</b> specifies a curve pattern which is used in the 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.curve_style_curve_pattern_set"/>. 
+	The <b>curve_style_curve_pattern</b> is defined in a local pattern definition coordinate system, which will be placed along the
+	visible segments of the derived curve. The projected curve tangent is the x axis and the normal to the projected curve is
+	the y axis of the local pattern definition coordinate system.
+	<note>
+		Figure 21 
+		shows the definition of <b>curve_style_curve_pattern</b>.
+	</note>
+	<figure id="fig_curve_style_curve_pattern" number="21">
+		<title>Curve style curve pattern</title>
+		<img src="curve_style_curve_pattern.gif"/>
+	</figure>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: curve_style_curve_pattern.pattern_length
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.curve_style_curve_pattern.pattern_length"> 
+	the length of the pattern in
+	<express_ref linkend="presentation_organization_schema:ir_express:presentation_organization_schema.presentation_area"/> 
+	units.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: curve_style_curve_pattern.pattern
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.curve_style_curve_pattern.pattern"> 
+	the repetitive pattern for filling the curve. The pattern is defined as an 
+	<express_ref linkend="presentation_definition_schema:ir_express:presentation_definition_schema.annotation_curve_occurrence"/> 
+	and is therefore itself associated with a presentation style.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: curve_style_font_and_scaling
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.curve_style_font_and_scaling">
+	A <b>curve_style_font_and_scaling</b> is a type of
+	<express_ref linkend="representation_schema:ir_express:representation_schema.founded_item"/>.
+	A <b>curve_style_font_and_scaling</b> is used to apply scale to the specified 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.curve_style_font"/>.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: curve_style_font_and_scaling.curve_font_scaling
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.curve_style_font_and_scaling.curve_font_scaling"> 
+	the scale factor.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: curve_style_font_and_scaling.curve_font
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.curve_style_font_and_scaling.curve_font"> 
+	the <b>curve_font</b> to be scaled.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: curve_style_font_and_scaling.name
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.curve_style_font_and_scaling.name"> 
+	the word, or group of words, by which the <b>curve_style_font_and_scaling</b> is referred to.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: fill_area_style
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.fill_area_style">
+	A <b>fill_area_style</b> is a type of
+	<express_ref linkend="representation_schema:ir_express:representation_schema.founded_item"/>.
+	A <b>fill_area_style</b> is a style for filling visible curve segments, annotation fill areas, or surfaces with tiles or hatching.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: fill_area_style.name
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.fill_area_style.name"> 
+	the word, or group of words, by which the <b>fill_area_style</b> is referred to.
+</ext_description>
+  
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: fill_area_style.fill_styles
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.fill_area_style.fill_styles"> 
+	the set of fill area styles to use in presenting visible curve segments, annotation fill areas, or surfaces.
+</ext_description>
+  
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: fill_area_style.wr:WR1
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.fill_area_style.wr:WR1"> 
+	There shall be not more than one
+    <express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.fill_area_style_colour"/> 
+    in the <b>fill_styles</b> set.</ext_description>
+
+
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: fill_area_style_colour
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.fill_area_style_colour">
+	A <b>fill_area_style_colour</b> is a definition of a colour to be used for solid fill of visible curve segments, annotation fill areas, or surfaces.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: fill_area_style_colour.fill_colour
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.fill_area_style_colour.fill_colour"> 
+	the colour to be used for filling the area.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: fill_area_style_colour.name
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.fill_area_style_colour.name"> 
+	the word, or group of words, by which the <b>fill_area_style_colour</b> is referred to.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: pre_defined_hatch_style
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.pre_defined_hatch_style">
+	A <b>pre_defined_hatch_style</b> is a type of
+	<express_ref linkend="geometry_schema:ir_express:geometry_schema.geometric_representation_item"/>
+	and a type of
+	<express_ref linkend="external_reference_schema:ir_express:external_reference_schema.pre_defined_item"/>.
+	A <b>pre_defined_hatch_style</b> is a hatching style provided for Application Protocols to define an application-specific single 
+	or multiple hatching style.
+	<note>
+		Application Resources or Application Protocols specify the use of this entity.
+	</note>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: externally_defined_hatch_style
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.externally_defined_hatch_style">
+	An <b>externally_defined_hatch_style</b> is a type of
+	<express_ref linkend="external_reference_schema:ir_express:external_reference_schema.externally_defined_item"/>
+	and a type of
+	<express_ref linkend="geometry_schema:ir_express:geometry_schema.geometric_representation_item"/>.
+	An <b>externally_defined_hatch_style</b> makes an external reference to a hatching style.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: fill_area_style_hatching
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.fill_area_style_hatching">
+	A <b>fill_area_style_hatching</b> is a type of
+	<express_ref linkend="geometry_schema:ir_express:geometry_schema.geometric_representation_item"/>.
+	A <b>fill_area_style_hatching</b> defines a styled pattern of curves for hatching visible curve segments, annotation fill areas, or surfaces.
+	<note>
+		Figure 24 
+		shows the definition of <b>fill_area_style_hatching</b>.
+	</note>
+	<figure id="fig_fill_area_style_hatching" number="24">
+		<title>Fill area style hatching</title>
+		<img src="fill_area_style_hatching.gif"/>
+	</figure>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: fill_area_style_hatching.hatch_line_appearance
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.fill_area_style_hatching.hatch_line_appearance"> 
+	the 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.curve_style"/> 
+	of the hatching lines. Any 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.curve_style"/> 
+	pattern shall start at the origin of each hatch line. 
+	The origin of the reference hatch line is specified by <b>pattern_start</b>. 
+	The origin of any other hatch line is determined by adding a multiple of <b>start_of_next_hatch_line</b> to <b>pattern_start</b>.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: fill_area_style_hatching.point_of_reference_hatch_line
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.fill_area_style_hatching.point_of_reference_hatch_line"> 
+	the origin for mapping the <b>fill_area_style_hatching</b> onto a curve, annotation fill area, or surface.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: fill_area_style_hatching.start_of_next_hatch_line
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.fill_area_style_hatching.start_of_next_hatch_line"> 
+	the displacement between adjacent hatch lines, specified as a vector.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: fill_area_style_hatching.hatch_line_angle
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.fill_area_style_hatching.hatch_line_angle"> 
+	the angle determining the direction of the parallel hatching lines.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: fill_area_style_hatching.pattern_start
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.fill_area_style_hatching.pattern_start"> 
+	the start point for the 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.curve_style"/> 
+	of the <b>point_of_reference_hatch_line</b>.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: pre_defined_tile_style
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.pre_defined_tile_style">
+	A <b>pre_defined_tile_style</b> is a type of
+	<express_ref linkend="geometry_schema:ir_express:geometry_schema.geometric_representation_item"/> 
+	and a type of
+	<express_ref linkend="external_reference_schema:ir_express:external_reference_schema.pre_defined_item"/>.
+	A <b>pre_defined_tile_style</b> is a tile style provided for Application Protocols to define an application-specific tile style.
+	<note>
+		Application Resources or Application Protocols specify the use of this entity.
+	</note>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: externally_defined_tile_style
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.externally_defined_tile_style">
+	An <b>externally_defined_tile_style</b> is a type of
+	<express_ref linkend="external_reference_schema:ir_express:external_reference_schema.externally_defined_item"/>
+	and a type of
+	<express_ref linkend="geometry_schema:ir_express:geometry_schema.geometric_representation_item"/>.
+	An <b>externally_defined_tile_style</b> makes an external reference to a tiling style.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: fill_area_style_tiles
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.fill_area_style_tiles">
+	A <b>fill_area_style_tiles</b> is a type of
+	<express_ref linkend="geometry_schema:ir_express:geometry_schema.geometric_representation_item"/>.
+	A <b>fill_area_style_tiles</b> defines a two-dimensional tile to be used for the filling of annotation fill areas or other closed regions.
+	The content of a tile is defined by the <b>tiles</b> set, and the placement of each tile is determined by the <b>tiling_pattern</b> 
+	which indicates how to place tiles next to each other.  
+	Tiles or parts of tiles outside the annotation fill area or closed region shall be clipped at the boundaries of the area or region.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: fill_area_style_tiles.tiling_scale
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.fill_area_style_tiles.tiling_scale"> 
+	the scaling factor applied to each tile as it is placed in the 
+	<express_ref linkend="presentation_definition_schema:ir_express:presentation_definition_schema.annotation_fill_area"/>.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: fill_area_style_tiles.tiling_pattern
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.fill_area_style_tiles.tiling_pattern"> 
+	the 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.two_direction_repeat_factor"/> 
+	defining the shape and relative positioning of the tiles.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: fill_area_style_tiles.tiles
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.fill_area_style_tiles.tiles"> 
+	the set of constituents of the tile.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: fill_area_style_tile_curve_with_style
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.fill_area_style_tile_curve_with_style">
+	A <b>fill_area_style_tile_curve_with_style</b> is a type of
+	<express_ref linkend="geometry_schema:ir_express:geometry_schema.geometric_representation_item"/>.
+	A <b>fill_area_style_tile_curve_with_style</b> contains a styled curve which acts as a constituent in a
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.fill_area_style_tiles"/>.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: fill_area_style_tile_curve_with_style.styled_curve
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.fill_area_style_tile_curve_with_style.styled_curve"> 
+	the two-dimensional styled curve defined in the local coordinate system of a fill area tile.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: fill_area_style_tile_coloured_region
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.fill_area_style_tile_coloured_region">
+	A <b>fill_area_style_tile_coloured_region</b> is a type of
+	<express_ref linkend="geometry_schema:ir_express:geometry_schema.geometric_representation_item"/>.
+	A <b>fill_area_style_tile_coloured_region</b> is a closed curve that is filled with a colour and acts as a constituent in a 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.fill_area_style_tiles"/>.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: fill_area_style_tile_coloured_region.closed_curve
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.fill_area_style_tile_coloured_region.closed_curve"> 
+	the closed curve which defines a coloured region. The referenced curve may also be associated with style.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: fill_area_style_tile_coloured_region.region_colour
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.fill_area_style_tile_coloured_region.region_colour"> 
+	the 
+	<express_ref linkend="presentation_resource_schema:ir_express:presentation_resource_schema.colour"/>
+	of that region which is defined by the interior of the closed curve. 
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: fill_area_style_tile_coloured_region.wr:WR1
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.fill_area_style_tile_coloured_region.wr:WR1"> 
+	<p>The <b>closed_curve</b> shall be closed and not self-intersecting.</p>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: fill_area_style_tile_symbol_with_style
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.fill_area_style_tile_symbol_with_style">
+	A <b>fill_area_style_tile_symbol_with_style</b> is a type of
+	<express_ref linkend="geometry_schema:ir_express:geometry_schema.geometric_representation_item"/>.
+	A <b>fill_area_style_tile_symbol_with_style</b> is a symbol which acts as a constituent in a 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.fill_area_style_tiles"/>.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: fill_area_style_tile_symbol_with_style.symbol
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.fill_area_style_tile_symbol_with_style.symbol"> 
+	a styled annotation symbol.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: pre_defined_tile
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.pre_defined_tile">
+	A <b>pre_defined_tile</b> is a type of
+	<express_ref linkend="external_reference_schema:ir_express:external_reference_schema.pre_defined_item"/>.
+	A <b>pre_defined_tile</b> may be used to define an application-specific tile.
+	<note>
+		Application Resources or Application Protocols specify the use of this entity.
+	</note>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: externally_defined_tile
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.externally_defined_tile">
+	An <b>externally_defined_tile</b> is a type of
+	<express_ref linkend="external_reference_schema:ir_express:external_reference_schema.externally_defined_item"/>.
+	An <b>externally_defined_tile</b> is a tile that is defined by reference to some external source.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: one_direction_repeat_factor
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.one_direction_repeat_factor">
+	A <b>one_direction_repeat_factor</b> is a type of
+	<express_ref linkend="geometry_schema:ir_express:geometry_schema.geometric_representation_item"/>.
+	A <b>one_direction_repeat_factor</b> is a vector used in a 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.fill_area_style_hatching"/> 
+	for determining the origin of a repeated hatch line relative to the origin of the previous hatch line. 
+	Given the initial position <i>I</i> of any hatch line, the <b>one_direction_repeat_factor</b> <i>R</i> determines two
+	new positions according to the expression:
+	<img src="one_direction_repeat_factor_expression.gif"/>
+	<note>
+		Figure 25 
+		shows the positions defined by a <b>one_direction_repeat_factor</b>.
+	</note>
+ 
+	<figure id="fig_one_direction_repeat_factor" number="25">
+		<title>One direction repeat factor</title>
+		<img src="one_direction_repeat_factor.gif"/>
+	</figure>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: one_direction_repeat_factor.repeat_factor
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.one_direction_repeat_factor.repeat_factor"> 
+	the 
+	<express_ref linkend="geometry_schema:ir_express:geometry_schema.vector"/> 
+	which specifies the relative positioning of hatch lines.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: two_direction_repeat_factor
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.two_direction_repeat_factor">
+	A <b>two_direction_repeat_factor</b> is a type of
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.one_direction_repeat_factor"/>.
+	A <b>two_direction_repeat_factor</b> combines two vectors which are used in a 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.fill_area_style_tiles"/> 
+	for determining the shape and relative location of tiles. Given the initial position <i>I</i> of any tile, 
+	the <b>two_direction_repeat_factor</b> <i>R = (R1, R2)</i> determines eight new positions according to the expression:
+	<img src="two_direction_repeat_factor_expression.gif"/>
+	<note>
+		Figure 27 
+		shows the positions defined by a <b>two_direction_repeat_factor</b>.
+	</note>
+	<figure id="fig_two_direction_repeat_factor" number="27">
+		<title>Two direction repeat factor</title>
+		<img src="two_direction_repeat_factor.gif"/>
+	</figure>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: two_direction_repeat_factor.second_repeat_factor
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.two_direction_repeat_factor.second_repeat_factor"> 
+	the vector which specifies the relative positioning of tiles in the second direction.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: surface_style_usage
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_style_usage">
+	A <b>surface_style_usage</b> is a type of
+	<express_ref linkend="representation_schema:ir_express:representation_schema.founded_item"/>.
+	A <b>surface_style_usage</b> is the application of a
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.surface_side_style_select"/> 
+	to the positive side, negative side, or both sides of a surface.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: surface_style_usage.side
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_style_usage.side"> 
+	the indication of which side of the surface to apply the style.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: surface_style_usage.style
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_style_usage.style"> 
+	the style which shall be applied to the surface.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: pre_defined_surface_side_style
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.pre_defined_surface_side_style">
+	A <b>pre_defined_surface_side_style</b> is a type of
+	<express_ref linkend="external_reference_schema:ir_express:external_reference_schema.pre_defined_item"/>.
+	A <b>pre_defined_surface_side_style</b> may be used to define an application-specific 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.surface_side_style">surface_side_styles</express_ref>.
+	<note>
+		Application Resources or Application Protocols specify the use of this entity.
+	</note>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: surface_side_style
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_side_style">
+	A <b>surface_side_style</b> is a type of
+	<express_ref linkend="representation_schema:ir_express:representation_schema.founded_item"/>.
+	A <b>surface_side_style</b> is a collection of surface styles used in the presentation of the side of a surface.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: surface_side_style.name
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_side_style.name"> 
+	the word, or group of words, by which the <b>surface_side_style</b> is referred to.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: surface_side_style.styles
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_side_style.styles"> 
+	a collection of different surface styles.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: surface_side_style.wr:WR1
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_side_style.wr:WR1"> 
+	All of the <b>styles</b> shall be of different types.
+</ext_description>
+
+
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: surface_style_fill_area
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_style_fill_area">
+	A <b>surface_style_fill_area</b> is a type of
+	<express_ref linkend="representation_schema:ir_express:representation_schema.founded_item"/>.
+	A <b>surface_style_fill_area</b> is the surface style that presents a surface by mapping a fill area onto the surface.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: surface_style_fill_area.fill_area
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_style_fill_area.fill_area"> 
+	the 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.fill_area_style"/> 
+	associated with the two-dimensional parameter space of a surface that will be mapped onto the surface itself.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: surface_style_boundary
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_style_boundary">
+	A <b>surface_style_boundary</b> is a type of
+	<express_ref linkend="representation_schema:ir_express:representation_schema.founded_item"/>.
+	A <b>surface_style_boundary</b> is the surface style that is applied to the boundary curves of a surface.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: surface_style_boundary.style_of_boundary
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_style_boundary.style_of_boundary"> 
+	the style for the boundary curves of a surface.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: curve_style_rendering
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.curve_style_rendering">
+	A <b>curve_style_rendering</b> is allowing the visualization of curves on a surface by application of rendering techniques.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: curve_style_rendering.rendering_method
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.curve_style_rendering.rendering_method"> 
+	specifies the method which shall be used for interpolating colours along curves on a surface.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: curve_style_rendering.rendering_properties
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.curve_style_rendering.rendering_properties"> 
+	specifies the rendering properties of the surface which contains the curves.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: surface_rendering_properties
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_rendering_properties">
+	A <b>surface_rendering_properties</b> is a definition of those properties of a surface which are required to compute a realistic
+	visualization of surfaces by use of rendering techniques.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: surface_rendering_properties.rendered_colour
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_rendering_properties.rendered_colour"> 
+	the presentation 
+	<express_ref linkend="presentation_resource_schema:ir_express:presentation_resource_schema.colour"/>
+	of a surface for use during the rendering process.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: surface_style_silhouette
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_style_silhouette">
+	A <b>surface_style_silhouette</b> is a type of
+	<express_ref linkend="representation_schema:ir_express:representation_schema.founded_item"/>.
+	A <b>surface_style_silhouette</b> is the surface style that is applied to the silhouette curves of a surface.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: surface_style_silhouette.style_of_silhouette
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_style_silhouette.style_of_silhouette"> 
+	the style for the silhouette curves within a surface.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: surface_style_segmentation_curve
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_style_segmentation_curve">
+	A <b>surface_style_segmentation_curve</b> is a type of
+	<express_ref linkend="representation_schema:ir_express:representation_schema.founded_item"/>.
+	A <b>surface_style_segmentation_curve</b> is the surface style that is applied to the curves on the segment borders of a surface.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: surface_style_segmentation_curve.style_of_segmentation_curve
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_style_segmentation_curve.style_of_segmentation_curve"> 
+<p>
+	the style for the segmentation curves of a surface.
+</p>
+	<note>
+		<p>This style has only an effect on surfaces which have segmentation curves. These surfaces include the following types:</p>
+		<ul>
+    		<li>B-spline surfaces;</li>
+    		<li>rectangular trimmed surfaces, curve bounded surfaces, rectangular
+          	composite surfaces, surface patches, offset surfaces, and surface
+          	replicas which refer to a B-spline surface as basis or parent
+          	surface.</li>
+        </ul>
+	</note> 
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: surface_style_control_grid
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_style_control_grid">
+	A <b>surface_style_control_grid</b> is a type of
+	<express_ref linkend="representation_schema:ir_express:representation_schema.founded_item"/>.
+	A <b>surface_style_control_grid</b> is the surface style that is applied to the mesh of control points which are used for definition of surfaces.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: surface_style_control_grid.style_of_control_grid
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_style_control_grid.style_of_control_grid"> 
+<p>
+	the style for the control grid of a surface.
+</p>
+	<note>
+		<p>This style has only an effect on surfaces which are defined over a mesh of control points. These surfaces include the following types:</p>
+		<ul>
+		    <li>B-spline surfaces;</li>
+		    <li>
+		    	rectangular trimmed surfaces, curve bounded surfaces, rectangular composite surfaces, surface patches, offset surfaces, and surface
+		        replicas which refer to a B-spline surface as basis or parent surface.
+		 	</li>
+	 	</ul>
+	</note>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: surface_style_parameter_line
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_style_parameter_line">
+	A <b>surface_style_parameter_line</b> is a type of
+	<express_ref linkend="representation_schema:ir_express:representation_schema.founded_item"/>.
+	A <b>surface_style_parameter_line</b> is the surface style that is applied to the iso-parameter lines on a surface.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: surface_style_parameter_line.style_of_parameter_lines
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_style_parameter_line.style_of_parameter_lines"> 
+	the style for the iso-parameter curves of a surface.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: surface_style_parameter_line.direction_counts
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_style_parameter_line.direction_counts"> 
+	a set of 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.u_direction_count"/> 
+	and
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.v_direction_count"/> 
+	indicating the number of iso-parameter curves in the u and v directions.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: surface_style_parameter_line.wr:WR1
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_style_parameter_line.wr:WR1"> 
+	If there are two members of the <b>direction_counts</b> set, they shall not be of the same type.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: surface_style_rendering
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_style_rendering">
+	A <b>surface_style_rendering</b> is the realistic visualization of surfaces by use of rendering techniques. 
+	The effect of the reflectance calculation shall be as if the calculation is performed in the coordinate-system in which the
+	<express_ref linkend="presentation_organization_schema:ir_express:presentation_organization_schema.camera_model"/> 
+	is founded.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: surface_style_rendering.rendering_method
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_style_rendering.rendering_method"> 
+	the method for interpolating colours across surfaces.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: surface_style_rendering.surface_colour
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_style_rendering.surface_colour"> 
+	the  
+	<express_ref linkend="presentation_resource_schema:ir_express:presentation_resource_schema.colour"/> 
+	used to render the surface.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: surface_style_rendering_with_properties
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_style_rendering_with_properties">
+	A <b>surface_style_rendering_with_properties</b> is a type of
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.surface_style_rendering"/>.
+	A <b>surface_style_rendering_with_properties</b> allows the realistic visualization of surfaces with properties
+	which determine transparency and reflection characteristics.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: surface_style_rendering_with_properties.properties
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_style_rendering_with_properties.properties"> 
+	the collection of rendering properties for a surface.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: surface_style_rendering_with_properties.wr:WR1
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_style_rendering_with_properties.wr:WR1"> 
+	All of the <b>properties</b> shall be of different types.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: surface_style_reflectance_ambient
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_style_reflectance_ambient">
+	A <b>surface_style_reflectance_ambient</b> is a specification of the ambient part of the reflectance behaviour of a surface.
+	<note number="1">
+		The reflectance calculation is conceptually applied at one or more
+	    points on a surface being lit and shaded and produces a colour at
+	    such points. Input to the reflectance calculation includes the
+	    position at which the reflectance equation is to be applied, the
+	    surface normal, the surface colour at that position,
+	    the light sources, and the three-dimensional camera model.
+	</note>
+	<note number="2">
+	 	Suggested reflectance equations can be found in Annex E.
+	</note>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: surface_style_reflectance_ambient.ambient_reflectance
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_style_reflectance_ambient.ambient_reflectance"> 
+	the reflectance coefficient for the ambient part of the reflectance equation.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: surface_style_reflectance_ambient_diffuse
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_style_reflectance_ambient_diffuse">
+	A <b>surface_style_reflectance_ambient_diffuse</b> is a type of
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.surface_style_reflectance_ambient"/>.
+	A <b>surface_style_reflectance_ambient_diffuse</b> specifies the diffuse part of the reflectance behaviour of a surface.
+	<note>
+		Suggested reflectance equations can be found in Annex E.
+	</note>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: surface_style_reflectance_ambient_diffuse.diffuse_reflectance
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_style_reflectance_ambient_diffuse.diffuse_reflectance"> 
+	the reflectance coefficient for the diffuse part of the reflectance equation.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: surface_style_reflectance_ambient_diffuse_specular
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_style_reflectance_ambient_diffuse_specular">
+	A <b>surface_style_reflectance_ambient_diffuse_specular</b> is a type of
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.surface_style_reflectance_ambient_diffuse"/>.
+	A <b>surface_style_reflectance_ambient_diffuse_specular</b> specifies the specular part of the reflectance behaviour of a surface.
+	<note>
+		Suggested reflectance equations can be found in Annex E.
+	</note>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: surface_style_reflectance_ambient_diffuse_specular.specular_reflectance
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_style_reflectance_ambient_diffuse_specular.specular_reflectance"> 
+	the reflectance coefficient for the specular part of the reflectance equation.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: surface_style_reflectance_ambient_diffuse_specular.specular_exponent
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_style_reflectance_ambient_diffuse_specular.specular_exponent"> 
+	the exponent for the specular part of the reflectance equation.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: surface_style_reflectance_ambient_diffuse_specular.specular_colour
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_style_reflectance_ambient_diffuse_specular.specular_colour"> 
+	the 
+	<express_ref linkend="presentation_resource_schema:ir_express:presentation_resource_schema.colour"/> 
+	for the specular part of the reflectance equation.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: surface_style_transparent
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_style_transparent">
+	A <b>surface_style_transparent</b> is the surface rendering property that specifies the degree of transparency of a surface.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: surface_style_transparent.transparency
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_style_transparent.transparency"> 
+	the degree of transparency indicated by the percentage of light traversing the surface.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: surface_style_transparent.wr:WR1
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.surface_style_transparent.wr:WR1"> 
+	The transparency shall be between 0.0 and 1.0.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: text_style
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.text_style">
+	A <b>text_style</b> is a type of
+	<express_ref linkend="representation_schema:ir_express:representation_schema.founded_item"/>.
+	A <b>text_style</b> is the presentation style for annotation text.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: text_style.name
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.text_style.name"> 
+	the word, or group of words, by which the <b>text_style</b> is referred to.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: text_style.character_appearance
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.text_style.character_appearance"> 
+	the character style to be used for presenting the text. 
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: character_glyph_style_stroke
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.character_glyph_style_stroke">
+	A <b>character_glyph_style_stroke</b> is a type of
+	<express_ref linkend="representation_schema:ir_express:representation_schema.founded_item"/>.
+	A <b>character_glyph_style_stroke</b> is a character glyph style for text that is made up of curves rather than closed regions.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: character_glyph_style_stroke.stroke_style
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.character_glyph_style_stroke.stroke_style"> 
+	the 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.curve_style"/> 
+	applied to the curves which define a 
+	<express_ref linkend="presentation_resource_schema:ir_express:presentation_resource_schema.character_glyph_symbol_stroke"/>.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: character_glyph_style_outline
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.character_glyph_style_outline">
+	A <b>character_glyph_style_outline</b> is a type of 
+	<express_ref linkend="representation_schema:ir_express:representation_schema.founded_item"/>.
+	A <b>character_glyph_style_outline</b> is a character glyph style for text that is made up of closed regions rather than curves.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: character_glyph_style_outline.outline_style
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.character_glyph_style_outline.outline_style"> 
+	the 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.curve_style"/> 
+	applied to the curves which define a 
+	<express_ref linkend="presentation_resource_schema:ir_express:presentation_resource_schema.character_glyph_symbol_outline"/>.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: character_glyph_style_outline_with_characteristics
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.character_glyph_style_outline_with_characteristics">
+	A <b>character_glyph_style_outline_with_characteristics</b> is a type of
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.character_glyph_style_outline"/> 
+	with additional characteristics to be applied to the regions of the 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.character_glyph_style_outline"/>.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: character_glyph_style_outline_with_characteristics.characteristics
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.character_glyph_style_outline_with_characteristics.characteristics"> 
+	the characteristics about the regions of the character glyph.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: text_style_for_defined_font
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.text_style_for_defined_font">
+	A <b>text_style_for_defined_font</b> is a part of the definition of a 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.text_style"/>,
+	defining the colour in which a text to display.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: text_style_for_defined_font.text_colour
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.text_style_for_defined_font.text_colour"> 
+	the 
+	<express_ref linkend="presentation_resource_schema:ir_express:presentation_resource_schema.colour"/>
+	to be used for presenting the text.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: text_style_with_justification
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.text_style_with_justification">
+	A <b>text_style_with_justification</b> is a type of
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.text_style"/> 
+	that specifies the justification of text.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: text_style_with_justification.justification
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.text_style_with_justification.justification"> 
+	the method of text justification in a line.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: text_style_with_box_characteristics
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.text_style_with_box_characteristics">
+	A <b>text_style_with_box_characteristics</b> is a type of
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.text_style"/> 
+	that specifies the characteristics of the character boxes within the text.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: text_style_with_box_characteristics.characteristics
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.text_style_with_box_characteristics.characteristics"> 
+	the characteristics of the character boxes.
+	These characteristics determine height, width, rotation angle, and slant angle of the character boxes.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: text_style_with_box_characteristics.wr:WR1
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.text_style_with_box_characteristics.wr:WR1"> 
+	The <b>characteristics</b> shall be of different types.
+</ext_description>
+
+
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: text_style_with_spacing
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.text_style_with_spacing">
+	A <b>text_style_with_spacing</b> is a type of
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.text_style"/> 
+	that has a spacing defined for the characters.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: text_style_with_spacing.character_spacing
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.text_style_with_spacing.character_spacing"> 
+	the distance between the character boxes of adjacent characters.
+</ext_description>
+
+<ext_description linkend="presentation_appearance_schema.texture_style_specification">
+       <p>A <b>texture_style_specification</b> is a type of <express_ref linkend="representation_schema:ir_express:representation_schema.founded_item"/> 
+       and is an abstract entity that defines a visual texture.
+		</p>
+</ext_description>
+
+<ext_description linkend="presentation_appearance_schema.texture_style_tessellation_specification">
+       <p>A <b>texture_style_tessellation_specification</b> is a type of 
+       <express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.texture_style_specification"/> 
+       an abstract entity that defines a visual texture to be assigned to tessellated geometry.
+		</p>
+</ext_description>
+      
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: pre_defined_character_spacing
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.pre_defined_character_spacing">
+	A <b>pre_defined_character_spacing</b> is a type of
+	<express_ref linkend="external_reference_schema:ir_express:external_reference_schema.pre_defined_item"/>.
+	A <b>pre_defined_character_spacing</b> is a character spacing for the definition of an application-specific character spacing.
+		<note>
+			Application Resources or Application Protocols specify the use of this entity.
+		</note>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: text_style_with_mirror
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.text_style_with_mirror">
+	A <b>text_style_with_mirror</b> is a type of 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.text_style"/> 
+	that has a mirroring axis defined for the characters.
+	<note>
+		Figure 26 
+		shows the definition of <b>text_style_with_mirror</b>.
+	</note>
+	<figure id="fig_text_style_with_mirror" number="26">
+		<title>Text style with mirror</title>
+		<img src="text_style_with_mirror.gif"/>
+	</figure>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: text_style_with_mirror.mirror_placement
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.text_style_with_mirror.mirror_placement"> 
+	the placement and orientation of the mirror axis. The mirror axis passes through the 
+	<express_ref linkend="location_schema:ir_express:location_schema.location"/> 
+	of the
+	<express_ref linkend="geometry_schema:ir_express:geometry_schema.axis2_placement"/> 
+	and is parallel to the x axis defined by the
+	<express_ref linkend="geometry_schema:ir_express:geometry_schema.axis2_placement"/>.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: text_style_with_mirror.wr:IP1
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.text_style_with_mirror.wr:IP1">
+	A <b>text_style_with_mirror</b>.<b>mirror_placement</b> shall have the 
+	<express_ref linkend="geometry_schema:ir_express:geometry_schema.axis2_placement"/> 
+	founded in the same context as the text that is being mirrored.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: symbol_style
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.symbol_style">
+	A <b>symbol_style</b> is a type of
+	<express_ref linkend="representation_schema:ir_express:representation_schema.founded_item"/>.
+	A <b>symbol_style</b> is the presentation style that specifies the visual appearance of 
+	<express_ref linkend="presentation_definition_schema:ir_express:presentation_definition_schema.annotation_symbol">annotation_symbols</express_ref>. 
+	The style is specified as one or more styles for the constituents of the symbol, or as a colour to be used in presenting the entire symbol.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: symbol_style.name
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.symbol_style.name"> 
+	the word, or group of words, by which the <b>symbol_style</b> is referred to.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: symbol_style.style_of_symbol
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.symbol_style.style_of_symbol"> 
+	the 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.symbol_element_style"/> 
+	or 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.symbol_colour"/> 
+	that specifies the visual appearance of a symbol.
+</ext_description>
+
+
+<ext_description linkend="presentation_appearance_schema.styled_tessellated_face_or_surface_with_single_texture">
+		<p>A <b>styled_tessellated_face_or_surface_with_single_texture</b> is a type of
+        <express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.styled_item"/> 
+		that assigns a visual texture to tessellated geometry, 
+		which may be either a 
+		<express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.tessellated_face"/> 
+		or a collection of tessellated faces defined in a 
+		<express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.tessellated_surface_set"/>
+		. 
+		</p>
+</ext_description>
+
+<ext_description linkend="presentation_appearance_schema.styled_tessellated_face_or_surface_with_single_texture.styles">
+	<p>
+	specifies the 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.presentation_style_assignment"/> 
+	that specifies the texture defined by a 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.texture_style_tessellation_specification"/>.
+	</p>
+	<note>The actual appearance is realized in the model by the 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.presentation_style_assignment"/> 
+	entity referenced by the <b>appearance</b> attribute.</note>
+</ext_description>
+
+<ext_description linkend="presentation_appearance_schema.styled_tessellated_face_or_surface_with_single_texture.item">
+	<p>
+	  specifies the tessellated geometry to which the texture style is applied.
+	</p>
+</ext_description>
+
+<ext_description linkend="presentation_appearance_schema.styled_tessellated_face_or_surface_with_single_texture.texture_style_specification">
+	<p>
+	  specifies the visual texture to be applied.
+	</p>
+</ext_description>
+
+<ext_description linkend="presentation_appearance_schema.styled_tessellated_face_or_surface_with_single_texture.wr:WR1">
+	<p>
+		the SET of <b>styles</b> shall contain only one element.
+	</p>
+</ext_description>
+
+<ext_description linkend="presentation_appearance_schema.styled_tessellated_face_or_surface_with_single_texture.wr:WR2">
+		<p>
+		if the <b>item</b> styled is a 
+		<express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.triangulated_face"/> 
+		then the size of the 
+		<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.single_texture_style_tessellation_specification.texture_coordinates"/> 
+		of the associated 
+		<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.single_texture_style_tessellation_specification"/> 
+		shall be equal to the number of points defining the  
+		<express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.triangulated_face"/>; 
+		this number is obtained from either the 
+		<express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.triangulated_face.pnindex"/> 
+		attribute of 
+		<express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.triangulated_face"/> 
+		(if non-zero), 
+		or from the
+		<express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.coordinates_list.npoints"/> 
+		attribute of the 
+		 <express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.coordinates_list"/> 
+		 of the 
+		 <express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.triangulated_face"/>.
+		</p>
+</ext_description>
+
+<ext_description linkend="presentation_appearance_schema.styled_tessellated_face_or_surface_with_single_texture.wr:WR3">
+	<p>
+		if the <b>item</b> styled is a 
+		<express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.complex_triangulated_face"/> 
+		then the size of the 
+		<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.single_texture_style_tessellation_specification.texture_coordinates"/> 
+		of the associated 
+		<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.single_texture_style_tessellation_specification"/> 
+		shall be equal to the number of points defining the 
+		<express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.complex_triangulated_face"/>; 
+		this number is obtained from either the 
+		<express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.complex_triangulated_face.pnindex"/> 
+		attribute of 
+		<express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.complex_triangulated_face"/> 
+		(if non zero),  or from the 
+		<express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.coordinates_list.npoints"/> 
+		attribute of the 
+		 <express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.coordinates_list"/> 
+		of the 
+		<express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.complex_triangulated_face"/>.
+	</p>
+</ext_description>
+
+<ext_description linkend="presentation_appearance_schema.styled_tessellated_face_or_surface_with_single_texture.wr:WR4">
+	<p>
+		if the <b>item</b> styled is a 
+		<express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.tessellated_surface_set"/> 
+		then the size of the 
+		<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.single_texture_style_tessellation_specification.texture_coordinates"/> 
+		of the associated 
+		<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.single_texture_style_tessellation_specification"/> 
+		shall be equal to the number of points defining the 
+		<express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.tessellated_surface_set"/>; 
+		this number is obtained from the 
+		<express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.coordinates_list.npoints"/> 
+		attribute of the 
+		 <express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.coordinates_list"/> 
+		of the 
+		<express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.tessellated_surface_set"/>.
+	</p>
+</ext_description>
+
+<ext_description linkend="presentation_appearance_schema.styled_tessellated_face_or_surface_with_single_texture.wr:WR5">
+	<p>
+		the derived <b>texture_style_specification</b> shall be of type  
+		<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.single_texture_style_tessellation_specification"/>.
+	</p>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: symbol_element_style
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.symbol_element_style">
+	A <b>symbol_element_style</b> is a type of
+	<express_ref linkend="representation_schema:ir_express:representation_schema.founded_item"/>.
+	A <b>symbol_element_style</b> is the presentation style that specifies the visual appearance of the constituent parts of 
+	<express_ref linkend="presentation_definition_schema:ir_express:presentation_definition_schema.annotation_symbol">annotation_symbols</express_ref>.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: symbol_element_style.style_of_symbol
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.symbol_element_style.style_of_symbol"> 
+	the 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.presentation_style_assignment"/> 
+	for the constituent parts of a symbol.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: symbol_element_style.wr:WR1
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.symbol_element_style.wr:WR1">
+<p> 
+	There shall be no 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.symbol_style"/> 
+	in the <b>style_of_symbol</b>.
+</p>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: symbol_element_style.wr:WR2
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.symbol_element_style.wr:WR2"> 
+<p>
+	The <b>style_of_symbol</b> shall not be dependent on a context.
+</p>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: symbol_colour
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.symbol_colour">
+	A <b>symbol_colour</b> is the presentation style that specifies the colour of 
+	<express_ref linkend="presentation_definition_schema:ir_express:presentation_definition_schema.annotation_symbol">annotation_symbols</express_ref>.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: symbol_colour.colour_of_symbol
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.symbol_colour.colour_of_symbol"> 
+	the 
+	<express_ref linkend="presentation_resource_schema:ir_express:presentation_resource_schema.colour"/> 
+	for the symbol.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: approximation_tolerance
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.approximation_tolerance">
+	An <b>approximation_tolerance</b> is a type of
+	<express_ref linkend="representation_schema:ir_express:representation_schema.founded_item"/>.
+	An <b>approximation_tolerance</b> serves the visualization requirements of every displayable element. 
+	It specifies the position and shape tolerance of the presented elements in the picture with respect to their mathematically exact projected position and shape.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: approximation_tolerance.tolerance
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.approximation_tolerance.tolerance"> 
+<p>
+	the tolerances to be used for approximating curves and surfaces.
+</p>
+	<note>
+		If no <b>approximation_tolerance</b> is specified, the accuracy of rendering is implementation-dependent.
+	</note>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: approximation_tolerance_deviation
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.approximation_tolerance_deviation">
+	An <b>approximation_tolerance_deviation</b> is a type of
+	<express_ref linkend="representation_schema:ir_express:representation_schema.founded_item"/>.
+	An <b>approximation_tolerance_deviation</b> specifies a deviation measurement for the approximation of curves and surfaces.
+	The deviation value can be specified in product-shape or presentation-area space.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: approximation_tolerance_deviation.tessellation_type
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.approximation_tolerance_deviation.tessellation_type"> 
+	the selected 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.approximation_method"/> 
+	which determines the kind of tessellation with which curves and surfaces are approximated by graphical primitives.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: approximation_tolerance_deviation.tolerances
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.approximation_tolerance_deviation.tolerances"> 
+	the set of tolerances which specify the maximum allowable deviation for the approximation of curves and surfaces.
+</ext_description>
+
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: approximation_tolerance_deviation.definition_space
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.approximation_tolerance_deviation.definition_space"> 
+	the coordinate space in which the tolerances are specified. 
+	The tolerances can be specified in the definition space of the curve or surface to which the tolerances are applied or in the definition space of the 
+	<express_ref linkend="presentation_organization_schema:ir_express:presentation_organization_schema.presentation_area"/> 
+	which contains the curve or surface.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: approximation_tolerance_deviation.wr:WR1
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.approximation_tolerance_deviation.wr:WR1"> 
+	If there are two members of the tolerances set, they shall not be of the same type.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: approximation_tolerance_parameter
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.approximation_tolerance_parameter">
+	An <b>approximation_tolerance_parameter</b> is a type of
+	<express_ref linkend="representation_schema:ir_express:representation_schema.founded_item"/>.
+	An <b>approximation_tolerance_parameter</b> specifies an approximation tolerance for curves and surfaces in parameter space units.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: approximation_tolerance_parameter.tolerances
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.approximation_tolerance_parameter.tolerances"> 
+	the set of tolerances used for approximating curves and surfaces. 
+	Curves and surfaces are approximated in such a way that uniform steps in parameter space are taken as the basis of the approximation. 
+	The specified lengths are measured in parameter space units.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: approximation_tolerance_parameter.wr:WR1
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.approximation_tolerance_parameter.wr:WR1"> 
+	If there are two members of the tolerances set, they shall not be of the same type.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: occlusion_precedence
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.occlusion_precedence">
+	An <b>occlusion_precedence</b> is a relationship between two entities that can hide or blank out other entities.  
+	This relationship establishes which one is to hide or blank out the other if they should overlap in a presentation.
+	<p>
+	This relationship is transitive.  
+	If entity <i>A</i> hides entity <i>B</i>, and entity <i>B</i> hides entity <i>C</i>, then entity <i>A</i> also hides entity <i>C</i>.
+	</p>
+	<p>
+	This relationship only applies if the two entities are in the same representation.
+	</p>
+	<note>
+		If two such entities overlap and do not participate in an <b>occlusion_precedence</b> relationship, which entity has
+	    precedence is up to the particular implementation which presents it.
+	</note>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: occlusion_precedence.lower_precedence
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.occlusion_precedence.lower_precedence"> 
+	the entity which can be blanked or hidden by the <b>higher_precedence</b> entity.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: occlusion_precedence.occlusion_context
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.occlusion_precedence.occlusion_context"> 
+	the 
+	<express_ref linkend="representation_schema:ir_express:representation_schema.representation"/> 
+	in which the precedence has meaning.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: occlusion_precedence.higher_precedence
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.occlusion_precedence.higher_precedence"> 
+	the entity which can blank or hide the <b>lower_precedence</b> entity.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: occlusion_precedence.wr:WR1
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.occlusion_precedence.wr:WR1"> 
+	An <b>occlusion_precedence</b> entity shall not participate in a tree of 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.hiding_or_blanking_select"/> 
+	entities where the root of the tree is also a leaf of its own tree.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: invisibility
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.invisibility">
+	An <b>invisibility</b> is specifying that a collection of one or more 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.styled_item">styled_items</express_ref>, 
+	elements assigned to a layer by 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.presentation_style_assignment"/>, 
+	or elements of a 
+	<express_ref linkend="presentation_organization_schema:ir_express:presentation_organization_schema.presentation_representation"/> 
+	shall not be presented.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: invisibility.invisible_items
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.invisibility.invisible_items"> 
+	a set of 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.styled_item">styled_items</express_ref>,  
+	<express_ref linkend="presentation_organization_schema:ir_express:presentation_organization_schema.presentation_layer_assignment">presentation_layer_assignments</express_ref>, 
+	or 
+	<express_ref linkend="presentation_organization_schema:ir_express:presentation_organization_schema.presentation_representation">presentation_representations</express_ref>
+	that are denoted as being invisible.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ENTITY: context_dependent_invisibility
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.context_dependent_invisibility">
+A <b>context_dependent_invisibility</b> is a type of 
+<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.invisibility"/> 
+that is applied in the context of a picture or a layer. The elements specified as invisible are invisible only in the context of the identified 
+<express_ref linkend="presentation_organization_schema:ir_express:presentation_organization_schema.presentation_set"/>, 
+<express_ref linkend="presentation_organization_schema:ir_express:presentation_organization_schema.presentation_representation"/>, 
+or 
+<express_ref linkend="presentation_organization_schema:ir_express:presentation_organization_schema.presentation_layer_usage"/>.
+	<example>
+		A symbol is included as an item in two separate views, but is to be presented in only the first view. 
+		A <b>context_dependent_invisibility</b> is used to specify that the symbol is not visible in the second view, by specifying this view as the context for the invisibility.
+	</example>
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: context_dependent_invisibility.presentation_context
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.context_dependent_invisibility.presentation_context"> 
+	the 
+	<express_ref linkend="presentation_organization_schema:ir_express:presentation_organization_schema.presentation_set"/>, 
+	<express_ref linkend="presentation_organization_schema:ir_express:presentation_organization_schema.presentation_representation"/>, 
+	or 
+	<express_ref linkend="presentation_organization_schema:ir_express:presentation_organization_schema.presentation_layer_usage"/> 
+	that provides the context for the specification of invisibility.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+CUBTYPE CONSTRAINT: pas_geometric_representation_item_subtypes
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.pas_geometric_representation_item_subtypes">
+	A <b>pas_geometric_representation_item_subtypes</b> is a constraint that applies to instances of subtypes of
+	<express_ref linkend="geometry_schema:ir_express:geometry_schema.geometric_representation_item"/>.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+CUBTYPE CONSTRAINT: founded_item_subtypes
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.founded_item_subtypes">
+	A <b>founded_item_subtypes</b> is a constraint that applies to instances of subtypes of
+	<express_ref linkend="representation_schema:ir_express:representation_schema.founded_item"/>.
+</ext_description>
+
+
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+FUNCTION: acyclic_occlusion_precedence
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.acyclic_occlusion_precedence">
+	The <b>acyclic_occlusion_precedence</b> function is a function which 
+	checks to see if there is any tree containing a set of
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.hiding_or_blanking_select"/> 
+	and a given
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.occlusion_precedence"/> 
+	which has a
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.hiding_or_blanking_select"/> 
+	which is both a root and a leaf of the same subtree.  It returns TRUE if there is no such subtree, and FALSE if there is.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: acyclic_occlusion_precedence.relation
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.acyclic_occlusion_precedence.relation"> 
+	the 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.occlusion_precedence"/>
+    which is tested. This is input to the function.
+</ext_description>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Subobject: acyclic_occlusion_precedence.set_of_lower
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<ext_description linkend="presentation_appearance_schema.acyclic_occlusion_precedence.set_of_lower"> 
+	the set of items that are referenced directly or indirectly by 
+	<express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.occlusion_precedence.lower_precedence"/> 
+	of the <b>relation</b>.
+    This argument is input to the function. 
+    On initial input this set contains as its only element the 
+    <express_ref linkend="presentation_appearance_schema:ir_express:presentation_appearance_schema.occlusion_precedence.lower_precedence"/>  
+    item of the <b>relation</b>.
+ </ext_description>
+ 
+ <ext_description linkend="presentation_appearance_schema.get_coordinate_values">
+	<p>
+		The get_coordinate_values function returns the <express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.coordinates_list"/> for a 
+		<express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.tessellated_face"/>,  a 
+	<express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.tessellated_shell"/>, a 
+	<express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.tessellated_solid"/>, or a 
+	<express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.tessellated_surface_set"/>. 
+	</p>
+</ext_description>
+<ext_description linkend="presentation_appearance_schema.get_coordinate_values.source">
+	<p>
+		the 
+		<express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.tessellated_face"/>, 
+	<express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.tessellated_shell"/>, 
+	<express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.tessellated_solid"/>, or  
+	<express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.tessellated_surface_set"/>, 
+		 for which the <express_ref linkend="geometric_model_schema:ir_express:geometric_model_schema.coordinates_list"/> is required.
+	</p>
+
+</ext_description>
+ 
+</ext_descriptions>
