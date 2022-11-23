@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="../../../xsl/res_doc/imgfile.xsl"?>
+<!DOCTYPE imgfile.content SYSTEM "../../../dtd/text.ent">
+<imgfile.content module="visual_presentation" file="presentation_appearance_schemaexpg1.xml">
+<img src="presentation_appearance_schemaexpg1.gif">
+<img.area shape="rect" coords="452,1052,703,1097" href="../../resources/product_property_representation_schema/product_property_representation_schema.xml" />
+<img.area shape="rect" coords="10,10,216,55" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml" />
+<img.area shape="rect" coords="452,1263,613,1308" href="../../resources/support_resource_schema/support_resource_schema.xml" />
+<img.area shape="rect" coords="452,735,643,780" href="../../resources/presentation_definition_schema/presentation_definition_schema.xml" />
+<img.area shape="rect" coords="450,441,564,486" href="../../resources/geometry_schema/geometry_schema.xml" />
+<img.area shape="rect" coords="449,84,620,129" href="../../resources/external_reference_schema/external_reference_schema.xml" />
+<img.area shape="rect" coords="452,995,641,1040" href="../../resources/presentation_resource_schema/presentation_resource_schema.xml" />
+<img.area shape="rect" coords="452,1315,560,1360" href="../../resources/topology_schema/topology_schema.xml" />
+<img.area shape="rect" coords="450,270,610,315" href="../../resources/geometric_model_schema/geometric_model_schema.xml" />
+<img.area shape="rect" coords="452,917,660,962" href="../../resources/presentation_organization_schema/presentation_organization_schema.xml" />
+<img.area shape="rect" coords="452,1207,594,1252" href="../../resources/representation_schema/representation_schema.xml" />
+<img.area shape="rect" coords="450,631,559,676" href="../../resources/measure_schema/measure_schema.xml" />
+<img.area shape="rect" coords="450,494,542,539" href="../../resources/group_schema/group_schema.xml" />
+</img>
+</imgfile.content>

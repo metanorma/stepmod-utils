@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="../../../xsl/res_doc/imgfile.xsl"?>
+<!DOCTYPE imgfile.content SYSTEM "../../../dtd/text.ent">
+<imgfile.content module="visual_presentation" file="presentation_appearance_schemaexpg6.xml">
+<img src="presentation_appearance_schemaexpg6.gif">
+<img.area shape="poly" coords="216,220,223,232,490,232,497,220,490,209,223,209,216,220" href="./presentation_appearance_schemaexpg8.xml" />
+<img.area shape="poly" coords="409,608,416,620,534,620,541,608,534,597,416,597,409,608" href="./presentation_appearance_schemaexpg8.xml" />
+<img.area shape="poly" coords="216,246,223,258,379,258,386,246,379,235,223,235,216,246" href="./presentation_appearance_schemaexpg8.xml" />
+<img.area shape="poly" coords="216,92,223,104,398,104,405,92,398,81,223,81,216,92" href="./presentation_appearance_schemaexpg8.xml" />
+<img.area shape="poly" coords="216,143,223,155,433,155,440,143,433,132,223,132,216,143" href="./presentation_appearance_schemaexpg7.xml" />
+<img.area shape="poly" coords="216,169,223,181,475,181,482,169,475,158,223,158,216,169" href="./presentation_appearance_schemaexpg7.xml" />
+<img.area shape="poly" coords="216,271,223,283,410,283,417,271,410,260,223,260,216,271" href="./presentation_appearance_schemaexpg7.xml" />
+<img.area shape="poly" coords="216,194,223,206,482,206,489,194,482,183,223,183,216,194" href="./presentation_appearance_schemaexpg8.xml" />
+<img.area shape="poly" coords="216,66,223,78,425,78,432,66,425,55,223,55,216,66" href="./presentation_appearance_schemaexpg8.xml" />
+<img.area shape="poly" coords="216,299,223,311,395,311,402,299,395,288,223,288,216,299" href="./presentation_appearance_schemaexpg7.xml" />
+<img.area shape="poly" coords="216,118,223,130,448,130,455,118,448,107,223,107,216,118" href="./presentation_appearance_schemaexpg7.xml" />
+<img.area shape="poly" coords="336,453,343,465,402,465,409,453,402,442,343,442,336,453" href="./presentation_appearance_schemaexpg10.xml" />
+<img.area shape="poly" coords="444,408,451,420,503,420,510,408,503,397,451,397,444,408" href="./presentation_appearance_schemaexpg2.xml" />
+<img.area shape="poly" coords="586,560,593,572,645,572,652,560,645,549,593,549,586,560" href="./presentation_appearance_schemaexpg2.xml" />
+<img.area shape="rect" coords="442,363,708,392" href="../../resources/measure_schema/measure_schema.xml#measure_schema.positive_length_measure" />
+<img.area shape="rect" coords="10,11,318,40" href="../../resources/geometry_schema/geometry_schema.xml#geometry_schema.geometric_representation_item" />
+<img.area shape="rect" coords="441,332,819,361" href="../../resources/presentation_definition_schema/presentation_definition_schema.xml#presentation_definition_schema.annotation_curve_occurrence" />
+<img.area shape="rect" coords="633,439,833,468" href="../../resources/support_resource_schema/support_resource_schema.xml#support_resource_schema.label" />
+<img.area shape="rect" coords="648,651,914,680" href="../../resources/measure_schema/measure_schema.xml#measure_schema.positive_length_measure" />
+<img.area shape="rect" coords="418,541,536,572" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.curve_style_wide" />
+<img.area shape="rect" coords="674,545,836,576" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.curve_style_font_pattern" />
+<img.area shape="rect" coords="421,438,534,469" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.curve_style_font" />
+<img.area shape="rect" coords="229,500,426,531" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.curve_style_curve_pattern_set" />
+<img.area shape="rect" coords="223,331,334,393" href="../../resources/presentation_appearance_schema/presentation_appearance_schema.xml#presentation_appearance_schema.curve_style_curve_pattern" />
+<img.area shape="poly" coords="378,25,393,40,738,40,753,25,738,10,393,10,378,25" href="./presentation_appearance_schema.xml#presentation_appearance_schema.pas_geometric_representation_item_subtypes" />
+</img>
+</imgfile.content>

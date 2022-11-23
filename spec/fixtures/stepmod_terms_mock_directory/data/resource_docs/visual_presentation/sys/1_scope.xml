@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: 1_scope.xml,v 1.2 2007/11/16 08:21:03 liutkus Exp $ -->
+<!DOCTYPE resource_clause SYSTEM "../../../../dtd/res_doc/resource_clause.dtd">
+<?xml-stylesheet type="text/xsl"
+href="../../../../xsl/res_doc/sect_1_scope.xsl" ?>
+<resource_clause directory="visual_presentation"/>

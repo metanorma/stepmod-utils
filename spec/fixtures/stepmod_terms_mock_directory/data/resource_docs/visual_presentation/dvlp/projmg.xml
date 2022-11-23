@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: projmg.xml,v 1.2 2007/11/16 08:21:03 liutkus Exp $ -->
+<?xml-stylesheet type="text/xsl" href="../../../../xsl/projmg/projmg.xsl"?>
+<!DOCTYPE management SYSTEM "../../../../dtd/projmg/resdoc_projmg.dtd">
+<management resdoc="visual_presentation"
+  percentage_complete="0"
+  issues="issues.xml">
+
+  <developers>
+    <developer ref=""/>
+  </developers>
+
+<!-- 
+  <resdoc.milestones>
+    <milestone
+      name="M1"
+      description="Requirements allocated to resource"
+      status="not-achieved"
+      planned_date=""
+      predicted_date=""
+      achieved_date="">
+    </milestone>
+
+    <milestone
+      name="M2"
+      description="Draft for team review"
+      status="not-achieved"
+      planned_date=""
+      predicted_date=""
+      achieved_date="">
+    </milestone>
+
+    <milestone
+      name="M3"
+      description="Ready for QC"
+      status="not-achieved"
+      planned_date=""
+      predicted_date=""
+      achieved_date="">
+    </milestone>
+
+    <milestone
+      name="M4"
+      description="QC form completed"
+      status="not-achieved"
+      planned_date=""
+      predicted_date=""
+      achieved_date="">
+    </milestone>
+
+    <milestone
+      name="M5"
+      description="Submitted for ballot"
+      status="not-achieved"
+      planned_date=""
+      predicted_date=""
+      achieved_date="">
+    </milestone>
+
+    <milestone
+      name="M6"
+      description="Ballot comments resolved"
+      status="not-achieved"
+      planned_date=""
+      predicted_date=""
+      achieved_date="">
+    </milestone>
+
+    <milestone
+      name="M7"
+      description="Published as TS"
+      status="not-achieved"
+      planned_date=""
+      predicted_date=""
+      achieved_date="">
+    </milestone>
+  </resdoc.milestones>
+
+  <resdoc.checklist>
+    <status section="resdoc.header"
+      by=""
+      date=""
+      status="in-work">
+    </status>
+    
+    <status section="resdoc.intro"
+      by=""
+      date=""
+      status="in-work">
+      <description>
+        Reviewed by PLCS
+      </description>
+    </status>
+    
+
+
+    <status section="schema.clause"
+      by=""
+      date=""
+      status="in-work">
+      <description>
+      product_and_model_relationships_schema
+      </description>
+    </status>
+
+    <status section="expressg"
+      by=""
+      date=""
+      status="in-work">
+      <description>
+      product_and_model_relationships_schema
+      </description>
+    </status>
+
+    <status section="express"
+      by=""
+      date=""
+      status="in-work">
+      <description>
+      product_and_model_relationships_schema
+      </description>
+    </status>
+
+    <status section="schema.clause"
+      by=""
+      date=""
+      status="in-work">
+      <description>
+      action_and_model_relationships_schema
+      </description>
+    </status>
+
+    <status section="expressg"
+      by=""
+      date=""
+      status="in-work">
+      <description>
+      action_and_model_relationships_schema
+      </description>
+    </status>
+
+    <status section="express"
+      by=""
+      date=""
+      status="in-work">
+      <description>
+      action_and_model_relationships_schema
+      </description>
+    </status>
+
+    <status section="schema.clause"
+      by=""
+      date=""
+      status="in-work">
+      <description>
+      state_and_model_relationships_schema
+      </description>
+    </status>
+
+    <status section="expressg"
+      by=""
+      date=""
+      status="in-work">
+      <description>
+      state_and_model_relationships_schema
+      </description>
+    </status>
+
+    <status section="express"
+      by=""
+      date=""
+      status="in-work">
+      <description>
+      state_and_model_relationships_schema
+      </description>
+    </status>
+
+    <status section="schema.clause"
+      by=""
+      date=""
+      status="in-work">
+      <description>
+      property_distribution_and_model_relationships_schema
+      </description>
+    </status>
+
+    <status section="expressg"
+      by=""
+      date=""
+      status="in-work">
+      <description>
+      property_distribution_and_model_relationships_schema
+      </description>
+    </status>
+
+    <status section="express"
+      by=""
+      date=""
+      status="in-work">
+      <description>
+      property_distribution_and_model_relationships_schema
+      </description>
+    </status>
+
+    <status section="schema.clause"
+      by=""
+      date=""
+      status="in-work">
+      <description>
+      fea_definition_relationships_schema
+      </description>
+    </status>
+
+    <status section="expressg"
+      by=""
+      date=""
+      status="in-work">
+      <description>
+      fea_definition_relationships_schema
+      </description>
+    </status>
+
+    <status section="express"
+      by=""
+      date=""
+      status="in-work">
+      <description>
+      fea_definition_relationships_schema
+      </description>
+    </status>
+  </resdoc.checklist>
+-->
+</management>

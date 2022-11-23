@@ -1,0 +1,1137 @@
+(*
+
+ISO 10303 TC184/SC4/WG12 N10472
+
+EXPRESS Source:
+ISO 10303-46 ed4 Visual presentation - Presentation appearance schema
+
+The following permission notice and disclaimer shall be included in all copies of this EXPRESS schema ("the Schema"), 
+and derivations of the Schema:
+
+Copyright ISO 2019  All rights reserved
+Permission is hereby granted, free of charge in perpetuity, to any person obtaining a copy of the Schema,
+to use, copy, modify, merge and distribute free of charge, copies of the Schema for the purposes of developing, 
+implementing, installing and using software based on the Schema, and to permit persons to whom the Schema is furnished to do so, 
+subject to the following conditions:
+
+THE SCHEMA IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
+DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SCHEMA OR THE 
+USE OR OTHER DEALINGS IN THE SCHEMA.
+
+In addition, any modified copy of the Schema shall include the following notice:
+
+THIS SCHEMA HAS BEEN MODIFIED FROM THE SCHEMA DEFINED IN
+ISO 10303-46 ed4 Visual presentation - Presentation appearance schema
+AND SHOULD NOT BE INTERPRETED AS COMPLYING WITH THAT STANDARD
+*)
+
+SCHEMA presentation_appearance_schema '{iso standard 10303 part(46) version(7) object(1) presentation_appearance_schema(3)}';
+ 
+REFERENCE FROM external_reference_schema   -- ISO 10303-41
+    (externally_defined_item,
+     pre_defined_item);
+
+REFERENCE FROM geometric_model_schema   -- ISO 10303-42
+    (complex_triangulated_face,
+     coordinates_list,
+     tessellated_edge,
+     tessellated_face,
+     tessellated_item,
+     tessellated_shell,
+     tessellated_solid,
+     tessellated_surface_set,
+     tessellated_vertex,
+     triangulated_face);
+
+REFERENCE FROM geometry_schema   -- ISO 10303-42
+    (axis2_placement,
+     b_spline_curve, 
+     cartesian_point,
+     composite_curve,
+     curve,
+     geometric_representation_item,
+     point,
+     polyline, 
+     vector);
+
+REFERENCE FROM group_schema   -- ISO 10303-41
+  (group);
+
+REFERENCE FROM measure_schema   -- ISO 10303-41
+    (descriptive_measure,
+     length_measure,
+     measure_with_unit,
+     plane_angle_measure,
+     positive_length_measure,
+     positive_ratio_measure,
+     ratio_measure);
+
+REFERENCE FROM presentation_definition_schema   -- ISO 10303-46
+    (annotation_curve_occurrence,
+     annotation_fill_area,
+     annotation_symbol_occurrence,
+     annotation_text_with_delineation,
+     symbol_representation_with_blanking_box);
+
+REFERENCE FROM presentation_organization_schema   -- ISO 10303-46
+     (area_dependent_annotation_representation,
+      presentation_area,
+      presentation_layer_assignment,
+      presentation_layer_usage,
+      presentation_representation,
+      presentation_set,
+      presentation_view,
+      product_data_representation_view,
+      view_dependent_annotation_representation);
+
+REFERENCE FROM presentation_resource_schema   -- ISO 10303-46
+    (character_glyph_symbol_outline,
+     character_glyph_symbol_stroke,
+     colour);
+
+REFERENCE FROM product_property_representation_schema(   -- ISO 10303-41
+         context_dependent_shape_representation);
+         
+REFERENCE FROM representation_schema   -- ISO 10303-43
+    (founded_item,
+     mapped_item,
+     representation,
+     representation_item,
+     representation_map,
+     representation_or_representation_reference,
+     representation_relationship,
+     set_representation_item,
+     using_representations);
+     
+REFERENCE FROM support_resource_schema   -- ISO 10303-41
+    (bag_to_set,
+     label);
+
+REFERENCE FROM topology_schema   -- ISO 10303-42
+    (topological_representation_item);
+ 
+  TYPE approximation_method = ENUMERATION OF
+    (chordal_deviation,
+     chordal_length);
+  END_TYPE;
+
+  TYPE box_characteristic_select = SELECT
+    (box_height,
+     box_width,
+     box_slant_angle,
+     box_rotate_angle);
+  END_TYPE;
+
+  TYPE box_height = positive_ratio_measure;
+  END_TYPE;
+
+  TYPE box_rotate_angle = plane_angle_measure;
+  END_TYPE;
+
+  TYPE  box_slant_angle = plane_angle_measure;
+  END_TYPE;
+
+  TYPE box_width = positive_ratio_measure;
+  END_TYPE;
+
+  TYPE character_spacing_select = SELECT
+    (length_measure,
+     ratio_measure,
+     measure_with_unit,
+     descriptive_measure,
+     pre_defined_character_spacing);
+  END_TYPE;
+
+  TYPE character_style_select = SELECT
+    (character_glyph_style_stroke,
+     character_glyph_style_outline,
+     text_style_for_defined_font);
+  END_TYPE;
+
+  TYPE colour_type_enum = ENUMERATION OF(
+    RGB8,
+    RGBT8);
+  END_TYPE;
+
+  TYPE curve_font_or_scaled_curve_font_select = SELECT
+    (curve_style_font_select,
+     curve_style_font_and_scaling);
+  END_TYPE;
+
+  TYPE curve_or_annotation_curve_occurrence = SELECT
+    (curve,
+     annotation_curve_occurrence);
+  END_TYPE;
+
+  TYPE curve_or_render = SELECT
+    (curve_style,
+     curve_style_rendering);
+  END_TYPE;
+
+  TYPE curve_style_font_select = SELECT
+    (curve_style_font,
+     pre_defined_curve_font,
+     externally_defined_curve_font);
+  END_TYPE;
+
+  TYPE curve_tolerance_deviation = positive_length_measure;
+  END_TYPE;
+
+  TYPE curve_tolerance_parameter = REAL;
+  END_TYPE;
+
+  TYPE direction_count_select = SELECT
+    (u_direction_count,
+     v_direction_count);
+  END_TYPE;
+
+  TYPE fill_style_select = SELECT
+    (fill_area_style_colour,
+     pre_defined_tile_style,
+     externally_defined_tile_style,
+     fill_area_style_tiles,
+     pre_defined_hatch_style,
+     externally_defined_hatch_style,
+     fill_area_style_hatching,
+     texture_style_specification);
+  END_TYPE;
+
+  TYPE fill_area_style_tile_shape_select = SELECT
+    (fill_area_style_tile_curve_with_style,
+     fill_area_style_tile_coloured_region,
+     fill_area_style_tile_symbol_with_style,
+     pre_defined_tile,
+     externally_defined_tile);
+  END_TYPE;
+
+  TYPE hiding_or_blanking_select = SELECT
+    (presentation_area,
+     presentation_view,
+     product_data_representation_view,
+     annotation_fill_area,
+     area_dependent_annotation_representation,
+     view_dependent_annotation_representation,
+     annotation_text_with_delineation,
+     character_glyph_symbol_stroke,
+     character_glyph_symbol_outline,
+     symbol_representation_with_blanking_box);
+  END_TYPE;
+
+  TYPE invisibility_context = EXTENSIBLE GENERIC_ENTITY SELECT 
+    (presentation_layer_usage,
+     presentation_representation,
+     presentation_set);
+  END_TYPE;
+
+  TYPE invisible_item = EXTENSIBLE GENERIC_ENTITY SELECT 
+    (styled_item,
+     presentation_layer_assignment,
+     representation);
+  END_TYPE;
+
+  TYPE marker_select = SELECT
+    (marker_type,
+     pre_defined_marker);
+  END_TYPE;
+
+  TYPE marker_type = ENUMERATION OF
+    (dot,
+     x,
+     plus,
+     asterisk,
+     ring,
+     square,
+     triangle);
+  END_TYPE;
+
+  TYPE null_style = ENUMERATION OF
+    (null);
+  END_TYPE;
+
+
+  TYPE presentation_style_select = SELECT
+    (pre_defined_presentation_style,
+     point_style,
+     curve_style,
+     surface_style_usage,
+     symbol_style,
+     fill_area_style,  
+     text_style,
+     texture_style_tessellation_specification,
+     approximation_tolerance,
+     externally_defined_style,
+     null_style);
+  END_TYPE;
+
+  TYPE product_or_presentation_space = ENUMERATION OF
+    (product_shape_space,
+     presentation_area_space);
+  END_TYPE;
+
+  TYPE rendering_properties_select = SELECT
+    (surface_style_reflectance_ambient,
+     surface_style_transparent);
+  END_TYPE;
+
+  TYPE shading_curve_method = ENUMERATION OF
+    (constant_colour,
+     linear_colour);
+  END_TYPE;
+
+  TYPE shading_surface_method = ENUMERATION OF
+    (constant_shading,
+     colour_shading,
+     dot_shading,
+     normal_shading);
+  END_TYPE;
+
+  TYPE size_select  = SELECT
+    (positive_length_measure,
+     measure_with_unit,
+     descriptive_measure,
+     pre_defined_size);
+  END_TYPE;
+
+  TYPE squared_or_rounded = ENUMERATION OF
+    (squared,
+     rounded);
+  END_TYPE;
+
+  TYPE style_context_select = SELECT
+    (group,
+     context_dependent_shape_representation,
+     presentation_layer_assignment,
+     presentation_set,
+     representation,
+     representation_item,
+     representation_relationship);
+  END_TYPE;
+
+  TYPE styled_item_target = SELECT
+    (geometric_representation_item,
+     mapped_item,
+     representation_or_representation_reference,
+     set_representation_item,
+     topological_representation_item);
+  END_TYPE;
+
+  TYPE surface_side = ENUMERATION OF
+    (positive,
+     negative,
+     both);
+  END_TYPE;
+
+  TYPE surface_side_style_select = SELECT
+    (surface_side_style,
+     pre_defined_surface_side_style);
+  END_TYPE;
+
+  TYPE surface_style_element_select = SELECT
+    (surface_style_fill_area,
+     surface_style_boundary,
+     surface_style_silhouette,
+     surface_style_segmentation_curve,
+     surface_style_control_grid,
+     surface_style_parameter_line,
+     surface_style_rendering);
+  END_TYPE;
+
+  TYPE surface_tolerance_deviation = positive_length_measure;
+  END_TYPE;
+
+  TYPE surface_tolerance_parameter = REAL;
+  END_TYPE;
+
+  TYPE symbol_style_select = SELECT
+    (symbol_element_style,
+     symbol_colour);
+  END_TYPE;
+
+  TYPE tessellated_face_or_tessellated_surface_set = SELECT
+    (tessellated_face,
+     tessellated_surface_set);
+  END_TYPE; 
+
+  TYPE  tessellated_surface_item = SELECT 
+    (tessellated_face, 
+     tessellated_shell,
+     tessellated_solid,
+     tessellated_surface_set);
+  END_TYPE;
+
+  TYPE text_justification = label;
+  END_TYPE;
+
+  TYPE texture_file_type = ENUMERATION OF
+    (JPEG, 
+    PNG,
+    GIF,
+    TIFF,
+    BMP,
+    DDS,
+    TGA,
+    other);
+  END_TYPE;
+  
+  TYPE tolerance_deviation_select = SELECT
+    (curve_tolerance_deviation,
+     surface_tolerance_deviation);
+  END_TYPE;
+
+  TYPE tolerance_parameter_select = SELECT
+    (curve_tolerance_parameter,
+     surface_tolerance_parameter);
+  END_TYPE;
+
+  TYPE tolerance_select = SELECT
+    (approximation_tolerance_deviation,
+     approximation_tolerance_parameter);
+  END_TYPE;
+
+  TYPE u_direction_count = INTEGER;
+    WHERE
+      WR1: SELF > 1;
+  END_TYPE;
+
+  TYPE unsigned_8_bit_integer = INTEGER;
+    WHERE
+      WR1: { 0 <= SELF <= 255 };
+  END_TYPE;
+
+  TYPE v_direction_count = INTEGER;
+    WHERE
+      WR1: SELF > 1;
+  END_TYPE;
+
+  TYPE non_negative_real = REAL;
+   WHERE
+      WR1: 0.0 <= SELF;
+  END_TYPE;  
+  
+  ENTITY approximation_tolerance
+    SUBTYPE OF (founded_item);
+      tolerance : tolerance_select;
+  END_ENTITY;
+
+  ENTITY approximation_tolerance_deviation
+    SUBTYPE OF (founded_item);
+      tessellation_type : approximation_method;
+      tolerances        : SET [1:2] OF tolerance_deviation_select;
+      definition_space  : product_or_presentation_space;
+    WHERE
+      WR1: (HIINDEX(tolerances) = 1)
+            XOR
+        (TYPEOF(tolerances[1]) <> TYPEOF(tolerances[2]));
+  END_ENTITY;
+
+  ENTITY approximation_tolerance_parameter
+    SUBTYPE OF (founded_item);
+      tolerances : SET [1:2] OF tolerance_parameter_select;
+    WHERE
+      WR1: (HIINDEX (tolerances) = 1 )
+             XOR
+        (TYPEOF (tolerances[1]) <> TYPEOF (tolerances[2]));
+  END_ENTITY;
+
+  ENTITY character_glyph_style_outline
+    SUBTYPE OF (founded_item);
+      outline_style : curve_style;
+  END_ENTITY;
+
+  ENTITY character_glyph_style_outline_with_characteristics
+    SUBTYPE OF (character_glyph_style_outline);
+      characteristics : fill_area_style;
+  END_ENTITY;
+
+  ENTITY character_glyph_style_stroke
+    SUBTYPE OF (founded_item);
+      stroke_style : curve_style;
+  END_ENTITY;
+
+  ENTITY context_dependent_invisibility
+    SUBTYPE OF (invisibility);
+      presentation_context : invisibility_context;
+  END_ENTITY;
+
+  ENTITY context_dependent_over_riding_styled_item
+    SUBTYPE OF(over_riding_styled_item);
+      style_context : LIST[1:?] OF style_context_select;
+    WHERE
+      WR1: 
+(SIZEOF(QUERY(sc <* style_context | 'REPRESENTATION_SCHEMA.REPRESENTATION_ITEM' IN TYPEOF(sc)))= 1) OR
+(SIZEOF(QUERY(sc <* style_context |
+     ('REPRESENTATION_SCHEMA.MAPPED_ITEM' IN TYPEOF(sc))
+  OR ('PRESENTATION_APPEARANCE_SCHEMA.CONTEXT_DEPENDENT_SHAPE_REPRESENTATION' IN TYPEOF(sc))
+  OR ('REPRESENTATION_SCHEMA.REPRESENTATION_RELATIONSHIP' IN TYPEOF(sc)) ))
+  = SIZEOF(style_context));     
+  END_ENTITY;
+
+  ENTITY curve_style
+    SUBTYPE OF (founded_item);
+      name         : label;
+      curve_font   : OPTIONAL curve_font_or_scaled_curve_font_select;
+      curve_width  : OPTIONAL size_select;
+      curve_colour : OPTIONAL colour;
+  WHERE
+    WR1: EXISTS(curve_font) OR EXISTS(curve_width) OR EXISTS(curve_colour);
+  END_ENTITY;
+
+  ENTITY curve_style_curve_pattern
+    SUBTYPE OF (geometric_representation_item);
+      pattern        : annotation_curve_occurrence;
+      pattern_length : positive_length_measure;
+  END_ENTITY;
+
+  ENTITY curve_style_curve_pattern_set
+    SUBTYPE OF (curve_style_font, 
+                geometric_representation_item);
+      pattern_set : SET [1:?] OF curve_style_curve_pattern;
+  END_ENTITY;
+
+  ENTITY curve_style_font
+    SUBTYPE OF (founded_item);
+      name         : label;
+      pattern_list : LIST [1:?] OF curve_style_font_pattern;
+  END_ENTITY;
+
+  ENTITY curve_style_font_and_scaling
+    SUBTYPE OF (founded_item);
+      name               : label;
+      curve_font         : curve_style_font_select;
+      curve_font_scaling : REAL;
+  END_ENTITY;
+
+  ENTITY curve_style_font_pattern
+    SUBTYPE OF (founded_item);
+      visible_segment_length   : positive_length_measure;
+      invisible_segment_length : positive_length_measure;
+  END_ENTITY;
+
+  ENTITY curve_style_rendering;
+    rendering_method     : shading_curve_method;
+    rendering_properties : surface_rendering_properties;
+  END_ENTITY;
+
+  ENTITY curve_style_wide
+    SUBTYPE OF (curve_style_font);
+      interior_style : fill_area_style;
+  END_ENTITY;
+
+  ENTITY curve_style_with_ends_and_corners
+    SUBTYPE OF (curve_style);
+      curve_ends    : squared_or_rounded;
+      curve_corners : squared_or_rounded;
+  WHERE
+    WR1: EXISTS(curve_width);
+  END_ENTITY;
+
+  ENTITY curve_style_with_extension
+    SUBTYPE OF (curve_style);
+      curve_extensions   : length_measure;
+  WHERE
+    WR1: EXISTS(curve_width);
+  END_ENTITY;
+
+  ENTITY draughting_pre_defined_curve_font
+    SUBTYPE OF (pre_defined_curve_font);
+    WHERE
+      WR1: SELF\pre_defined_item.name IN
+        ['continuous',
+         'chain',
+         'chain double dash',
+         'dashed',
+         'dotted'];
+  END_ENTITY;
+
+  ENTITY externally_defined_curve_font
+    SUBTYPE OF (externally_defined_item);
+  END_ENTITY;
+
+  ENTITY externally_defined_hatch_style
+    SUBTYPE OF (externally_defined_item, geometric_representation_item);
+  END_ENTITY;
+
+  ENTITY externally_defined_style
+    SUBTYPE OF (externally_defined_item, founded_item);
+  END_ENTITY;
+
+  ENTITY externally_defined_tile
+    SUBTYPE OF (externally_defined_item);
+  END_ENTITY;
+
+  ENTITY externally_defined_tile_style
+    SUBTYPE OF (externally_defined_item, geometric_representation_item);
+  END_ENTITY;
+
+  ENTITY fill_area_style
+    SUBTYPE OF (founded_item);
+      name        : label;
+      fill_styles : SET [1:?] OF fill_style_select;
+    WHERE
+      WR1: SIZEOF(QUERY(fill_style <* fill_styles |
+         'PRESENTATION_APPEARANCE_SCHEMA.'+
+         'FILL_AREA_STYLE_COLOUR' IN
+         TYPEOF(fill_style)
+         )) <= 1;
+  END_ENTITY;
+
+  ENTITY fill_area_style_colour;
+    name        : label;
+    fill_colour : colour;
+  END_ENTITY;
+
+  ENTITY fill_area_style_hatching
+    SUBTYPE OF (geometric_representation_item);
+      hatch_line_appearance         : curve_style;
+      start_of_next_hatch_line      : one_direction_repeat_factor;
+      point_of_reference_hatch_line : cartesian_point;
+      pattern_start                 : cartesian_point;
+      hatch_line_angle              : plane_angle_measure;
+  END_ENTITY;
+
+  ENTITY fill_area_style_tile_coloured_region
+    SUBTYPE OF (geometric_representation_item);
+      closed_curve  : curve_or_annotation_curve_occurrence;
+      region_colour : colour;
+    WHERE
+      WR1: (NOT('GEOMETRY_SCHEMA.CURVE' IN TYPEOF (closed_curve))) OR 
+        ('GEOMETRY_SCHEMA.CIRCLE' IN TYPEOF (closed_curve)) OR 
+        ('GEOMETRY_SCHEMA.ELLIPSE' IN TYPEOF (closed_curve)) OR 
+        ( ('GEOMETRY_SCHEMA.B_SPLINE_CURVE' IN TYPEOF (closed_curve)) 
+             AND (closed_curve\b_spline_curve.closed_curve = TRUE) ) OR 
+        ( ('GEOMETRY_SCHEMA.COMPOSITE_CURVE' IN TYPEOF (closed_curve)) 
+             AND (closed_curve\composite_curve.closed_curve = TRUE) ) OR 
+        ( ('GEOMETRY_SCHEMA.POLYLINE' IN TYPEOF (closed_curve)) 
+             AND (closed_curve\polyline.points[LOINDEX(closed_curve\polyline.points)] = 
+                  closed_curve\polyline.points[HIINDEX(closed_curve\polyline.points)]) );
+  END_ENTITY;
+
+  ENTITY fill_area_style_tile_curve_with_style
+    SUBTYPE OF (geometric_representation_item);
+      styled_curve : annotation_curve_occurrence;
+  END_ENTITY;
+
+  ENTITY fill_area_style_tile_symbol_with_style
+    SUBTYPE OF (geometric_representation_item);
+      symbol : annotation_symbol_occurrence;
+  END_ENTITY;
+
+  ENTITY fill_area_style_tiles
+    SUBTYPE OF (geometric_representation_item);
+      tiling_pattern : two_direction_repeat_factor;
+      tiles          : SET [1:?] OF fill_area_style_tile_shape_select;
+      tiling_scale   : positive_ratio_measure;
+  END_ENTITY;
+
+  ENTITY invisibility;
+    invisible_items : SET [1:?] OF invisible_item;
+  END_ENTITY;
+
+  ENTITY occlusion_precedence;
+      higher_precedence : hiding_or_blanking_select;
+      lower_precedence  : hiding_or_blanking_select;
+      occlusion_context : representation;
+    WHERE
+      WR1: acyclic_occlusion_precedence (SELF, [lower_precedence]);
+  END_ENTITY;
+
+  ENTITY one_direction_repeat_factor
+    SUBTYPE OF (geometric_representation_item);
+      repeat_factor : vector;
+  END_ENTITY;
+
+  ENTITY over_riding_styled_item
+    SUBTYPE OF (styled_item);
+      over_ridden_style : styled_item;
+  END_ENTITY;
+
+  ENTITY point_style
+    SUBTYPE OF (founded_item);
+      name          : label;
+      marker        : OPTIONAL marker_select;
+      marker_size   : OPTIONAL size_select;
+      marker_colour : OPTIONAL colour;
+    WHERE
+     WR1 : EXISTS(marker) OR EXISTS(marker_size) OR EXISTS(marker_colour);
+  END_ENTITY;
+
+  ENTITY pre_defined_character_spacing
+    SUBTYPE OF (pre_defined_item);
+  END_ENTITY;
+
+  ENTITY pre_defined_curve_font
+    SUBTYPE OF (pre_defined_item);
+  END_ENTITY;
+
+  ENTITY pre_defined_hatch_style
+    SUBTYPE OF (pre_defined_item, geometric_representation_item);
+  END_ENTITY;
+
+  ENTITY pre_defined_marker
+    SUBTYPE OF (pre_defined_item);
+  END_ENTITY;
+
+  ENTITY pre_defined_presentation_style
+    SUBTYPE OF (founded_item, pre_defined_item);
+  END_ENTITY;
+
+  ENTITY pre_defined_size
+    SUBTYPE OF (pre_defined_item);
+  END_ENTITY;
+
+  ENTITY pre_defined_surface_side_style
+    SUBTYPE OF (pre_defined_item);
+  END_ENTITY;
+
+  ENTITY pre_defined_tile
+    SUBTYPE OF (pre_defined_item);
+  END_ENTITY;
+
+  ENTITY pre_defined_tile_style
+    SUBTYPE OF (pre_defined_item, geometric_representation_item);
+  END_ENTITY;
+
+  ENTITY presentation_style_assignment
+    SUBTYPE OF (founded_item);
+      styles : SET [1:?] OF presentation_style_select;
+    WHERE
+      WR1: SIZEOF (QUERY (style1 <* styles |
+           NOT (SIZEOF (QUERY (style2 <* (styles - style1) |
+           NOT ((TYPEOF (style1) <> TYPEOF (style2)) OR
+             (SIZEOF (['PRESENTATION_APPEARANCE_SCHEMA.' + 
+                       'SURFACE_STYLE_USAGE',
+                       'PRESENTATION_APPEARANCE_SCHEMA.'+
+                       'EXTERNALLY_DEFINED_STYLE'] *
+                     TYPEOF (style1)) = 1)
+           ))) = 0
+         ))) = 0;
+      WR2: SIZEOF (QUERY (style1 <* styles |
+         'PRESENTATION_APPEARANCE_SCHEMA.SURFACE_STYLE_USAGE' IN
+         TYPEOF(style1)
+         )) <= 2;
+      WR3: SIZEOF (QUERY (style1 <* styles |
+         ('PRESENTATION_APPEARANCE_SCHEMA.SURFACE_STYLE_USAGE' IN TYPEOF (style1)) AND 
+         (SIZEOF (QUERY (style2 <* (styles - style1) |
+           ('PRESENTATION_APPEARANCE_SCHEMA.SURFACE_STYLE_USAGE' IN TYPEOF (style2)) AND 
+           ((style1\surface_style_usage.side = both) OR 
+           (style2\surface_style_usage.side = both) OR 
+           (style1\surface_style_usage.side = style2\surface_style_usage.side)) )) > 0))) = 0;
+  END_ENTITY;
+
+  ENTITY presentation_style_by_context
+    SUBTYPE OF (presentation_style_assignment);
+      style_context : style_context_select;
+  END_ENTITY;
+
+  ENTITY symbol_colour;
+    colour_of_symbol : colour;
+  END_ENTITY;
+
+  ENTITY symbol_element_style
+    SUBTYPE OF (founded_item);
+      style_of_symbol : presentation_style_assignment;
+    WHERE
+      WR1: SIZEOF (QUERY ( style <* style_of_symbol\presentation_style_assignment.styles |
+           'PRESENTATION_APPEARANCE_SCHEMA.SYMBOL_STYLE' IN
+           TYPEOF (style))) = 0;
+      WR2: NOT ('PRESENTATION_APPEARANCE_SCHEMA.' +
+                'PRESENTATION_STYLE_BY_CONTEXT' IN
+              TYPEOF (style_of_symbol)
+           );
+  END_ENTITY;
+
+  ENTITY symbol_style
+    SUBTYPE OF (founded_item);
+      name            : label; 
+      style_of_symbol : symbol_style_select;
+  END_ENTITY;
+
+  ENTITY styled_item
+    SUBTYPE OF (representation_item);
+      styles :  SET [0:?] OF presentation_style_assignment;
+      item   :  styled_item_target; 
+    WHERE
+      WR1: (SIZEOF(styles) = 0) AND ( 'PRESENTATION_APPEARANCE_SCHEMA.STYLED_TESSELLATED_ITEM_WITH_COLOURS' IN TYPEOF(self))
+           OR
+           (SIZEOF(styles) = 1)
+           OR
+           (SIZEOF(styles) > 1) AND (SIZEOF(QUERY(pres_style <* styles | NOT ('PRESENTATION_APPEARANCE_SCHEMA.' + 'PRESENTATION_STYLE_BY_CONTEXT' IN TYPEOF(pres_style)))) = 0);
+      WR2: NOT ('PRESENTATION_APPEARANCE_SCHEMA.STYLED_ITEM' IN TYPEOF(item));
+      WR3: ('REPRESENTATION_SCHEMA.MAPPED_ITEM' IN TYPEOF(item)) OR
+           ('GEOMETRY_SCHEMA.GEOMETRIC_REPRESENTATION_ITEM' IN TYPEOF(item)) OR
+           (('REPRESENTATION_SCHEMA.SET_REPRESENTATION_ITEM' IN TYPEOF(item)) AND 
+            (SIZEOF(QUERY (it <* item | NOT
+            (('REPRESENTATION_SCHEMA.MAPPED_ITEM' IN TYPEOF(it)) OR 
+             ('GEOMETRY_SCHEMA.GEOMETRIC_REPRESENTATION_ITEM' IN TYPEOF(it)))
+                   )) = 0)); 
+  END_ENTITY;
+
+   ENTITY styled_tessellated_item_with_colours 
+     SUBTYPE OF (styled_item);
+     SELF\styled_item.item : tessellated_surface_item;
+     colour_type : colour_type_enum;
+     colour_values : LIST[1:?] OF LIST[3:4] OF unsigned_8_bit_integer;
+   DERIVE
+     coloured_coordinate_values : coordinates_list := get_coordinate_values(item );
+   WHERE
+     WR1 : SIZEOF(SELF\styled_item.styles)= 0;
+     WR2 : ((colour_type = RGB8) AND (SIZEOF(QUERY(clist <* colour_values | NOT (SIZEOF(clist) = 3)))= 0)) OR
+           ((colour_type = RGBT8) AND (SIZEOF(QUERY(clist <* colour_values | NOT (SIZEOF(clist) = 4)))= 0));
+     WR3 : SIZEOF(colour_values) = coloured_coordinate_values\coordinates_list.npoints;
+  END_ENTITY;
+ 
+  ENTITY surface_rendering_properties;
+    rendered_colour : colour;
+  END_ENTITY;
+
+  ENTITY surface_side_style
+    SUBTYPE OF (founded_item);
+      name   : label;
+      styles : SET [1:7] OF surface_style_element_select;
+    WHERE
+      WR1: SIZEOF(QUERY( style1 <* styles |
+           SIZEOF(QUERY( style2 <* styles - style1 |
+           TYPEOF(style1) = TYPEOF(style2)
+           )) > 0
+           )) = 0;
+  END_ENTITY;
+
+  ENTITY surface_style_boundary
+    SUBTYPE OF (founded_item);
+      style_of_boundary : curve_or_render;
+  END_ENTITY;
+
+  ENTITY surface_style_control_grid
+    SUBTYPE OF (founded_item);
+      style_of_control_grid : curve_or_render;
+  END_ENTITY;
+
+  ENTITY surface_style_fill_area
+    SUBTYPE OF (founded_item);
+      fill_area : fill_area_style;
+  END_ENTITY;
+
+  ENTITY surface_style_parameter_line
+    SUBTYPE OF (founded_item);
+      style_of_parameter_lines : curve_or_render;
+      direction_counts         : SET [1:2] OF direction_count_select;
+    WHERE
+      WR1: (HIINDEX(direction_counts) = 1)
+                        XOR
+         (TYPEOF(direction_counts[1]) <>
+          TYPEOF(direction_counts[2]));
+  END_ENTITY;
+
+  ENTITY surface_style_reflectance_ambient;
+    ambient_reflectance : REAL;
+  END_ENTITY;
+
+  ENTITY surface_style_reflectance_ambient_diffuse
+    SUBTYPE OF (surface_style_reflectance_ambient);
+      diffuse_reflectance : REAL;
+  END_ENTITY;
+
+  ENTITY surface_style_reflectance_ambient_diffuse_specular
+    SUBTYPE OF (surface_style_reflectance_ambient_diffuse);
+      specular_reflectance : REAL;
+      specular_exponent    : REAL;
+      specular_colour      : colour;
+  END_ENTITY;
+
+  ENTITY surface_style_rendering;
+    rendering_method : shading_surface_method;
+    surface_colour   : colour;
+  END_ENTITY;
+
+  ENTITY surface_style_rendering_with_properties
+    SUBTYPE OF (surface_style_rendering);
+      properties : SET [1:2] OF rendering_properties_select;
+    WHERE
+      WR1: (HIINDEX(properties) = 1)
+                   XOR
+         (TYPEOF(properties[1]) <> TYPEOF(properties[2]));
+  END_ENTITY;
+
+  ENTITY surface_style_segmentation_curve
+    SUBTYPE OF (founded_item);
+      style_of_segmentation_curve : curve_or_render;
+  END_ENTITY;
+
+  ENTITY surface_style_silhouette
+    SUBTYPE OF (founded_item);
+      style_of_silhouette : curve_or_render;
+  END_ENTITY;
+
+  ENTITY surface_style_transparent;
+      transparency : REAL;
+    WHERE
+      WR1: {0.0 <= transparency <= 1.0};
+  END_ENTITY;
+
+  ENTITY surface_style_usage
+    SUBTYPE OF (founded_item);
+      side  : surface_side;
+      style : surface_side_style_select;
+  END_ENTITY;
+
+  ENTITY styled_tessellated_face_or_surface_with_single_texture
+	SUBTYPE OF (styled_item);  
+  		SELF\styled_item.styles : SET [1:1] OF presentation_style_assignment;
+		SELF\styled_item.item    : tessellated_face_or_tessellated_surface_set;
+    DERIVE
+      texture_style_specification : texture_style_tessellation_specification := styles[LOINDEX(styles)]\presentation_style_assignment.styles[LOINDEX(styles)];
+    WHERE
+     WR1: ('PRESENTATION_APPEARANCE_SCHEMA.SINGLE_TEXTURE_STYLE_TESSELLATION_SPECIFICATION' IN TYPEOF(styles[LOINDEX(styles)]\presentation_style_assignment.styles[LOINDEX(styles)]))
+          AND (SIZEOF(styles[LOINDEX(styles)]\presentation_style_assignment.styles) = 1);
+     WR2: NOT ('GEOMETRIC_MODEL_SCHEMA.TRIANGULATED_FACE' IN TYPEOF(item))
+          OR
+           ((
+            ((SIZEOF(item\triangulated_face.pnindex) > 0) AND (SIZEOF(texture_style_specification\single_texture_style_tessellation_specification.texture_coordinates) = SIZEOF(item\triangulated_face.pnindex))))
+            OR
+            ((SIZEOF(item\triangulated_face.pnindex) = 0) AND (SIZEOF(texture_style_specification\single_texture_style_tessellation_specification.texture_coordinates) = item\tessellated_face.coordinates\coordinates_list.npoints)));
+    WR3: NOT ('GEOMETRIC_MODEL_SCHEMA.COMPLEX_TRIANGULATED_FACE' IN TYPEOF(item))
+         OR
+            ((SIZEOF(item\complex_triangulated_face.pnindex) > 0) AND (SIZEOF(texture_style_specification\single_texture_style_tessellation_specification.texture_coordinates) = SIZEOF(item\complex_triangulated_face.pnindex)))
+            OR
+            ((SIZEOF(item\complex_triangulated_face.pnindex) = 0) AND (SIZEOF(texture_style_specification\single_texture_style_tessellation_specification.texture_coordinates) = item\tessellated_face.coordinates\coordinates_list.npoints));
+    WR4: NOT ('GEOMETRIC_MODEL_SCHEMA.TESSELLATED_SURFACE_SET' IN TYPEOF(item))
+         OR
+         (SIZEOF(texture_style_specification\single_texture_style_tessellation_specification.texture_coordinates) = item\tessellated_surface_set.coordinates\coordinates_list.npoints);    
+  END_ENTITY;
+  
+  ENTITY text_style
+    SUBTYPE OF (founded_item);
+      name                 : label;
+      character_appearance : character_style_select;
+  END_ENTITY;
+
+  ENTITY text_style_for_defined_font;
+    text_colour : colour;
+  END_ENTITY;
+
+  ENTITY text_style_with_box_characteristics
+    SUBTYPE OF (text_style);
+      characteristics : SET [1:4] OF box_characteristic_select;
+    WHERE
+      WR1: SIZEOF( QUERY( c1 <* characteristics |
+           SIZEOF( QUERY( c2 <* characteristics - c1 |
+           TYPEOF (c1) = TYPEOF (c2)
+           )) > 0
+           )) = 0;
+  END_ENTITY;
+
+  ENTITY text_style_with_justification
+    SUBTYPE OF (text_style);
+      justification : text_justification;
+  END_ENTITY;
+
+  ENTITY text_style_with_mirror
+    SUBTYPE OF (text_style);
+      mirror_placement : axis2_placement;
+  END_ENTITY;
+
+  ENTITY text_style_with_spacing
+    SUBTYPE OF (text_style);
+      character_spacing : character_spacing_select;
+  END_ENTITY;
+
+  ENTITY texture_style_specification
+  	ABSTRACT SUPERTYPE
+  	SUBTYPE OF (founded_item);
+  END_ENTITY;
+  
+  ENTITY texture_style_tessellation_specification
+     ABSTRACT SUPERTYPE
+     SUBTYPE OF (texture_style_specification);
+  END_ENTITY;
+  
+  ENTITY single_texture_style_tessellation_specification
+     SUBTYPE OF (texture_style_tessellation_specification);
+     texture_image: label;
+     texture_coordinates: LIST [1:?] OF LIST [2:2] OF non_negative_real;
+     texture_format: texture_file_type;
+     repeating_pattern: BOOLEAN;
+  END_ENTITY;
+
+  ENTITY two_direction_repeat_factor
+    SUBTYPE OF (one_direction_repeat_factor);
+      second_repeat_factor : vector;
+  END_ENTITY;
+
+  SUBTYPE_CONSTRAINT founded_item_subtypes FOR founded_item;
+    ONEOF (approximation_tolerance,
+      approximation_tolerance_deviation,
+      approximation_tolerance_parameter,
+      character_glyph_style_outline,
+      character_glyph_style_stroke,
+      curve_style,
+      curve_style_font,
+      curve_style_font_and_scaling,
+      curve_style_font_pattern,
+      externally_defined_style,
+      fill_area_style,
+      point_style,
+      pre_defined_presentation_style,
+      presentation_style_assignment,
+      surface_side_style,
+      surface_style_boundary,
+      surface_style_control_grid,
+      surface_style_fill_area,
+      surface_style_parameter_line,
+      surface_style_segmentation_curve,
+      surface_style_silhouette,
+      surface_style_usage,
+      symbol_element_style,
+      symbol_style,
+      text_style);
+  END_SUBTYPE_CONSTRAINT;
+
+  SUBTYPE_CONSTRAINT pas_geometric_representation_item_subtypes FOR geometric_representation_item;  
+    (ONEOF ( 
+     curve, 
+     curve_style_curve_pattern, 
+     curve_style_curve_pattern_set ,
+     externally_defined_hatch_style,
+     externally_defined_tile_style,  
+     fill_area_style_hatching,
+     fill_area_style_tile_coloured_region,
+     fill_area_style_tile_curve_with_style, 
+     fill_area_style_tile_symbol_with_style, 
+     fill_area_style_tiles, 
+     one_direction_repeat_factor,
+     point, 
+     pre_defined_hatch_style,  
+     pre_defined_tile_style, 
+     vector)); 
+  END_SUBTYPE_CONSTRAINT; 
+
+  FUNCTION acyclic_occlusion_precedence
+       ( relation : occlusion_precedence;
+     set_of_lower : SET OF hiding_or_blanking_select ) : BOOLEAN;
+    LOCAL
+      x : SET OF occlusion_precedence;
+      local_set_of_lower : SET OF hiding_or_blanking_select;
+    END_LOCAL;
+    REPEAT i:=1 TO HIINDEX(set_of_lower);
+      IF relation.higher_precedence :=: set_of_lower[i] THEN
+        RETURN(FALSE);
+      END_IF;
+    END_REPEAT;
+    x := bag_to_set (USEDIN ( relation.higher_precedence,
+                   'PRESENTATION_APPEARANCE_SCHEMA.'+
+           'OCCLUSION_PRECEDENCE.LOWER_PRECEDENCE'));
+    local_set_of_lower := set_of_lower + relation.higher_precedence;
+    IF SIZEOF (x) > 0 THEN
+      REPEAT i:=1 TO HIINDEX (x);
+        IF NOT acyclic_occlusion_precedence(x[i] ,
+                                     local_set_of_lower) THEN
+            RETURN (FALSE);
+        END_IF;
+      END_REPEAT;
+    END_IF;
+    RETURN (TRUE);
+  END_FUNCTION;
+
+ FUNCTION get_coordinate_values
+  (source : tessellated_surface_item) : coordinates_list; 
+ LOCAL
+      coordinate_values : coordinates_list;
+      max : INTEGER;
+ END_LOCAL;
+       (* If source is of type tessellated_face its single coordinates_list is returned *)  
+    CASE TRUE OF
+    'GEOMETRIC_MODEL_SCHEMA.TESSELLATED_FACE' IN TYPEOF(source): --first case 
+    BEGIN
+      coordinate_values := source\tessellated_face.coordinates;
+      RETURN(coordinate_values);
+    END;
+       (* If source is of type tessellated_surface_set its single coordinates_list is returned *)  
+   'GEOMETRIC_MODEL_SCHEMA.TESSELLATED_SURFACE_SET' IN TYPEOF(source): --second case
+    BEGIN
+      coordinate_values := source\tessellated_surface_set.coordinates;
+      RETURN(coordinate_values);
+    END;    
+       (* For complex cases of tessellated_solid or tessellated_shell multiple coordinates_lists
+        may occur. A valid return is only possible if a single coordinates_list is used for all components of the shell or solid *)
+       (*  A tessellated_solid, or tessellated_shell  has a SET of teessellated_structured_items which must be inspected, the local variable coordinate_values is 
+        set to the coordinates_list referenced by items[1] and is later compared to other referenced coordinates_lists *)
+   'GEOMETRIC_MODEL_SCHEMA.TESSELLATED_SOLID' IN TYPEOF(source): -- third case
+    BEGIN
+      IF 'GEOMETRIC_MODEL_SCHEMA.TESSELLATED_FACE' IN TYPEOF(source\tessellated_solid.items[1]) THEN
+        coordinate_values := source\tessellated_solid.items[1]\tessellated_face.coordinates;
+      END_IF;
+     IF 'GEOMETRIC_MODEL_SCHEMA.TESSELLATED_EDGE' IN TYPEOF(source\tessellated_solid.items[1]) THEN
+       coordinate_values := source\tessellated_solid.items[1]\tessellated_edge.coordinates;
+     END_IF;
+     IF 'GEOMETRIC_MODEL_SCHEMA.TESSELLATED_VERTEX' IN TYPEOF(source\tessellated_solid.items[1]) THEN
+       coordinate_values := source\tessellated_solid.items[1]\tessellated_vertex.coordinates;
+     END_IF;
+     max := SIZEOF(source\tessellated_solid.items);
+      IF   max = 1 THEN 
+       RETURN(coordinate_values);
+     (* simple case with only 1 item in the list *)
+      ELSE REPEAT i := 2 TO max;
+       (* check that each item on the list references the same coordintes_list as items[1], if NOT rerurn ? *) 
+        IF 'GEOMETRIC_MODEL_SCHEMA.TESSELLATED_FACE' IN TYPEOF(source\tessellated_solid.items[i]) THEN
+          IF NOT(coordinate_values :=: source\tessellated_solid.items[i]\tessellated_face.coordinates) THEN 
+           RETURN (?);
+          END_IF;  
+        END_IF;
+        IF 'GEOMETRIC_MODEL_SCHEMA.TESSELLATED_EDGE' IN TYPEOF(source\tessellated_solid.items[i]) THEN
+          IF NOT(coordinate_values :=: source\tessellated_solid.items[i]\tessellated_edge.coordinates) THEN
+           RETURN(?);
+          END_IF;
+        END_IF;  
+        IF 'GEOMETRIC_MODEL_SCHEMA.TESSELLATED_VERTEX' IN TYPEOF(source\tessellated_solid.items[i]) THEN
+         IF NOT(coordinate_values :=: source\tessellated_solid.items[i]\tessellated_vertex.coordinates) THEN
+           RETURN(?);
+         END_IF;  
+       END_IF; 
+     END_REPEAT;
+     RETURN(coordinate_values);
+      (* all items referenced by the tessellated_solid share the same coordinates list which is now returned. *) 
+    END_IF;
+  END;   
+      (* tessellated_shell has a SET of tessellated_structured_items which must be inspected *)
+   'GEOMETRIC_MODEL_SCHEMA.TESSELLATED_SHELL' IN TYPEOF(source): --fourth case
+    BEGIN
+        IF 'GEOMETRIC_MODEL_SCHEMA.TESSELLATED_FACE' IN TYPEOF(source\tessellated_shell.items[1]) THEN
+         coordinate_values := source\tessellated_shell.items[1]\tessellated_face.coordinates;
+        END_IF;
+       IF 'GEOMETRIC_MODEL_SCHEMA.TESSELLATED_EDGE' IN TYPEOF(source\tessellated_shell.items[1]) THEN
+         coordinate_values := source\tessellated_shell.items[1]\tessellated_edge.coordinates;
+       END_IF;
+       IF 'GEOMETRIC_MODEL_SCHEMA.TESSELLATED_VERTEX' IN TYPEOF(source\tessellated_shell.items[1]) THEN
+        coordinate_values := source\tessellated_shell.items[1]\tessellated_vertex.coordinates;
+       END_IF;
+       max := SIZEOF(source\tessellated_shell.items);
+       IF  max = 1 THEN RETURN(coordinate_values);
+       (* simple case with only 1 item in the list *)
+       ELSE REPEAT i := 2 TO max;
+        (* check that each item on the list references the same coordinates_list as item[1], if NOT rerurn ? *) 
+        IF 'GEOMETRIC_MODEL_SCHEMA.TESSELLATED_FACE' IN TYPEOF(source\tessellated_shell.items[i]) THEN
+         IF NOT(coordinate_values :=: source\tessellated_shell.items[i]\tessellated_face.coordinates) THEN 
+           RETURN (?);
+         END_IF;  
+        END_IF;
+        IF 'GEOMETRIC_MODEL_SCHEMA.TESSELLATED_EDGE' IN TYPEOF(source\tessellated_shell.items[i]) THEN
+          IF NOT (coordinate_values :=: source\tessellated_shell.items[i]\tessellated_edge.coordinates) THEN
+            RETURN(?);
+          END_IF;
+        END_IF;  
+        IF 'GEOMETRIC_MODEL_SCHEMA.TESSELLATED_VERTEX' IN TYPEOF(source\tessellated_shell.items[i]) THEN
+         IF NOT (coordinate_values :=: source\tessellated_shell.items[i]\tessellated_vertex.coordinates) THEN
+           RETURN(?);
+         END_IF;  
+        END_IF; 
+      END_REPEAT;
+      RETURN(coordinate_values);
+       (* all items referenced by the tessellated_shell share the same coordinates_list which is now returned. *) 
+     END_IF;
+   END;
+   END_CASE;
+ END_FUNCTION; 
+ END_SCHEMA; 
