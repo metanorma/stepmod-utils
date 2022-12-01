@@ -1,0 +1,41 @@
+name: test-concept-generation
+
+on:
+  push:
+    branches: [ main ]
+    tags: [ v* ]
+  pull_request:
+
+jobs:
+  generate_yaml_concepts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1'
+          bundler-cache: true
+
+      - name: Check out iso-10303-stepmod-wg12 repo
+        uses: actions/checkout@v3
+        with:
+          repository: metanorma/iso-10303-stepmod-wg12
+          token: ${{ secrets.METANORMA_CI_PAT_TOKEN }}
+          path: iso-10303-stepmod-wg12
+
+      - name: Generate Annotated EXPRESS files
+        run: bundle exec stepmod-annotate-all ./iso-10303-stepmod-wg12
+
+      - name: Create directory for Concept YAML files
+        working-directory: iso-10303-stepmod-wg12
+        run: mkdir output-yaml
+
+      - name: Generate Concept YAML files
+        working-directory: iso-10303-stepmod-wg12/output-yaml
+        run: |
+          bundle exec stepmod-extract-yaml-terms \
+            -p ../data \
+            -i ../repository_index.xml
