@@ -1,0 +1,57 @@
+#!/usr/bin/env ruby
+
+# resolve bin path, ignoring symlinks
+require "pathname"
+bin_file = Pathname.new(__FILE__).realpath
+
+# add self to libpath
+$:.unshift File.expand_path("../../lib", bin_file)
+
+# Fixes https://github.com/rubygems/rubygems/issues/1420
+require "rubygems/specification"
+
+module Gem
+  class Specification
+    def this; self; end
+  end
+end
+
+require "bundler/setup"
+require "stepmod/utils/changes_extractor"
+require "optparse"
+
+def log(message)
+  puts "[stepmod-utils] #{message}"
+end
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: #{$0} [options]"
+
+  opts.on(
+    "-p",
+    "--path STEPMOD_DATA_PATH",
+    String,
+    "Path to STEPmod data directory",
+  ) do |path|
+    options[:stepmod_dir] = path
+  end
+
+  opts.on_tail("-h", "--help", "Show this message") do
+    puts opts
+    exit
+  end
+end.parse!
+
+stepmod_dir = options[:stepmod_dir]
+if stepmod_dir.nil?
+  raise StandardError.new("STEPmod data path not set, set with the `-p` option")
+else
+  log "STEPmod data path: `#{stepmod_dir}`"
+end
+
+changes = Stepmod::Utils::ChangesExtractor.call(
+  stepmod_dir: Pathname.new(stepmod_dir).realpath,
+)
+
+changes.save_to_files
