@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # encoding: UTF-8
 
-require "pry"
+require "fileutils"
 # resolve bin path, ignoring symlinks
 require "pathname"
 bin_file = Pathname.new(__FILE__).realpath
@@ -50,6 +50,17 @@ OptionParser.new do |opts|
     end
   end
 
+  opts.on(
+    "-o",
+    "--output INDEX_PATH",
+    String,
+    "Path to output directory",
+  ) do |path|
+    unless path.nil?
+      options[:output_dir] = Pathname.new(path).to_s
+    end
+  end
+
   opts.on_tail("-h", "--help", "Show this message") do
     puts opts
     exit
@@ -74,6 +85,13 @@ else
     "Index file not present at #{index_path}, set with the `-i` option.",
   )
 end
+
+default_output_dir = File.join(stepmod_dir, "output_yaml")
+output_dir = options[:output_dir] || default_output_dir
+unless File.directory?(output_dir)
+  FileUtils.mkdir_p(output_dir)
+end
+log "Output directory path: `#{output_dir}`"
 
 _general_concepts,
 resource_concepts,
@@ -122,7 +140,7 @@ def replace_content(content)
 end
 
 part_resources.each do |(_bibdata, current_part_resources)|
-  current_part_resources.save_to_files("./")
+  current_part_resources.save_to_files(output_dir)
 end
 log "INFO: part_resources written to yaml files"
 
@@ -131,17 +149,17 @@ part_modules.sort_by do |(bibdata, _part_modules_arm, _part_modules_mim)|
 end.each do |(_bibdata, part_modules_arm, part_modules_mim)|
   unless part_modules_arm.empty?
     part_modules_arm.values.map do |managed_concept|
-      managed_concept.save_to_files("./")
+      managed_concept.save_to_files(output_dir)
     end
   end
 
   unless part_modules_mim.empty?
     part_modules_mim.values.map do |managed_concept|
-      managed_concept.save_to_files("./")
+      managed_concept.save_to_files(output_dir)
     end
   end
 end
 log "INFO: part_modules written to yaml files"
 
-resource_concepts.save_to_files("./")
+resource_concepts.save_to_files(output_dir)
 log "INFO: resource_concepts written to yaml files"
