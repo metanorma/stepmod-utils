@@ -2,7 +2,7 @@ name: test-concept-generation
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, update_stepmod_extract_yaml_terms_behaviour ]
     tags: [ v* ]
   pull_request:
 
@@ -29,13 +29,10 @@ jobs:
       - name: Generate Annotated EXPRESS files
         run: bundle exec stepmod-annotate-all ./iso-10303-stepmod-wg12
 
-      - name: Create directory for Concept YAML files
-        working-directory: iso-10303-stepmod-wg12
-        run: mkdir output-yaml
-
       - name: Generate Concept YAML files
-        working-directory: iso-10303-stepmod-wg12/output-yaml
+        working-directory: iso-10303-stepmod-wg12
         run: |
-          bundle exec stepmod-extract-yaml-terms \
-            -p ../data \
-            -i ../repository_index.xml
+          bundle exec stepmod-extract-concepts \
+            -p ./data \
+            -i ./repository_index.xml \
+            -o ./output-yaml
