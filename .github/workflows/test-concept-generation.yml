@@ -2,7 +2,7 @@ name: test-concept-generation
 
 on:
   push:
-    branches: [ main, update_stepmod_extract_yaml_terms_behaviour ]
+    branches: [ main ]
     tags: [ v* ]
   pull_request:
 
