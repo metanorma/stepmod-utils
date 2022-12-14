@@ -1,41 +1,43 @@
 require "psych"
 require "stepmod/utils/change_edition"
+require "stepmod/utils/change_edition_collection"
 
 module Stepmod
   module Utils
     class Change
-      attr_accessor :schema_name, :resource
+      attr_accessor :schema_name
       attr_reader :change_editions
 
-      TYPES = {
+      MODULE_TYPES = {
         arm: "arm",
         mim: "mim",
         arm_longform: "arm_lf",
         mim_longform: "mim_lf",
       }.freeze
 
-      def initialize(stepmod_dir:, schema_name:, type:, resource:)
+      def initialize(stepmod_dir:, schema_name:, type:)
         @stepmod_dir = stepmod_dir
-        @change_editions = {}
-        @resource = resource
+        @change_editions = Stepmod::Utils::ChangeEditionCollection.new
         @schema_name = schema_name
         @type = type
       end
 
       def resource?
-        !!@resource
+        !module?
       end
 
       def module?
-        !resource?
+        MODULE_TYPES.key?(@type.to_sym) || MODULE_TYPES.value?(@type.to_s)
       end
 
       def add_change_edition(change_edition)
-        version = change_edition[:version]
-        change_edition = Stepmod::Utils::ChangeEdition.new(change_edition)
-
-        @change_editions[version] = change_edition
+        @change_editions[change_edition[:version]] = change_edition
       end
+
+      def fetch_change_edition(version)
+        @change_editions[version]
+      end
+      alias_method :[], :fetch_change_edition
 
       def save_to_file
         File.write(filepath(@type), Psych.dump(to_h))
@@ -44,7 +46,7 @@ module Stepmod
       def to_h
         {
           "schema" => schema_name,
-          "change_edition" => change_editions.values.map(&:to_h),
+          "change_edition" => change_editions.to_h,
         }
       end
 
@@ -56,7 +58,7 @@ module Stepmod
           "data",
           base_folder,
           schema_name,
-          "#{TYPES[type.to_sym] || schema_name}.changes.yaml",
+          "#{MODULE_TYPES[type.to_sym] || schema_name}.changes.yaml",
         )
       end
 

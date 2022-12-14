@@ -7,9 +7,6 @@ RSpec.describe Stepmod::Utils::ChangeEdition do
       described_class.new(
         version: "2",
         description: "Test Description",
-        additions: [],
-        modifications: [],
-        deletions: [],
       )
     end
 
@@ -28,7 +25,7 @@ RSpec.describe Stepmod::Utils::ChangeEdition do
 
         it do
           expect { subject.additions = additions }
-            .to raise_error("additions must be of type ::Array")
+            .to raise_error("additions must be of type ::Array, Got ::Hash")
         end
       end
     end
@@ -48,7 +45,7 @@ RSpec.describe Stepmod::Utils::ChangeEdition do
 
         it do
           expect { subject.modifications = modifications }
-            .to raise_error("modifications must be of type ::Array")
+            .to raise_error("modifications must be of type ::Array, Got ::Hash")
         end
       end
     end
@@ -68,7 +65,7 @@ RSpec.describe Stepmod::Utils::ChangeEdition do
 
         it do
           expect { subject.deletions = deletions }
-            .to raise_error("deletions must be of type ::Array")
+            .to raise_error("deletions must be of type ::Array, Got ::Hash")
         end
       end
     end
@@ -91,7 +88,7 @@ RSpec.describe Stepmod::Utils::ChangeEdition do
 
     describe "#validate_type" do
       let(:validate_type) { subject.send(:validate_type, column, value, type) }
-      let(:column) { "test" }
+      let(:column) { "value" }
 
       context "when value is of correct type" do
         let(:value) { "abc" }
@@ -106,7 +103,7 @@ RSpec.describe Stepmod::Utils::ChangeEdition do
 
         it do
           expect { validate_type }
-            .to raise_error("test must be of type ::String")
+            .to raise_error("value must be of type ::String, Got ::Integer")
         end
       end
     end

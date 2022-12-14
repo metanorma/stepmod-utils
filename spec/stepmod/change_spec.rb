@@ -8,39 +8,34 @@ RSpec.describe Stepmod::Utils::Change do
         stepmod_dir: stepmod_dir,
         schema_name: "test_schema",
         type: type,
-        resource: resource,
       )
     end
 
     let(:stepmod_dir) { fixtures_path("stepmod_terms_mock_directory") }
 
     describe "#resource?" do
-      let(:type) { "schema" }
-
       context "when is a resource" do
-        let(:resource) { true }
+        let(:type) { "schema" }
 
         it { expect(subject.resource?).to be(true) }
       end
 
       context "when is a module" do
-        let(:resource) { false }
+        let(:type) { "arm" }
 
         it { expect(subject.resource?).to be(false) }
       end
     end
 
     describe "#module?" do
-      let(:type) { "arm" }
-
       context "when is a module" do
-        let(:resource) { false }
+        let(:type) { "arm" }
 
         it { expect(subject.module?).to be(true) }
       end
 
       context "when is a resource" do
-        let(:resource) { true }
+        let(:type) { "schema" }
 
         it { expect(subject.module?).to be(false) }
       end
@@ -48,7 +43,6 @@ RSpec.describe Stepmod::Utils::Change do
 
     describe "#add_change_edition" do
       let(:type) { "arm" }
-      let(:resource) { false }
 
       let(:change_edition) do
         {
