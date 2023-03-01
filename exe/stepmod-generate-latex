@@ -1,0 +1,88 @@
+#!/usr/bin/env ruby
+
+require "fileutils"
+# resolve bin path, ignoring symlinks
+require "pathname"
+bin_file = Pathname.new(__FILE__).realpath
+
+# Fixes https://github.com/rubygems/rubygems/issues/1420
+require "rubygems/specification"
+
+module Gem
+  class Specification
+    def this; self; end
+  end
+end
+
+require "bundler/setup"
+require "optparse"
+
+def log(message)
+  puts "[stepmod-utils] #{message}"
+end
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: #{$0} [options]"
+
+  opts.on(
+    "-p",
+    "--path CONCEPTS_REPO_PATH",
+    String,
+    "Path to yaml concepts directory",
+  ) do |path|
+    options[:concepts_path] = path
+  end
+
+  opts.on(
+    "-l",
+    "--latex_concepts LATEX_CONCEPTS_PATH",
+    String,
+    "File path having list of concepts that should be converted to LATEX format",
+  ) do |path|
+    unless path.nil?
+      options[:latex_file] = path
+    end
+  end
+
+  opts.on(
+    "-o",
+    "--output OUTPUT_FILE_PATH",
+    String,
+    "Output file path",
+  ) do |path|
+    unless path.nil?
+      options[:output_file_path] = path
+    end
+  end
+
+  opts.on_tail("-h", "--help", "Show this message") do
+    puts opts
+    exit
+  end
+end.parse!
+
+concepts_dir_path = options[:concepts_path]
+if concepts_dir_path.nil?
+  raise StandardError.new(
+    "Concepts directory path not set, set with the `-p` option.",
+  )
+else
+  log "Concepts directory path: `#{concepts_dir_path}`"
+end
+
+assets = []
+latex_file = options[:latex_file]
+
+concept_set = Glossarist::ConceptSet.new(concepts_dir_path, assets)
+latex_str = concept_set.to_latex(latex_file)
+
+output_file_path = options[:output_file_path]
+if output_file_path
+  File.open(output_file_path, "w") do |file|
+    file.puts latex_str
+  end
+else
+  puts latex_str
+end
+
