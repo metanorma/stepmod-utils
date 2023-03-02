@@ -39,7 +39,7 @@ module Stepmod
         converted_description = ""
         base_linked = ""
 
-        if File.exists?(descriptions_file)
+        if File.exist?(descriptions_file)
           descriptions = Nokogiri::XML(File.read(descriptions_file)).root
           added_resource_descriptions = {}
 
@@ -81,7 +81,7 @@ module Stepmod
                      resource_docs_file_path(stepmod_dir, bib_file_name)
                    end
 
-        output_express << if bib_file && File.exists?(bib_file)
+        output_express << if bib_file && File.exist?(bib_file)
                             prepend_bibdata(
                               converted_description || "",
                               # bib_file will not be present for resouces

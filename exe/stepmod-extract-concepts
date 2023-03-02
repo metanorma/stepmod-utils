@@ -78,7 +78,7 @@ end
 
 default_index_path = File.join(stepmod_dir, "repository_index.xml")
 index_path = options[:index_path] || default_index_path
-if File.exists?(index_path)
+if File.exist?(index_path)
   log "Repository index path: `#{index_path}`"
 else
   raise StandardError.new(
