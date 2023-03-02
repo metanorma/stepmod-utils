@@ -132,3 +132,24 @@ Sample output:
 ...
 ----
 
+== Converting Glossarist Concepts To Latex
+
+=== Command
+
+```bash
+stepmod-generate-latex [-p | --path] [-l | --latex_concepts] [-o | --output]
+```
+
+=== Options
+
+[cols="1,1"]
+|===
+|-p, --path
+|Path to yaml concepts directory
+
+|-l, --latex_concepts
+|File path having list of concepts that should be converted to LATEX format
+
+|-o, --output
+|Output file path
+|===
