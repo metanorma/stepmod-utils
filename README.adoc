@@ -142,14 +142,18 @@ stepmod-generate-latex [-p | --path] [-l | --latex_concepts] [-o | --output]
 
 === Options
 
-[cols="1,1"]
+[cols="2"]
 |===
-|-p, --path
+|-p, --path  ^*mandatory^
 |Path to yaml concepts directory
 
 |-l, --latex_concepts
 |File path having list of concepts that should be converted to LATEX format
 
+If not given will convert all the concepts in conceptSet to LATEX format
+
 |-o, --output
 |Output file path
+
+If not given will print the output to `stdout`
 |===
