@@ -16,6 +16,9 @@ end
 
 require "bundler/setup"
 require "optparse"
+require "glossarist"
+
+require_relative "../lib/stepmod/utils/concept"
 
 def log(message)
   puts "[stepmod-utils] #{message}"
@@ -74,6 +77,10 @@ end
 assets = []
 latex_file = options[:latex_file]
 
+Glossarist.configure do |config|
+  config.register_class(:localized_concept, Stepmod::Utils::Concept)
+end
+
 concept_set = Glossarist::ConceptSet.new(concepts_dir_path, assets)
 latex_str = concept_set.to_latex(latex_file)
 
@@ -85,4 +92,3 @@ if output_file_path
 else
   puts latex_str
 end
-
