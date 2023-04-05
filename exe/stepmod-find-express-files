@@ -20,5 +20,5 @@ index.xpath("business_object_models/business_object_model").each do |item|
   files << "#{stepmod_dir}/data/business_object_models/#{item['name']}/DomainModel.exp"
 end
 
-existing_files = files.filter { |file| File.exists?(file) }
+existing_files = files.filter { |file| File.exist?(file) }
 puts existing_files
