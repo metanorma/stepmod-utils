@@ -15,27 +15,6 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
   describe '.call' do
     let(:stepmod_dir) { fixtures_path('stepmod_terms_mock_directory/data') }
     let(:index_path) { fixtures_path('stepmod_terms_mock_directory/repository_index.xml') }
-    let(:resource_xml_converted_definition) do
-      <<~TEXT
-        === agreement of common understanding
-
-        result of discussions between the partners of product data exchange or sharing that ensures that all of them have the same understanding of the transferred or shared information
-      TEXT
-    end
-    let(:module_xml_converted_definition) do
-      <<~TEXT
-        === activity
-
-        action that has taken place, is taking place, or is expected to take place in the future
-      TEXT
-    end
-    let(:business_object_model_converted_definition) do
-      <<~TEXT
-        === design phase
-
-        period during which the engineering representation of a product is dynamic
-      TEXT
-    end
 
     let(:resource_description_hash) do
       {
@@ -114,6 +93,19 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
         .to(eq(arm_description_hash[:domain]))
       expect(activity_arm_concept.notes.first.content)
         .to(eq(arm_description_hash[:old_definition]))
+    end
+
+    it "does not include redundant notes" do
+      ReverseAdoc::Converters.unregister :ext_description
+      ReverseAdoc::Converters
+        .register(:ext_description,
+                  Stepmod::Utils::Converters::StepmodExtDescription.new)
+
+      activity_with_a_redundant_note = call[-1][0][1]["Activity_arm"].fetch("1047-5").default_lang
+      activity_with_an_redundant_note = call[-1][0][1]["Activity_arm"].fetch("1047-6").default_lang
+
+      expect(activity_with_a_redundant_note.notes.count).to eq(0)
+      expect(activity_with_an_redundant_note.notes.count).to eq(0)
     end
 
     it "For modules/*/mim_descriptions.xml terms takes only the first \
@@ -339,6 +331,37 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
 
           it { expect(extract_file_type).to eq("module_arm") }
         end
+      end
+    end
+
+    describe "#redundant_note?" do
+      let(:redundant_note) do
+        subject.send(:redundant_note?, note)
+      end
+
+      context "when note is redundant" do
+        let(:note) { "A **mbna_Dirichlet_bc_dataset** is a type of {{mbna_bc_dataset,mbna_bc_dataset}}" }
+
+        it { expect(redundant_note).to eq(true) }
+      end
+
+      context "when note contains multiple lines" do
+        let(:note) do
+          <<~NOTE
+            A **point_on_face_surface** is a type of {{point_on_surface,point_on_surface}}
+            that represents a location on the identified {{face_surface,face_surface}}.
+          NOTE
+        end
+
+        it { expect(redundant_note).to eq(false) }
+      end
+
+      context "when note contains additional information" do
+        let(:note) do
+          "A **Date_time** is a time on a particular day."
+        end
+
+        it { expect(redundant_note).to eq(false) }
       end
     end
   end

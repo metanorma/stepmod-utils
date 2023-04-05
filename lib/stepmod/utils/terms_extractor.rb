@@ -16,6 +16,7 @@ module Stepmod
       # TODO: we may want a command line option to override this in the future
       ACCEPTED_STAGES = %w(IS DIS FDIS TS).freeze
       WITHDRAWN_STATUS = "withdrawn".freeze
+      REDUNDENT_NOTE_REGEX = /^An? .*? is a type of \{\{[^}]*\}\}\s*?\.?$/.freeze
 
       attr_reader :stepmod_path,
                   :stepmod_dir,
@@ -318,6 +319,8 @@ module Stepmod
         old_definition = trim_definition(entity.remarks.first)
         definition = generate_entity_definition(entity, domain)
 
+        notes = [old_definition].reject { |note| redundant_note?(note) }.compact
+
         Stepmod::Utils::Concept.new(
           designations: [
             {
@@ -336,7 +339,7 @@ module Stepmod
               "link" => "https://www.iso.org/standard/32858.html",
             },
           ],
-          notes: [old_definition].compact,
+          notes: notes,
           language_code: "en",
           part: bibdata.part,
           schema: schema,
@@ -511,6 +514,10 @@ module Stepmod
             #{remark_item_symbol}
           REMARK
         end.join
+      end
+
+      def redundant_note?(note)
+        note.match?(REDUNDENT_NOTE_REGEX) && !note.include?("\n")
       end
     end
   end
