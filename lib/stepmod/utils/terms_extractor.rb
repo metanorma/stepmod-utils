@@ -87,8 +87,8 @@ module Stepmod
           arm_path = Pathname.new("#{stepmod_dir}/modules/#{x['name']}/arm_annotated.exp")
           mim_path = Pathname.new("#{stepmod_dir}/modules/#{x['name']}/mim_annotated.exp")
 
-          files << arm_path if File.exists? arm_path
-          files << mim_path if File.exists? mim_path
+          files << arm_path if File.exist? arm_path
+          files << mim_path if File.exist? mim_path
         end
 
         # Should ignore these because the `<resource_docs>` elements do not provide any EXPRESS schemas
@@ -105,7 +105,7 @@ module Stepmod
           next if x['status'] == WITHDRAWN_STATUS
 
           path = Pathname.new("#{stepmod_dir}/resources/#{x['name']}/#{x['name']}_annotated.exp")
-          files << path if File.exists? path
+          files << path if File.exist? path
         end
 
         # Should ignore these because we are skiping Clause 3 terms
