@@ -37,6 +37,16 @@ ENTITY Applied_activity_assignment;
   role : STRING;
 END_ENTITY;
 
+ENTITY Activity_with_a_redundant_note;
+  assigned_activity : Activity;
+  role : STRING;
+END_ENTITY;
+
+ENTITY Activity_with_an_redundant_note;
+  assigned_activity : Activity;
+  role : STRING;
+END_ENTITY;
+
 END_SCHEMA;  -- Activity_arm
 
 
@@ -129,6 +139,14 @@ The *relating_activity* usually identifies the activity the definition of the *r
 *)
 (*"Activity_arm.Activity_relationship.relating_activity.__note"
 The meaning of this attribute is defined by the *name* attribute.
+*)
+
+(*"Activity_arm.Activity_with_a_redundant_note"
+An **Activity_with_redundant_note** is a type of <<express:Activity_arm.Activity,Activity>>.
+*)
+
+(*"Activity_arm.Activity_with_an_redundant_note"
+An **Activity_with_redundant_note** is a type of <<express:Activity_arm.Activity,Activity>> .
 *)
 
 (*"Activity_arm.Activity_status"
