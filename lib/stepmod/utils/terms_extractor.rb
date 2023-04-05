@@ -319,7 +319,7 @@ module Stepmod
         old_definition = trim_definition(entity.remarks.first)
         definition = generate_entity_definition(entity, domain)
 
-        notes = [old_definition].reject { |note| redundant_note?(note) }.compact
+        notes = [old_definition].reject { |note| redundant_note?(note) }
 
         Stepmod::Utils::Concept.new(
           designations: [
@@ -517,7 +517,7 @@ module Stepmod
       end
 
       def redundant_note?(note)
-        note.match?(REDUNDENT_NOTE_REGEX) && !note.include?("\n")
+        note && note.match?(REDUNDENT_NOTE_REGEX) && !note.include?("\n")
       end
     end
   end
