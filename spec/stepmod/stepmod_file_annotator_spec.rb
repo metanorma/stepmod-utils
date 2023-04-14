@@ -14,12 +14,10 @@ RSpec.describe Stepmod::Utils::StepmodFileAnnotator do
 
   subject do
     stepmod_dir = fixtures_path("stepmod_terms_mock_directory")
-    resource_docs_cache_file = fixtures_path("resource_docs_cache.json")
 
     Stepmod::Utils::StepmodFileAnnotator.new(
       stepmod_dir: stepmod_dir,
       express_file: express_file,
-      resource_docs_cache_file: resource_docs_cache_file,
     )
   end
 
