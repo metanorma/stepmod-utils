@@ -5,14 +5,28 @@ require "stepmod/utils/stepmod_file_annotator"
 
 stepmod_dir = ARGV.first || Dir.pwd
 
-# build resource_docs cache
-resource_docs_cache_file = `mktemp`
-`"#{File.join(__dir__,
-              "stepmod-build-resource-docs-cache")}" "#{stepmod_dir}" > "#{resource_docs_cache_file}"`
+def all_express_files(stepmod_dir)
+  index_file = File.read(File.join(stepmod_dir, "repository_index.xml"))
+  index = Nokogiri::XML(index_file).root
 
-# annotate each file
-files = `"#{File.join(__dir__,
-                      "stepmod-find-express-files")}" "#{stepmod_dir}"`.strip.split("\n")
+  files = []
+  index.xpath("modules/module").each do |item|
+    files << "#{stepmod_dir}/data/modules/#{item['name']}/arm.exp"
+    files << "#{stepmod_dir}/data/modules/#{item['name']}/mim.exp"
+  end
+
+  index.xpath("resources/resource").each do |item|
+    files << "#{stepmod_dir}/data/resources/#{item['name']}/#{item['name']}.exp"
+  end
+
+  index.xpath("business_object_models/business_object_model").each do |item|
+    files << "#{stepmod_dir}/data/business_object_models/#{item['name']}/bom.exp"
+    files << "#{stepmod_dir}/data/business_object_models/#{item['name']}/DomainModel.exp"
+  end
+
+  files.filter { |file| File.exist?(file) }
+end
+
 MAX_THREADS = 1 #[2, Concurrent.processor_count].max * 2
 MAX_QUEUE_SIZE = MAX_THREADS * 4
 # https://github.com/ruby-concurrency/concurrent-ruby/blob/master/docs-source/thread_pools.md
@@ -22,14 +36,16 @@ pool = Concurrent::ThreadPoolExecutor.new(
   max_queue: MAX_QUEUE_SIZE,
   fallback_policy: :caller_runs,
 )
+
+files = all_express_files(stepmod_dir)
+
 files.each_slice(MAX_QUEUE_SIZE) do |batch|
   puts("Queueing next batch")
   batch.each do |file|
     pool.post do
-      puts("#{Thread.current.object_id}: Queued processing #{file}")
+      puts "#{Thread.current.object_id}: Queued processing #{file}"
       annotated = Stepmod::Utils::StepmodFileAnnotator.new(
         express_file: file,
-        resource_docs_cache_file: resource_docs_cache_file,
         stepmod_dir: stepmod_dir
       ).call
 
@@ -40,11 +56,8 @@ files.each_slice(MAX_QUEUE_SIZE) do |batch|
         file.puts(annotated)
       end
 
-      puts("#{Thread.current.object_id}: Done processing #{File.basename(file)} => #{annotated_file_path}.")
+      puts "#{Thread.current.object_id}: Done processing #{File.basename(file)} => #{annotated_file_path}."
     end
   end
   pool.shutdown
 end
-
-# cleanup
-`rm "#{resource_docs_cache_file}"`

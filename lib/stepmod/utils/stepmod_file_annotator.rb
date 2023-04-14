@@ -12,13 +12,13 @@ require "pubid-iso"
 module Stepmod
   module Utils
     class StepmodFileAnnotator
-      attr_reader :express_file, :resource_docs_cache_file, :stepmod_dir
+      attr_reader :express_file, :resource_docs_cache, :stepmod_dir
 
       # @param express_file [String] path to the exp file needed to annotate
-      # @param resource_docs_cache_file [String] output of ./stepmod-build-resource-docs-cache
-      def initialize(express_file:, resource_docs_cache_file:, stepmod_dir: nil)
+      # @param resource_docs_cache [String] output of ./stepmod-build-resource-docs-cache
+      def initialize(express_file:, stepmod_dir: nil)
         @express_file = express_file
-        @resource_docs_cache_file = resource_docs_cache_file
+        @resource_docs_cache = resource_docs_schemas(stepmod_dir)
         @stepmod_dir = stepmod_dir || Dir.pwd
         @added_bibdata = {}
 
@@ -26,6 +26,23 @@ module Stepmod
                                                  .schemas
                                                  .first
                                                  .id
+      end
+
+      def resource_docs_schemas(stepmod_dir)
+        filepath = File.join(stepmod_dir, "data/resource_docs/*/resource.xml")
+
+        schemas = {}
+        Dir.glob(filepath).each do |resource_docs_file|
+          match = resource_docs_file.match("data/resource_docs/([^/]+)/resource.xml")
+          resource_docs_dir = match.captures[0]
+
+          resource_docs = Nokogiri::XML(File.read(resource_docs_file)).root
+          resource_docs.xpath("schema").each do |schema|
+            schemas[schema["name"]] = resource_docs_dir
+          end
+        end
+
+        schemas
       end
 
       def call
@@ -105,10 +122,6 @@ module Stepmod
 
       def sanitize(file_content)
         file_content.gsub("(*)", "(`*`)")
-      end
-
-      def resource_docs_cache
-        @resource_docs_cache ||= JSON.parse(File.read(resource_docs_cache_file))
       end
 
       def convert_from_description_text(descriptions_file, description)
