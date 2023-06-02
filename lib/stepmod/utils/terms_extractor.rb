@@ -102,7 +102,7 @@ module Stepmod
 
         # add resource paths
         repo_index.xpath("//resource").each do |x|
-          next if x['status'] == WITHDRAWN_STATUS
+          next if x["status"] == WITHDRAWN_STATUS || x["name"] == "iso13584_expressions_schema"
 
           path = Pathname.new("#{stepmod_dir}/resources/#{x['name']}/#{x['name']}_annotated.exp")
           files << path if File.exist? path

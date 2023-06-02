@@ -16,6 +16,8 @@ def all_express_files(stepmod_dir)
   end
 
   index.xpath("resources/resource").each do |item|
+    next if item["name"] == "iso13584_expressions_schema"
+
     files << "#{stepmod_dir}/data/resources/#{item['name']}/#{item['name']}.exp"
   end
 
