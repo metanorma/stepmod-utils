@@ -340,7 +340,7 @@ module Stepmod
             },
           ],
           notes: notes,
-          language_code: "en",
+          language_code: "eng",
           part: bibdata.part,
           schema: schema,
           document: document,
