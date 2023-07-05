@@ -268,7 +268,7 @@ module Stepmod
         year = "" if year == "tbd"
         edition = bib.attributes["version"].value
 
-        pubid = Pubid::Iso::Identifier.new(
+        pubid = Pubid::Iso::Identifier.create(
           publisher: "ISO",
           number: 10303,
         )
