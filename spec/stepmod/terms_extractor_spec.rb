@@ -57,12 +57,12 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
       action_directive_concept = call[4][0][1]
                                  .find do |concept|
                                    concept
-                                     .localizations["en"]
+                                     .localizations["eng"]
                                      .designations
                                      .first
                                      .designation == "action_directive"
                                  end
-                                 .localizations["en"]
+                                 .localizations["eng"]
 
       expect(action_directive_concept.designations.first.designation)
         .to(eq(resource_description_hash[:designation]))
@@ -82,7 +82,7 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
                   Stepmod::Utils::Converters::StepmodExtDescription.new)
       activity_arm_concept =
         call[-1][0][1]["Activity_arm"]
-        .to_a.map { |n| n.localizations["en"] }
+        .to_a.map { |n| n.localizations["eng"] }
         .find { |concept| concept.designations.first.designation == "Activity" }
 
       expect(activity_arm_concept.designations.first.designation)
@@ -116,7 +116,7 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
                   Stepmod::Utils::Converters::StepmodExtDescription.new)
       applied_action_assignment_concept =
         call[-1][0][2]["Activity_mim"]
-        .to_a.map { |n| n.localizations["en"] }
+        .to_a.map { |n| n.localizations["eng"] }
         .find do |concept|
           concept.designations.first.designation == "applied_action_assignment"
         end

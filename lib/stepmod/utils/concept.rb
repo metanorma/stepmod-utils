@@ -17,7 +17,7 @@ module Stepmod
       # TODO: converted_definition is not supposed to be an attribute, it is
       # supposed to be a method!
       class << self
-        def parse(definition_xml, reference_anchor:, reference_clause:, file_path:, language_code: "en")
+        def parse(definition_xml, reference_anchor:, reference_clause:, file_path:, language_code: "eng")
           converted_definition = Stepmod::Utils::StepmodDefinitionConverter.convert(
             definition_xml,
             {

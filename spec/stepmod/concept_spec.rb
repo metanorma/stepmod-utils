@@ -27,7 +27,7 @@ RSpec.describe Stepmod::Utils::Concept do
       reference_anchor: reference[:anchor],
       reference_clause: reference[:clause],
       file_path: "",
-      language_code: "en",
+      language_code: "eng",
     )
   end
 
