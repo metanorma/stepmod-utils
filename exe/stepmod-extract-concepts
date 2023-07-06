@@ -142,7 +142,7 @@ end
 part_resources.each do |(_bibdata, current_part_resources)|
   current_part_resources.save_to_files(output_dir)
 end
-log "INFO: part_resources written to yaml files"
+log "INFO: part_resources written to YAML files in #{output_dir}"
 
 part_modules.sort_by do |(bibdata, _part_modules_arm, _part_modules_mim)|
   bibdata.part.to_i
@@ -159,7 +159,7 @@ end.each do |(_bibdata, part_modules_arm, part_modules_mim)|
     end
   end
 end
-log "INFO: part_modules written to yaml files"
+log "INFO: part_modules written to YAML files in #{output_dir}"
 
 resource_concepts.save_to_files(output_dir)
-log "INFO: resource_concepts written to yaml files"
+log "INFO: resource_concepts written to YAML files in #{output_dir}"

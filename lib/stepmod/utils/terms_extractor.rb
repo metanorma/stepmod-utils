@@ -66,29 +66,53 @@ module Stepmod
         end
       end
 
+      def published_part_numbers
+        docs_xml = Nokogiri::XML(File.read(@stepmod_path.join('library/docs.xml')))
+        docs_xml.xpath("//doc").map do |x|
+          x['part']
+        end.uniq.sort
+      end
+
       def call
         log "INFO: STEPmod directory set to #{stepmod_dir}."
         log "INFO: Detecting paths..."
 
-        # Run `cvs status` to find out version
         log "INFO: Detecting Git SHA..."
         Dir.chdir(stepmod_path) do
           @git_rev = `git rev-parse HEAD` || nil
         end
 
+        published_part_nos = published_part_numbers
         repo_index = Nokogiri::XML(File.read(@index_path)).root
 
         files = []
 
         # add module paths
         repo_index.xpath("//module").each do |x|
-          next if x['status'] == WITHDRAWN_STATUS
+          unless published_part_nos.include? x['part']
+            log "INFO: skipping module #{x['name']} as part #{x['part']} is not published in `docs.xml`."
+            next
+          end
 
-          arm_path = Pathname.new("#{stepmod_dir}/modules/#{x['name']}/arm_annotated.exp")
-          mim_path = Pathname.new("#{stepmod_dir}/modules/#{x['name']}/mim_annotated.exp")
+          if x['status'] == WITHDRAWN_STATUS
+            log "INFO: skipping module #{x['name']} as it is withdrawn."
+            next
+          end
 
-          files << arm_path if File.exist? arm_path
-          files << mim_path if File.exist? mim_path
+          arm_path = @stepmod_path.join("modules/#{x['name']}/arm_annotated.exp")
+          mim_path = @stepmod_path.join("modules/#{x['name']}/mim_annotated.exp")
+
+          if File.exist? arm_path
+            files << arm_path
+          else
+            log "INFO: skipping module ARM for #{x['name']} as it does not exist at #{arm_path}."
+          end
+
+          if File.exist? mim_path
+            files << mim_path
+          else
+            log "INFO: skipping module MIM for #{x['name']} as it does not exist at #{mim_path}."
+          end
         end
 
         # Should ignore these because the `<resource_docs>` elements do not provide any EXPRESS schemas
@@ -102,10 +126,27 @@ module Stepmod
 
         # add resource paths
         repo_index.xpath("//resource").each do |x|
-          next if x["status"] == WITHDRAWN_STATUS || x["name"] == "iso13584_expressions_schema"
+          unless published_part_nos.include? x['part']
+            log "INFO: skipping resource #{x['name']} as part #{x['part']} is not published in `docs.xml`."
+            next
+          end
 
-          path = Pathname.new("#{stepmod_dir}/resources/#{x['name']}/#{x['name']}_annotated.exp")
-          files << path if File.exist? path
+          if x['status'] == WITHDRAWN_STATUS
+            log "INFO: skipping resource #{x['name']} as it is withdrawn."
+            next
+          end
+
+          if x["name"] == "iso13584_expressions_schema"
+            log "INFO: skipping resource #{x['name']} as the ISO 13584 series is out of scope."
+            next
+          end
+
+          path = @stepmod_path.join("resources/#{x['name']}/#{x['name']}_annotated.exp")
+          if File.exist? path
+            files << path
+          else
+            log "INFO: skipping resource #{x['name']} as it does not exist at #{path}."
+          end
         end
 
         # Should ignore these because we are skiping Clause 3 terms

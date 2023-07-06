@@ -1,0 +1,694 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE docs
+  SYSTEM "../../dtd/part1000/docs.dtd">
+<docs part.version.number="9">
+	<!-- This file does not include AP docs because those are not part of SMRL. -->
+	<!-- ### Application modules 4xx serie ### -->
+	<doc name="ap203_configuration_controlled_3d_design_of_mechanical_parts_and_assemblies" series="AM" part="403" pub_type="TS" edition="3" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="ap209_multidisciplinary_analysis_and_design" series="AM" part="409" pub_type="TS" edition="2" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="ap210_electronic_assembly_interconnect_and_packaging_design" series="AM" part="410" pub_type="TS" edition="6" pub_year_mo="2022" format="html-stepmod"/>
+	<doc name="functional_data_and_schematic_representation" series="AM" part="421" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="ap233_systems_engineering" series="AM" part="433" pub_type="TS" edition="2" pub_year_mo="2011-10" format="html-stepmod"/>
+	<doc name="ap236_furniture_catalog_and_interior_design" series="AM" part="436" pub_type="TS" edition="1" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="ap239_product_life_cycle_support" series="AM" part="439" pub_type="TS" edition="4" pub_year_mo="2011-10" format="html-stepmod"/>
+	<doc name="ap242_managed_model_based_3d_engineering" series="AM" part="442" pub_type="TS" edition="4" pub_year_mo="2022" format="html-stepmod"/>
+	<!--<doc name="ap243_boundary_representation_for_iso_14306_open_jt"
+		series="AM" part="443" pub_type="TS" edition="1" pub_year_mo="2014-02" format="html-stepmod"/> -->
+	<!-- ### Application modules 1xxx serie ### -->
+	<doc name="appearance_assignment" series="AM" part="1001" pub_type="TS" edition="8" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="colour" series="AM" part="1002" pub_type="TS" edition="3" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="curve_appearance" series="AM" part="1003" pub_type="TS" edition="6" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="elemental_geometric_shape" series="AM" part="1004" pub_type="TS" edition="11" pub_year_mo="2022" format="html-stepmod"/>
+	<doc name="elemental_topology" series="AM" part="1005" pub_type="TS" edition="7" pub_year_mo="2022" format="html-stepmod"/>
+	<doc name="foundation_representation" series="AM" part="1006" pub_type="TS" edition="6" pub_year_mo="2022" format="html-stepmod"/>
+	<doc name="general_surface_appearance" series="AM" part="1007" pub_type="TS" edition="3" pub_year_mo="2010-07" format="html-stepmod"/>
+	<doc name="layer_assignment" series="AM" part="1008" pub_type="TS" edition="3" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="shape_appearance_layers" series="AM" part="1009" pub_type="TS" edition="4" pub_year_mo="2010-07" format="html-stepmod"/>
+	<doc name="date_time" series="AM" part="1010" pub_type="TS" edition="2" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="person_organization" series="AM" part="1011" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="approval" series="AM" part="1012" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="person_organization_assignment" series="AM" part="1013" pub_type="TS" edition="2" pub_year_mo="2011-10" format="html-stepmod"/>
+	<doc name="date_time_assignment" series="AM" part="1014" pub_type="TS" edition="2" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="security_classification" series="AM" part="1015" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="product_categorization" series="AM" part="1016" pub_type="TS" edition="3" pub_year_mo="2010-07" format="html-stepmod"/>
+	<doc name="product_identification" series="AM" part="1017" pub_type="TS" edition="2" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="product_version" series="AM" part="1018" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="product_view_definition" series="AM" part="1019" pub_type="TS" edition="4" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="product_version_relationship" series="AM" part="1020" pub_type="TS" edition="2" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="identification_assignment" series="AM" part="1021" pub_type="TS" edition="2" pub_year_mo="2011-10" format="html-stepmod"/>
+	<doc name="part_and_version_identification" series="AM" part="1022" pub_type="TS" edition="4" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="part_view_definition" series="AM" part="1023" pub_type="TS" edition="3" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="product_relationship" series="AM" part="1024" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="alias_identification" series="AM" part="1025" pub_type="TS" edition="4" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="assembly_structure" series="AM" part="1026" pub_type="TS" edition="6" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="contextual_shape_positioning" series="AM" part="1027" pub_type="TS" edition="9" pub_year_mo="2022" format="html-stepmod"/>
+	<doc name="property_assignment" series="AM" part="1030" pub_type="TS" edition="4" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="shape_property_assignment" series="AM" part="1032" pub_type="TS" edition="8" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="external_model" series="AM" part="1033" pub_type="TS" edition="2" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="product_view_definition_properties" series="AM" part="1034" pub_type="TS" edition="2" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="independent_property" series="AM" part="1036" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="independent_property_representation" series="AM" part="1038" pub_type="TS" edition="2" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="geometric_validation_property_representation" series="AM" part="1039" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="process_property_assignment" series="AM" part="1040" pub_type="TS" edition="2" pub_year_mo="2008" format="html-stepmod"/>
+	<doc name="product_view_definition_relationship" series="AM" part="1041" pub_type="TS" edition="3" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="work_request" series="AM" part="1042" pub_type="TS" edition="3" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="work_order" series="AM" part="1043" pub_type="TS" edition="3" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="certification" series="AM" part="1044" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="product_replacement" series="AM" part="1046" pub_type="TS" edition="2" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="activity" series="AM" part="1047" pub_type="TS" edition="3" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="activity_method" series="AM" part="1049" pub_type="TS" edition="2" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="dimension_tolerance" series="AM" part="1050" pub_type="TS" edition="7" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="geometric_tolerance" series="AM" part="1051" pub_type="TS" edition="9" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="default_tolerance" series="AM" part="1052" pub_type="TS" edition="3" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="value_with_unit" series="AM" part="1054" pub_type="TS" edition="4" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="part_definition_relationship" series="AM" part="1055" pub_type="TS" edition="3" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="configuration_item" series="AM" part="1056" pub_type="TS" edition="2" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="effectivity" series="AM" part="1057" pub_type="TS" edition="2" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="configuration_effectivity" series="AM" part="1058" pub_type="TS" edition="3" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="effectivity_application" series="AM" part="1059" pub_type="TS" edition="2" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="product_concept_identification" series="AM" part="1060" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="project" series="AM" part="1061" pub_type="TS" edition="3" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="contract" series="AM" part="1062" pub_type="TS" edition="3" pub_year_mo="2011-10" format="html-stepmod"/>
+	<doc name="product_occurrence" series="AM" part="1063" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="event" series="AM" part="1064" pub_type="TS" edition="2" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="time_interval" series="AM" part="1065" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="constructive_solid_geometry_3d" series="AM" part="1068" pub_type="TS" edition="4" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="class" series="AM" part="1070" pub_type="TS" edition="2" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="class_of_activity" series="AM" part="1071" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="property_condition" series="AM" part="1074" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="class_of_product" series="AM" part="1077" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="property_space" series="AM" part="1080" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="property_identification" series="AM" part="1085" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="maths_space" series="AM" part="1091" pub_type="TS" edition="2" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="maths_value" series="AM" part="1092" pub_type="TS" edition="2" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="independent_property_definition" series="AM" part="1099" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="product_class" series="AM" part="1103" pub_type="TS" edition="6" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="specified_product" series="AM" part="1104" pub_type="TS" edition="5" pub_year_mo="2022" format="html-stepmod"/>
+	<doc name="multi_linguism" series="AM" part="1105" pub_type="TS" edition="2" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="extended_measure_representation" series="AM" part="1106" pub_type="TS" edition="4" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="specification_based_configuration" series="AM" part="1108" pub_type="TS" edition="3" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="alternative_solution" series="AM" part="1109" pub_type="TS" edition="4" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="surface_conditions" series="AM" part="1110" pub_type="TS" edition="6" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="classification_with_attributes" series="AM" part="1111" pub_type="TS" edition="6" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="specification_control" series="AM" part="1112" pub_type="TS" edition="5" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="group" series="AM" part="1113" pub_type="TS" edition="2" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="classification_assignment" series="AM" part="1114" pub_type="TS" edition="3" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="part_collection" series="AM" part="1115" pub_type="TS" edition="5" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="pdm_material_aspects" series="AM" part="1116" pub_type="TS" edition="3" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="measure_representation" series="AM" part="1118" pub_type="TS" edition="3" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="document_and_version_identification" series="AM" part="1121" pub_type="TS" edition="3" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="document_assignment" series="AM" part="1122" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="document_definition" series="AM" part="1123" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="document_structure" series="AM" part="1124" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="document_properties" series="AM" part="1126" pub_type="TS" edition="5" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="file_identification" series="AM" part="1127" pub_type="TS" edition="4" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="external_item_identification_assignment" series="AM" part="1128" pub_type="TS" edition="2" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="external_properties" series="AM" part="1129" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="derived_shape_element" series="AM" part="1130" pub_type="TS" edition="5" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="construction_geometry" series="AM" part="1131" pub_type="TS" edition="6" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="associative_text" series="AM" part="1132" pub_type="TS" edition="4" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="single_part_representation" series="AM" part="1133" pub_type="TS" edition="3" pub_year_mo="2011-10" format="html-stepmod"/>
+	<doc name="product_structure" series="AM" part="1134" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="text_appearance" series="AM" part="1136" pub_type="TS" edition="4" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="requirement_identification_and_version" series="AM" part="1140" pub_type="TS" edition="2" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="requirement_view_definition" series="AM" part="1141" pub_type="TS" edition="4" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="requirement_view_definition_relationship" series="AM" part="1142" pub_type="TS" edition="4" pub_year_mo="2014-08" format="html-stepmod"/>
+	<doc name="building_component" series="AM" part="1143" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="building_item" series="AM" part="1144" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="building_structure" series="AM" part="1145" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="location_in_building" series="AM" part="1146" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="manufacturing_configuration_effectivity" series="AM" part="1147" pub_type="TS" edition="4" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="functional_data" series="AM" part="1151" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="product_structure_and_classification" series="AM" part="1156" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="class_of_product_structure" series="AM" part="1157" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="class_of_composition_of_product" series="AM" part="1158" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="class_of_connection_of_product" series="AM" part="1159" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="class_of_containment_of_product" series="AM" part="1160" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="class_of_involvement_of_product_in_connection" series="AM" part="1161" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="class_of_product_library" series="AM" part="1162" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="individual_product_structure" series="AM" part="1163" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="product_as_individual" series="AM" part="1164" pub_type="TS" edition="4" pub_year_mo="2011-10" format="html-stepmod"/>
+	<doc name="involvement_of_individual_product_in_connection" series="AM" part="1165" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="composition_of_individual_product" series="AM" part="1166" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="connection_of_individual_product" series="AM" part="1167" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="containment_of_individual_product" series="AM" part="1168" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="activity_structure_and_classification" series="AM" part="1169" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="class_of_activity_structure" series="AM" part="1170" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="class_of_composition_of_activity" series="AM" part="1171" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="class_of_connection_of_activity" series="AM" part="1172" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="class_of_involvement_in_activity" series="AM" part="1173" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="class_of_activity_library" series="AM" part="1174" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="individual_activity_structure" series="AM" part="1175" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="individual_activity" series="AM" part="1176" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="composition_of_individual_activity" series="AM" part="1177" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="connection_of_individual_activity" series="AM" part="1178" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="individual_involvement_in_activity" series="AM" part="1179" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="class_of_person" series="AM" part="1188" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="property_and_property_assignment" series="AM" part="1198" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="possession_of_property" series="AM" part="1199" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="schematic_and_symbolization" series="AM" part="1203" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="schematic_drawing" series="AM" part="1204" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="schematic_element" series="AM" part="1205" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="draughting_annotation" series="AM" part="1206" pub_type="TS" edition="3" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="drawing_structure_and_administration" series="AM" part="1207" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="schematic_element_library" series="AM" part="1208" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="symbolization_by_schematic_element" series="AM" part="1209" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="set_theory" series="AM" part="1210" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="cardinality_of_relationship" series="AM" part="1211" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="classification" series="AM" part="1212" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="reference_data_library" series="AM" part="1213" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="system_breakdown" series="AM" part="1214" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="physical_breakdown" series="AM" part="1215" pub_type="TS" edition="2" pub_year_mo="2008" format="html-stepmod"/>
+	<doc name="functional_breakdown" series="AM" part="1216" pub_type="TS" edition="2" pub_year_mo="2008" format="html-stepmod"/>
+	<doc name="zonal_breakdown" series="AM" part="1217" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="representation_with_uncertainty" series="AM" part="1228" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="product_data_management" series="AM" part="1231" pub_type="TS" edition="6" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="product_view_definition_reference" series="AM" part="1823" pub_type="TS" edition="2" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="design_material_aspects" series="AM" part="1232" pub_type="TS" edition="2" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="point_direction_model" series="AM" part="1820" pub_type="TS" edition="2" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="requirement_assignment" series="AM" part="1233" pub_type="TS" edition="4" pub_year_mo="2011-10" format="html-stepmod"/>
+	<doc name="organization_type" series="AM" part="1240" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="information_rights" series="AM" part="1241" pub_type="TS" edition="4" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="position_in_organization" series="AM" part="1242" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="experience" series="AM" part="1243" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="qualifications" series="AM" part="1244" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="type_of_person" series="AM" part="1245" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="attribute_classification" series="AM" part="1246" pub_type="TS" edition="2" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="product_breakdown" series="AM" part="1248" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="activity_method_assignment" series="AM" part="1249" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="attachment_slot" series="AM" part="1250" pub_type="TS" edition="2" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="interface" series="AM" part="1251" pub_type="TS" edition="4" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="probability" series="AM" part="1252" pub_type="TS" edition="2" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="externally_conditioned_data_quality_criteria" part="1821" series="AM" pub_type="TS" edition="1" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="externally_conditioned_data_quality_inspection_result" part="1822" series="AM" pub_type="TS" edition="1" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="condition" series="AM" part="1253" pub_type="TS" edition="3" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="condition_evaluation" series="AM" part="1254" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="state_definition" series="AM" part="1255" pub_type="TS" edition="3" pub_year_mo="2011-10" format="html-stepmod"/>
+	<doc name="state_observed" series="AM" part="1256" pub_type="TS" edition="3" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="condition_characterized" series="AM" part="1257" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="observation" series="AM" part="1258" pub_type="TS" edition="3" pub_year_mo="2011-10" format="html-stepmod"/>
+	<doc name="activity_as_realized" series="AM" part="1259" pub_type="TS" edition="3" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="scheme" series="AM" part="1260" pub_type="TS" edition="2" pub_year_mo="2011-10" format="html-stepmod"/>
+	<doc name="activity_method_implementation" series="AM" part="1261" pub_type="TS" edition="2" pub_year_mo="2011-10" format="html-stepmod"/>
+	<doc name="task_specification" series="AM" part="1262" pub_type="TS" edition="2" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="justification" series="AM" part="1263" pub_type="TS" edition="2" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="envelope" series="AM" part="1265" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="resource_management" series="AM" part="1266" pub_type="TS" edition="2" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="required_resource" series="AM" part="1267" pub_type="TS" edition="3" pub_year_mo="2011-10" format="html-stepmod"/>
+	<doc name="resource_item" series="AM" part="1268" pub_type="TS" edition="2" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="resource_as_realized" series="AM" part="1269" pub_type="TS" edition="2" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="message" series="AM" part="1270" pub_type="TS" edition="2" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="state_characterized" series="AM" part="1271" pub_type="TS" edition="4" pub_year_mo="2022" format="html-stepmod"/>
+	<doc name="activity_characterized" series="AM" part="1272" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="resource_property_assignment" series="AM" part="1273" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="probability_distribution" series="AM" part="1274" pub_type="TS" edition="2" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="external_class" series="AM" part="1275" pub_type="TS" edition="3" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="location" series="AM" part="1276" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="location_assignment" series="AM" part="1277" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="product_group" series="AM" part="1278" pub_type="TS" edition="3" pub_year_mo="2022" format="html-stepmod"/>
+	<doc name="required_resource_characterized" series="AM" part="1280" pub_type="TS" edition="2" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="resource_item_characterized" series="AM" part="1281" pub_type="TS" edition="3" pub_year_mo="2011-10" format="html-stepmod"/>
+	<doc name="resource_management_characterized" series="AM" part="1282" pub_type="TS" edition="2" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="resource_as_realized_characterized" series="AM" part="1283" pub_type="TS" edition="3" pub_year_mo="2011-10" format="html-stepmod"/>
+	<doc name="work_request_characterized" series="AM" part="1285" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="work_order_characterized" series="AM" part="1286" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="ap239_activity_recording" series="AM" part="1287" pub_type="TS" edition="3" pub_year_mo="2011-10" format="html-stepmod"/>
+	<doc name="management_resource_information" series="AM" part="1288" pub_type="TS" edition="5" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="ap239_management_resource_information" series="AM" part="1289" pub_type="TS" edition="3" pub_year_mo="2010-07" format="html-stepmod"/>
+	<doc name="document_management" series="AM" part="1290" pub_type="TS" edition="3" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="plib_class_reference" series="AM" part="1291" pub_type="TS" edition="3" pub_year_mo="2008" format="html-stepmod"/>
+	<doc name="ap239_product_definition_information" series="AM" part="1292" pub_type="TS" edition="4" pub_year_mo="2011-10" format="html-stepmod"/>
+	<doc name="ap239_part_definition_information" series="AM" part="1293" pub_type="TS" edition="4" pub_year_mo="2011-10" format="html-stepmod"/>
+	<doc name="interface_lifecycle" series="AM" part="1294" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="ap239_properties" series="AM" part="1295" pub_type="TS" edition="2" pub_year_mo="2011-10" format="html-stepmod"/>
+	<doc name="condition_evaluation_characterized" series="AM" part="1296" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="ap239_document_management" series="AM" part="1297" pub_type="TS" edition="3" pub_year_mo="2011-10" format="html-stepmod"/>
+	<doc name="activity_method_characterized" series="AM" part="1298" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="work_output" series="AM" part="1300" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="work_output_characterized" series="AM" part="1301" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="ap239_product_status_recording" series="AM" part="1304" pub_type="TS" edition="2" pub_year_mo="2011-10" format="html-stepmod"/>
+	<doc name="ap239_task_specification_resourced" series="AM" part="1306" pub_type="TS" edition="3" pub_year_mo="2011-10" format="html-stepmod"/>
+	<doc name="ap239_work_definition" series="AM" part="1307" pub_type="TS" edition="3" pub_year_mo="2011-10" format="html-stepmod"/>
+	<doc name="picture_representation" series="AM" part="1308" pub_type="TS" edition="2" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="drawing_definition" series="AM" part="1309" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="draughting_element" series="AM" part="1310" pub_type="TS" edition="5" pub_year_mo="2022" format="html-stepmod"/>
+	<doc name="associative_draughting_elements" series="AM" part="1311" pub_type="TS" edition="5" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="draughting_element_specialisations" series="AM" part="1312" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="mechanical_design_geometric_presentation" series="AM" part="1313" pub_type="TS" edition="1" pub_year_mo="2008" format="html-stepmod"/>
+	<doc name="mechanical_design_shaded_presentation" series="AM" part="1314" pub_type="TS" edition="1" pub_year_mo="2008" format="html-stepmod"/>
+	<doc name="mechanical_design_presentation_representation_with_draughting" series="AM" part="1315" pub_type="TS" edition="4" pub_year_mo="2022" format="html-stepmod"/>
+	<doc name="camera_view_3d" series="AM" part="1316" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="procedural_shape_model" series="AM" part="1317" pub_type="TS" edition="2" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="procedural_solid_model" series="AM" part="1318" pub_type="TS" edition="2" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="solid_with_local_modification" series="AM" part="1319" pub_type="TS" edition="3" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="thickened_face_solid" series="AM" part="1320" pub_type="TS" edition="2" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="swept_solid" series="AM" part="1321" pub_type="TS" edition="2" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="modified_swept_solid" series="AM" part="1322" pub_type="TS" edition="1" pub_year_mo="2008" format="html-stepmod"/>
+	<doc name="basic_geometric_topology" series="AM" part="1323" pub_type="TS" edition="5" pub_year_mo="2022" format="html-stepmod"/>
+	<doc name="non_manifold_surface" series="AM" part="1324" pub_type="TS" edition="1" pub_year_mo="2008" format="html-stepmod"/>
+	<doc name="compound_shape_representation" series="AM" part="1327" pub_type="TS" edition="2" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="elementary_boundary_representation" series="AM" part="1329" pub_type="TS" edition="1" pub_year_mo="2008" format="html-stepmod"/>
+	<doc name="presentation_hierarchy" series="AM" part="1330" pub_type="TS" edition="1" pub_year_mo="2008" format="html-stepmod"/>
+	<doc name="external_source" series="AM" part="1331" pub_type="TS" edition="1" pub_year_mo="2008" format="html-stepmod"/>
+	<doc name="name_assignment" series="AM" part="1340" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="generic_expression" series="AM" part="1341" pub_type="TS" edition="3" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="expression" series="AM" part="1342" pub_type="TS" edition="3" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="product_placement" series="AM" part="1343" pub_type="TS" edition="5" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="numerical_interface" series="AM" part="1344" pub_type="TS" edition="2" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="item_definition_structure" series="AM" part="1345" pub_type="TS" edition="6" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="numeric_function" series="AM" part="1346" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="wireframe_2d" series="AM" part="1347" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="requirement_management" series="AM" part="1348" pub_type="TS" edition="5" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="incomplete_data_reference_mechanism" series="AM" part="1349" pub_type="TS" edition="5" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="inertia_characteristics" series="AM" part="1350" pub_type="TS" edition="3" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="catalog_data_information" series="AM" part="1351" pub_type="TS" edition="2" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="catalog_data_information_and_shape_representation" series="AM" part="1352" pub_type="TS" edition="1" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="parameterized_catalog_data_information" series="AM" part="1353" pub_type="TS" edition="1" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="furniture_interior_decoration" series="AM" part="1354" pub_type="TS" edition="1" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="parameterized_catalog_data_and_shape_representation" series="AM" part="1355" pub_type="TS" edition="1" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="selected_item" series="AM" part="1357" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="location_assignment_characterized" series="AM" part="1358" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="dimension_and_tolerance_callouts" series="AM" part="1362" pub_type="TS" edition="4" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="event_assignment" series="AM" part="1364" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="time_interval_assignment" series="AM" part="1365" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="tagged_text_representation" series="AM" part="1366" pub_type="TS" edition="2" pub_year_mo="2008" format="html-stepmod"/>
+	<doc name="textual_expression_representation" series="AM" part="1367" pub_type="TS" edition="1" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="binary_representation" series="AM" part="1369" pub_type="TS" edition="1" pub_year_mo="2008" format="html-stepmod"/>
+	<doc name="state_based_behaviour" series="AM" part="1371" pub_type="TS" edition="2" pub_year_mo="2011-10" format="html-stepmod"/>
+	<doc name="collection_identification_and_version" series="AM" part="1396" pub_type="TS" edition="1" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="conditional_effectivity" series="AM" part="1397" pub_type="TS" edition="2" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="identification_relationship" series="AM" part="1398" pub_type="TS" edition="1" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="property_as_definition" series="AM" part="1399" pub_type="TS" edition="2" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="product_environment_definition" series="AM" part="1400" pub_type="TS" edition="3" pub_year_mo="2011-10" format="html-stepmod"/>
+	<doc name="product_environment_observed" series="AM" part="1401" pub_type="TS" edition="3" pub_year_mo="2011-10" format="html-stepmod"/>
+	<doc name="same_as_external_item" series="AM" part="1402" pub_type="TS" edition="2" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="geometric_model_relationship" series="AM" part="1403" pub_type="TS" edition="3" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="geometric_model_2d_3d_relationship" series="AM" part="1404" pub_type="TS" edition="2" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="project_management" series="AM" part="1433" pub_type="TS" edition="2" pub_year_mo="2011-10" format="html-stepmod"/>
+	<doc name="project_management_resource_information" series="AM" part="1434" pub_type="TS" edition="2" pub_year_mo="2011-10" format="html-stepmod"/>
+	<doc name="organization_structure" series="AM" part="1435" pub_type="TS" edition="2" pub_year_mo="2011-10" format="html-stepmod"/>
+	<doc name="project_breakdown" series="AM" part="1436" pub_type="TS" edition="2" pub_year_mo="2011-10" format="html-stepmod"/>
+	<doc name="schedule" series="AM" part="1437" pub_type="TS" edition="2" pub_year_mo="2011-10" format="html-stepmod"/>
+	<doc name="work_structure" series="AM" part="1438" pub_type="TS" edition="2" pub_year_mo="2011-10" format="html-stepmod"/>
+	<doc name="system_behaviour" series="AM" part="1448" pub_type="TS" edition="2" pub_year_mo="2011-10" format="html-stepmod"/>
+	<doc name="system_structure" series="AM" part="1450" pub_type="TS" edition="2" pub_year_mo="2011-10" format="html-stepmod"/>
+	<doc name="function_based_behaviour" series="AM" part="1453" pub_type="TS" edition="3" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="program_management" series="AM" part="1466" pub_type="TS" edition="2" pub_year_mo="2011-10" format="html-stepmod"/>
+	<doc name="risk_management" series="AM" part="1467" pub_type="TS" edition="3" pub_year_mo="2011-10" format="html-stepmod"/>
+	<doc name="external_state_based_behaviour_model" series="AM" part="1468" pub_type="TS" edition="1" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="foundation_state_definition" series="AM" part="1469" pub_type="TS" edition="2" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="parameter_value_specification" series="AM" part="1470" pub_type="TS" edition="3" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="state_based_behaviour_representation" series="AM" part="1471" pub_type="TS" edition="1" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="general_model_parameter" series="AM" part="1472" pub_type="TS" edition="1" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="description_assignment" series="AM" part="1473" pub_type="TS" edition="4" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="analysis_assignment" series="AM" part="1474" pub_type="TS" edition="1" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="analysis_characterized" series="AM" part="1475" pub_type="TS" edition="3" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="analysis_identification" series="AM" part="1476" pub_type="TS" edition="2" pub_year_mo="2010-07" format="html-stepmod"/>
+	<doc name="system_modelling" series="AM" part="1477" pub_type="TS" edition="2" pub_year_mo="2011-10" format="html-stepmod"/>
+	<doc name="external_functional_model" series="AM" part="1478" pub_type="TS" edition="1" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="extended_task_element" series="AM" part="1479" pub_type="TS" edition="1" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="task_element" series="AM" part="1480" pub_type="TS" edition="1" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="behaviour_view_definition" series="AM" part="1481" pub_type="TS" edition="1" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="behaviour_identification_and_version" series="AM" part="1482" pub_type="TS" edition="1" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="behaviour_description_assignment" series="AM" part="1483" pub_type="TS" edition="1" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="system_identification_and_version" series="AM" part="1484" pub_type="TS" edition="2" pub_year_mo="2010-07" format="html-stepmod"/>
+	<doc name="system_view_definition" series="AM" part="1485" pub_type="TS" edition="2" pub_year_mo="2010-07" format="html-stepmod"/>
+	<doc name="decision_support" series="AM" part="1486" pub_type="TS" edition="2" pub_year_mo="2011-10" format="html-stepmod"/>
+	<doc name="verification_and_validation" series="AM" part="1488" pub_type="TS" edition="3" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="issue_management" series="AM" part="1489" pub_type="TS" edition="2" pub_year_mo="2011-10" format="html-stepmod"/>
+	<doc name="issue" series="AM" part="1490" pub_type="TS" edition="1" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="expression_assignment" series="AM" part="1491" pub_type="TS" edition="2" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="function_based_behaviour_representation" series="AM" part="1492" pub_type="TS" edition="1" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="disposition" series="AM" part="1493" pub_type="TS" edition="1" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="edge_based_wireframe" series="AM" part="1501" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="shell_based_wireframe" series="AM" part="1502" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="geometrically_bounded_surface" series="AM" part="1507" pub_type="TS" edition="3" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="manifold_surface" series="AM" part="1509" pub_type="TS" edition="5" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="geometrically_bounded_wireframe" series="AM" part="1510" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="topologically_bounded_surface" series="AM" part="1511" pub_type="TS" edition="2" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="faceted_boundary_representation" series="AM" part="1512" pub_type="TS" edition="1" pub_year_mo="2004" format="html-stepmod"/>
+	<doc name="advanced_boundary_representation" series="AM" part="1514" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="altered_package" series="AM" part="1601" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="altered_part" series="AM" part="1602" pub_type="TS" edition="1" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="analytical_model" series="AM" part="1603" pub_type="TS" edition="5" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="ap210_assembly_functional_interface_requirements" series="AM" part="1604" pub_type="TS" edition="1" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="ap210_assembly_functional_requirements" series="AM" part="1605" pub_type="TS" edition="1" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="ap210_assembly_physical_design" series="AM" part="1606" pub_type="TS" edition="1" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="ap210_assembly_physical_interface_requirements" series="AM" part="1607" pub_type="TS" edition="1" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="ap210_assembly_physical_requirements" series="AM" part="1608" pub_type="TS" edition="1" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="ap210_assembly_requirement_allocation" series="AM" part="1609" pub_type="TS" edition="1" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="ap210_assembly_technology_constraints" series="AM" part="1610" pub_type="TS" edition="1" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="ap210_connection_zone_based_model_extraction" series="AM" part="1611" pub_type="TS" edition="1" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="ap210_device_functional_and_physical_characterization" series="AM" part="1612" pub_type="TS" edition="1" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="physical_unit_non_planar_design_view" series="AM" part="1613" pub_type="TS" edition="4" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="ap210_functional_decomposition" series="AM" part="1614" pub_type="TS" edition="1" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="ap210_functional_requirement_allocation" series="AM" part="1615" pub_type="TS" edition="1" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="ap210_functional_specification" series="AM" part="1616" pub_type="TS" edition="1" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="ap210_interconnect_design" series="AM" part="1617" pub_type="TS" edition="1" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="ap210_interconnect_design_for_microwave" series="AM" part="1618" pub_type="TS" edition="1" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="ap210_interconnect_functional_requirements" series="AM" part="1619" pub_type="TS" edition="1" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="ap210_interconnect_physical_requirements" series="AM" part="1620" pub_type="TS" edition="1" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="ap210_interconnect_requirement_allocation" series="AM" part="1621" pub_type="TS" edition="1" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="ap210_interconnect_technology_constraints" series="AM" part="1622" pub_type="TS" edition="1" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="ap210_laminate_assembly_design" series="AM" part="1623" pub_type="TS" edition="1" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="ap210_package_functional_and_physical_characterization" series="AM" part="1624" pub_type="TS" edition="1" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="ap210_packaged_part_white_box_model" series="AM" part="1625" pub_type="TS" edition="1" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="ap210_physical_unit_physical_characterization" series="AM" part="1626" pub_type="TS" edition="1" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="ap210_printed_part_functional_and_physical_characterization" series="AM" part="1627" pub_type="TS" edition="1" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="design_product_data_management" series="AM" part="1628" pub_type="TS" edition="8" pub_year_mo="2022" format="html-stepmod"/>
+	<doc name="ap210_production_rule" series="AM" part="1630" pub_type="TS" edition="1" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="area_2d" series="AM" part="1631" pub_type="TS" edition="2" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="assembly_2d_shape" series="AM" part="1632" pub_type="TS" edition="2" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="assembly_3d_shape" series="AM" part="1633" pub_type="TS" edition="2" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="assembly_component_placement_requirements" series="AM" part="1634" pub_type="TS" edition="5" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="assembly_functional_interface_requirement" series="AM" part="1635" pub_type="TS" edition="4" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="assembly_module_design" series="AM" part="1636" pub_type="TS" edition="5" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="assembly_module_macro_definition" series="AM" part="1637" pub_type="TS" edition="3" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="assembly_module_with_cable_component_2d" series="AM" part="1638" pub_type="TS" edition="2" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="assembly_module_with_cable_component_3d" series="AM" part="1639" pub_type="TS" edition="2" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="assembly_module_with_macro_component" series="AM" part="1640" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="assembly_module_with_subassembly" series="AM" part="1641" pub_type="TS" edition="5" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="assembly_module_usage_view" series="AM" part="1642" pub_type="TS" edition="5" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="assembly_module_with_interconnect_component" series="AM" part="1643" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="assembly_module_with_cable_component" series="AM" part="1644" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="assembly_module_with_packaged_connector_component" series="AM" part="1645" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="footprint_definition" series="AM" part="1646" pub_type="TS" edition="6" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="assembly_physical_interface_requirement" series="AM" part="1647" pub_type="TS" edition="4" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="assembly_physical_requirement_allocation" series="AM" part="1648" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="assembly_technology" series="AM" part="1649" pub_type="TS" edition="5" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="bare_die" series="AM" part="1650" pub_type="TS" edition="5" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="basic_curve" series="AM" part="1651" pub_type="TS" edition="4" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="basic_geometry" series="AM" part="1652" pub_type="TS" edition="7" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="cable" series="AM" part="1653" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="characteristic" series="AM" part="1654" pub_type="TS" edition="6" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="chemical_substance" series="AM" part="1655" pub_type="TS" edition="4" pub_year_mo="2010-07" format="html-stepmod"/>
+	<doc name="component_grouping" series="AM" part="1656" pub_type="TS" edition="6" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="component_feature" series="AM" part="1657" pub_type="TS" edition="5" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="connectivity_allocation_to_physical_network" series="AM" part="1658" pub_type="TS" edition="1" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="curve_swept_solid" series="AM" part="1659" pub_type="TS" edition="1" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="datum_difference_based_model" series="AM" part="1660" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="design_specific_assignment_to_assembly_usage_view" series="AM" part="1662" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="design_specific_assignment_to_interconnect_usage_view" series="AM" part="1663" pub_type="TS" edition="3" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="device_marking" series="AM" part="1664" pub_type="TS" edition="2" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="electrical_network_definition" series="AM" part="1665" pub_type="TS" edition="1" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="extended_basic_geometry" series="AM" part="1667" pub_type="TS" edition="4" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="fabrication_joint" series="AM" part="1668" pub_type="TS" edition="5" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="fabrication_requirement" series="AM" part="1669" pub_type="TS" edition="3" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="fabrication_technology" series="AM" part="1670" pub_type="TS" edition="5" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="feature_and_connection_zone" series="AM" part="1671" pub_type="TS" edition="5" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="fill_area_style" series="AM" part="1672" pub_type="TS" edition="3" pub_year_mo="2010-07" format="html-stepmod"/>
+	<doc name="edge_shape_feature" series="AM" part="1673" pub_type="TS" edition="2" pub_year_mo="2022" format="html-stepmod"/>
+	<doc name="functional_assignment_to_part" series="AM" part="1674" pub_type="TS" edition="3" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="functional_decomposition_to_assembly_design" series="AM" part="1675" pub_type="TS" edition="1" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="functional_decomposition_to_design" series="AM" part="1676" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="functional_decomposition_to_interconnect_design" series="AM" part="1677" pub_type="TS" edition="1" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="functional_decomposition_with_nodal_representation_to_packaged_mapping" series="AM" part="1678" pub_type="TS" edition="1" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="functional_specification" series="AM" part="1679" pub_type="TS" edition="3" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="functional_unit_requirement_allocation" series="AM" part="1680" pub_type="TS" edition="1" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="generic_material_aspects" series="AM" part="1681" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="interconnect_2d_shape" series="AM" part="1682" pub_type="TS" edition="5" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="interconnect_module_connection_routing" series="AM" part="1684" pub_type="TS" edition="2" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="interconnect_module_to_assembly_module_relationship" series="AM" part="1685" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="interconnect_module_usage_view" series="AM" part="1686" pub_type="TS" edition="5" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="interconnect_module_with_macros" series="AM" part="1687" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="interconnect_non_planar_shape" series="AM" part="1688" pub_type="TS" edition="2" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="interconnect_physical_requirement_allocation" series="AM" part="1689" pub_type="TS" edition="5" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="interconnect_placement_requirements" series="AM" part="1690" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="interface_component" series="AM" part="1691" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="land" series="AM" part="1692" pub_type="TS" edition="5" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="layered_2d_shape" series="AM" part="1693" pub_type="TS" edition="3" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="layered_3d_shape" series="AM" part="1694" pub_type="TS" edition="2" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="layered_interconnect_module_2d_design" series="AM" part="1695" pub_type="TS" edition="2" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="layered_interconnect_module_3d_design" series="AM" part="1696" pub_type="TS" edition="5" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="layered_interconnect_module_design" series="AM" part="1698" pub_type="TS" edition="6" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="layered_interconnect_module_with_printed_component_design" series="AM" part="1700" pub_type="TS" edition="5" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="layout_macro_definition" series="AM" part="1701" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="manifold_subsurface" series="AM" part="1702" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="model_parameter" series="AM" part="1703" pub_type="TS" edition="5" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="network_functional_design_view" series="AM" part="1704" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="functional_usage_view" series="AM" part="1705" pub_type="TS" edition="5" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="non_feature_shape_element" series="AM" part="1706" pub_type="TS" edition="5" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="package" series="AM" part="1707" pub_type="TS" edition="6" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="packaged_connector_model" series="AM" part="1708" pub_type="TS" edition="3" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="packaged_part_white_box_model" series="AM" part="1709" pub_type="TS" edition="3" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="packaged_part_black_box_model" series="AM" part="1710" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="part_external_reference" series="AM" part="1711" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="part_feature_function" series="AM" part="1712" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="part_feature_grouping" series="AM" part="1713" pub_type="TS" edition="3" pub_year_mo="2010-07" format="html-stepmod"/>
+	<doc name="part_feature_location" series="AM" part="1714" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="layered_interconnect_complex_template" series="AM" part="1716" pub_type="TS" edition="5" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="part_template_3d_shape" series="AM" part="1717" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="layered_interconnect_simple_template" series="AM" part="1718" pub_type="TS" edition="6" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="part_template_non_planar_shape" series="AM" part="1719" pub_type="TS" edition="2" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="part_template_shape_with_parameters" series="AM" part="1720" pub_type="TS" edition="4" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="physical_component_feature" series="AM" part="1721" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="part_template" series="AM" part="1722" pub_type="TS" edition="5" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="physical_node_requirement_to_implementing_component_allocation" series="AM" part="1723" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="physical_unit_2d_design_view" series="AM" part="1724" pub_type="TS" edition="5" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="physical_unit_3d_design_view" series="AM" part="1725" pub_type="TS" edition="5" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="physical_unit_2d_shape" series="AM" part="1726" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="physical_unit_3d_shape" series="AM" part="1727" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="physical_unit_design_view" series="AM" part="1728" pub_type="TS" edition="5" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="physical_unit_interconnect_definition" series="AM" part="1729" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="physical_unit_shape_with_parameters" series="AM" part="1730" pub_type="TS" edition="4" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="constructive_solid_geometry_2d" series="AM" part="1731" pub_type="TS" edition="6" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="physical_unit_usage_view" series="AM" part="1732" pub_type="TS" edition="6" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="planned_characteristic" series="AM" part="1733" pub_type="TS" edition="4" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="pre_defined_datum_symbol" series="AM" part="1734" pub_type="TS" edition="3" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="pre_defined_datum_2d_symbol" series="AM" part="1735" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="pre_defined_datum_3d_symbol" series="AM" part="1736" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="printed_physical_layout_template" series="AM" part="1737" pub_type="TS" edition="6" pub_year_mo="2022" format="html-stepmod"/>
+	<doc name="production_rule" series="AM" part="1739" pub_type="TS" edition="4" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="requirement_decomposition" series="AM" part="1740" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="sequential_laminate_assembly_design" series="AM" part="1741" pub_type="TS" edition="5" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="shape_composition" series="AM" part="1742" pub_type="TS" edition="2" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="shape_parameters" series="AM" part="1743" pub_type="TS" edition="2" pub_year_mo="2010-08" format="html-stepmod"/>
+	<doc name="discrete_shield" series="AM" part="1744" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="signal" series="AM" part="1745" pub_type="TS" edition="1" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="software" series="AM" part="1746" pub_type="TS" edition="2" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="specification_document" series="AM" part="1747" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="stratum_non_planar_shape" series="AM" part="1748" pub_type="TS" edition="4" pub_year_mo="2022" format="html-stepmod"/>
+	<doc name="styled_curve" series="AM" part="1749" pub_type="TS" edition="4" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="text_representation" series="AM" part="1750" pub_type="TS" edition="5" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="test_requirement_allocation" series="AM" part="1751" pub_type="TS" edition="3" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="thermal_network_definition" series="AM" part="1752" pub_type="TS" edition="5" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="value_with_unit_extension" series="AM" part="1753" pub_type="TS" edition="4" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="via_component" series="AM" part="1754" pub_type="TS" edition="2" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="physical_connectivity_definition" series="AM" part="1755" pub_type="TS" edition="5" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="conductivity_material_aspects" series="AM" part="1756" pub_type="TS" edition="2" pub_year_mo="2010-07" format="html-stepmod"/>
+	<doc name="test_select_product" series="AM" part="1757" pub_type="TS" edition="1" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="ap210_datum_difference_based_model_definition" series="AM" part="1759" pub_type="TS" edition="1" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="pre_defined_product_data_management_specializations" series="AM" part="1760" pub_type="TS" edition="3" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="information_product" series="AM" part="1761" pub_type="TS" edition="2" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="integral_shield" series="AM" part="1763" pub_type="TS" edition="2" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="shape_feature" series="AM" part="1764" pub_type="TS" edition="5" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="characterizable_object" series="AM" part="1765" pub_type="TS" edition="4" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="composite_constituent_shape" series="AM" part="1767" pub_type="TS" edition="6" pub_year_mo="2022" format="html-stepmod"/>
+	<doc name="composite_material_aspects" series="AM" part="1768" pub_type="TS" edition="2" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="part_and_zone_laminate_tables" series="AM" part="1770" pub_type="TS" edition="6" pub_year_mo="2022" format="html-stepmod"/>
+	<doc name="stock_material" series="AM" part="1771" pub_type="TS" edition="3" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="ply_orientation_specification" series="AM" part="1772" pub_type="TS" edition="4" pub_year_mo="2022" format="html-stepmod"/>
+	<doc name="basic_data_representation" series="AM" part="1773" pub_type="TS" edition="3" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="currency" series="AM" part="1775" pub_type="TS" edition="1" pub_year_mo="2008" format="html-stepmod"/>
+	<doc name="extended_date" series="AM" part="1776" pub_type="TS" edition="2" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="external_currency" series="AM" part="1777" pub_type="TS" edition="1" pub_year_mo="2008" format="html-stepmod"/>
+	<doc name="external_library" series="AM" part="1778" pub_type="TS" edition="3" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="external_representation_item" series="AM" part="1779" pub_type="TS" edition="2" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="external_unit" series="AM" part="1780" pub_type="TS" edition="2" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="qualified_measure" series="AM" part="1782" pub_type="TS" edition="4" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="external_analysis_representation" series="AM" part="1784" pub_type="TS" edition="1" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="analysis_representation" series="AM" part="1785" pub_type="TS" edition="1" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="risk_definition" series="AM" part="1786" pub_type="TS" edition="2" pub_year_mo="2011-10" format="html-stepmod"/>
+	<doc name="primitive_solids" series="AM" part="1791" pub_type="TS" edition="4" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="solid_model" series="AM" part="1793" pub_type="TS" edition="1" pub_year_mo="2010-07" format="html-stepmod"/>
+	<doc name="support_resource" series="AM" part="1800" pub_type="TS" edition="2" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="composite_surface" series="AM" part="1525" pub_type="TS" edition="2" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="b_spline_geometry" series="AM" part="1801" pub_type="TS" edition="1" pub_year_mo="2011-02" format="html-stepmod"/>
+	<doc name="tessellated_geometry" series="AM" part="1819" pub_type="TS" edition="3" pub_year_mo="2022" format="html-stepmod"/>
+	<doc name="product_data_quality_definition" series="AM" part="1520" pub_type="TS" edition="2" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="product_data_quality_criteria" series="AM" part="1521" pub_type="TS" edition="2" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="product_data_quality_inspection_result" series="AM" part="1522" pub_type="TS" edition="2" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="shape_data_quality_criteria" series="AM" part="1523" pub_type="TS" edition="3" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="shape_data_quality_inspection_result" series="AM" part="1524" pub_type="TS" edition="2" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="explicit_constraints" series="AM" part="1788" pub_type="TS" edition="2" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="geometric_constraints" series="AM" part="1789" pub_type="TS" edition="2" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="parameterization_and_variational_representation" series="AM" part="1790" pub_type="TS" edition="3" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="sketch" series="AM" part="1792" pub_type="TS" edition="3" pub_year_mo="2022" format="html-stepmod"/>
+	<doc name="elementary_function" series="AM" part="1527" pub_type="TS" edition="2" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="numeric_expression" series="AM" part="1526" pub_type="TS" edition="2" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="assembly_component" series="AM" part="1802" pub_type="TS" edition="2" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="assembly_constraints" series="AM" part="1794" pub_type="TS" edition="1" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="assembly_feature_relationship" series="AM" part="1795" pub_type="TS" edition="2" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="characterized_representation" series="AM" part="1805" pub_type="TS" edition="1" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="default_setting_association" series="AM" part="1809" pub_type="TS" edition="2" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="form_feature_in_panel" series="AM" part="1806" pub_type="TS" edition="3" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="part_shape" series="AM" part="1807" pub_type="TS" edition="3" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="assembly_shape" series="AM" part="1808" pub_type="TS" edition="2" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="kinematic_analysis_control_and_result" series="AM" part="1817" pub_type="TS" edition="1" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="kinematic_motion_representation" series="AM" part="1796" pub_type="TS" edition="3" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="kinematic_state" series="AM" part="1798" pub_type="TS" edition="2" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="kinematic_structure" series="AM" part="1797" pub_type="TS" edition="2" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="kinematic_topology" series="AM" part="1799" pub_type="TS" edition="1" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="machining_features" series="AM" part="1814" pub_type="TS" edition="3" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="mating_structure" series="AM" part="1815" pub_type="TS" edition="4" pub_year_mo="2022" format="html-stepmod"/>
+	<doc name="model_based_3d_geometrical_dimensioning_and_tolerancing_representation" series="AM" part="1816" pub_type="TS" edition="2" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="parametric_representation" series="AM" part="1813" pub_type="TS" edition="2" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="process_plan" series="AM" part="1803" pub_type="TS" edition="4" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="product_and_manufacturing_annotation_presentation" series="AM" part="1812" pub_type="TS" edition="2" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="product_and_manufacturing_information_view_context" series="AM" part="1810" pub_type="TS" edition="1" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="product_and_manufacturing_information_with_nominal_3d_models" series="AM" part="1811" pub_type="TS" edition="2" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="product_as_individual_assembly_and_test" series="AM" part="1804" pub_type="TS" edition="3" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="change_management" series="AM" part="1824" pub_type="TS" edition="3" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="physical_connectivity_layout_topology_requirement" series="AM" part="1826" pub_type="TS" edition="1" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="extruded_structure_cross_section" series="AM" part="1827" pub_type="TS" edition="2" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="wiring_harness_assembly_design" series="AM" part="1828" pub_type="TS" edition="3" pub_year_mo="2022" format="html-stepmod"/>
+	<doc name="assembly_module_with_packaged_component" series="AM" part="1829" pub_type="TS" edition="1" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="edge_based_topological_representation_with_length_constraint" series="AM" part="1830" pub_type="TS" edition="3" pub_year_mo="2022" format="html-stepmod"/>
+	<doc name="scan_data_3d_shape" series="AM" part="1831" pub_type="TS" edition="2" pub_year_mo="2019" format="html-stepmod"/>
+	<!-- deferred
+		<doc name="weld" part="1832" pub_type="TS" edition="1" pub_year_mo="2017-12" format="html-stepmod" series="AM"/>
+	-->
+	<!-- deferred
+		<doc name="aerospace_screw_thread" part="1833" pub_type="TS" edition="1" pub_year_mo="2017-12" format="html-stepmod" series="AM"/>
+	-->
+	<doc name="surface_visual_texture" series="AM" part="1834" pub_type="TS" edition="2" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="additive_manufacturing_part_and_build_information" series="AM" part="1835" pub_type="TS" edition="2" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="vertex_colours_for_tessellated_geometry" series="AM" part="1836" pub_type="TS" edition="2" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="product_data_equivalence_definition" part="1837" pub_type="TS" edition="1" pub_year_mo="2019" format="html-stepmod" series="AM"/>
+	<doc name="annotated_3d_model_equivalence_criteria" series="AM" part="1838" pub_type="TS" edition="2" pub_year_mo="2022" format="html-stepmod"/>
+	<doc name="annotated_3d_model_equivalence_inspection_result" part="1839" pub_type="TS" edition="1" pub_year_mo="2019" format="html-stepmod" series="AM"/>
+	<doc name="annotated_3d_model_equivalence_shape" part="1840" pub_type="TS" edition="1" pub_year_mo="2019" format="html-stepmod" series="AM"/>
+	<doc name="annotated_3d_model_equivalence_assembly" part="1841" pub_type="TS" edition="1" pub_year_mo="2019" format="html-stepmod" series="AM"/>
+	<!-- deferred
+		<doc name="equivalence_of_product_definition_related_data" part="1842" pub_type="TS" edition="1" pub_year_mo="2017-12" format="html-stepmod" series="AM"/>
+		<doc name="annotated_3d_model_equivalence_pmi" part="1843" pub_type="TS" edition="1" pub_year_mo="2017-12" format="html-stepmod" series="AM"/>
+	-->
+	<doc name="general_design_connectivity" series="AM" part="1844" pub_type="TS" edition="3" pub_year_mo="2022" format="html-stepmod"/>
+	<doc name="wire_and_cable_design_connectivity" series="AM" part="1845" pub_type="TS" edition="2" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="mechanical_design_features_and_requirements" series="AM" part="1846" pub_type="TS" edition="3" pub_year_mo="2022" format="html-stepmod"/>
+	<doc name="analysis" series="AM" part="1372" pub_type="TS" edition="1" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="analysis_product_relationships" series="AM" part="1373" pub_type="TS" edition="1" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="analysis_shape" series="AM" part="1374" pub_type="TS" edition="2" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="cfd_conditions" series="AM" part="1375" pub_type="TS" edition="1" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="cfd_equations" series="AM" part="1376" pub_type="TS" edition="1" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="cfd_model" series="AM" part="1377" pub_type="TS" edition="1" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="cfd_results" series="AM" part="1378" pub_type="TS" edition="1" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="cfd_specified_general_property" series="AM" part="1379" pub_type="TS" edition="2" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="fea_definition_relationships" series="AM" part="1380" pub_type="TS" edition="2" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="fea_material_aspects" series="AM" part="1769" pub_type="TS" edition="1" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="finite_element_analysis" series="AM" part="1381" pub_type="TS" edition="1" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="finite_element_shape" series="AM" part="1382" pub_type="TS" edition="1" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="finite_elements" series="AM" part="1383" pub_type="TS" edition="2" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="mesh_connectivity" series="AM" part="1384" pub_type="TS" edition="1" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="mesh_function" series="AM" part="1385" pub_type="TS" edition="1" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="mesh_topology" series="AM" part="1386" pub_type="TS" edition="2" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="product_analysis" series="AM" part="1387" pub_type="TS" edition="1" pub_year_mo="2014-02" format="html-stepmod"/>
+	<doc name="design_management" series="AM" part="1661" pub_type="TS" edition="1" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="product_identification_extension" series="AM" part="1738" pub_type="TS" edition="1" pub_year_mo="2006" format="html-stepmod"/>
+	<doc name="extended_geometric_tolerance" series="AM" part="1666" pub_type="TS" edition="2" pub_year_mo="2010-03" format="html-stepmod"/>
+	<doc name="part_occurrence" series="AM" part="1715" pub_type="TS" edition="2" pub_year_mo="2008" format="html-stepmod"/>
+	<doc name="generic_product_occurrence" series="AM" part="1762" pub_type="TS" edition="2" pub_year_mo="2008" format="html-stepmod"/>
+	<doc name="assembly_feature_definition" series="AM" part="1102" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="product_property_feature_definition" series="AM" part="1101" pub_type="TS" edition="1" pub_year_mo="2005" format="html-stepmod"/><!-- ### Integrated generic resource, 4x, 5x, 6x ### -->
+	<doc name="fundamentals_of_product_description_and_support" series="IGR" part="41" pub_type="IS" edition="7" pub_year_mo="2022" format="html-stepmod"/>
+	<doc name="geometric_and_topological_representation" series="IGR" part="42" pub_type="IS" edition="7" pub_year_mo="2022" format="html-stepmod"/>
+	<doc name="representation_structures" series="IGR" part="43" pub_type="IS" edition="5" pub_year_mo="2022" format="html-stepmod"/>
+	<doc name="product_structure_configuration" series="IGR" part="44" pub_type="IS" edition="6" pub_year_mo="2022" format="html-stepmod"/>
+	<doc name="material_and_other_engineering_properties" series="IGR" part="45" pub_type="IS" edition="5" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="visual_presentation" series="IGR" part="46" pub_type="IS" edition="5" pub_year_mo="2022" format="html-stepmod"/>
+	<doc name="shape_variation_tolerances" series="IGR" part="47" pub_type="IS" edition="5" pub_year_mo="2022" format="html-stepmod"/>
+	<doc name="process_structure_and_properties" series="IGR" part="49" pub_type="IS" edition="1" pub_year_mo="1998" format="pdf" filename="ISO_10303-49_1998.pdf"/>
+	<doc name="mathematical_constructs" series="IGR" part="50" pub_type="IS" edition="1" pub_year_mo="2002" format="pdf" filename="ISO_10303-50_2002(E)-Character_PDF_document.pdf">
+		<tc cor="1" pub_year_mo="2010" format="pdf" filename="ISO_10303-50_2002_Cor_1_2010.pdf"/>
+		<tc cor="2" pub_year_mo="2014" format="pdf" filename="ISO_10303-50_2002_Cor_2_2014.pdf"/>
+	</doc>
+	<doc name="mathematical_representation" series="IGR" part="51" pub_type="IS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="mesh-based_topology" series="IGR" part="52" pub_type="IS" edition="1" pub_year_mo="2011" format="pdf" filename="ISO_10303-52_2011.pdf">
+		<tc cor="1" pub_year_mo="2014" format="pdf" filename="ISO_10303-52_2011_Cor_1_2014.pdf"/>
+	</doc>
+	<doc name="numerical_analysis" series="IGR" part="53" pub_type="IS" edition="1" pub_year_mo="2011" format="html-stepmod"/>
+	<doc name="classification_and_set_theory" series="IGR" part="54" pub_type="IS" edition="1" pub_year_mo="2005" format="html-stepmod"/>
+	<doc name="procedural_and_hybrid_representation" series="IGR" part="55" pub_type="IS" edition="1" pub_year_mo="2005" format="pdf" filename="ISO_10303-55_2005(E)-Character_PDF_document.pdf">
+		<tc cor="1" pub_year_mo="2005" format="pdf" filename="ISO_10303-55_2005_Cor_1_2005(E)-Character_PDF_document.pdf"/>
+	</doc>
+	<doc name="state" series="IGR" part="56" pub_type="IS" edition="2" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="persistent_identification_of_elements_in_procedural_shape_modelling" series="IGR" part="57" pub_type="IS" edition="1" pub_year_mo="2018-10" format="html-stepmod"/>
+	<doc name="risk" series="IGR" part="58" pub_type="IS" edition="1" pub_year_mo="2011" format="html-stepmod"/>
+	<doc name="quality_of_product_shape_data" series="IGR" part="59" pub_type="IS" edition="4" pub_year_mo="2022" format="html-stepmod"/>
+	<doc name="systems_engineering_representation" series="IGR" part="61" pub_type="IS" edition="2" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="equivalence_validation_of_product_data" series="IGR" part="62" pub_type="IS" edition="1" pub_year_mo="2018-10" format="html-stepmod"/>
+	<!-- ### Integrated application resource ### -->
+	<doc name="draughting" series="IAR" part="101" pub_type="IS" edition="6" pub_year_mo="2022" format="html-stepmod"/>
+	<doc name="finite_element_analysis" series="IAR" part="104" pub_type="IS" edition="1" pub_year_mo="2000" format="pdf" filename="ISO_10303-104_2000(E)-Character_PDF_document.pdf">
+		<tc cor="1" pub_year_mo="2009" format="pdf" filename="ISO_10303-104_2000_Cor_1_2009(E)-Character_PDF_document.pdf"/>
+		<tc cor="2" pub_year_mo="2014" format="pdf" filename="ISO_10303-104_2000_Cor_2_2014.pdf"/>
+	</doc>
+	<doc name="kinematics" series="IAR" part="105" pub_type="IS" edition="3" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="finite_element_analysis_definition_relationships" series="IAR" part="107" pub_type="IS" edition="2" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="parameterization_and_constraints_for_explicit_geometric_product_models" series="IAR" part="108" pub_type="IS" edition="1" pub_year_mo="2005" format="pdf" filename="ISO_10303-108_2005.pdf">
+		<tc cor="1" pub_year_mo="2008" format="pdf" filename="ISO_10303-108_2005_Cor_1_2008.pdf"/>
+		<tc cor="2" pub_year_mo="2014" format="pdf" filename="ISO_10303-108_2005_Cor_2_2014.pdf"/>
+	</doc>
+	<doc name="kinematic_and_geometric_constraints_for_assembly_models" series="IAR" part="109" pub_type="IS" edition="1" pub_year_mo="2004" format="pdf" filename="ISO_10303-109_2004(E)-Character_PDF_document.pdf">
+		<tc cor="1" pub_year_mo="2010" format="pdf" filename="ISO_10303-109_2004_Cor_1_2010.pdf"/>
+		<tc cor="2" pub_year_mo="2014" format="pdf" filename="ISO_10303-109_2004_Cor_2_2014.pdf"/>
+	</doc>
+	<doc name="mesh-based_computational_fluid_dynamics" series="IAR" part="110" pub_type="IS" edition="1" pub_year_mo="2011" format="pdf" filename="ISO_10303-110_2011.pdf"/>
+	<doc name="elements_for_the_procedural_modelling_of_solid_shapes" series="IAR" part="111" pub_type="IS" edition="1" pub_year_mo="2007" format="pdf" filename="ISO_10303-111_2007.pdf">
+		<tc cor="1" pub_year_mo="2008" format="pdf" filename="ISO_10303-111_2007_Cor_1_2008.pdf"/>
+		<tc cor="2" pub_year_mo="2014" format="pdf" filename="ISO_10303-111_2007_Cor_2_2014.pdf"/>
+	</doc>
+	<doc name="modelling_commands_for_the_exchange_of_procedurally_represented_2d_cad_models" series="IAR" part="112" pub_type="IS" edition="1" pub_year_mo="2006" format="pdf" filename="ISO_10303-112_2006.pdf"/>
+	<doc name="mechanical_features" series="IAR" part="113" pub_type="IS" edition="2" pub_year_mo="2022" format="html-stepmod"/>
+	<!-- ### Application
+		interpreted construct ### -->
+	<doc name="edge_based_wireframe" series="AIC" part="501" pub_type="IS" edition="1" pub_year_mo="2000" format="pdf" filename="ISO_10303-501_2000(E)-Character_PDF_document.pdf"/>
+	<doc name="shell_based_wireframe" series="AIC" part="502" pub_type="IS" edition="1" pub_year_mo="2000" format="pdf" filename="ISO_10303-502_2000(E)-Character_PDF_document.pdf"/>
+	<doc name="geometrically_bounded_2d_wireframe" series="AIC" part="503" pub_type="IS" edition="2" pub_year_mo="2011" format="html-stepmod"/>
+	<doc name="draughting_annotation" series="AIC" part="504" pub_type="IS" edition="2" pub_year_mo="2011" format="html-stepmod"/>
+	<doc name="drawing_structure_and_administration" series="AIC" part="505" pub_type="IS" edition="1" pub_year_mo="2000" format="pdf" filename="ISO_10303-505_2000(E)-Character_PDF_document.pdf"/>
+	<doc name="draughting_elements" series="AIC" part="506" pub_type="IS" edition="3" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="geometrically_bounded_surface" series="AIC" part="507" pub_type="IS" edition="1" pub_year_mo="2001" format="pdf" filename="ISO_10303-507_2001(E)-Character_PDF_document.pdf"/>
+	<doc name="non_manifold_surface" series="AIC" part="508" pub_type="IS" edition="1" pub_year_mo="2001" format="pdf" filename="ISO_10303-508_2001(E)-Character_PDF_document.pdf"/>
+	<doc name="manifold_surface" series="AIC" part="509" pub_type="IS" edition="1" pub_year_mo="2001" format="pdf" filename="ISO_10303-509_2001(E)-Character_PDF_document.pdf"/>
+	<doc name="geometrically_bounded_wireframe" series="AIC" part="510" pub_type="IS" edition="1" pub_year_mo="2000" format="pdf" filename="ISO_10303-510_2000(E)-Character_PDF_document.pdf"/>
+	<doc name="topologically_bounded_surface" series="AIC" part="511" pub_type="IS" edition="1" pub_year_mo="2001" format="pdf" filename="ISO_10303-511_2001(E)-Character_PDF_document.pdf"/>
+	<doc name="faceted_boundary_representation" series="AIC" part="512" pub_type="IS" edition="1" pub_year_mo="1999" format="pdf" filename="ISO_10303-512_1999(E)-Character_PDF_document.pdf"/>
+	<doc name="elementary_boundary_representation" series="AIC" part="513" pub_type="IS" edition="1" pub_year_mo="2000" format="pdf" filename="ISO_10303-513_2000(E)-Character_PDF_document.pdf"/>
+	<doc name="advanced_boundary_representation" series="AIC" part="514" pub_type="IS" edition="1" pub_year_mo="1999" format="pdf" filename="ISO_10303-514_1999(E)-Character_PDF_document.pdf"/>
+	<doc name="constructive_solid_geometry" series="AIC" part="515" pub_type="IS" edition="2" pub_year_mo="2019" format="html-stepmod"/>
+	<doc name="mechanical_design_geometric_presentation" series="AIC" part="517" pub_type="IS" edition="4" pub_year_mo="2022" format="html-stepmod"/>
+	<doc name="mechanical_design_shaded_presentation" series="AIC" part="518" pub_type="IS" edition="3" pub_year_mo="2014" format="html-stepmod"/>
+	<doc name="associative_draughting_elements" series="AIC" part="520" pub_type="IS" edition="3" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="manifold_subsurface" series="AIC" part="521" pub_type="IS" edition="2" pub_year_mo="2011" format="html-stepmod"/>
+	<doc name="machining_features" series="AIC" part="522" pub_type="IS" edition="3" pub_year_mo="2014" format="html-stepmod"/>
+	<doc name="curve_swept_solid" series="AIC" part="523" pub_type="IS" edition="2" pub_year_mo="2011" format="html-stepmod"/>
+	<doc name="geometric_tolerances" series="AIC" part="519" pub_type="IS" edition="1" pub_year_mo="2000" format="pdf" filename="ISO_10303-519_2000(E)-Character_PDF_document.pdf">
+		<tc cor="1" pub_year_mo="2000" format="pdf" filename="ISO_10303-519_2000_Cor_1_2000(E)-Character_PDF_document.pdf"/>
+	</doc>
+	<!-- ### BO model / Domain Models ### -->
+	<doc name="managed_model_based_3d_engineering" series="BO_M" part="3001" pub_type="TS" edition="2" pub_year_mo="2018-11" format="html-stepmod"/>
+	<doc name="core_model" series="CM" part="4000" pub_type="TS" edition="1" pub_year_mo="2022" format="html-stepmod"/>
+	<doc name="managed_model_based_3d_engineering_domain" series="DM" part="4442" pub_type="TS" edition="3" pub_year_mo="2022" format="html-stepmod"/>
+	<doc name="mossec" series="DM" part="4443" pub_type="TS" edition="1" pub_year_mo="2022" format="html-stepmod"/>
+	<!-- ### PLIB resource ### -->
+	<doc name="logical_model_of_expressions" series="PLIB" part="13584-20" pub_type="IS" edition="1" pub_year_mo="1998" format="pdf" filename="ISO_13584-20_1998(E)-Character_PDF_document.pdf">
+		<tc cor="1" pub_year_mo="2014" format="pdf" filename="ISO_13584-20_1998_Cor_1_2014.pdf"/>
+	</doc>
+	<!-- XML implementation Part 28
+		Leave out for now since the resources schemas are not part of SMRL v4
+		<doc name="XML_representations_of_EXPRESS_schemas_and_data_using_XML_schemas" series="IM" part="28" pub_type="IS" edition="2" pub_year_mo="2007" format="pdf" filename="ISO_10303-28_2007.pdf"/>
+	-->
+	<!-- formal specification of withdrawn docs for when the SC4 decides to withdraw them. -->
+	<withdrawn_doc name="design_management" series="AM" part="1661" pub_type="TS" edition="1" pub_year_mo="withdrawn" format="html-stepmod"/>
+	<withdrawn_doc name="product_identification_extension" series="AM" part="1738" pub_type="TS" edition="1" pub_year_mo="withdrawn" format="html-stepmod"/>
+	<withdrawn_doc name="extended_geometric_tolerance" series="AM" part="1666" pub_type="TS" edition="2" pub_year_mo="withdrawn" format="html-stepmod"/>
+	<withdrawn_doc name="part_occurrence" series="AM" part="1715" pub_type="TS" edition="2" pub_year_mo="withdrawn" format="html-stepmod"/>
+	<withdrawn_doc name="generic_product_occurrence" series="AM" part="1762" pub_type="TS" edition="2" pub_year_mo="withdrawn" format="html-stepmod"/>
+	<withdrawn_doc name="assembly_feature_definition" series="AM" part="1102" pub_type="TS" edition="1" pub_year_mo="withdrawn" format="html-stepmod"/>
+	<withdrawn_doc name="product_property_feature_definition" series="AM" part="1101" pub_type="TS" edition="1" pub_year_mo="withdrawn" format="html-stepmod"/>
+	<withdrawn_doc name="geometric_tolerances" series="AIC" part="519" pub_type="IS" edition="1" pub_year_mo="withdrawn" format="pdf" filename="ISO_10303-519_2000(E)-Character_PDF_document.pdf">
+		<tc cor="1" pub_year_mo="2000" format="pdf" filename="ISO_10303-519_2000_Cor_1_2000(E)-Character_PDF_document.pdf"/>
+	</withdrawn_doc>
+	<withdrawn_doc name="product_and_manufacturing_information_view_context" series="AM" part="1810" pub_type="TS" edition="1" pub_year_mo="withdrawn" format="html-stepmod"/>
+</docs>
