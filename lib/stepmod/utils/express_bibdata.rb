@@ -21,13 +21,13 @@ module Stepmod
         if !published_info.nil?
           @pubid = Pubid::Iso::Identifier.parse(published_info)
 
-          @part = pubid.part&.to_s
-          @version = pubid.edition&.to_s
-          @pub_year = pubid.year&.to_s
+          @part = pubid.part&.to_i
+          @version = pubid.edition&.to_i
+          @pub_year = pubid.year&.to_i
         elsif !schema.version.nil?
-          @part = schema.version.items.find { |i| i.name == "part" }.value&.to_s
-          @version = schema.version.items.find { |i| i.name == "part" }.value&.to_s
-          @pub_year = schema.version.items.find { |i| i.name == "part" }.value&.to_s
+          @part = schema.version.items.find { |i| i.name == "part" }.value&.to_i
+          @version = schema.version.items.find { |i| i.name == "part" }.value&.to_i
+          @pub_year = schema.version.items.find { |i| i.name == "part" }.value&.to_i
         else
           raise "PublishedInfoNotFound"
         end
