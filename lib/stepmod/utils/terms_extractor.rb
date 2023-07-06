@@ -141,6 +141,11 @@ module Stepmod
             next
           end
 
+          if x["name"] == "iso13584_generic_expressions_schema"
+            log "INFO: skipping resource #{x['name']} as the ISO 13584 series is out of scope."
+            next
+          end
+
           path = @stepmod_path.join("resources/#{x['name']}/#{x['name']}_annotated.exp")
           if File.exist? path
             files << path
@@ -558,7 +563,9 @@ module Stepmod
       end
 
       def redundant_note?(note)
-        note && note.match?(REDUNDENT_NOTE_REGEX) && !note.include?("\n")
+        return true if note.nil?
+
+        note.match?(REDUNDENT_NOTE_REGEX) && !note.include?("\n")
       end
     end
   end
