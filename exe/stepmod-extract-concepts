@@ -144,7 +144,6 @@ def extract_bibliographies(concepts, bibliographies)
     sources = concept.default_lang.sources
 
     sources.each do |source|
-      # require "pry"; binding.pry
       next if bibliographies[source.origin.text]
 
       bibliographies[source.origin.text] = {
