@@ -139,8 +139,24 @@ def replace_content(content)
   content
 end
 
+def extract_sections(concepts, container)
+  concepts.each do |concept|
+    domain = concept.default_lang.domain
+    next if container[domain]
+
+    container[domain] = {
+      domain: domain,
+      title: domain.split(":").last.strip,
+    }
+  end
+end
+
+clause_4_sections = {}
+clause_5_sections = {}
+
 part_resources.each do |(_bibdata, current_part_resources)|
   current_part_resources.save_to_files(output_dir)
+  extract_sections(current_part_resources, clause_4_sections)
 end
 log "INFO: part_resources written to YAML files in #{output_dir}"
 
@@ -150,12 +166,14 @@ end.each do |(_bibdata, part_modules_arm, part_modules_mim)|
   unless part_modules_arm.empty?
     part_modules_arm.values.map do |managed_concept|
       managed_concept.save_to_files(output_dir)
+      extract_sections(managed_concept, clause_5_sections)
     end
   end
 
   unless part_modules_mim.empty?
     part_modules_mim.values.map do |managed_concept|
       managed_concept.save_to_files(output_dir)
+      extract_sections(managed_concept, clause_5_sections)
     end
   end
 end
@@ -163,3 +181,8 @@ log "INFO: part_modules written to YAML files in #{output_dir}"
 
 resource_concepts.save_to_files(output_dir)
 log "INFO: resource_concepts written to YAML files in #{output_dir}"
+
+extract_sections(resource_concepts, clause_4_sections)
+
+File.write("#{output_dir}/clause_4_sections.yaml", clause_4_sections.values.to_yaml)
+File.write("#{output_dir}/clause_5_sections.yaml", clause_5_sections.values.to_yaml)
