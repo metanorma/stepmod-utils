@@ -1,5 +1,5 @@
 module Stepmod
   module Utils
-    VERSION = "0.3.28".freeze
+    VERSION = "0.3.29".freeze
   end
 end
