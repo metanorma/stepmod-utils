@@ -150,7 +150,7 @@ def extract_bibliographies(concepts, bibliographies)
         "type" => source.type,
         "origin" => {
           "ref" => source.origin.text,
-          "link" => source.origin.link,
+          # "link" => source.origin.link,
         },
       }
     end
