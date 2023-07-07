@@ -382,7 +382,11 @@ module Stepmod
             {
               "type" => "authoritative",
               "ref" => bibdata.docid,
-              "link" => "https://www.iso.org/standard/32858.html",
+
+              # TODO: Commenting out link right now since it's not needed.
+              # GitHub: metanorma/iso-10303-2#286
+              #
+              # "link" => "https://www.iso.org/standard/32858.html",
             },
           ],
           notes: notes,
