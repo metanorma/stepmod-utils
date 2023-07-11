@@ -29,7 +29,7 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
       {
         designation: "Activity",
         domain: "application module: Activity_arm",
-        definition: "{{entity data type}} that represents the activity {{entity}}",
+        definition: "{{application object}} that represents the activity {{entity}}",
         old_definition: "An **Activity** is the identification of the occurrence of an action that has taken place, is taking place, or is expected to take place in the future.",
       }
     end
@@ -37,8 +37,8 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
     let(:mim_description_hash) do
       {
         designation: "applied_action_assignment",
-        domain: "application object: Activity_mim",
-        definition: "{{application object}} that is a type of {{action_assignment}} that represents the applied action assignment {{entity}}",
+        domain: "application module: Activity_mim",
+        definition: "{{entity data type}} that is a type of {{action_assignment}} that represents the applied action assignment {{entity}}",
         old_definition: "An **applied_action_assignment** is an {{action,action}} related to the data that are affected by the {{action,action}}.",
       }
     end
@@ -114,8 +114,9 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
       ReverseAdoc::Converters
         .register(:ext_description,
                   Stepmod::Utils::Converters::StepmodExtDescription.new)
+
       applied_action_assignment_concept =
-        call[-1][0][2]["Activity_mim"]
+        call[-1][0][1]["Activity_mim"]
         .to_a.map { |n| n.localizations["eng"] }
         .find do |concept|
           concept.designations.first.designation == "applied_action_assignment"
@@ -143,7 +144,7 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
 
     describe "#generate_entity_definition" do
       let(:generate_entity_definition) do
-        subject.send(:generate_entity_definition, entity, domain)
+        subject.send(:generate_entity_definition, entity, domain, "resource")
       end
 
       let(:domain) { "resource: action_schema" }

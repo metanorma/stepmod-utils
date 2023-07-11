@@ -243,13 +243,15 @@ module Stepmod
               bibdata: bibdata,
               # See: metanorma/iso-10303-2#90
               domain_prefix: "application module",
+              schema_type: type,
             )
           when "module_mim"
             mim_concepts = parse_annotated_module(
               schema: schema,
               bibdata: bibdata,
               # See: metanorma/iso-10303-2#90
-              domain_prefix: "application object",
+              domain_prefix: "application module",
+              schema_type: type,
             )
           when "resource"
             parse_annotated_resource(schema: schema, bibdata: bibdata)
@@ -268,7 +270,7 @@ module Stepmod
         }[match.captures[0]] || "resource"
       end
 
-      def parse_annotated_module(schema:, bibdata:, domain_prefix:)
+      def parse_annotated_module(schema:, bibdata:, domain_prefix:, schema_type:)
         log "INFO: parse_annotated_module: " \
             "Processing modules schema #{schema.file}"
 
@@ -285,6 +287,7 @@ module Stepmod
               "name" => schema.id,
               "type" => "module",
               "path" => extract_file_path(entity.parent.file),
+              "schema_type" => schema_type
             },
             document: {
               "type" => "module",
@@ -330,6 +333,7 @@ module Stepmod
               "name" => schema.id,
               "type" => "resource",
               "path" => extract_file_path(entity.parent.file),
+              "schema_type" => "resource"
             },
             document: {
               "type" => "resource",
@@ -363,7 +367,8 @@ module Stepmod
       # rubocop:disable Metrics/MethodLength
       def generate_concept_from_entity(entity:, schema:, domain:, bibdata:, document:)
         old_definition = trim_definition(entity.remarks.first)
-        definition = generate_entity_definition(entity, domain)
+        schema_type = schema["schema_type"]
+        definition = generate_entity_definition(entity, domain, schema_type)
 
         notes = [old_definition].reject { |note| redundant_note?(note) }
 
@@ -515,15 +520,20 @@ module Stepmod
       # end
 
       # rubocop:disable Layout/LineLength
-      def generate_entity_definition(entity, domain)
+      def generate_entity_definition(entity, domain, schema_type)
         return "" if entity.nil?
 
         # See: metanorma/iso-10303-2#90
-        entity_type = if domain_type = domain.match(/\A(application object):/)
-                        "{{#{domain_type[1]}}}"
-                      else
-                        "{{entity data type}}"
-                      end
+        entity_type = case schema_type
+        when "module_arm"
+          "{{application object}}"
+        when "module_mim"
+          "{{entity data type}}"
+        when "resource", "business_object_model"
+          "{{entity data type}}"
+        else
+          raise Error.new("[stepmod-utils] encountered unsupported schema_type")
+        end
 
         if entity.subtype_of.size.zero?
           "#{entity_type} " \
