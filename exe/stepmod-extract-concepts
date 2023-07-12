@@ -86,7 +86,7 @@ else
   )
 end
 
-default_output_dir = File.join(stepmod_dir, "output_yaml")
+default_output_dir = File.join(File.expand_path("..", stepmod_dir), "output_yaml")
 output_dir = options[:output_dir] || default_output_dir
 unless File.directory?(output_dir)
   FileUtils.mkdir_p(output_dir)
