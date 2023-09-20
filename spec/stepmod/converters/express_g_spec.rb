@@ -20,6 +20,7 @@ RSpec.describe Stepmod::Utils::Converters::ExpressG do
 
       *)
       (*"test_schema.__expressg"
+      [[basic_attribute_schemaexpg1]]
       [.svgmap]
       ====
       image::basic_attribute_schemaexpg1.svg[]
@@ -32,6 +33,7 @@ RSpec.describe Stepmod::Utils::Converters::ExpressG do
 
       *)
       (*"test_schema.__expressg"
+      [[basic_attribute_schemaexpg2]]
       [.svgmap]
       ====
       image::basic_attribute_schemaexpg2.svg[]
@@ -44,6 +46,7 @@ RSpec.describe Stepmod::Utils::Converters::ExpressG do
 
       *)
       (*"test_schema.__expressg"
+      [[action_and_model_relationships_schemaexpg1]]
       [.svgmap]
       ====
       image::action_and_model_relationships_schemaexpg1.svg[]

@@ -18,15 +18,16 @@ module Stepmod
           return "" unless File.file?(file)
 
           image_document = Nokogiri::XML(File.read(file))
-          svg_path = File.basename(image_document.xpath("//img").first["src"],
+          svg_filename = File.basename(image_document.xpath("//img").first["src"],
                                    ".*")
           <<~SVGMAP
 
             *)
             (*"#{state.fetch(:schema_name)}.__expressg"
+            [[#{svg_filename}]]
             [.svgmap]
             ====
-            image::#{svg_path}.svg[]
+            image::#{svg_filename}.svg[]
 
             #{image_document.xpath('//img.area').map.with_index(1) { |n, i| schema_reference(n['href'], i) }.join("\n")}
             ====
