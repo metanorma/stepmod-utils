@@ -1,6 +1,6 @@
 = STEPmod utilities
 
-image:https://img.shields.io/gem/v/metanorma.svg["Gem Version", link="https://rubygems.org/gems/metanorma"]
+image:https://img.shields.io/gem/v/stepmod-utils.svg["Gem Version", link="https://rubygems.org/gems/stepmod-utils"]
 image:https://github.com/metanorma/stepmod-utils/workflows/ubuntu/badge.svg["Ubuntu Build Status", link="https://github.com/metanorma/stepmod-utils/actions?query=workflow%3Aubuntu"]
 image:https://github.com/metanorma/stepmod-utils/workflows/macos/badge.svg["OSX Build Status", link="https://github.com/metanorma/stepmod-utils/actions?query=workflow%3Amacos"]
 image:https://github.com/metanorma/stepmod-utils/workflows/windows/badge.svg["Windows Build Status", link="https://github.com/metanorma/stepmod-utils/actions?query=workflow%3Awindows"]
