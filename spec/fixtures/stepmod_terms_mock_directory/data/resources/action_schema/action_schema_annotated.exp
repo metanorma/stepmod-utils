@@ -308,6 +308,7 @@ Action information can be attached to any aspect of product data.
 
 *)
 (*"action_schema.__expressg"
+[[action_schemaexpg1]]
 [.svgmap]
 ====
 image::action_schemaexpg1.svg[]
@@ -319,6 +320,7 @@ image::action_schemaexpg1.svg[]
 
 *)
 (*"action_schema.__expressg"
+[[action_schemaexpg2]]
 [.svgmap]
 ====
 image::action_schemaexpg2.svg[]

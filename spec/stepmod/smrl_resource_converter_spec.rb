@@ -34,6 +34,7 @@ RSpec.describe Stepmod::Utils::SmrlResourceConverter do
 
       *)
       (*"contract_schema.__expressg"
+      [[basic_attribute_schemaexpg1]]
       [.svgmap]
       ====
       image::basic_attribute_schemaexpg1.svg[]
@@ -44,6 +45,7 @@ RSpec.describe Stepmod::Utils::SmrlResourceConverter do
 
       *)
       (*"contract_schema.__expressg"
+      [[basic_attribute_schemaexpg2]]
       [.svgmap]
       ====
       image::basic_attribute_schemaexpg2.svg[]
