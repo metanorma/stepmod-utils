@@ -95,24 +95,17 @@ unless File.directory?(srl_output_schemas_dir)
 end
 log "SRL output schemas directory path: `#{srl_output_schemas_dir}`"
 
-# run stepmod2mn to migrate the EXPRESS-G files (the *.svg files),
-# place them in {srl-schemas-dir}/{schema-name}/*.svg
 system "java -Xss5m -jar #{stepmod2mn_path} #{stepmod_dir} --output #{srl_output_schemas_dir} --svg"
 
-# run stepmod-annotate-all to create *_annotated.exp files
-# (but name them *.exp without the _annotated suffix)
 system "stepmod-annotate-all #{stepmod_dir}"
 
-# place them in {srl-schemas-dir}/{schema-name}/*.exp
 Dir.glob("#{stepmod_dir}/data/**/*_annotated.exp").each do |filepath|
   path = Pathname.new(filepath)
   copy_files_to_schemas(path, srl_output_schemas_dir)
 end
 
-# stepmod-extract-changes to create *.yaml files for schema change information,
 system "stepmod-extract-changes -p #{stepmod_dir}"
 
-# place them in {srl-schemas-dir}/{schema-name}/*.yaml
 Dir.glob("#{stepmod_dir}/data/**/*.changes.yaml").each do |filepath|
   path = Pathname.new(filepath)
   copy_files_to_schemas(path, srl_output_schemas_dir)
