@@ -1,0 +1,96 @@
+#!/usr/bin/env ruby
+
+# encoding: UTF-8
+
+require "pathname"
+bin_file = Pathname.new(__FILE__).realpath
+
+# add self to libpath
+$:.unshift File.expand_path("../../lib", bin_file)
+
+# Fixes https://github.com/rubygems/rubygems/issues/1420
+require "rubygems/specification"
+
+module Gem
+  class Specification
+    def this; self; end
+  end
+end
+
+require "bundler/setup"
+require "optparse"
+
+def log(message)
+  puts "[stepmod-utils] #{message}"
+end
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: #{$0} [options]"
+
+  opts.on(
+    "--stepmod-data-dir STEPMOD_DATA_DIR",
+    String,
+    "Path to STEPmod data directory",
+  ) do |path|
+    options[:stepmod_dir] = path
+  end
+
+  opts.on(
+    "--srl-docs-dir SRL_DOCS_DIR",
+    String,
+    "Path to output srl docs",
+  ) do |path|
+    options[:srl_output_docs_dir] = path
+  end
+
+  opts.on(
+    "--srl-schemas-dir SRL_SCHEMAS_DIR",
+    String,
+    "Path to output srl schemas",
+  ) do |path|
+    options[:srl_output_schemas_dir] = path
+  end
+
+  opts.on(
+    "-s",
+    "--stepmod2mn-executeable STEPMOD2MN_EXECUTEABLE",
+    String,
+    "Path to STEPMOD2MN_EXECUTEABLE",
+  ) do |path|
+    options[:stepmod2mn_path] = path
+  end
+
+  opts.on_tail("-h", "--help", "Show this message") do
+    puts opts
+    exit
+  end
+end.parse!
+
+stepmod2mn_path = options[:stepmod2mn_path]
+if stepmod2mn_path.nil?
+  raise StandardError.new(
+    "stepmod2mn executeable is required, set with the `-s` option.",
+  )
+end
+
+stepmod_dir = options[:stepmod_dir] || "stepmod"
+if stepmod_dir.nil?
+  raise StandardError.new(
+    "stepmod data directory required, set with the `--stepmod_dir` option.",
+  )
+end
+
+migrate_docs_command = %(stepmod-srl-migrate-docs -s "#{stepmod2mn_path}" --stepmod-data-dir "#{stepmod_dir}")
+migrate_docs_command += %( --srl-docs-dir #{options[:srl_output_docs_dir]}) if options[:srl_output_docs_dir]
+
+migrate_schemas_command = %(stepmod-srl-migrate-schemas -s "#{stepmod2mn_path}" --stepmod-data-dir "#{stepmod_dir}")
+migrate_schemas_command += %( --srl-schemas-dir #{options[:srl_output_schemas_dir]}) if options[:srl_output_schemas_dir]
+
+log("--- START Migrate Docs ---")
+system migrate_docs_command
+log("--- END Migrate Docs ---")
+
+log("--- START Migrate Schemas ---")
+system migrate_schemas_command
+log("--- END Migrate Schemas ---")
