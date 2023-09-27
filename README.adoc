@@ -111,6 +111,173 @@ expg_image:contract_schemaexpg1.xml[]
 expg_image:contract_schemaexpg2.xml[]
 ----
 
+== Convertion of all schema history information into independent per-schema YAML files
+
+Command:
+
+[source,sh]
+----
+$ stepmod-extract-changes -p {stepmod-data-directory}
+----
+
+=== Examples
+
+Given the following XML
+
+[source,xml]
+----
+<change version="4">
+   <arm.changes>
+      <arm.modifications>
+         <modified.object type="TYPE" name="ap242_requirement_assignment_item" />
+         <!-- ... -->
+      </arm.modifications>
+   </arm.changes>
+   <mim.changes>
+      <mim.additions>
+         <modified.object type="CONSTANT" name="ap242_shape_representation_reference_types" />
+         <!-- ... -->
+      </mim.additions>
+      <mim.modifications>
+         <modified.object type="CONSTANT" name="deprecated_interfaced_data_types" />
+         <!-- ... -->
+      </mim.modifications>
+      <mim.deletions>
+         <modified.object type="RULE" name="subtype_mandatory_shape_representation" />
+      </mim.deletions>
+   </mim.changes>
+
+   <arm_longform.changes>
+      <arm.additions>
+         <modified.object type="TYPE" name="advanced_face_model" />
+         <!-- ... -->
+      </arm.additions>
+      <arm.modifications>
+         <modified.object type="TYPE" name="assembly_constraint_select">
+            <description>
+               <ul>
+                  <li>Remove SELECT value 'ENTITY Binary_assembly_constraint'</li>
+               <!-- ... -->
+               </ul>
+            </description>
+         </modified.object>
+         <!-- ... -->
+      </arm.modifications>
+      <arm.deletions>
+         <modified.object type="TYPE" name="axis_placement_mapping_source" />
+      </arm.deletions>
+   </arm_longform.changes>
+
+   <mim_longform.changes>
+      <mim.additions>
+         <modified.object type="CONSTANT" name="ap242_shape_representation_reference_types" />
+      </mim.additions>
+
+      <mim.modifications>
+         <modified.object type="CONSTANT" name="deprecated_constructed_data_types">
+            <description>
+               CONSTANT 'deprecated_constructed_data_types': Expression Changed
+            </description>
+         </modified.object>
+         <!-- ... -->
+      </mim.modifications>
+
+      <mim.deletions>
+         <modified.object type="TYPE" name="connected_edge_with_length_set_items" />
+         <!-- ... -->
+      </mim.deletions>
+   </mim_longform.changes>
+
+</change>
+----
+
+Will Generate 4 files:
+
+- arm.changes.yml
+- mim.changes.yml
+- arm_lf.changes.yml
+- mim_lf.changes.yml
+
+`arm.changes.yml`:
+
+[source,yaml]
+----
+---
+schema: Ap242_managed_model_based_3d_engineering_arm
+change_edition:
+- version: 4
+   description:
+   modifications:
+   - type: TYPE
+   name: ap242_requirement_assignment_item
+----
+
+
+`mim.changes.yml`:
+
+[source,yaml]
+----
+---
+schema: Ap242_managed_model_based_3d_engineering_mim
+change_edition:
+- version: 4
+  description:
+  additions:
+  - type: CONSTANT
+    name: ap242_shape_representation_reference_types
+  modifications:
+  - type: CONSTANT
+    name: deprecated_interfaced_data_types
+  deletions:
+  - type: RULE
+    name: subtype_mandatory_shape_representation
+----
+
+`arm_lf.changes.yml`:
+
+[source,yaml]
+----
+---
+schema: Ap242_managed_model_based_3d_engineering_arm_LF
+change_edition:
+- version: 4
+  description:
+  additions:
+  - type: TYPE
+    name: advanced_face_model
+  modifications:
+  - type: TYPE
+    name: assembly_constraint_select
+    descriptions:
+    - Remove SELECT value 'ENTITY Binary_assembly_constraint'
+  deletions:
+  - type: TYPE
+    name: axis_placement_mapping_source
+----
+
+`mim_lf.changes.yml`:
+
+[source,yaml]
+----
+---
+schema: Ap242_managed_model_based_3d_engineering_mim_LF
+change_edition:
+- version: 4
+  description:
+  additions:
+  - type: CONSTANT
+    name: ap242_shape_representation_reference_types
+  modifications:
+  - type: CONSTANT
+    name: deprecated_constructed_data_types
+    description: |
+      CONSTANT 'deprecated_constructed_data_types': Expression Changed
+  deletions:
+  - type: TYPE
+    name: connected_edge_with_length_set_items
+----
+
+
 == Git repository
 
 If the STEPmod repository is a Git repository, term extract will work.
