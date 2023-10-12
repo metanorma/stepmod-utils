@@ -85,23 +85,21 @@ module Stepmod
             end
 
             referenced_images = converted_description.scan(/image::(.*?)\[\]/)
-            unless referenced_images.empty?
-              referenced_images.each do |referenced_image|
-                next unless resource_docs_dir
+            referenced_images.each do |referenced_image|
+              next unless resource_docs_dir
 
-                image_file_path = File.join(@stepmod_dir, "data", "resource_docs", resource_docs_dir, referenced_image)
-                new_image_file_path = File.join(File.dirname(@express_file), referenced_image)
+              image_file_path = File.join(@stepmod_dir, "data", "resource_docs", resource_docs_dir, referenced_image)
+              new_image_file_path = File.join(File.dirname(@express_file), referenced_image)
 
-                if processed_images[new_image_file_path] || File.exist?(new_image_file_path)
-                  processed_images[new_image_file_path] = true
-                  next
-                end
-
-                next unless File.exist?(image_file_path)
-
+              if processed_images[new_image_file_path] || File.exist?(new_image_file_path)
                 processed_images[new_image_file_path] = true
-                FileUtils.cp(image_file_path, new_image_file_path)
+                next
               end
+
+              next unless File.exist?(image_file_path)
+
+              processed_images[new_image_file_path] = true
+              FileUtils.cp(image_file_path, new_image_file_path)
             end
 
             # Add converted description from exact linked path
