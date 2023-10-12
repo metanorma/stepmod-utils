@@ -55,7 +55,7 @@ module Stepmod
         output_express = File.read(express_file)
         converted_description = ""
         base_linked = ""
-        processed_images = {}
+        processed_images_cache = {}
 
         if File.exist?(descriptions_file)
           descriptions = Nokogiri::XML(File.read(descriptions_file)).root
@@ -84,24 +84,8 @@ module Stepmod
               )
             end
 
-            referenced_images = converted_description.scan(/image::(.*?)\[\]/).flatten
-            base_images_dir = resource_docs_cache[base_linked]
-            referenced_images.each do |referenced_image|
-              next unless base_images_dir
-
-              image_file_path = File.join(@stepmod_dir, "data", "resource_docs", base_images_dir, referenced_image)
-              new_image_file_path = File.join(File.dirname(@express_file), referenced_image)
-
-              if processed_images[new_image_file_path] || File.exist?(new_image_file_path)
-                processed_images[new_image_file_path] = true
-                next
-              end
-
-              next unless File.exist?(image_file_path)
-
-              processed_images[new_image_file_path] = true
-              FileUtils.cp(image_file_path, new_image_file_path)
-            end
+            schema_base_dir = resource_docs_cache[base_linked]
+            copy_images_to_schema(converted_description, schema_base_dir, processed_images_cache)
 
             # Add converted description from exact linked path
             if resource_docs_dir && added_resource_descriptions[description["linkend"]].nil?
@@ -143,6 +127,27 @@ module Stepmod
 
       def sanitize(file_content)
         file_content.gsub("(*)", "(`*`)")
+      end
+
+      def copy_images_to_schema(description, schema_base_dir, processed_images_cache)
+        referenced_images = description.scan(/image::(.*?)\[\]/).flatten
+
+        referenced_images.each do |referenced_image|
+          next unless schema_base_dir
+
+          image_file_path = File.join(@stepmod_dir, "data", "resource_docs", schema_base_dir, referenced_image)
+          new_image_file_path = File.join(File.dirname(@express_file), referenced_image)
+
+          if processed_images_cache[new_image_file_path] || File.exist?(new_image_file_path)
+            processed_images_cache[new_image_file_path] = true
+            next
+          end
+
+          next unless File.exist?(image_file_path)
+
+          processed_images_cache[new_image_file_path] = true
+          FileUtils.cp(image_file_path, new_image_file_path)
+        end
       end
 
       def convert_from_description_text(descriptions_file, description)

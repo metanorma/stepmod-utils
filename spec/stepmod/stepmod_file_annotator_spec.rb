@@ -48,6 +48,7 @@ RSpec.describe Stepmod::Utils::StepmodFileAnnotator do
       end
 
       it "should return correct annotated text" do
+        expect(FileUtils).to receive(:cp).exactly(12).times
         output = subject.call
         expect(output).to eq(expected_output)
       end
