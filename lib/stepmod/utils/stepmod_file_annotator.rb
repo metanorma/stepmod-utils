@@ -55,6 +55,7 @@ module Stepmod
         output_express = File.read(express_file)
         converted_description = ""
         base_linked = ""
+        processed_images = {}
 
         if File.exist?(descriptions_file)
           descriptions = Nokogiri::XML(File.read(descriptions_file)).root
@@ -82,6 +83,27 @@ module Stepmod
                 descriptions_file, description
               )
             end
+
+            referenced_images = converted_description.scan(/image::(.*?)\[\]/)
+            unless referenced_images.empty?
+              referenced_images.each do |referenced_image|
+                next unless resource_docs_dir
+
+                image_file_path = File.join(@stepmod_dir, "data", "resource_docs", resource_docs_dir, referenced_image)
+                new_image_file_path = File.join(File.dirname(@express_file), referenced_image)
+
+                if processed_images[new_image_file_path] || File.exist?(new_image_file_path)
+                  processed_images[new_image_file_path] = true
+                  next
+                end
+
+                next unless File.exist?(image_file_path)
+
+                processed_images[new_image_file_path] = true
+                FileUtils.cp(image_file_path, new_image_file_path)
+              end
+            end
+
             # Add converted description from exact linked path
             if resource_docs_dir && added_resource_descriptions[description["linkend"]].nil?
               output_express << convert_from_resource_file(resource_docs_dir,
