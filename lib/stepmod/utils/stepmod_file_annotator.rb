@@ -84,11 +84,12 @@ module Stepmod
               )
             end
 
-            referenced_images = converted_description.scan(/image::(.*?)\[\]/)
+            referenced_images = converted_description.scan(/image::(.*?)\[\]/).flatten
+            base_images_dir = resource_docs_cache[base_linked]
             referenced_images.each do |referenced_image|
-              next unless resource_docs_dir
+              next unless base_images_dir
 
-              image_file_path = File.join(@stepmod_dir, "data", "resource_docs", resource_docs_dir, referenced_image)
+              image_file_path = File.join(@stepmod_dir, "data", "resource_docs", base_images_dir, referenced_image)
               new_image_file_path = File.join(File.dirname(@express_file), referenced_image)
 
               if processed_images[new_image_file_path] || File.exist?(new_image_file_path)
