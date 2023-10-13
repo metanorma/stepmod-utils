@@ -2,6 +2,7 @@
 
 require "concurrent"
 require "stepmod/utils/stepmod_file_annotator"
+require "fileutils"
 
 stepmod_dir = ARGV.first || Dir.pwd
 
@@ -46,7 +47,7 @@ files.each_slice(MAX_QUEUE_SIZE) do |batch|
   batch.each do |file|
     pool.post do
       puts "#{Thread.current.object_id}: Queued processing #{file}"
-      annotated = Stepmod::Utils::StepmodFileAnnotator.new(
+      result = Stepmod::Utils::StepmodFileAnnotator.new(
         express_file: file,
         stepmod_dir: stepmod_dir
       ).call
@@ -54,8 +55,17 @@ files.each_slice(MAX_QUEUE_SIZE) do |batch|
       annotated_file_name = "#{File.basename(file, '.exp')}_annotated.exp"
       annotated_file_path = File.join(File.dirname(file), annotated_file_name)
 
-      File.open(annotated_file_path, "w") do |file|
-        file.puts(annotated)
+      File.open(annotated_file_path, "w") do |annotated_file|
+        annotated_file.puts(result[:annotated_text])
+      end
+
+      result[:images_references].each do |source, destination|
+        source_path = File.join(stepmod_dir, "data", source)
+        destination_path = File.join(File.dirname(file), destination)
+
+        next if File.exist?(destination_path) || !File.exist?(source_path)
+
+        FileUtils.cp(source_path, destination_path)
       end
 
       puts "#{Thread.current.object_id}: Done processing #{File.basename(file)} => #{annotated_file_path}."
