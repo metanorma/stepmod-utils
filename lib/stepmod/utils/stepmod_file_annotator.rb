@@ -86,7 +86,7 @@ module Stepmod
             end
 
             schema_base_dir = resource_docs_cache[base_linked]
-            copy_images_to_schema(converted_description, schema_base_dir, processed_images_cache)
+            add_images_references(converted_description, schema_base_dir, processed_images_cache)
 
             # Add converted description from exact linked path
             if resource_docs_dir && added_resource_descriptions[description["linkend"]].nil?
@@ -133,7 +133,7 @@ module Stepmod
         file_content.gsub("(*)", "(`*`)")
       end
 
-      def copy_images_to_schema(description, schema_base_dir, processed_images_cache)
+      def add_images_references(description, schema_base_dir, processed_images_cache)
         referenced_images = description.scan(/image::(.*?)\[\]/).flatten
 
         referenced_images.each do |referenced_image|
