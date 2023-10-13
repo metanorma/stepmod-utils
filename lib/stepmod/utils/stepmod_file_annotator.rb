@@ -21,6 +21,7 @@ module Stepmod
         @resource_docs_cache = resource_docs_schemas(stepmod_dir)
         @stepmod_dir = stepmod_dir || Dir.pwd
         @added_bibdata = {}
+        @images_references = {}
 
         @schema_name = Expressir::Express::Parser.from_file(express_file)
                                                  .schemas
@@ -117,7 +118,10 @@ module Stepmod
                             converted_description
                           end
 
-        sanitize(output_express)
+        {
+          annotated_text: sanitize(output_express),
+          images_references: @images_references,
+        }
       rescue StandardError => e
         puts "[ERROR]!!! #{e.message}"
         puts e.backtrace
@@ -135,18 +139,16 @@ module Stepmod
         referenced_images.each do |referenced_image|
           next unless schema_base_dir
 
-          image_file_path = File.join(@stepmod_dir, "data", "resource_docs", schema_base_dir, referenced_image)
-          new_image_file_path = File.join(File.dirname(@express_file), referenced_image)
+          image_file_path = File.join("resource_docs", schema_base_dir, referenced_image)
+          new_image_file_path = referenced_image
 
-          if processed_images_cache[new_image_file_path] || File.exist?(new_image_file_path)
+          if processed_images_cache[new_image_file_path]
             processed_images_cache[new_image_file_path] = true
             next
           end
 
-          next unless File.exist?(image_file_path)
-
           processed_images_cache[new_image_file_path] = true
-          FileUtils.cp(image_file_path, new_image_file_path)
+          @images_references[image_file_path] = new_image_file_path
         end
       end
 

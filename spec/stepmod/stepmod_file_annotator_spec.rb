@@ -33,8 +33,9 @@ RSpec.describe Stepmod::Utils::StepmodFileAnnotator do
       end
 
       it "should return correct annotated text" do
-        output = subject.call
-        expect(output).to eq(expected_output)
+        result = subject.call
+        expect(result[:annotated_text]).to eq(expected_output)
+        expect(result[:images_references]).to eq({})
       end
     end
 
@@ -47,10 +48,38 @@ RSpec.describe Stepmod::Utils::StepmodFileAnnotator do
         File.read(fixtures_path("stepmod_terms_mock_directory/data/resources/presentation_appearance_schema/presentation_appearance_schema_annotated.exp"))
       end
 
+      let(:expected_images_references) do
+        {
+          "resource_docs/visual_presentation/box_slant_and_rotate_angle.gif" => "box_slant_and_rotate_angle.gif",
+          "resource_docs/visual_presentation/chordal_deviation_and_length.gif" => "chordal_deviation_and_length.gif",
+          "resource_docs/visual_presentation/curve_style_curve_pattern.gif" => "curve_style_curve_pattern.gif",
+          "resource_docs/visual_presentation/curve_style_with_extension.gif" => "curve_style_with_extension.gif",
+          "resource_docs/visual_presentation/fill_area_style_hatching.gif" => "fill_area_style_hatching.gif",
+          "resource_docs/visual_presentation/illustration_of_predefined_curve_fonts.gif" => "illustration_of_predefined_curve_fonts.gif",
+          "resource_docs/visual_presentation/one_direction_repeat_factor.gif" => "one_direction_repeat_factor.gif",
+          "resource_docs/visual_presentation/one_direction_repeat_factor_expression.gif" => "one_direction_repeat_factor_expression.gif",
+          "resource_docs/visual_presentation/presentation_appearance_schemaexpg1.svg" => "presentation_appearance_schemaexpg1.svg",
+          "resource_docs/visual_presentation/presentation_appearance_schemaexpg10.svg" => "presentation_appearance_schemaexpg10.svg",
+          "resource_docs/visual_presentation/presentation_appearance_schemaexpg11.svg" => "presentation_appearance_schemaexpg11.svg",
+          "resource_docs/visual_presentation/presentation_appearance_schemaexpg2.svg" => "presentation_appearance_schemaexpg2.svg",
+          "resource_docs/visual_presentation/presentation_appearance_schemaexpg3.svg" => "presentation_appearance_schemaexpg3.svg",
+          "resource_docs/visual_presentation/presentation_appearance_schemaexpg4.svg" => "presentation_appearance_schemaexpg4.svg",
+          "resource_docs/visual_presentation/presentation_appearance_schemaexpg5.svg" => "presentation_appearance_schemaexpg5.svg",
+          "resource_docs/visual_presentation/presentation_appearance_schemaexpg6.svg" => "presentation_appearance_schemaexpg6.svg",
+          "resource_docs/visual_presentation/presentation_appearance_schemaexpg7.svg" => "presentation_appearance_schemaexpg7.svg",
+          "resource_docs/visual_presentation/presentation_appearance_schemaexpg8.svg" => "presentation_appearance_schemaexpg8.svg",
+          "resource_docs/visual_presentation/presentation_appearance_schemaexpg9.svg" => "presentation_appearance_schemaexpg9.svg",
+          "resource_docs/visual_presentation/squared_or_rounded.gif" => "squared_or_rounded.gif",
+          "resource_docs/visual_presentation/text_style_with_mirror.gif" => "text_style_with_mirror.gif",
+          "resource_docs/visual_presentation/two_direction_repeat_factor.gif" => "two_direction_repeat_factor.gif",
+          "resource_docs/visual_presentation/two_direction_repeat_factor_expression.gif" => "two_direction_repeat_factor_expression.gif",
+        }
+      end
+
       it "should return correct annotated text" do
-        expect(FileUtils).to receive(:cp).exactly(12).times
-        output = subject.call
-        expect(output).to eq(expected_output)
+        result = subject.call
+        expect(result[:annotated_text]).to eq(expected_output)
+        expect(result[:images_references]).to eq(expected_images_references)
       end
     end
   end
