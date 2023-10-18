@@ -30,11 +30,11 @@ module Stepmod
       end
 
       def resource_docs_schemas(stepmod_dir)
-        filepath = File.join(stepmod_dir, "data/resource_docs/*/resource.xml")
+        filepath = File.join(stepmod_dir, "data", "resource_docs", "*", "resource.xml")
 
         schemas = {}
         Dir.glob(filepath).each do |resource_docs_file|
-          match = resource_docs_file.match("data/resource_docs/([^/]+)/resource.xml")
+          match = resource_docs_file.match("data[/\]resource_docs[/\]([^/\]+)[/\]resource.xml")
           resource_docs_dir = match.captures[0]
 
           resource_docs = Nokogiri::XML(File.read(resource_docs_file)).root
