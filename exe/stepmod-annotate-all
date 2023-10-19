@@ -5,7 +5,7 @@ require "stepmod/utils/stepmod_file_annotator"
 require "fileutils"
 
 stepmod_dir = ARGV.first || Dir.pwd
-stepmod_dir.gsub!("\\", "/")
+stepmod_dir = Pathname.new(stepmod_dir.gsub("\\", "/"))
 
 def all_express_files(stepmod_dir)
   index_file = File.read(File.join(stepmod_dir, "repository_index.xml"))
