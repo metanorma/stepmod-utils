@@ -34,43 +34,38 @@ end
 MAX_THREADS = 1 #[2, Concurrent.processor_count].max * 2
 MAX_QUEUE_SIZE = MAX_THREADS * 4
 # https://github.com/ruby-concurrency/concurrent-ruby/blob/master/docs-source/thread_pools.md
-pool = Concurrent::ThreadPoolExecutor.new(
-  min_threads: MAX_THREADS,
-  max_threads: MAX_THREADS,
-  max_queue: MAX_QUEUE_SIZE,
-  fallback_policy: :caller_runs,
-)
+# pool = Concurrent::ThreadPoolExecutor.new(
+#   min_threads: MAX_THREADS,
+#   max_threads: MAX_THREADS,
+#   max_queue: MAX_QUEUE_SIZE,
+#   fallback_policy: :caller_runs,
+# )
 
 files = all_express_files(stepmod_dir)
 
-files.each_slice(MAX_QUEUE_SIZE) do |batch|
-  puts("Queueing next batch")
-  batch.each do |file|
-    pool.post do
-      puts "#{Thread.current.object_id}: Queued processing #{file}"
-      result = Stepmod::Utils::StepmodFileAnnotator.new(
-        express_file: file,
-        stepmod_dir: stepmod_dir
-      ).call
+files.each do |file|
+  puts "#{Thread.current.object_id}: Processing #{file}"
 
-      annotated_file_name = "#{File.basename(file, '.exp')}_annotated.exp"
-      annotated_file_path = File.join(File.dirname(file), annotated_file_name)
+  result = Stepmod::Utils::StepmodFileAnnotator.new(
+    express_file: file,
+    stepmod_dir: stepmod_dir,
+  ).call
 
-      File.open(annotated_file_path, "w") do |annotated_file|
-        annotated_file.puts(result[:annotated_text])
-      end
+  annotated_file_name = "#{File.basename(file, '.exp')}_annotated.exp"
+  annotated_file_path = File.join(File.dirname(file), annotated_file_name)
 
-      result[:images_references].each do |source, destination|
-        source_path = File.join(stepmod_dir, "data", source)
-        destination_path = File.join(File.dirname(file), destination)
-
-        next if File.exist?(destination_path) || !File.exist?(source_path)
-
-        FileUtils.cp(source_path, destination_path)
-      end
-
-      puts "#{Thread.current.object_id}: Done processing #{File.basename(file)} => #{annotated_file_path}."
-    end
+  File.open(annotated_file_path, "w") do |annotated_file|
+    annotated_file.puts(result[:annotated_text])
   end
-  pool.shutdown
+
+  result[:images_references].each do |source, destination|
+    source_path = File.join(stepmod_dir, "data", source)
+    destination_path = File.join(File.dirname(file), destination)
+
+    next if File.exist?(destination_path) || !File.exist?(source_path)
+
+    FileUtils.cp(source_path, destination_path)
+  end
+
+  puts "#{Thread.current.object_id}: Done processing #{File.basename(file)} => #{annotated_file_path}."
 end
