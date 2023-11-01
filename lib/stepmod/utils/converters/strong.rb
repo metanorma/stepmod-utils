@@ -9,7 +9,7 @@ module Stepmod
         def convert(node, state = {})
           content = treat_children(node, state.merge(already_strong: true))
           strong_tag = state[:non_flanking_whitesapce] ? '**' : '*'
-          if content.strip.empty? || state[:already_strong]
+          if content.strip.empty? || state[:already_strong] || content_is_equation?(content)
             content
           else
             handle_express_escape_seq(
@@ -35,6 +35,10 @@ module Stepmod
         def braces_sibling?(sibling, end_of_text = false)
           match = end_of_text ? /\($/ : /^\)/
           sibling&.text? && sibling.text =~ match
+        end
+
+        def content_is_equation?(content)
+          content.match(/^\s*\[\[[^\]]*\]\]/) || content.match(/^\s*\[stem\]/)
         end
       end
 
