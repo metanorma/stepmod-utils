@@ -31,8 +31,6 @@ def all_express_files(stepmod_dir)
   files.filter { |file| File.exist?(file) }
 end
 
-filename_cache = {}
-
 # On MacOS File.exist? was behaving case sensitive while on
 # Github Actions it was behaving as case in-sensitive, e.g
 # File.exist?(`../resource_docs/geometric_and_topological_representation/RationalLRsurf.gif`)
@@ -46,7 +44,7 @@ filename_cache = {}
 # Given `../resource_docs/geometric_and_topological_representation/RationalLRsurf.gif`
 #   return `../resource_docs/geometric_and_topological_representation/RationalLRSurf.gif`
 # It will return nil if the file does not exist
-def file_system_path(filepath)
+def file_system_path(filepath, filename_cache)
   dir = File.dirname(filepath)
   filename = File.basename(filepath)
 
@@ -69,6 +67,7 @@ MAX_QUEUE_SIZE = MAX_THREADS * 4
 # )
 
 files = all_express_files(stepmod_dir)
+filename_cache = {}
 
 files.each do |file|
   puts "#{Thread.current.object_id}: Processing #{file}"
@@ -86,7 +85,7 @@ files.each do |file|
   end
 
   result[:images_references].each do |source, destination|
-    source_path = file_system_path(File.join(stepmod_dir, "data", source))
+    source_path = file_system_path(File.join(stepmod_dir, "data", source), filename_cache)
     destination_path = File.join(File.dirname(file), destination)
 
     puts "#{Thread.current.object_id}:     Starting to copy file from #{source_path} to #{destination_path}"
