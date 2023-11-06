@@ -62,9 +62,11 @@ files.each do |file|
     source_path = File.join(stepmod_dir, "data", source)
     destination_path = File.join(File.dirname(file), destination)
 
+    puts "#{Thread.current.object_id}:     Starting to copy file from #{source_path} to #{destination_path}"
     next if File.exist?(destination_path) || !File.exist?(source_path)
 
     FileUtils.cp(source_path, destination_path)
+    puts "#{Thread.current.object_id}:     Done copying #{source_path} to #{destination_path}"
   end
 
   puts "#{Thread.current.object_id}: Done processing #{File.basename(file)} => #{annotated_file_path}."
