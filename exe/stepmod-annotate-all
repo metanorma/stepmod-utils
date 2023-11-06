@@ -48,12 +48,12 @@ def file_system_path(filepath, filename_cache)
   dir = File.dirname(filepath)
   filename = File.basename(filepath)
 
-  return filename_cache[dir][filename.downcase] if filename_cache[dir]
+  return filename_cache[dir][filepath.downcase] if filename_cache[dir]
 
   files = Dir.glob(File.join(dir, "*")).map { |f| [f.downcase, f] }.to_h
   filename_cache[dir] = files
 
-  filename_cache[dir][filename.downcase]
+  filename_cache[dir][filepath.downcase]
 end
 
 MAX_THREADS = 1 #[2, Concurrent.processor_count].max * 2
@@ -85,15 +85,15 @@ files.each do |file|
   end
 
   result[:images_references].each do |source, destination|
-    source_path = file_system_path(File.join(stepmod_dir, "data", source), filename_cache)
+    source_path = File.join(stepmod_dir, "data", source)
+    system_source_path = file_system_path(source_path, filename_cache)
     destination_path = File.join(File.dirname(file), destination)
 
     puts "#{Thread.current.object_id}:     Starting to copy file from #{source_path} to #{destination_path}"
-    puts "#{Thread.current.object_id}:     Source File exist: #{File.exist?(source_path)}"
-    next if !source_path
+    next if !system_source_path
 
-    FileUtils.cp(source_path, destination_path)
-    puts "#{Thread.current.object_id}:     Done copying #{source_path} to #{destination_path}"
+    FileUtils.cp(system_source_path, destination_path)
+    puts "#{Thread.current.object_id}:     Done copying #{system_source_path} to #{destination_path}"
   end
 
   puts "#{Thread.current.object_id}: Done processing #{File.basename(file)} => #{annotated_file_path}."
