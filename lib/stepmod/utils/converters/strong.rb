@@ -7,19 +7,46 @@ module Stepmod
         BLANK_CHARS = "{blank}"
 
         def convert(node, state = {})
-          content = treat_children(node, state.merge(already_strong: true))
-          strong_tag = state[:non_flanking_whitesapce] ? '**' : '*'
-          if content.strip.empty? || state[:already_strong] || content_is_equation?(content)
+          bold_converted(node, state)
+        end
+
+        private
+
+        def bold_converted(node, state)
+          cloned_node = node.clone
+          equations = extract_equations(cloned_node)
+          content = treat_children(cloned_node, state.merge(already_strong: true))
+          equation_content = equations.map do |equation|
+            treat(equation, state.merge(equation: true, already_strong: true))
+          end
+
+          content = if state[:equation]
+            "bb(#{content.strip})"
+          elsif content.strip.empty? || state[:already_strong]
             content
           else
+            strong_tag = state[:non_flanking_whitesapce] ? '**' : '*'
             handle_express_escape_seq(
               node,
               "#{content[/^\s*/]}#{strong_tag}#{content.strip}#{strong_tag}#{content[/\s*$/]}"
             )
           end
+
+          [content, equation_content].compact.join("")
         end
 
-        private
+        def extract_equations(node)
+          equations = []
+
+          node.children.each do |n|
+            next if n.name != "eqn"
+
+            equations << n
+            n.unlink
+          end
+
+          equations
+        end
 
         def handle_express_escape_seq(node, content)
           res = content
@@ -35,10 +62,6 @@ module Stepmod
         def braces_sibling?(sibling, end_of_text = false)
           match = end_of_text ? /\($/ : /^\)/
           sibling&.text? && sibling.text =~ match
-        end
-
-        def content_is_equation?(content)
-          content.match(/^\s*\[\[[^\]]*\]\]/) || content.match(/^\s*\[stem\]/)
         end
       end
 

@@ -14,7 +14,7 @@ RSpec.describe Stepmod::Utils::Converters::Eqn do
       <eqn id="eqnGM1">
         <i>
           &#x3C7;
-          <b><i>My node</i></b>
+          <b>My node</b>
           <sub>ms</sub>
           <i>Italic text</i>
           =
@@ -33,7 +33,7 @@ RSpec.describe Stepmod::Utils::Converters::Eqn do
 
       [stem]
       ++++
-      χ My node_{ms}Italic text = V - E + 2F - L_{l} - 2(S - G^{s})  = 0
+      ii(χ bb(My node)_{ms}ii(Italic text) = bb(ii(V - E + 2F - L))_{l}bb(- 2(S - G)^{s})) = 0
       ++++
 
     XML
@@ -41,6 +41,34 @@ RSpec.describe Stepmod::Utils::Converters::Eqn do
 
   it "converts complex children block by rules" do
     expect(convert).to eq(output)
+  end
+
+  context "with bold and italics" do
+    let(:input_xml) do
+      <<~EQUATION
+        <eqn>
+          <b> &#955;</b><i>(u)</i> =
+          <b>C</b> +
+          R(cos(<i>u</i>)<b>x</b> +
+          sin(<i>u</i>)<b>y</b>)
+        </eqn>
+      EQUATION
+    end
+
+    let(:expected_output) do
+      <<~OUTPUT
+
+        [stem]
+        ++++
+        bb(λ)ii((u)) = bb(C) + R(cos(ii(u))bb(x) + sin(ii(u))bb(y))
+        ++++
+
+      OUTPUT
+    end
+
+    it "should add bb() and ii() for bold and italics respectively" do
+      expect(convert).to eq(expected_output)
+    end
   end
 
   context "when special symbols are used" do
@@ -55,7 +83,7 @@ RSpec.describe Stepmod::Utils::Converters::Eqn do
 
         [stem]
         ++++
-        χ_{ms} = V - E + 2F - L_{l}  - 2(S - G ^{s})  = 0
+        ii(χ_{ms} = bb(V - E + 2F - L)_{l} bb(- 2(S - G) ^{s})) = 0
         ++++
 
       XML
@@ -88,7 +116,7 @@ RSpec.describe Stepmod::Utils::Converters::Eqn do
   context "when underscore variable is used" do
     let(:input_xml) do
       <<~XML
-        <eqn> <i> K1 </i>= <b>upper_index_on_u_control_points</b> </eqn>
+        <eqn> <i> K1 </i> = <b>upper_index_on_u_control_points</b> </eqn>
       XML
     end
     let(:output) do
@@ -96,7 +124,7 @@ RSpec.describe Stepmod::Utils::Converters::Eqn do
 
         [stem]
         ++++
-        K1 = "upper_index_on_u_control_points"
+        ii(K1) = bb("upper_index_on_u_control_points")
         ++++
 
       XML
@@ -118,7 +146,7 @@ RSpec.describe Stepmod::Utils::Converters::Eqn do
 
         [stem]
         ++++
-        s(u,v) = (1 - u -v)^{3}P_{1} + u^{3}P_{2} + v^{3}P_{3} + 3(1 - u -v)^{2}uP_{4} + 3(1 - u -v)u^{2}P_{5} + 3u^{2}vP_{6} + 3uv^{2}P_{7} + 3(1 - u -v)v^{2}P_{8} + 3(1 - u -v)^{2}vP_{9} + 6uv(1 - u -v)P_{10}
+        bb(s)(u,v) = (1 - u -v)^{3}bb(P_{1}) + u^{3}bb(P_{2}) + v^{3}bb(P_{3}) + 3(1 - u -v)^{2}ubb(P_{4}) + 3(1 - u -v)u^{2}bb(P_{5}) + 3u^{2}vbb(P_{6}) + 3uv^{2}bb(P_{7}) + 3(1 - u -v)v^{2}bb(P_{8}) + 3(1 - u -v)^{2}vbb(P_{9}) + 6uv(1 - u -v)bb(P_{10})
         ++++
 
       XML

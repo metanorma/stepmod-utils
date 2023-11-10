@@ -15,17 +15,13 @@ RSpec.describe Stepmod::Utils::Converters::Strong do
         <<~XML
           <b>
             <eqn id="eqnGM1">
-              <i>
-                &#x3C7;
-                <b><i>My node</i></b>
-                <sub>ms</sub>
-                <i>Italic text</i>
-                =
-                <b><i>V - E + 2F - L</i></b>
-                <sub>l</sub>
-                <b> - 2(S - G</b>
-                <sup>s</sup>)
-              </i>
+              &#x3C7;
+              <b>My node</b>
+              <sub>ms</sub> =
+              <b>V - E + 2F - L</b>
+              <sub>l</sub>
+              <b> - 2(S - G</b>
+              <sup>s</sup>)
               = 0 &#x2003; (1) &#x2003;
             </eqn>
           </b>
@@ -38,7 +34,7 @@ RSpec.describe Stepmod::Utils::Converters::Strong do
 
           [stem]
           ++++
-          χ My node_{ms}Italic text = V - E + 2F - L_{l} - 2(S - G^{s})  = 0
+          χ bb(My node)_{ms} = bb(V - E + 2F - L)_{l}bb(- 2(S - G)^{s}) = 0
           ++++
 
         XML
@@ -54,17 +50,14 @@ RSpec.describe Stepmod::Utils::Converters::Strong do
         <<~XML
           <b>
             <eqn>
-              <i>
-                &#x3C7;
-                <b><i>My node</i></b>
-                <sub>ms</sub>
-                <i>Italic text</i>
-                =
-                <b><i>V - E + 2F - L</i></b>
-                <sub>l</sub>
-                <b> - 2(S - G</b>
-                <sup>s</sup>)
-              </i>
+              &#x3C7;
+              <b>My node</b>
+              <sub>ms</sub>
+              =
+              <b>V - E + 2F - L</b>
+              <sub>l</sub>
+              <b> - 2(S - G</b>
+              <sup>s</sup>)
               = 0 &#x2003; (1) &#x2003;
             </eqn>
           </b>
@@ -76,7 +69,7 @@ RSpec.describe Stepmod::Utils::Converters::Strong do
 
           [stem]
           ++++
-          χ My node_{ms}Italic text = V - E + 2F - L_{l} - 2(S - G^{s})  = 0
+          χ bb(My node)_{ms} = bb(V - E + 2F - L)_{l}bb(- 2(S - G)^{s}) = 0
           ++++
 
         XML
