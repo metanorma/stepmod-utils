@@ -46,12 +46,13 @@ module Stepmod
           term = first_strong_node.text.strip
           first_strong_node.remove
           "\n\n#{term}:: #{remove_trash_symbols(treat_children(cloned_node,
-                                                               state))}\n"
+                                                               state.merge(equation: true)))}\n"
         end
 
         def stem_converted(cloned_node, state)
-          remove_tags_not_in_context(cloned_node)
-          internal_content = treat_children(cloned_node, state)
+          # We are now adding bb() or ii() for bold and italic respectively
+          # remove_tags_not_in_context(cloned_node)
+          internal_content = treat_children(cloned_node, state.merge(equation: true))
           content = Stepmod::Utils::HtmlToAsciimath.new.call(internal_content)
           res = <<~TEMPLATE
 

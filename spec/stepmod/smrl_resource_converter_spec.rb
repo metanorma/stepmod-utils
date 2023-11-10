@@ -223,7 +223,7 @@ RSpec.describe Stepmod::Utils::SmrlResourceConverter do
 
         [stem]
         ++++
-        χ_{ms} = V - E + 2F - L_{l} - 2(S - G^{s}) = 0
+        ii(χ_{ms} = bb(V - E + 2F - L)_{l}bb(- 2(S - G)^{s})) = 0
         ++++
 
         is different from the type of the corresponding assembly constraint in the compared assembly data set.

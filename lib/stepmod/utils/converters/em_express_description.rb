@@ -6,7 +6,9 @@ module Stepmod
       class Em < ReverseAdoc::Converters::Base
         def convert(node, state = {})
           content = treat_children(node, state.merge(already_italic: true))
-          if content.strip.empty? || state[:already_italic]
+          if state[:equation]
+            "ii(#{content.strip})"
+          elsif content.strip.empty? || state[:already_italic]
             content
           else
             "#{content[/^\s*/]}_#{content.strip}_#{content[/\s*$/]}"
