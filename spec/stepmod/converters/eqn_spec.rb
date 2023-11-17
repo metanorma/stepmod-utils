@@ -33,7 +33,7 @@ RSpec.describe Stepmod::Utils::Converters::Eqn do
 
       [stem]
       ++++
-      ii(χ bb(My node)_{ms}ii(Italic text) = bb(ii(V - E + 2F - L))_{l}bb(- 2(S - G)^{s})) = 0
+      χ My node_{ms}Italic text = V - E + 2F - L_{l} - 2(S - G^{s})  = 0
       ++++
 
     XML
@@ -60,13 +60,13 @@ RSpec.describe Stepmod::Utils::Converters::Eqn do
 
         [stem]
         ++++
-        bb(λ)ii((u)) = bb(C) + R(cos(ii(u))bb(x) + sin(ii(u))bb(y))
+        λ(u) = C + R(cos(u)x + sin(u)y)
         ++++
 
       OUTPUT
     end
 
-    it "should add bb() and ii() for bold and italics respectively" do
+    it "should remove all bold and italics tags from equation" do
       expect(convert).to eq(expected_output)
     end
   end
@@ -83,7 +83,7 @@ RSpec.describe Stepmod::Utils::Converters::Eqn do
 
         [stem]
         ++++
-        ii(χ_{ms} = bb(V - E + 2F - L)_{l} bb(- 2(S - G) ^{s})) = 0
+        χ_{ms} = V - E + 2F - L_{l}  - 2(S - G ^{s})  = 0
         ++++
 
       XML
@@ -124,7 +124,7 @@ RSpec.describe Stepmod::Utils::Converters::Eqn do
 
         [stem]
         ++++
-        ii(K1) = bb("upper_index_on_u_control_points")
+        K1  = "upper_index_on_u_control_points"
         ++++
 
       XML
@@ -146,7 +146,7 @@ RSpec.describe Stepmod::Utils::Converters::Eqn do
 
         [stem]
         ++++
-        bb(s)(u,v) = (1 - u -v)^{3}bb(P_{1}) + u^{3}bb(P_{2}) + v^{3}bb(P_{3}) + 3(1 - u -v)^{2}ubb(P_{4}) + 3(1 - u -v)u^{2}bb(P_{5}) + 3u^{2}vbb(P_{6}) + 3uv^{2}bb(P_{7}) + 3(1 - u -v)v^{2}bb(P_{8}) + 3(1 - u -v)^{2}vbb(P_{9}) + 6uv(1 - u -v)bb(P_{10})
+        s(u,v) = (1 - u -v)^{3}P_{1} + u^{3}P_{2} + v^{3}P_{3} + 3(1 - u -v)^{2}uP_{4} + 3(1 - u -v)u^{2}P_{5} + 3u^{2}vP_{6} + 3uv^{2}P_{7} + 3(1 - u -v)v^{2}P_{8} + 3(1 - u -v)^{2}vP_{9} + 6uv(1 - u -v)P_{10}
         ++++
 
       XML

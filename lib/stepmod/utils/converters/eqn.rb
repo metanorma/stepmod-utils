@@ -50,8 +50,7 @@ module Stepmod
         end
 
         def stem_converted(cloned_node, state)
-          # We are now adding bb() or ii() for bold and italic respectively
-          # remove_tags_not_in_context(cloned_node)
+          remove_tags_not_in_context(cloned_node)
           internal_content = treat_children(cloned_node, state.merge(equation: true))
           content = Stepmod::Utils::HtmlToAsciimath.new.call(internal_content)
           res = <<~TEMPLATE
