@@ -34,7 +34,7 @@ RSpec.describe Stepmod::Utils::Converters::Strong do
 
           [stem]
           ++++
-          χ bb(My node)_{ms} = bb(V - E + 2F - L)_{l}bb(- 2(S - G)^{s}) = 0
+          χ My node_{ms} = V - E + 2F - L_{l} - 2(S - G^{s}) = 0
           ++++
 
         XML
@@ -69,7 +69,7 @@ RSpec.describe Stepmod::Utils::Converters::Strong do
 
           [stem]
           ++++
-          χ bb(My node)_{ms} = bb(V - E + 2F - L)_{l}bb(- 2(S - G)^{s}) = 0
+          χ My node_{ms} = V - E + 2F - L_{l} - 2(S - G^{s}) = 0
           ++++
 
         XML

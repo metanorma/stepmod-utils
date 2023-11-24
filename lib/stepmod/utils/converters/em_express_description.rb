@@ -18,9 +18,7 @@ module Stepmod
             treat(equation, state.merge(equation: true, already_italic: true))
           end
 
-          content = if state[:equation] && !content.strip.empty?
-            "ii(#{content.strip})"
-          elsif content.strip.empty? || state[:already_italic]
+          content = if content.strip.empty? || state[:already_italic] || state[:equation]
             content
           else
             "#{content[/^\s*/]}_#{content.strip}_#{content[/\s*$/]}"
