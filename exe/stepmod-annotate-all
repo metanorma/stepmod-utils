@@ -4,8 +4,52 @@ require "concurrent"
 require "stepmod/utils/stepmod_file_annotator"
 require "fileutils"
 
-stepmod_dir = ARGV.first || Dir.pwd
-stepmod_dir = Pathname.new(stepmod_dir.gsub("\\", "/"))
+require "bundler/setup"
+require "optparse"
+
+def log(message, indent = 0)
+  indent_spaces = " " * (indent * 2)
+  puts "[stepmod-utils] #{indent_spaces}#{message}"
+end
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: #{$0} [options]"
+
+  opts.on(
+    "--stepmod-dir STEPMOD_DIR",
+    String,
+    "Path to STEPmod directory",
+  ) do |path|
+    options[:stepmod_dir] = path
+  end
+
+  opts.on(
+    "--output SRL_SCHEMAS_DIR",
+    String,
+    "Path to output SRL schemas",
+  ) do |path|
+    options[:srl_output_schemas_dir] = path
+  end
+
+  opts.on_tail("-h", "--help", "Show this message") do
+    puts opts
+    exit
+  end
+end.parse!
+
+stepmod_dir = options[:stepmod_dir]
+raise StandardError.new("--stepmod-dir not set") unless stepmod_dir
+
+stepmod_path = Pathname.new(stepmod_dir)
+unless (stepmod_path.join("data").exist? && stepmod_path.join("data").directory?)
+  raise StandardError.new("--stepmod-dir should be the root STEPmod directory and contains data/")
+end
+log "STEPmod data path: `#{stepmod_dir}`"
+
+srl_output_schemas_dir = options[:srl_output_schemas_dir]
+raise StandardError.new("--output directory for SRL schemas not set") unless srl_output_schemas_dir
+log "SRL schemas output path: `#{srl_output_schemas_dir}`"
 
 def all_express_files(stepmod_dir)
   index_file = File.read(File.join(stepmod_dir, "repository_index.xml"))
@@ -46,7 +90,6 @@ end
 # It will return nil if the file does not exist
 def file_system_path(filepath, filename_cache)
   dir = File.dirname(filepath)
-  filename = File.basename(filepath)
 
   return filename_cache[dir][filepath.downcase] if filename_cache[dir]
 
@@ -69,32 +112,50 @@ MAX_QUEUE_SIZE = MAX_THREADS * 4
 files = all_express_files(stepmod_dir)
 filename_cache = {}
 
+FileUtils.mkdir_p(srl_output_schemas_dir)
+
 files.each do |file|
-  puts "#{Thread.current.object_id}: Processing #{file}"
+  puts "#{Thread.current.object_id}: `#{file}` processing..."
 
   result = Stepmod::Utils::StepmodFileAnnotator.new(
     express_file: file,
     stepmod_dir: stepmod_dir,
   ).call
 
-  annotated_file_name = "#{File.basename(file, '.exp')}_annotated.exp"
-  annotated_file_path = File.join(File.dirname(file), annotated_file_name)
+  destination_rel_path = Pathname.new(file).dirname.relative_path_from(stepmod_path.join("data"))
+  directory_type = destination_rel_path.each_filename.to_a.first
+
+  if %w(resources modules).include?(directory_type)
+    destination_rel_path = Pathname.new(file).dirname.relative_path_from(stepmod_path.join("data").join(directory_type))
+  end
+
+  destination_path = Pathname.new(srl_output_schemas_dir).join(destination_rel_path)
+  FileUtils.mkdir_p(destination_path)
+
+  annotated_file_path = destination_path.join(File.basename(file))
 
   File.open(annotated_file_path, "w") do |annotated_file|
     annotated_file.puts(result[:annotated_text])
   end
+  puts "#{Thread.current.object_id}: Written to: `#{annotated_file_path}`"
 
   result[:images_references].each do |source, destination|
-    source_path = File.join(stepmod_dir, "data", source)
-    system_source_path = file_system_path(source_path, filename_cache)
-    destination_path = File.join(File.dirname(file), destination)
+    source_path = stepmod_path.join("data", source)
+    system_source_path = file_system_path(source_path.to_s, filename_cache)
+    image_dest_path = destination_path.join(destination)
 
-    puts "#{Thread.current.object_id}:     Starting to copy file from #{source_path} to #{destination_path}"
-    next if !system_source_path
+    unless system_source_path
+      if image_dest_path.exist?
+        puts "#{Thread.current.object_id}:     Copy image SKIPPED for `#{image_dest_path}` as it exists."
+      else
+        puts "#{Thread.current.object_id}:     Copy image FAILED from `#{source_path}` to `#{image_dest_path}`"
+      end
+      next
+    end
 
-    FileUtils.cp(system_source_path, destination_path)
-    puts "#{Thread.current.object_id}:     Done copying #{system_source_path} to #{destination_path}"
+    FileUtils.cp(system_source_path, image_dest_path)
+    puts "#{Thread.current.object_id}:     Copy image SUCCESS: `#{system_source_path}` to `#{image_dest_path}`"
   end
 
-  puts "#{Thread.current.object_id}: Done processing #{File.basename(file)} => #{annotated_file_path}."
+  puts "#{Thread.current.object_id}: Done processing `#{File.basename(file)}` => `#{annotated_file_path}`"
 end

@@ -150,6 +150,8 @@ module Stepmod
           processed_images_cache[new_image_file_path] = true
           @images_references[image_file_path] = new_image_file_path
         end
+
+        @images_references
       end
 
       def convert_from_description_text(descriptions_file, description)
