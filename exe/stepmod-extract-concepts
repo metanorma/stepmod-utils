@@ -9,15 +9,6 @@ bin_file = Pathname.new(__FILE__).realpath
 # add self to libpath
 $:.unshift File.expand_path("../../lib", bin_file)
 
-# Fixes https://github.com/rubygems/rubygems/issues/1420
-require "rubygems/specification"
-
-module Gem
-  class Specification
-    def this; self; end
-  end
-end
-
 require "bundler/setup"
 require_relative "../lib/stepmod/utils/terms_extractor"
 require "optparse"
