@@ -63,13 +63,68 @@ The following schemas failed validation:
 SCHEMA: data/resources/geometric_model_schema/geometric_model_schema.exp
 ----
 
+=== Generating Annotated EXPRESS
 
-=== ISO 10303-2 terminology extraction
+This command takes the STEPmod directory and parses its XML to synthesize
+with the target EXPRESS schemas to migrate into Annotated EXPRESS schemas.
+
+Given the following schemas:
+
+* Simple EXPRESS schema: `{stepmod-root-dir}/data/resources/action_schema/action_schema.exp`
+* Output of Annotated EXPRESS schema: `{schemas-output-dir}/action_schema/action_schema.exp`
+
+Command:
 
 [source,sh]
 ----
-# Extracts from specified stepmod/data/ directory
-$ stepmod-extract-terms -p {stepmod-data-directory} -i {path-to-repository_index.xml}
+$ bundle exec stepmod-annotate-all \
+  --stepmod-dir {stepmod-root-dir} \
+  --output {schemas-output-dir}
+----
+
+e.g.
+
+[source,sh]
+----
+$ bundle exec stepmod-annotate-all \
+  --stepmod-dir ./iso-10303-stepmod-wg12 \
+  --output schemas
+----
+
+
+Output:
+
+[source,sh]
+----
+$ bundle exec stepmod-annotate-all --stepmod-dir iso-10303-stepmod-wg12 --output schemas
+[stepmod-utils] STEPmod data path: `iso-10303-stepmod-wg12`
+[stepmod-utils] SRL schemas output path: `schemas`
+5760: `iso-10303-stepmod-wg12/data/modules/activity/arm.exp` processing...
+5760: Written to: `schemas/activity/arm.exp`
+5760: Done processing `arm.exp` => `schemas/activity/arm.exp`
+5760: `iso-10303-stepmod-wg12/data/modules/activity/mim.exp` processing...
+5760: Written to: `schemas/activity/mim.exp`
+5760: Done processing `mim.exp` => `schemas/activity/mim.exp`
+5760: `iso-10303-stepmod-wg12/data/modules/activity_as_realized/arm.exp` processing...
+5760: Written to: `schemas/activity_as_realized/arm.exp`
+5760: Done processing `arm.exp` => `schemas/activity_as_realized/arm.exp`
+5760: `iso-10303-stepmod-wg12/data/modules/activity_as_realized/mim.exp` processing...
+5760: Written to: `schemas/activity_as_realized/mim.exp`
+5760: Done processing `mim.exp` => `schemas/activity_as_realized/mim.exp`
+5760: `iso-10303-stepmod-wg12/data/modules/activity_characterized/arm.exp` processing...
+5760: Written to: `schemas/activity_characterized/arm.exp`
+...
+----
+
+
+=== ISO 10303-2 concepts extraction
+
+[source,sh]
+----
+$ bundle exec stepmod-extract-concepts \
+  -p ./data \
+  -i ./repository_index.xml \
+  -o ./output-yaml
 ----
 
 Then these files will be created:
