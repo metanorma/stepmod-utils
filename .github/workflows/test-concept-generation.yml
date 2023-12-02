@@ -27,7 +27,10 @@ jobs:
           path: iso-10303-stepmod-wg12
 
       - name: Generate Annotated EXPRESS files
-        run: bundle exec stepmod-annotate-all ./iso-10303-stepmod-wg12
+        run: |
+          bundle exec stepmod-annotate-all \
+            --stepmod-dir ./iso-10303-stepmod-wg12 \
+            --output schemas
 
       - name: Generate Concept YAML files
         working-directory: iso-10303-stepmod-wg12
