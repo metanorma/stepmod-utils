@@ -3,25 +3,33 @@
 # encoding: UTF-8
 
 require "pathname"
+require "fileutils"
 bin_file = Pathname.new(__FILE__).realpath
 
 # add self to libpath
 $:.unshift File.expand_path("../../lib", bin_file)
 
-# Fixes https://github.com/rubygems/rubygems/issues/1420
-require "rubygems/specification"
-
-module Gem
-  class Specification
-    def this; self; end
-  end
-end
-
 require "bundler/setup"
 require "optparse"
 
-def log(message)
+def log(message, indent = 0)
+  indent_spaces = " " * (indent * 2)
   puts "[stepmod-utils] #{message}"
+end
+
+def copy_files_to_schemas(path, srl_output_docs_dir)
+  schema_name = path.dirname.basename
+  file_name = path.basename
+
+  new_dir = File.join(srl_output_docs_dir, schema_name)
+  new_file_path = File.join(new_dir, file_name)
+
+  unless Dir.exist?(new_dir)
+    FileUtils.mkdir_p(new_dir)
+  end
+
+  FileUtils.copy_file(path, new_file_path)
+  log("Copied #{path.basename} to #{new_file_path}", 1)
 end
 
 options = {}
@@ -29,9 +37,9 @@ OptionParser.new do |opts|
   opts.banner = "Usage: #{$0} [options]"
 
   opts.on(
-    "--stepmod-data-dir STEPMOD_DATA_DIR",
+    "--stepmod-dir STEPMOD_DIR",
     String,
-    "Path to STEPmod data directory",
+    "Path to the STEPmod root directory",
   ) do |path|
     options[:stepmod_dir] = path
   end
@@ -39,7 +47,7 @@ OptionParser.new do |opts|
   opts.on(
     "--srl-docs-dir SRL_DOCS_DIR",
     String,
-    "Path to output srl docs",
+    "Path to output SRL docs",
   ) do |path|
     options[:srl_output_docs_dir] = path
   end
@@ -47,50 +55,118 @@ OptionParser.new do |opts|
   opts.on(
     "--srl-schemas-dir SRL_SCHEMAS_DIR",
     String,
-    "Path to output srl schemas",
+    "Path to output SRL schemas",
   ) do |path|
     options[:srl_output_schemas_dir] = path
   end
 
   opts.on(
-    "-s",
-    "--stepmod2mn-executeable STEPMOD2MN_EXECUTEABLE",
+    "--stepmod2mn-path STEPMOD2MN_JAR_PATH",
     String,
-    "Path to STEPMOD2MN_EXECUTEABLE",
+    "Path to stepmod2mn-vx.y.jar",
   ) do |path|
     options[:stepmod2mn_path] = path
   end
 
-  opts.on_tail("-h", "--help", "Show this message") do
+  opts.on_tail("-h", "--help", "Show this help message") do
     puts opts
     exit
   end
 end.parse!
 
-stepmod2mn_path = options[:stepmod2mn_path]
-if stepmod2mn_path.nil?
-  raise StandardError.new(
-    "stepmod2mn executeable is required, set with the `-s` option.",
-  )
+def download_stepmod2mn(path)
+  return path if path && path.exist?
+
+  require 'octokit'
+  require "down"
+  require "fileutils"
+
+  client = Octokit::Client.new
+  download_url = client.latest_release('metanorma/stepmod2mn').assets.first.browser_download_url
+
+  filename = Pathname.new(download_url).basename.to_s
+
+  destination_path = path || Pathname.pwd.join(filename)
+  return destination_path if !destination_path.nil? && destination_path.exist?
+
+  puts "Downloading `stepmod2mn.jar` to `#{destination_path}`."
+  tempfile = Down.download(download_url)
+  FileUtils.mkdir_p(Pathname.new(destination_path).dirname)
+  FileUtils.mv(tempfile.path, destination_path)
+
+  destination_path
 end
+
+stepmod2mn_path = options[:stepmod2mn_path]
+if !stepmod2mn_path.nil?
+  if Pathname.new(stepmod2mn_path).exist?
+    puts "Specified `stepmod2mn.jar` found, using existing file."
+  else
+    stepmod2mn_path = download_stepmod2mn(Pathname.new(stepmod2mn_path))
+  end
+  puts "Specified `stepmod2mn.jar` not found, downloading from GitHub."
+else
+  stepmod2mn_path = download_stepmod2mn(nil)
+end
+log "`stepmod2mn.jar` path: `#{stepmod2mn_path}`"
 
 stepmod_dir = options[:stepmod_dir] || "stepmod"
 if stepmod_dir.nil?
   raise StandardError.new(
-    "stepmod data directory required, set with the `--stepmod_dir` option.",
+    "Please provide path to the STEPmod root directory with `--stepmod_dir`.",
   )
 end
 
-migrate_docs_command = %(stepmod-srl-migrate-docs -s "#{stepmod2mn_path}" --stepmod-data-dir "#{stepmod_dir}")
-migrate_docs_command += %( --srl-docs-dir #{options[:srl_output_docs_dir]}) if options[:srl_output_docs_dir]
+stepmod_path = Pathname.new(stepmod_dir)
+unless stepmod_path.exist? && stepmod_path.directory? &&
+  stepmod_path.join("data").exist? && stepmod_path.join("data").directory?
+  puts "Specified STEPmod directory not found, not a directory, or does not contain `data/`. Aborting."
+  exit 1
+end
 
-migrate_schemas_command = %(stepmod-srl-migrate-schemas -s "#{stepmod2mn_path}" --stepmod-data-dir "#{stepmod_dir}")
-migrate_schemas_command += %( --srl-schemas-dir #{options[:srl_output_schemas_dir]}) if options[:srl_output_schemas_dir]
+stepmod_dir = options[:stepmod_dir] || "stepmod"
+log "STEPmod path: `#{stepmod_dir}`"
 
-log("--- START Migrate Docs ---")
-system migrate_docs_command
-log("--- END Migrate Docs ---")
+srl_output_schemas_dir = options[:srl_output_schemas_dir] || "schemas"
+unless File.directory?(srl_output_schemas_dir)
+  FileUtils.mkdir_p(srl_output_schemas_dir)
+end
+log "SRL output schemas directory path: `#{srl_output_schemas_dir}`"
 
-log("--- START Migrate Schemas ---")
-system migrate_schemas_command
-log("--- END Migrate Schemas ---")
+srl_output_docs_dir = options[:srl_output_docs_dir] || "documents"
+unless File.directory?(srl_output_docs_dir)
+  FileUtils.mkdir_p(srl_output_docs_dir)
+end
+log "SRL output documents directory path: `#{srl_output_docs_dir}`"
+
+log("*"*30)
+log("[SRL MIGRATION] Migration starts!")
+
+log("*"*30)
+log("[SRL MIGRATION: stepmod2mn.jar] START document migration and SVG generation.")
+log("*"*30)
+system "java -Xss5m -jar #{stepmod2mn_path} #{stepmod_dir} --output #{srl_output_docs_dir} --svg"
+log("*"*30)
+log("[SRL MIGRATION: stepmod2mn.jar] COMPLETE document migration and SVG generation.")
+
+log("*"*30)
+log("[SRL MIGRATION: stepmod-utils] START Annotated EXPRESS generation.")
+log("*"*30)
+system "stepmod-annotate-all --stepmod-dir #{stepmod_dir} --output #{srl_output_schemas_dir}"
+log("*"*30)
+log("[SRL MIGRATION: stepmod-utils] COMPLETE Annotated EXPRESS generation.")
+
+log("*"*30)
+log("[SRL MIGRATION: stepmod-utils] START EXPRESS change YAML extraction.")
+system "stepmod-extract-changes -p #{stepmod_dir}"
+Dir.glob("#{stepmod_dir}/data/**/*.changes.yaml").each do |filepath|
+  path = Pathname.new(filepath)
+  copy_files_to_schemas(path, srl_output_schemas_dir)
+end
+log("*"*30)
+log("[SRL MIGRATION: stepmod-utils] COMPLETE EXPRESS change YAML extraction.")
+
+log("*"*30)
+log("[SRL MIGRATION] Migration complete!")
+
+log("*"*30)
