@@ -25,6 +25,47 @@ Or include it in your gemspec.
 
 == Usage
 
+=== EXPRESS schema validation
+
+This command uses Expressir to validate all EXPRESS schemas listed in the
+`{stepmod}/repository_index.xml` file.
+
+There is a `SHOULD_REWRITE` constant that can be switched in the code which
+allows overwriting of the EXPRESS schemas into a pretty-printed format.
+
+WARNING: The `SHOULD_REWRITE` function is turned off because Expressir currently
+does not support outputting remarks, and some of the pretty-printed schemas will
+fail validation.
+
+[source,sh]
+----
+$ stepmod-validate-express {stepmod-directory}
+----
+
+Output:
+
+[source]
+----
+Validating all EXPRESS schema files listed in:
+repository_index.xml
+
+NOTE: SHOULD_REWRITE mode is turned OFF
+validating: ./data/modules/activity/arm.exp
+validated : ./data/modules/activity/arm.exp
+validating: ./data/modules/activity/mim.exp
+validated : ./data/modules/activity/mim.exp
+validating: ./data/modules/activity_as_realized/arm.exp
+validated : ./data/modules/activity_as_realized/arm.exp
+validating: ./data/modules/activity_as_realized/mim.exp
+validated : ./data/modules/activity_as_realized/mim.exp
+...
+The following schemas failed validation:
+SCHEMA: data/resources/geometric_model_schema/geometric_model_schema.exp
+----
+
+
+=== ISO 10303-2 terminology extraction
+
 [source,sh]
 ----
 # Extracts from specified stepmod/data/ directory
@@ -35,6 +76,37 @@ Then these files will be created:
 
 * `031-generated-terms.adoc` all terms extracted
 * `991-generated-bibliography.adoc` all bibliographic sources where the terms come from
+
+If the STEPmod repository is a Git repository, term extract will work.
+
+Sample output:
+
+[source,sh]
+----
+[stepmod-utils] INFO: STEPmod directory set to ../iso-10303-stepmod.
+[stepmod-utils] INFO: Detecting paths...
+[stepmod-utils] INFO: Processing XML file data/application_protocols/boundary_representation_for_iso_14306_open_jt/application_protocol.xml
+[stepmod-utils] INFO: skipped ISO/CD 10303-243 as it is not IS, DIS or TS
+[stepmod-utils] INFO: Processing XML file data/application_protocols/configuration_control_3d_design_ed2/application_protocol.xml
+[stepmod-utils] INFO: Completed processing XML file data/application_protocols/configuration_control_3d_design_ed2/application_protocol.xml
+[stepmod-utils] INFO: Processing XML file data/application_protocols/electronic_assembly_interconnect_and_packaging_design/application_protocol.xml
+[stepmod-utils] INFO: skipped ISO/CD 10303-210:2019 as it is not IS, DIS or TS
+[stepmod-utils] INFO: Processing XML file data/application_protocols/functional_data_and_their_schematic_representation_for_process_plant/application_protocol.xml
+[stepmod-utils] INFO: Completed processing XML file data/application_protocols/functional_data_and_their_schematic_representation_for_process_plant/application_protocol.xml
+...
+----
+
+
+
+
+=== Creating the SRL
+
+[source,sh]
+----
+# Extracts from specified stepmod/data/ directory
+$ stepmod-extract-terms -p {stepmod-data-directory} -i {path-to-repository_index.xml}
+----
+
 
 == Conversion of STEPmod descriptions.xml into adoc
 
@@ -111,7 +183,18 @@ expg_image:contract_schemaexpg1.xml[]
 expg_image:contract_schemaexpg2.xml[]
 ----
 
-== Convertion of all schema history information into independent per-schema YAML files
+== Generate EXPRESS Change YAML files
+
+EXPRESS Change YAML files are YAML files that contain schema history
+information.
+
+This command migrates existing schema change information (in XML) into
+independent per-schema YAML files.
+
+The files will be created in the same directory as the schema:
+
+* Schema: `shape_dimension_schema/shape_dimension_schema.exp`
+* Output: `shape_dimension_schema/shape_dimension_schema.changes.yaml`
 
 Command:
 
@@ -275,27 +358,5 @@ change_edition:
   deletions:
   - type: TYPE
     name: connected_edge_with_length_set_items
-----
-
-
-== Git repository
-
-If the STEPmod repository is a Git repository, term extract will work.
-
-Sample output:
-
-[source,sh]
-----
-[stepmod-utils] INFO: STEPmod directory set to ../iso-10303-stepmod.
-[stepmod-utils] INFO: Detecting paths...
-[stepmod-utils] INFO: Processing XML file data/application_protocols/boundary_representation_for_iso_14306_open_jt/application_protocol.xml
-[stepmod-utils] INFO: skipped ISO/CD 10303-243 as it is not IS, DIS or TS
-[stepmod-utils] INFO: Processing XML file data/application_protocols/configuration_control_3d_design_ed2/application_protocol.xml
-[stepmod-utils] INFO: Completed processing XML file data/application_protocols/configuration_control_3d_design_ed2/application_protocol.xml
-[stepmod-utils] INFO: Processing XML file data/application_protocols/electronic_assembly_interconnect_and_packaging_design/application_protocol.xml
-[stepmod-utils] INFO: skipped ISO/CD 10303-210:2019 as it is not IS, DIS or TS
-[stepmod-utils] INFO: Processing XML file data/application_protocols/functional_data_and_their_schematic_representation_for_process_plant/application_protocol.xml
-[stepmod-utils] INFO: Completed processing XML file data/application_protocols/functional_data_and_their_schematic_representation_for_process_plant/application_protocol.xml
-...
 ----
 
