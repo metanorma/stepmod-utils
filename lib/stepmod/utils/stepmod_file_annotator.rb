@@ -130,7 +130,9 @@ module Stepmod
       private
 
       def sanitize(file_content)
-        file_content.gsub("(*)", "(`*`)")
+        file_content
+          .gsub("(*)", "(`*`)")
+          .gsub(";;", ";")
       end
 
       def add_images_references(description, schema_base_dir, processed_images_cache)

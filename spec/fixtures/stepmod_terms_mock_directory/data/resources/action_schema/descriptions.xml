@@ -57,9 +57,9 @@
   ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
   -->
 <ext_description linkend="action_schema.action.name">
-	the 
-	<express_ref linkend="support_resource_schema:ir_express:support_resource_schema.label"/> 
-	by which the <b>action</b> is known.
+	the
+	<express_ref linkend="support_resource_schema:ir_express:support_resource_schema.label"/>
+	by which the <b>action</b> is known;;
 </ext_description>
 <!-- 
   ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

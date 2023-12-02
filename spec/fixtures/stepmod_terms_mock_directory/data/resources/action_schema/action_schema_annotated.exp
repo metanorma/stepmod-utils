@@ -406,7 +406,7 @@ In particular application domains, terms such as task, process, activity, operat
 *)
 
 (*"action_schema.action.name"
-the <<express:support_resource_schema.label,label>> by which the **action** is known.
+the <<express:support_resource_schema.label,label>> by which the **action** is known;
 *)
 
 
