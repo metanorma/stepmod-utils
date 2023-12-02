@@ -1,0 +1,104 @@
+#!/usr/bin/env ruby
+
+require 'nokogiri'
+require 'expressir'
+require 'expressir/express/parser'
+require 'expressir/express/formatter'
+
+stepmod_dir = ARGV.pop || "iso-10303-stepmod-wg12"
+stepmod_path = Pathname.new(stepmod_dir)
+
+SHOULD_REWRITE = false
+
+REPO_INDEX_XML = stepmod_path.join("repository_index.xml")
+
+def all_express_files(stepmod_dir)
+  index_file = File.read(REPO_INDEX_XML)
+  index = Nokogiri::XML(index_file).root
+
+  files = []
+  index.xpath("modules/module").each do |item|
+    files << "#{stepmod_dir}/data/modules/#{item['name']}/arm.exp"
+    files << "#{stepmod_dir}/data/modules/#{item['name']}/mim.exp"
+  end
+
+  index.xpath("resources/resource").each do |item|
+    next if item["name"] == "iso13584_expressions_schema"
+
+    files << "#{stepmod_dir}/data/resources/#{item['name']}/#{item['name']}.exp"
+  end
+
+  index.xpath("business_object_models/business_object_model").each do |item|
+    files << "#{stepmod_dir}/data/business_object_models/#{item['name']}/bom.exp"
+    files << "#{stepmod_dir}/data/business_object_models/#{item['name']}/DomainModel.exp"
+  end
+
+  files.filter { |file| File.exist?(file) }
+end
+
+def parse_express_schema(path)
+  Expressir::Express::Parser.from_file(path)
+rescue
+  puts "ERROR: Broken schema detected in #{path}!"
+  nil
+end
+
+def format_express_schema(repo)
+  Expressir::Express::Formatter.format(repo)
+end
+
+schemas_status = {}
+
+puts "Validating all EXPRESS schema files listed in:"
+puts REPO_INDEX_XML
+puts
+puts "NOTE: SHOULD_REWRITE mode is turned #{SHOULD_REWRITE ? 'ON' : 'OFF'}"
+
+all_express_files(stepmod_dir).each_with_index do |exp_file, i|
+  # puts "i #{i}"
+  # next if i > 10
+
+  puts "validating: #{exp_file}"
+  exp_path = Pathname.new(exp_file)
+  repo = parse_express_schema(exp_file)
+
+
+  schemas_status[exp_path.to_s] = repo ? true : false
+
+  if repo.nil?
+    puts "FAILED    : #{exp_file}"
+    next
+  end
+
+  puts "validated : #{exp_file}"
+
+  # Commented out pretty formatting as some formatted schemas will fail validation...
+  if SHOULD_REWRITE
+    formatted_schema = format_express_schema(repo)
+    # experimental_path = exp_path.dirname.join(exp_path.basename('.exp').to_s+".x.exp")
+
+    puts "rewriting : #{exp_path.to_s}"
+    exp_path.truncate(0)
+    exp_path.write(formatted_schema)
+  end
+
+end
+
+puts "*"*30
+
+if schemas_status.values.include?(false)
+  puts "The following schemas failed validation:"
+  schemas_status.select do |path, status|
+    status == false
+  end.each_pair do |path, status|
+    puts "SCHEMA: #{path}"
+  end
+  puts "*"*30
+
+  exit 1
+end
+
+puts "All schemas passed validation."
+puts "*"*30
+
+exit 0
