@@ -153,15 +153,108 @@ Sample output:
 
 
 
-
 === Creating the SRL
+
+The single command to create the SRL from the STEPmod repository is as follows.
+
+The command also takes the `--stepmod2mn-path {path}` option to specify the
+location of the `stepmod2mn.jar` file. If it is not specified, or the path
+doesn't exist, the command will automatically download the latest release of it
+to use.
 
 [source,sh]
 ----
-# Extracts from specified stepmod/data/ directory
-$ stepmod-extract-terms -p {stepmod-data-directory} -i {path-to-repository_index.xml}
+$ bundle exec stepmod-srl-migrate \
+    --srl-schemas-dir {path-to-new-srl-schemas} \
+    --srl-docs-dir {path-to-new-srl-documents} \
+    --stepmod-dir {stepmod-root-path}
 ----
 
+e.g.
+
+[source,sh]
+----
+$ bundle exec stepmod-srl-migrate \
+    --srl-schemas-dir schemas \
+    --srl-docs-dir documents \
+    --stepmod-dir iso-10303-stepmod-wg12
+----
+
+Output:
+
+[source,sh]
+----
+To use retry middleware with Faraday v2.0+, install `faraday-retry` gem
+[stepmod-utils] `stepmod2mn.jar` path: `/Users/mulgogi/src/mn/iso-10303-srl/stepmod2mn-1.25.jar`
+[stepmod-utils] STEPmod path: `iso-10303-stepmod-wg12`
+[stepmod-utils] SRL output schemas directory path: `schemas`
+[stepmod-utils] SRL output documents directory path: `documents`
+[stepmod-utils] ******************************
+[stepmod-utils] [SRL MIGRATION] Migration starts!
+[stepmod-utils] ******************************
+[stepmod-utils] [SRL MIGRATION: stepmod2mn.jar] START document migration and SVG generation.
+[stepmod-utils] ******************************
+stepmod2mn Generate SVG file for iso-10303-stepmod-wg12/data/resource_docs/systems_engineering_representation/schema_diagexpg1.xml...
+SVG saved in documents/systems_engineering_representation/schema_diagexpg1.svg.
+Generate SVG file for iso-10303-stepmod-wg12/data/resource_docs/fundamentals_of_product_description_and_support/schema_diagexpg1.xml...
+SVG saved in documents/fundamentals_of_product_description_and_support/schema_diagexpg1.svg.
+Generate SVG file for iso-10303-stepmod-wg12/data/resource_docs/mathematical_representation/schema_diagexpg1.xml...
+...
+Generate SVG file for iso-10303-stepmod-wg12/data/modules/assembly_module_with_subassembly/mimexpg2.xml...
+SVG saved in documents/assembly_module_with_subassembly/mimexpg2.svg.
+End!
+[stepmod-utils] ******************************
+[stepmod-utils] [SRL MIGRATION: stepmod2mn.jar] COMPLETE document migration and SVG generation.
+[stepmod-utils] ******************************
+[stepmod-utils] [SRL MIGRATION: stepmod-utils] START Annotated EXPRESS generation.
+[stepmod-utils] ******************************
+[stepmod-utils] STEPmod data path: `iso-10303-stepmod-wg12`
+[stepmod-utils] SRL schemas output path: `schemas`
+5720: `iso-10303-stepmod-wg12/data/modules/activity/arm.exp` processing...
+5720: Written to: `schemas/activity/arm.exp`
+5720: Done processing `arm.exp` => `schemas/activity/arm.exp`
+5720: `iso-10303-stepmod-wg12/data/modules/activity/mim.exp` processing...
+5720: Written to: `schemas/activity/mim.exp`
+5720: Done processing `mim.exp` => `schemas/activity/mim.exp`
+5720: `iso-10303-stepmod-wg12/data/modules/activity_as_realized/arm.exp` processing...
+...
+5720: Done processing `mim.exp` => `schemas/zonal_breakdown/mim.exp`
+5720: `iso-10303-stepmod-wg12/data/resources/action_and_model_relationships_schema/action_and_model_relationships_schema.exp` processing...
+5720: Written to: `schemas/action_and_model_relationships_schema/action_and_model_relationships_schema.exp`
+5720:     Copy image SKIPPED for `schemas/action_and_model_relationships_schema/action_and_model_relationships_schemaexpg1.svg` as it exists.
+5720:     Copy image SKIPPED for `schemas/action_and_model_relationships_schema/action_and_model_relationships_schemaexpg2.svg` as it exists.
+5720: Done processing `action_and_model_relationships_schema.exp` => `schemas/action_and_model_relationships_schema/action_and_model_relationships_schema.exp`
+5720: `iso-10303-stepmod-wg12/data/resources/action_schema/action_schema.exp` processing...
+5720: Written to: `schemas/action_schema/action_schema.exp`
+5720:     Copy image SKIPPED for `schemas/action_schema/action_schemaexpg1.svg` as it exists.
+5720:     Copy image SKIPPED for `schemas/action_schema/action_schemaexpg2.svg` as it exists.
+5720: Done processing `action_schema.exp` => `schemas/action_schema/action_schema.exp`
+5720: `iso-10303-stepmod-wg12/data/resources/aic_advanced_brep/aic_advanced_brep.exp` processing...
+5720: Written to: `schemas/aic_advanced_brep/aic_advanced_brep.exp`
+5720: Done processing `aic_advanced_brep.exp` => `schemas/aic_advanced_brep/aic_advanced_brep.exp`
+5720: `iso-10303-stepmod-wg12/data/resources/aic_associative_draughting_elements/aic_associative_draughting_elements.exp` processing...
+5720: Written to: `schemas/aic_associative_draughting_elements/aic_associative_draughting_elements.exp`
+...
+5720: Written to: `schemas/business_object_models/managed_model_based_3d_engineering_domain/DomainModel.exp`
+5720: Done processing `DomainModel.exp` => `schemas/business_object_models/managed_model_based_3d_engineering_domain/DomainModel.exp`
+[stepmod-utils] ******************************
+[stepmod-utils] [SRL MIGRATION: stepmod-utils] COMPLETE Annotated EXPRESS generation.
+[stepmod-utils] ******************************
+[stepmod-utils] [SRL MIGRATION: stepmod-utils] START EXPRESS change YAML extraction.
+[stepmod-utils] STEPmod data path: `iso-10303-stepmod-wg12`
+[stepmod-utils] Copied arm.changes.yaml to schemas/activity/arm.changes.yaml
+[stepmod-utils] Copied arm_lf.changes.yaml to schemas/activity/arm_lf.changes.yaml
+[stepmod-utils] Copied mim.changes.yaml to schemas/activity/mim.changes.yaml
+[stepmod-utils] Copied mim_lf.changes.yaml to schemas/activity/mim_lf.changes.yaml
+[stepmod-utils] Copied arm.changes.yaml to schemas/activity_as_realized/arm.changes.yaml
+...
+[stepmod-utils] Copied topology_schema.changes.yaml to schemas/topology_schema/topology_schema.changes.yaml
+[stepmod-utils] ******************************
+[stepmod-utils] [SRL MIGRATION: stepmod-utils] COMPLETE EXPRESS change YAML extraction.
+[stepmod-utils] ******************************
+[stepmod-utils] [SRL MIGRATION] Migration complete!
+[stepmod-utils] ******************************
+----
 
 == Conversion of STEPmod descriptions.xml into adoc
 
