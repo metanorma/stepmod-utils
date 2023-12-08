@@ -125,11 +125,8 @@ files.each do |file|
   destination_rel_path = Pathname.new(file).dirname.relative_path_from(stepmod_path.join("data"))
   directory_type = destination_rel_path.each_filename.to_a.first
 
-  if %w(resources modules).include?(directory_type)
-    destination_rel_path = Pathname.new(file).dirname.relative_path_from(stepmod_path.join("data").join(directory_type))
-  end
-
-  destination_path = Pathname.new(srl_output_schemas_dir).join(destination_rel_path)
+  srl_output_schemas_path = Pathname.new(srl_output_schemas_dir)
+  destination_path = srl_output_schemas_path.join(destination_rel_path)
   FileUtils.mkdir_p(destination_path)
 
   annotated_file_path = destination_path.join(File.basename(file))
@@ -144,12 +141,26 @@ files.each do |file|
     system_source_path = file_system_path(source_path.to_s, filename_cache)
     image_dest_path = destination_path.join(destination)
 
+    if image_dest_path.exist?
+      puts "#{Thread.current.object_id}:     Copy image SKIPPED for `#{image_dest_path}` as destination exists."
+      next
+    end
+
     unless system_source_path
-      if image_dest_path.exist?
-        puts "#{Thread.current.object_id}:     Copy image SKIPPED for `#{image_dest_path}` as it exists."
-      else
-        puts "#{Thread.current.object_id}:     Copy image FAILED from `#{source_path}` to `#{image_dest_path}`"
+      source_file = Pathname.new(source).basename.to_s
+
+      puts "#{Thread.current.object_id}:     Copy image NOT FOUND at schema path: `#{source_file}`, trying glob..."
+
+      source_path = srl_output_schemas_path.glob("**/#{source_file}").first
+      if source_path
+        puts "EXISTS" if source_path.exist?
+        system_source_path = file_system_path(source_path.to_s, filename_cache)
+        puts "#{Thread.current.object_id}:     Copy image FOUND at different path: `#{system_source_path}`"
       end
+    end
+
+    unless system_source_path
+      puts "#{Thread.current.object_id}:     Copy image MISSING from `#{source_path}` to `#{image_dest_path}`"
       next
     end
 
