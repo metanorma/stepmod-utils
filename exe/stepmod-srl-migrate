@@ -17,11 +17,11 @@ def log(message, indent = 0)
   puts "[stepmod-utils] #{message}"
 end
 
-def copy_files_to_schemas(path, srl_output_docs_dir)
-  schema_name = path.dirname.basename
+def copy_files_to_schemas(path, stepmod_path, srl_output_docs_dir)
+  base_path = path.dirname.relative_path_from(File.join(stepmod_path, "data"))
   file_name = path.basename
 
-  new_dir = File.join(srl_output_docs_dir, schema_name)
+  new_dir = File.join(srl_output_docs_dir, base_path.to_s)
   new_file_path = File.join(new_dir, file_name)
 
   unless Dir.exist?(new_dir)
@@ -165,7 +165,7 @@ log("[SRL MIGRATION: stepmod-utils] START EXPRESS change YAML extraction.")
 system "stepmod-extract-changes -p #{stepmod_dir}"
 Dir.glob("#{stepmod_dir}/data/**/*.changes.yaml").each do |filepath|
   path = Pathname.new(filepath)
-  copy_files_to_schemas(path, srl_output_schemas_dir)
+  copy_files_to_schemas(path, stepmod_dir, srl_output_schemas_dir)
 end
 log("*"*30)
 log("[SRL MIGRATION: stepmod-utils] COMPLETE EXPRESS change YAML extraction.")
