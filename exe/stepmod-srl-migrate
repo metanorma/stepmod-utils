@@ -75,7 +75,12 @@ OptionParser.new do |opts|
 end.parse!
 
 def download_stepmod2mn(path)
-  return path if path && path.exist?
+  if path && path.exist?
+    puts "Specified `stepmod2mn.jar` found, skipping download."
+    return path
+  end
+
+  puts "Specified `stepmod2mn.jar` not found, downloading from GitHub."
 
   require 'octokit'
   require "down"
@@ -104,7 +109,6 @@ if !stepmod2mn_path.nil?
   else
     stepmod2mn_path = download_stepmod2mn(Pathname.new(stepmod2mn_path))
   end
-  puts "Specified `stepmod2mn.jar` not found, downloading from GitHub."
 else
   stepmod2mn_path = download_stepmod2mn(nil)
 end
