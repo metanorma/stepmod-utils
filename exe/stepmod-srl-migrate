@@ -149,14 +149,15 @@ log("[SRL MIGRATION] Migration starts!")
 log("*"*30)
 log("[SRL MIGRATION: stepmod2mn.jar] START SVG generation.")
 log("*"*30)
-system "java -Xss5m -jar #{stepmod2mn_path} #{stepmod_dir} --output #{srl_output_docs_dir} --svg"
+system "java -Xss5m -jar #{stepmod2mn_path} #{stepmod_dir} --output-documents #{srl_output_docs_dir} --output-schemas #{srl_output_schemas_dir} --svg"
+
 log("*"*30)
 log("[SRL MIGRATION: stepmod2mn.jar] COMPLETE SVG generation.")
 
 log("*"*30)
 log("[SRL MIGRATION: stepmod2mn.jar] START document migration and SVG generation.")
 log("*"*30)
-system "java -Xss5m -jar #{stepmod2mn_path} #{stepmod_dir} --output #{srl_output_docs_dir}"
+system "java -Xss5m -jar #{stepmod2mn_path} #{stepmod_dir} --output-documents #{srl_output_docs_dir} --output-schemas #{srl_output_schemas_dir}"
 log("*"*30)
 log("[SRL MIGRATION: stepmod2mn.jar] COMPLETE document migration and SVG generation.")
 
