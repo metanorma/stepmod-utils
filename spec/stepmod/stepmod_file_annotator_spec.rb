@@ -119,9 +119,11 @@ RSpec.describe Stepmod::Utils::StepmodFileAnnotator do
         (*"Activity_arm.Activity.__example"
         Change, distilling, design, a process to drill a hole, and a task such as training someone, are examples of activities.
         *)
+
         (*"Activity_arm.Activity.__note"
         Status information identifying the level of completion of each activity may be provided within an instance of <<express:Activity_arm.Activity_status,Activity_status>>.
         *)
+
         (*"Activity_arm.Activity.__note"
         The items that are affected by an *Activity*, for example as input or output, may be identified within an instance of <<express:Activity_arm.Applied_activity_assignment,Applied_activity_assignment>>.
         *)

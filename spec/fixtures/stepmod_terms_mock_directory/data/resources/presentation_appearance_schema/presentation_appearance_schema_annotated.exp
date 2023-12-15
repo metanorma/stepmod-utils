@@ -1789,6 +1789,7 @@ The **squared_or_rounded** type specifies the appearance of curves at their corn
 image::squared_or_rounded.gif[]
 ====
 *)
+
 (*"presentation_appearance_schema.squared_or_rounded.__note"
 See figure 20.
 *)
@@ -1902,12 +1903,15 @@ The v direction count shall be greater than 1.
 The **shading_surface_method** specifies the method which shall be used for the shading of surfaces.
 *)
 
+
 (*"presentation_appearance_schema.shading_surface_method.__note"
 The descriptions of the different types of surface shading show that in some cases the method involves interpolating results from the lighting, and in other case it involves performing the reflectance calculation after interpolation. For this reason, the shading method may be thought of as selecting a location in a display system's graphics pipeline where interpolation takes place.
 *)
+
 (*"presentation_appearance_schema.shading_surface_method.__note"
 The results of the shading methods should produce the effects according to the enumerated item definitions. One particular case where the effects are difficult to define is when the silhouette of a surface intersects itself or another silhouette of the same surface. In this case, the effect is implementation-dependent.
 *)
+
 (*"presentation_appearance_schema.shading_surface_method.__note"
 The shading methods correspond to those provided by PHIGS PLUS [10].
 *)
@@ -1918,12 +1922,15 @@ the surface normals are interpolated linearly across the surface. The reflectanc
 If the <<express:presentation_appearance_schema.surface_style_rendering.surface_colour,surface_colour>> is specified through a <<express:presentation_resource_schema.colour_specification,colour_specification>>, the interpolation of colours shall be performed in the colour model of that specification. Otherwise the interpolation may be performed in an arbitrary model.
 *)
 
+
 (*"presentation_appearance_schema.shading_surface_method.normal_shading.__note"
 The result of colour interpolation depends on the colour model in which interpolation is performed.
 *)
+
 (*"presentation_appearance_schema.shading_surface_method.normal_shading.__note"
 Examples of colour models are RGB, HSV, HLS.
 *)
+
 (*"presentation_appearance_schema.shading_surface_method.normal_shading.__note"
 More information about colour models and colour interpolation can be found in [13], pp. 611-620.
 *)
@@ -1967,6 +1974,7 @@ Red Green Blue Transparency 8-bit integer storage colour model format.
 The **text_justification** type is provided to control the justification of text.
 *)
 
+
 (*"presentation_appearance_schema.text_justification.__note"
 Application Protocols shall specify legal values of the *text_justification* and shall associate precise meaning to these values.
 *)
@@ -2000,6 +2008,7 @@ Tagged Image File Format image file format.
 Bitmap image file format.
 *)
 
+
 (*"presentation_appearance_schema.texture_file_type.BMP.__note"
 This format is defined by Microsoft Windows Bitmap Format [16]
 *)
@@ -2008,6 +2017,7 @@ This format is defined by Microsoft Windows Bitmap Format [16]
 DirectDraw Surface image file format.
 *)
 
+
 (*"presentation_appearance_schema.texture_file_type.DDS.__note"
 This file format is defined by Microsoft DirectX 7 [17].
 *)
@@ -2015,6 +2025,7 @@ This file format is defined by Microsoft DirectX 7 [17].
 (*"presentation_appearance_schema.texture_file_type.TGA"
 Truevision Graphics Adapter image file format.
 *)
+
 
 (*"presentation_appearance_schema.texture_file_type.TGA.__note"
 This file format is defined by Truevision Inc. [18].
@@ -2039,6 +2050,7 @@ The **box_width** is a width scaling factor used in the definition of a characte
 A **box_slant_angle** is an angle which indicates that the box for a character glyph shall be presented as a parallelogram, with the angle being between the character up line and an axis perpendicular to the character base line.
 *)
 
+
 (*"presentation_appearance_schema.box_slant_angle.__note"
 Figure 19 shows the definition of *box_slant_angle*.
 *)
@@ -2058,6 +2070,7 @@ The **box_rotate_angle** is an angle which indicates that the box for a characte
 image::box_slant_and_rotate_angle.gif[]
 ====
 *)
+
 (*"presentation_appearance_schema.box_rotate_angle.__note"
 Figure 19 shows the definition of *box_rotate_angle*.
 *)
@@ -2087,6 +2100,7 @@ The **approximation_method** is used to enumerate two possible methods for the t
 image::chordal_deviation_and_length.gif[]
 ====
 *)
+
 (*"presentation_appearance_schema.approximation_method.__note"
 Figure 18 shows the definition of *chordal_deviation* and *chordal_length*.
 *)
@@ -2179,6 +2193,7 @@ the item to which styles are assigned.
 (*"presentation_appearance_schema.styled_item.wr:WR1"
 The set **styles** shall contain only one style or all members of the set shall be <<express:presentation_appearance_schema.presentation_style_by_context,presentation_style_by_context>> entities.
 *)
+
 
 (*"presentation_appearance_schema.styled_item.wr:WR1.__note"
 This is to ensure that there are no style conflicts; more than one style may be specified only when the context in which each style applies is given.
@@ -2297,6 +2312,7 @@ If there are two instances of <<express:presentation_appearance_schema.surface_s
 Externally defined styles shall not conflict with other styles in the same **presentation_style_assignment** entity, including other externally defined styles.
 *)
 
+
 (*"presentation_appearance_schema.presentation_style_assignment.wr:IP1.__note"
 For one style to conflict with the other, it specifies a different style for the same characteristic, such as colour or width. For example, one style might say blue, the other green, and both be applied to the same entity.
 *)
@@ -2320,6 +2336,7 @@ A **single_texture_style_tessellation_specification** is a type of <<express:pre
 the name of the external image file containing the texture to be mapped to a <<express:presentation_appearance_schema.tessellated_face_or_tessellated_surface_set,tessellated_face_or_tessellated_surface_set>> .
 *)
 
+
 (*"presentation_appearance_schema.single_texture_style_tessellation_specification.texture_image.__note"
 The name should include the format extension corresponding to one of the formats enumerated in <<express:presentation_appearance_schema.texture_file_type,texture_file_type>>.
 *)
@@ -2342,6 +2359,7 @@ when **repeating_pattern** is FALSE, U and V value range for **texture_coordinat
 (*"presentation_appearance_schema.pre_defined_presentation_style"
 A **pre_defined_presentation_style** is a type of <<express:representation_schema.founded_item,founded_item>> and a type of <<express:external_reference_schema.pre_defined_item,pre_defined_item>>. A **pre_defined_presentation_style** may be used to fix certain application-specific aspects of appearance attributes defined in this schema.
 *)
+
 
 (*"presentation_appearance_schema.pre_defined_presentation_style.__note"
 Application Resources or Application Protocols specify the use of this entity.
@@ -2386,6 +2404,7 @@ the <<express:presentation_resource_schema.colour,colour>> to be applied to the 
 A **pre_defined_marker** is a type of <<express:external_reference_schema.pre_defined_item,pre_defined_item>>. A **pre_defined_marker** may be used to define an application-specific marker symbol.
 *)
 
+
 (*"presentation_appearance_schema.pre_defined_marker.__note"
 Application Resources or Application Protocols specify the use of this entity.
 *)
@@ -2393,6 +2412,7 @@ Application Resources or Application Protocols specify the use of this entity.
 (*"presentation_appearance_schema.pre_defined_size"
 A **pre_defined_size** is a type of <<express:external_reference_schema.pre_defined_item,pre_defined_item>>. A **pre_defined_size** may be used to define an application-specific size for markers.
 *)
+
 
 (*"presentation_appearance_schema.pre_defined_size.__note"
 Application Resources or Application Protocols specify the use of this entity.
@@ -2463,6 +2483,7 @@ a <<express:measure_schema.length_measure,length_measure>> indicating how to len
 image::curve_style_with_extension.gif[]
 ====
 *)
+
 (*"presentation_appearance_schema.curve_style_with_extension.curve_extensions.__note"
 See figure 22.
 *)
@@ -2498,9 +2519,11 @@ image::illustration_of_predefined_curve_fonts.gif[]
 
 |===
 *)
+
 (*"presentation_appearance_schema.draughting_pre_defined_curve_font.__note"
 The <<express:presentation_appearance_schema.curve_style_font_and_scaling,curve_style_font_and_scaling>> is defined in ISO 10303-46.
 *)
+
 (*"presentation_appearance_schema.draughting_pre_defined_curve_font.__note"
 Illustrations of curve fonts are given in Figure 23.
 *)
@@ -2513,6 +2536,7 @@ The <<express:external_reference_schema.pre_defined_item.name,name>> of the **dr
 (*"presentation_appearance_schema.pre_defined_curve_font"
 A **pre_defined_curve_font** is a type of <<express:external_reference_schema.pre_defined_item,pre_defined_item>>. A **pre_defined_curve_font** may be used to define application-specific curve fonts.
 *)
+
 
 (*"presentation_appearance_schema.pre_defined_curve_font.__note"
 Application Resources or Application Protocols specify the use of this entity.
@@ -2603,6 +2627,7 @@ A **curve_style_curve_pattern** is a type of <<express:geometry_schema.geometric
 image::curve_style_curve_pattern.gif[]
 ====
 *)
+
 (*"presentation_appearance_schema.curve_style_curve_pattern.__note"
 Figure 21 shows the definition of *curve_style_curve_pattern*.
 *)
@@ -2676,6 +2701,7 @@ the word, or group of words, by which the **fill_area_style_colour** is referred
 A **pre_defined_hatch_style** is a type of <<express:geometry_schema.geometric_representation_item,geometric_representation_item>> and a type of <<express:external_reference_schema.pre_defined_item,pre_defined_item>>. A **pre_defined_hatch_style** is a hatching style provided for Application Protocols to define an application-specific single or multiple hatching style.
 *)
 
+
 (*"presentation_appearance_schema.pre_defined_hatch_style.__note"
 Application Resources or Application Protocols specify the use of this entity.
 *)
@@ -2695,6 +2721,7 @@ A **fill_area_style_hatching** is a type of <<express:geometry_schema.geometric_
 image::fill_area_style_hatching.gif[]
 ====
 *)
+
 (*"presentation_appearance_schema.fill_area_style_hatching.__note"
 Figure 24 shows the definition of *fill_area_style_hatching*.
 *)
@@ -2727,6 +2754,7 @@ the start point for the <<express:presentation_appearance_schema.curve_style,cur
 (*"presentation_appearance_schema.pre_defined_tile_style"
 A **pre_defined_tile_style** is a type of <<express:geometry_schema.geometric_representation_item,geometric_representation_item>> and a type of <<express:external_reference_schema.pre_defined_item,pre_defined_item>>. A **pre_defined_tile_style** is a tile style provided for Application Protocols to define an application-specific tile style.
 *)
+
 
 (*"presentation_appearance_schema.pre_defined_tile_style.__note"
 Application Resources or Application Protocols specify the use of this entity.
@@ -2801,6 +2829,7 @@ a styled annotation symbol.
 A **pre_defined_tile** is a type of <<express:external_reference_schema.pre_defined_item,pre_defined_item>>. A **pre_defined_tile** may be used to define an application-specific tile.
 *)
 
+
 (*"presentation_appearance_schema.pre_defined_tile.__note"
 Application Resources or Application Protocols specify the use of this entity.
 *)
@@ -2820,6 +2849,7 @@ A **one_direction_repeat_factor** is a type of <<express:geometry_schema.geometr
 image::one_direction_repeat_factor.gif[]
 ====
 *)
+
 (*"presentation_appearance_schema.one_direction_repeat_factor.__note"
 Figure 25 shows the positions defined by a *one_direction_repeat_factor*.
 *)
@@ -2839,6 +2869,7 @@ A **two_direction_repeat_factor** is a type of <<express:presentation_appearance
 image::two_direction_repeat_factor.gif[]
 ====
 *)
+
 (*"presentation_appearance_schema.two_direction_repeat_factor.__note"
 Figure 27 shows the positions defined by a *two_direction_repeat_factor*.
 *)
@@ -2866,6 +2897,7 @@ the style which shall be applied to the surface.
 (*"presentation_appearance_schema.pre_defined_surface_side_style"
 A **pre_defined_surface_side_style** is a type of <<express:external_reference_schema.pre_defined_item,pre_defined_item>>. A **pre_defined_surface_side_style** may be used to define an application-specific <<express:presentation_appearance_schema.surface_side_style,surface_side_style>>.
 *)
+
 
 (*"presentation_appearance_schema.pre_defined_surface_side_style.__note"
 Application Resources or Application Protocols specify the use of this entity.
@@ -2955,6 +2987,7 @@ A **surface_style_segmentation_curve** is a type of <<express:representation_sch
 the style for the segmentation curves of a surface.
 *)
 
+
 (*"presentation_appearance_schema.surface_style_segmentation_curve.style_of_segmentation_curve.__note"
 This style has only an effect on surfaces which have segmentation curves. These surfaces include the following types:
 
@@ -2972,6 +3005,7 @@ A **surface_style_control_grid** is a type of <<express:representation_schema.fo
 (*"presentation_appearance_schema.surface_style_control_grid.style_of_control_grid"
 the style for the control grid of a surface.
 *)
+
 
 (*"presentation_appearance_schema.surface_style_control_grid.style_of_control_grid.__note"
 This style has only an effect on surfaces which are defined over a mesh of control points. These surfaces include the following types:
@@ -3036,9 +3070,11 @@ All of the **properties** shall be of different types.
 A **surface_style_reflectance_ambient** is a specification of the ambient part of the reflectance behaviour of a surface.
 *)
 
+
 (*"presentation_appearance_schema.surface_style_reflectance_ambient.__note"
 The reflectance calculation is conceptually applied at one or more points on a surface being lit and shaded and produces a colour at such points. Input to the reflectance calculation includes the position at which the reflectance equation is to be applied, the surface normal, the surface colour at that position, the light sources, and the three-dimensional camera model.
 *)
+
 (*"presentation_appearance_schema.surface_style_reflectance_ambient.__note"
 Suggested reflectance equations can be found in Annex E.
 *)
@@ -3052,6 +3088,7 @@ the reflectance coefficient for the ambient part of the reflectance equation.
 A **surface_style_reflectance_ambient_diffuse** is a type of <<express:presentation_appearance_schema.surface_style_reflectance_ambient,surface_style_reflectance_ambient>>. A **surface_style_reflectance_ambient_diffuse** specifies the diffuse part of the reflectance behaviour of a surface.
 *)
 
+
 (*"presentation_appearance_schema.surface_style_reflectance_ambient_diffuse.__note"
 Suggested reflectance equations can be found in Annex E.
 *)
@@ -3064,6 +3101,7 @@ the reflectance coefficient for the diffuse part of the reflectance equation.
 (*"presentation_appearance_schema.surface_style_reflectance_ambient_diffuse_specular"
 A **surface_style_reflectance_ambient_diffuse_specular** is a type of <<express:presentation_appearance_schema.surface_style_reflectance_ambient_diffuse,surface_style_reflectance_ambient_diffuse>>. A **surface_style_reflectance_ambient_diffuse_specular** specifies the specular part of the reflectance behaviour of a surface.
 *)
+
 
 (*"presentation_appearance_schema.surface_style_reflectance_ambient_diffuse_specular.__note"
 Suggested reflectance equations can be found in Annex E.
@@ -3203,6 +3241,7 @@ A **texture_style_tessellation_specification** is a type of <<express:presentati
 A **pre_defined_character_spacing** is a type of <<express:external_reference_schema.pre_defined_item,pre_defined_item>>. A **pre_defined_character_spacing** is a character spacing for the definition of an application-specific character spacing.
 *)
 
+
 (*"presentation_appearance_schema.pre_defined_character_spacing.__note"
 Application Resources or Application Protocols specify the use of this entity.
 *)
@@ -3217,6 +3256,7 @@ A **text_style_with_mirror** is a type of <<express:presentation_appearance_sche
 image::text_style_with_mirror.gif[]
 ====
 *)
+
 (*"presentation_appearance_schema.text_style_with_mirror.__note"
 Figure 26 shows the definition of *text_style_with_mirror*.
 *)
@@ -3254,6 +3294,7 @@ A **styled_tessellated_face_or_surface_with_single_texture** is a type of <<expr
 (*"presentation_appearance_schema.styled_tessellated_face_or_surface_with_single_texture.styles"
 specifies the <<express:presentation_appearance_schema.presentation_style_assignment,presentation_style_assignment>> that specifies the texture defined by a <<express:presentation_appearance_schema.texture_style_tessellation_specification,texture_style_tessellation_specification>>.
 *)
+
 
 (*"presentation_appearance_schema.styled_tessellated_face_or_surface_with_single_texture.styles.__note"
 The actual appearance is realized in the model by the <<express:presentation_appearance_schema.presentation_style_assignment,presentation_style_assignment>> entity referenced by the *appearance* attribute.
@@ -3333,6 +3374,7 @@ An **approximation_tolerance** is a type of <<express:representation_schema.foun
 the tolerances to be used for approximating curves and surfaces.
 *)
 
+
 (*"presentation_appearance_schema.approximation_tolerance.tolerance.__note"
 If no *approximation_tolerance* is specified, the accuracy of rendering is implementation-dependent.
 *)
@@ -3384,6 +3426,7 @@ This relationship is transitive. If entity _A_ hides entity _B_, and entity _B_ 
 
 This relationship only applies if the two entities are in the same representation.
 *)
+
 
 (*"presentation_appearance_schema.occlusion_precedence.__note"
 If two such entities overlap and do not participate in an *occlusion_precedence* relationship, which entity has precedence is up to the particular implementation which presents it.
