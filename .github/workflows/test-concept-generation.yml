@@ -30,7 +30,7 @@ jobs:
         run: |
           bundle exec stepmod-annotate-all \
             --stepmod-dir ./iso-10303-stepmod-wg12 \
-            --output schemas
+            --schemas schemas
 
       - name: Generate Concept YAML files
         working-directory: iso-10303-stepmod-wg12
