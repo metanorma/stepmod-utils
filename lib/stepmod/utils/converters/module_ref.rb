@@ -48,13 +48,21 @@ module Stepmod
               # When we see this:
               # <module_ref linkend="assembly_module_design:4_entities:figure:pudv">Figure 1</module_ref>
               # We convert to this:
-              # <<figure-pudv,Figure 1>>
+              # <<figure-pudv>>
+              # When we see this (without a number):
+              # <module_ref linkend="assembly_module_design:4_entities:figure:pudv">This Figure</module_ref>
+              # We convert to this:
+              # <<figure-pudv,This Figure>>
               create_ref(Figure.pattern(_state, ref_id), text)
             when "table"
               # When we see this:
               # <module_ref linkend="independent_property_definition:4_entities:table:T1">Table 1</module_ref>
               # We convert to this:
-              # <<table-T1,Table 1>>
+              # <<table-T1>>
+              # When we see this (without a number):
+              # <module_ref linkend="independent_property_definition:4_entities:table:T1">This Table</module_ref>
+              # We convert to this:
+              # <<table-T1,This Table>>
               create_ref(Table.pattern(_state, ref_id), text)
             end
           else
