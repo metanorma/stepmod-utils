@@ -36,6 +36,7 @@ RSpec.describe Stepmod::Utils::Converters::Eqn do
       χ My node_{ms}Italic text = V - E + 2F - L_{l} - 2(S - G^{s})  = 0
       ++++
 
+
     XML
   end
 
@@ -63,6 +64,7 @@ RSpec.describe Stepmod::Utils::Converters::Eqn do
         λ(u) = C + R(cos(u)x + sin(u)y)
         ++++
 
+
       OUTPUT
     end
 
@@ -85,6 +87,7 @@ RSpec.describe Stepmod::Utils::Converters::Eqn do
         ++++
         χ_{ms} = V - E + 2F - L_{l}  - 2(S - G ^{s})  = 0
         ++++
+
 
       XML
     end
@@ -127,6 +130,7 @@ RSpec.describe Stepmod::Utils::Converters::Eqn do
         K1  = "upper_index_on_u_control_points"
         ++++
 
+
       XML
     end
 
@@ -148,6 +152,7 @@ RSpec.describe Stepmod::Utils::Converters::Eqn do
         ++++
         s(u,v) = (1 - u -v)^{3}P_{1} + u^{3}P_{2} + v^{3}P_{3} + 3(1 - u -v)^{2}uP_{4} + 3(1 - u -v)u^{2}P_{5} + 3u^{2}vP_{6} + 3uv^{2}P_{7} + 3(1 - u -v)v^{2}P_{8} + 3(1 - u -v)^{2}vP_{9} + 6uv(1 - u -v)P_{10}
         ++++
+
 
       XML
     end

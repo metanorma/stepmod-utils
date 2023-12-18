@@ -6,7 +6,6 @@ module Stepmod
   module Utils
     module Converters
       class Figure < ReverseAdoc::Converters::Figure
-
         def self.pattern(state, id)
           if state[:schema_and_entity].nil?
             raise StandardError.new("[figure]: no state given, #{id}")

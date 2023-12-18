@@ -60,6 +60,7 @@ module Stepmod
             #{remove_trash_symbols(content.strip)}
             ++++
 
+
           TEMPLATE
           res = "[[#{cloned_node['id']}]]\n#{res}" if cloned_node["id"]&.length&.positive?
           res

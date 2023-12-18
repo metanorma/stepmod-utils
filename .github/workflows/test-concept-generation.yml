@@ -26,11 +26,18 @@ jobs:
           token: ${{ secrets.METANORMA_CI_PAT_TOKEN }}
           path: iso-10303-stepmod-wg12
 
+      - name: Generate Folders for schemas
+        run: mkdir schemas
+
+      - name: Generate Folders for documents
+        run: mkdir documents
+
       - name: Generate Annotated EXPRESS files
         run: |
           bundle exec stepmod-annotate-all \
             --stepmod-dir ./iso-10303-stepmod-wg12 \
-            --output schemas
+            --schemas schemas \
+            --documents documents
 
       - name: Generate Concept YAML files
         working-directory: iso-10303-stepmod-wg12

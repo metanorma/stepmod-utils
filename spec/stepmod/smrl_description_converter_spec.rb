@@ -100,12 +100,14 @@ RSpec.describe Stepmod::Utils::SmrlDescriptionConverter do
         ** to check if the type of assembly constraint between components in the comparing assembly data set is different from the type of the corresponding assembly constraint in the compared assembly data set.
 
         Inspection shall be made in both ways; the comparing against the compared assembly data sets, and the compared against the comparing assembly data sets.
+
         [NOTE]
         --
         This criterion only checks the types of connecting relationship. Use the criterion <<express:Annotated_3d_model_equivalence_assembly_arm.Different_angle_of_assembly_constraint,Different_angle_of_assembly_constraint>> or <<express:Annotated_3d_model_equivalence_assembly_arm.Different_length_of_assembly_constraint,Different_length_of_assembly_constraint>> to check the difference of the dimensions specified in the constraint.
         --
 
         A <<express:analysis_schema.numerical_model,numerical_model>> is an aspect of a physical object relevant to a particular type of behavoir. A <<express:analysis_schema.numerical_model,numerical_model>> takes a particular view of its domain in terms of dimensionality and continuity.
+
         [example]
         ====
         Examples include: 3D continuum (volume elements in FEA); 2D continuum (shell elements in FEA); 1D continuum (beam elements in FEA); lumped masses (in a many-body problem).

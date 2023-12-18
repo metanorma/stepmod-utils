@@ -10,6 +10,7 @@ module Stepmod
 
           <<~TEMPLATE
 
+
             [example]
             ====
             #{treat_children(node, state).strip}
