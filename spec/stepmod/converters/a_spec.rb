@@ -7,6 +7,18 @@ RSpec.describe Stepmod::Utils::Converters::A do
   let(:converter) { described_class.new }
 
   context "format with number" do
+    describe "<a href=\"#eqn1\">(1)</a>" do
+      let(:xml_input) do
+        '<a href="#eqn1">(1)</a>'
+      end
+
+      let(:output) do
+        "<<eqn1>>"
+      end
+
+      it { expect(converter.convert(node_for(xml_input)).strip).to eq(output.strip) }
+    end
+
     describe "<a href=\"#eqn7\">(71)</a>" do
       let(:xml_input) do
         '<a href="#eqn7">(71)</a>'
