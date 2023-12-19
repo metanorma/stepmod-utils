@@ -3,7 +3,7 @@
 module Stepmod
   module Utils
     module Converters
-      class Note < ReverseAdoc::Converters::Base
+      class Note < Stepmod::Utils::Converters::Base
         def convert(node, state = {})
           # If we want to skip this node
           return "" if state[:no_notes_examples]

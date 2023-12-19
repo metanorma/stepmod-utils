@@ -3,7 +3,7 @@
 module Stepmod
   module Utils
     module Converters
-      class P < ReverseAdoc::Converters::Base
+      class P < Stepmod::Utils::Converters::Base
         def convert(node, state = {})
           id = node["id"]
           anchor = id ? "[[#{id}]]\n" : ""

@@ -3,7 +3,7 @@
 module Stepmod
   module Utils
     module Converters
-      class Em < ReverseAdoc::Converters::Base
+      class Em < Stepmod::Utils::Converters::Base
         def convert(node, state = {})
           content = treat_children(node, state.merge(already_italic: true))
           if content.strip.empty? || state[:already_italic]

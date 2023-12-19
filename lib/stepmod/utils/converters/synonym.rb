@@ -3,7 +3,7 @@
 module Stepmod
   module Utils
     module Converters
-      class Synonym < ReverseAdoc::Converters::Base
+      class Synonym < Stepmod::Utils::Converters::Base
         def convert(node, _state = {})
           "alt:[#{node.text.strip}]"
         end

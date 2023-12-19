@@ -7,7 +7,7 @@ require "glossarist"
 module Stepmod
   module Utils
     module Converters
-      class Term < ReverseAdoc::Converters::Base
+      class Term < Stepmod::Utils::Converters::Base
 
         # We strip all the children in the case for "stem:[d]-manifold"
         # vs "stem:[d] -manifold"

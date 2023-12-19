@@ -3,7 +3,7 @@
 module Stepmod
   module Utils
     module Converters
-      class Ignore < ReverseAdoc::Converters::Base
+      class Ignore < Stepmod::Utils::Converters::Base
         def convert(_node, _state = {})
           "" # noop
         end

@@ -3,7 +3,7 @@
 module Stepmod
   module Utils
     module Converters
-      class Arm < ReverseAdoc::Converters::Base
+      class Arm < Stepmod::Utils::Converters::Base
         def convert(node, state = {})
           treat_children(node, state)
         end

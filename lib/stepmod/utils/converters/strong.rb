@@ -3,7 +3,7 @@
 module Stepmod
   module Utils
     module Converters
-      class Strong < ReverseAdoc::Converters::Base
+      class Strong < Stepmod::Utils::Converters::Base
         BLANK_CHARS = "{blank}"
 
         def convert(node, state = {})

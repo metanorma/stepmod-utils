@@ -3,7 +3,7 @@
 module Stepmod
   module Utils
     module Converters
-      class Text < ReverseAdoc::Converters::Base
+      class Text < Stepmod::Utils::Converters::Base
         def convert(node, state = {})
           if node.text.strip.empty?
             treat_empty(node, state)
@@ -20,7 +20,7 @@ module Stepmod
             ""
           elsif state[:tdsinglepara]
             ""
-          elsif node.text == " "          # Regular whitespace text node
+          elsif node.text == " "        # Regular whitespace text node
             " "
           else
             ""

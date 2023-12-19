@@ -1,7 +1,7 @@
 module Stepmod
   module Utils
     module Converters
-      class ExpressRefExpressDescription < ReverseAdoc::Converters::Base
+      class ExpressRefExpressDescription < Stepmod::Utils::Converters::Base
         def convert(node, _state = {})
           parts = node["linkend"].to_s.split(":").last.split(".")
           "<<express:#{parts.join('.').strip},#{parts.last.strip}>>"

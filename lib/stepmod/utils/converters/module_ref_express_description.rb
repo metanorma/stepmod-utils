@@ -5,7 +5,7 @@ require "stepmod/utils/converters/table"
 module Stepmod
   module Utils
     module Converters
-      class ModuleRefExpressDescription < ReverseAdoc::Converters::Base
+      class ModuleRefExpressDescription < Stepmod::Utils::Converters::Base
         def convert(node, _state = {})
           link_end = node["linkend"].to_s.split(":")
           ref_id = link_end.last

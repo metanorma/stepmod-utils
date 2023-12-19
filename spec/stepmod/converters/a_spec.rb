@@ -19,13 +19,13 @@ RSpec.describe Stepmod::Utils::Converters::A do
       it { expect(converter.convert(node_for(xml_input)).strip).to eq(output.strip) }
     end
 
-    describe "<a href=\"#eqn7\">(71)</a>" do
+    describe "<a href=\"#eqn71\">(71)</a>" do
       let(:xml_input) do
-        '<a href="#eqn7">(71)</a>'
+        '<a href="#eqn71">(71)</a>'
       end
 
       let(:output) do
-        "<<eqn7>>"
+        "<<eqn71>>"
       end
 
       it { expect(converter.convert(node_for(xml_input)).strip).to eq(output.strip) }
@@ -43,7 +43,7 @@ RSpec.describe Stepmod::Utils::Converters::A do
       it { expect(converter.convert(node_for(xml_input)).strip).to eq(output.strip) }
     end
 
-    describe "<a href=\"#table1\">Table (1)</a>" do
+    describe "<a href=\"#table1\">Table 1</a>" do
       let(:xml_input) do
         '<a href="#table1">Table 1</a>'
       end

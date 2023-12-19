@@ -5,7 +5,7 @@ require "stepmod/utils/html_to_asciimath"
 module Stepmod
   module Utils
     module Converters
-      class Eqn < ReverseAdoc::Converters::Base
+      class Eqn < Stepmod::Utils::Converters::Base
         TAGS_NOT_IN_CONTEXT = %w[b i].freeze
 
         def convert(node, state = {})

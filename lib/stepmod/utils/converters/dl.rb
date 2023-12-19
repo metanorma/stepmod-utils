@@ -3,7 +3,7 @@
 module Stepmod
   module Utils
     module Converters
-      class Dl < ReverseAdoc::Converters::Base
+      class Dl < Stepmod::Utils::Converters::Base
         def convert(node, state = {})
           cleaned_node = cleanup_trash_tags(node.clone)
           treat_children(cleaned_node, state)

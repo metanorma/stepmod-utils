@@ -3,7 +3,7 @@
 module Stepmod
   module Utils
     module Converters
-      class ModuleRef < ReverseAdoc::Converters::Base
+      class ModuleRef < Stepmod::Utils::Converters::Base
         def convert(node, _state = {})
           link_end = node["linkend"].to_s.split(":")
           ref_id = link_end.last

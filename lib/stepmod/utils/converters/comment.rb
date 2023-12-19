@@ -3,7 +3,7 @@
 module Stepmod
   module Utils
     module Converters
-      class Comment < ReverseAdoc::Converters::Base
+      class Comment < Stepmod::Utils::Converters::Base
         def convert(node, _state = {})
           comment = node.text.strip.split("\n").map do |line|
             "\n// #{line}"

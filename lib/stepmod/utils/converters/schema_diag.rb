@@ -3,7 +3,7 @@
 module Stepmod
   module Utils
     module Converters
-      class SchemaDiag < ReverseAdoc::Converters::Base
+      class SchemaDiag < Stepmod::Utils::Converters::Base
         def convert(node, state = {})
           treat_children(node, state).strip
         end
