@@ -5,7 +5,6 @@ module Stepmod
     module Converters
       class A < Stepmod::Utils::Converters::Base
         def convert(node, state = {})
-          # require "pry"; binding.pry
           name  = treat_children(node, state)
           href  = node["href"]
           title = extract_title(node)
