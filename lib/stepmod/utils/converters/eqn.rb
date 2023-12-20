@@ -105,6 +105,8 @@ module Stepmod
         def log_equation(node, state, equation_converted)
           equation_converted_with_bold_and_italics = stem_converted(node.clone, state.merge(convert_bold_and_italics: true))
 
+          return if equation_converted_with_bold_and_italics == equation_converted
+
           equation_logger.anchor = state[:schema_and_entity] || state[:schema_name]
           equation_logger.document = state[:descriptions_file]
           equation_logger.equation = node.to_s
