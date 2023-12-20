@@ -42,6 +42,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "down"
   spec.add_runtime_dependency "reverse_adoc", ">= 0.3"
   spec.add_runtime_dependency "thor", ">= 0.20"
+  spec.add_runtime_dependency "unitsml"
   spec.add_development_dependency "rubocop"
   spec.add_development_dependency "rubocop-performance"
   spec.add_development_dependency "rubocop-rails"
