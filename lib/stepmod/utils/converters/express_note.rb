@@ -3,7 +3,7 @@
 module Stepmod
   module Utils
     module Converters
-      class ExpressNote < ReverseAdoc::Converters::Base
+      class ExpressNote < Stepmod::Utils::Converters::Base
         def convert(node, state = {})
           <<~TEMPLATE
 

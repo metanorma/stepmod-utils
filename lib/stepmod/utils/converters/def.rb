@@ -1,7 +1,7 @@
 module Stepmod
   module Utils
     module Converters
-      class Def < ReverseAdoc::Converters::Base
+      class Def < Stepmod::Utils::Converters::Base
         def convert(node, state = {})
           node = node.dup
           "#{additional_block(node)}#{treat_children(node, state)}"

@@ -1,7 +1,7 @@
 module Stepmod
   module Utils
     module Converters
-      class StepmodExtDescription < ReverseAdoc::Converters::Base
+      class StepmodExtDescription < Stepmod::Utils::Converters::Base
         def convert(node, state = {})
           state = state.merge(schema_name: node["linkend"])
           linkend = node["linkend"].split(".")

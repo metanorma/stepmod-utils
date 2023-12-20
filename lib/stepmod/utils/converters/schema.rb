@@ -3,7 +3,7 @@
 module Stepmod
   module Utils
     module Converters
-      class Schema < ReverseAdoc::Converters::Base
+      class Schema < Stepmod::Utils::Converters::Base
         def convert(node, state = {})
           state = state.merge(schema_name: node["name"])
           <<~TEMPLATE

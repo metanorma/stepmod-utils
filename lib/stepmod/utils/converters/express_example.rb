@@ -3,7 +3,7 @@
 module Stepmod
   module Utils
     module Converters
-      class ExpressExample < ReverseAdoc::Converters::Base
+      class ExpressExample < Stepmod::Utils::Converters::Base
         def convert(node, state = {})
           <<~TEMPLATE
             (*"#{state[:schema_and_entity]}.__example"

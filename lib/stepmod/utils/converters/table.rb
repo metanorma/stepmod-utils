@@ -3,7 +3,7 @@
 module Stepmod
   module Utils
     module Converters
-      class Table < ReverseAdoc::Converters::Base
+      class Table < Stepmod::Utils::Converters::Base
 
         def self.pattern(state, id)
           if state[:schema_and_entity].nil?

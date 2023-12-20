@@ -3,7 +3,7 @@
 module Stepmod
   module Utils
     module Converters
-      class FundCons < ReverseAdoc::Converters::Base
+      class FundCons < Stepmod::Utils::Converters::Base
         def convert(node, state = {})
           <<~TEXT
 

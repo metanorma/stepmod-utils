@@ -3,7 +3,7 @@
 module Stepmod
   module Utils
     module Converters
-      class Head < ReverseAdoc::Converters::Base
+      class Head < Stepmod::Utils::Converters::Base
         def convert(node, _state = {})
           title = extract_title(node)
           "= #{title}\n:stem:\n\n"

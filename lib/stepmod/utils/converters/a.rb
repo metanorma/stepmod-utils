@@ -3,7 +3,7 @@
 module Stepmod
   module Utils
     module Converters
-      class A < ReverseAdoc::Converters::Base
+      class A < Stepmod::Utils::Converters::Base
         def convert(node, state = {})
           name  = treat_children(node, state)
           href  = node["href"]
@@ -18,7 +18,7 @@ module Stepmod
             "[[#{id}]]"
           elsif href.to_s.start_with?("#")
             href = href.sub(/^#/, "").gsub(/\s/, "").gsub(/__+/, "_")
-            if name.empty?
+            if name.empty? || number_with_optional_prefix?(name)
               "<<#{href}>>"
             else
               "<<#{href},#{name}>>"
@@ -28,9 +28,16 @@ module Stepmod
           else
             name = title if name.empty?
             href = "link:#{href}" unless href.to_s&.match?(URI::DEFAULT_PARSER.make_regexp)
-            link = "#{href}[#{name}]"
+            link = href
+            link += "[#{name}]" unless number_with_optional_prefix?(name)
             " #{link}"
           end
+        end
+
+        private
+
+        def number_with_optional_prefix?(name)
+          /.*?\s*\(?\d+\)?/.match(name)
         end
       end
 

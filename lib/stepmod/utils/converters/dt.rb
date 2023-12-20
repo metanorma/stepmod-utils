@@ -3,7 +3,7 @@
 module Stepmod
   module Utils
     module Converters
-      class Dt < ReverseAdoc::Converters::Base
+      class Dt < Stepmod::Utils::Converters::Base
         def convert(node, _state = {})
           return "\n\n{blank}::" if node.text.strip.length.zero?
 

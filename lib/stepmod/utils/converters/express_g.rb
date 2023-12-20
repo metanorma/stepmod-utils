@@ -3,7 +3,7 @@
 module Stepmod
   module Utils
     module Converters
-      class ExpressG < ReverseAdoc::Converters::Base
+      class ExpressG < Stepmod::Utils::Converters::Base
         def convert(node, state = {})
           node.children.map do |child|
             next unless child.name == "imgfile"

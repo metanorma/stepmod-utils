@@ -1,7 +1,7 @@
 module Stepmod
   module Utils
     module Converters
-      class ExtDescription < ReverseAdoc::Converters::Base
+      class ExtDescription < Stepmod::Utils::Converters::Base
         def convert(node, state = {})
           state = state.merge(schema_name: node["linkend"], non_flanking_whitesapce: true)
           child_text = treat_children(node, state).strip

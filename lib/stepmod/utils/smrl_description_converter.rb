@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "reverse_adoc"
+require "stepmod/utils/converters/base"
 require "stepmod/utils/converters/a"
 require "stepmod/utils/converters/blockquote"
 require "stepmod/utils/converters/br"

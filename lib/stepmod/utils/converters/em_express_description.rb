@@ -3,7 +3,7 @@
 module Stepmod
   module Utils
     module Converters
-      class Em < ReverseAdoc::Converters::Base
+      class Em < Stepmod::Utils::Converters::Base
         def convert(node, state = {})
           italic_converted(node, state)
         end

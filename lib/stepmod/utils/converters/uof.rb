@@ -5,7 +5,7 @@ require "stepmod/utils/converters/synonym"
 module Stepmod
   module Utils
     module Converters
-      class Uof < ReverseAdoc::Converters::Base
+      class Uof < Stepmod::Utils::Converters::Base
         def convert(_node, _state = {})
           # WARNING: <uof> tag content is deprecated
           ""

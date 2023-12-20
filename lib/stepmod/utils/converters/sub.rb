@@ -3,7 +3,7 @@
 module Stepmod
   module Utils
     module Converters
-      class Sub < ReverseAdoc::Converters::Base
+      class Sub < Stepmod::Utils::Converters::Base
         def convert(node, state = {})
           content = treat_children(node, state)
           return stem_notation(content) if state[:equation]

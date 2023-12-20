@@ -3,7 +3,7 @@
 module Stepmod
   module Utils
     module Converters
-      class Br < ReverseAdoc::Converters::Base
+      class Br < Stepmod::Utils::Converters::Base
         def convert(_node, _state = {})
           " +\n"
         end
