@@ -13,3 +13,5 @@
 Gemfile.lock
 
 .rubocop-https*
+
+stepmod-utils.log.txt

@@ -166,7 +166,7 @@ module Stepmod
 
           converted_description = <<~DESCRIPTION
 
-            #{Stepmod::Utils::SmrlDescriptionConverter.convert(wrapper, no_notes_examples: true)}
+            #{Stepmod::Utils::SmrlDescriptionConverter.convert(wrapper, no_notes_examples: true, descriptions_file: descriptions_file)}
           DESCRIPTION
 
           if description["linkend"].nil?
@@ -176,25 +176,25 @@ module Stepmod
           converted_figures = figures.map do |figure|
             Stepmod::Utils::Converters::ExpressFigure
               .new
-              .convert(figure, schema_and_entity: description["linkend"])
+              .convert(figure, schema_and_entity: description["linkend"], descriptions_file: descriptions_file)
           end.join
 
           converted_tables = tables.map do |table|
             Stepmod::Utils::Converters::ExpressTable
               .new
-              .convert(table, schema_and_entity: description["linkend"])
+              .convert(table, schema_and_entity: description["linkend"], descriptions_file: descriptions_file)
           end.join
 
           converted_notes = notes.map do |note|
             Stepmod::Utils::Converters::ExpressNote
               .new
-              .convert(note, schema_and_entity: description["linkend"])
+              .convert(note, schema_and_entity: description["linkend"], descriptions_file: descriptions_file)
           end.join
 
           converted_examples = examples.map do |example|
             Stepmod::Utils::Converters::ExpressExample
               .new
-              .convert(example, schema_and_entity: description["linkend"])
+              .convert(example, schema_and_entity: description["linkend"], descriptions_file: descriptions_file)
           end.join
 
           [
@@ -358,6 +358,7 @@ module Stepmod
             {
               no_notes_examples: false,
               schema_and_entity: linked,
+              descriptions_file: descriptions_file,
             },
           )
         end

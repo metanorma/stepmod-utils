@@ -35,6 +35,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "expressir"
   spec.add_runtime_dependency "glossarist", "~> 2.0"
   spec.add_runtime_dependency "indefinite_article"
+  spec.add_runtime_dependency "plurimath"
   spec.add_runtime_dependency "ptools"
   spec.add_runtime_dependency "pubid-iso"
   spec.add_runtime_dependency "octokit"
