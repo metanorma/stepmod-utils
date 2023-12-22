@@ -15,10 +15,11 @@ module Stepmod
       end
 
       def log
+        Stepmod::Utils.increment_eqn_counter
         @logger.info do
           <<~MESSAGE
 
-            =================== Equation Start ===================
+            =================== Equation #{Stepmod::Utils.eqn_counter} Start ===================
             Document: #{document}
             Nearest Anchor: #{anchor}
 
@@ -37,7 +38,7 @@ module Stepmod
             Formula (asciimath with bold and italics included):
             #{equation_converted_with_bold_and_italics}
 
-            =================== Equation End ===================
+            =================== Equation #{Stepmod::Utils.eqn_counter} End ===================
 
 
           MESSAGE
@@ -53,9 +54,9 @@ module Stepmod
       def valid_asciimath?(equation)
         extracted_equation = extract_equation_from_stem(equation)
         Plurimath::Math.parse(extracted_equation, :asciimath).to_mathml
-        true
+        "valid"
       rescue StandardError
-        false
+        "invalid"
       end
 
       def extract_equation_from_stem(stem)
