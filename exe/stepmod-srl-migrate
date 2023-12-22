@@ -164,7 +164,7 @@ log("[SRL MIGRATION: stepmod2mn.jar] COMPLETE document migration and SVG generat
 log("*"*30)
 log("[SRL MIGRATION: stepmod-utils] START Annotated EXPRESS generation.")
 log("*"*30)
-system "stepmod-annotate-all --stepmod-dir #{stepmod_dir} --output #{srl_output_schemas_dir}"
+system "stepmod-annotate-all --stepmod-dir #{stepmod_dir} --documents #{srl_output_docs_dir} --schemas #{srl_output_schemas_dir}"
 log("*"*30)
 log("[SRL MIGRATION: stepmod-utils] COMPLETE Annotated EXPRESS generation.")
 
