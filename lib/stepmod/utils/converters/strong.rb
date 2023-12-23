@@ -20,7 +20,9 @@ module Stepmod
             treat(equation, state.merge(equation: true, already_strong: true))
           end
 
-          content = if content.strip.empty? || state[:already_strong] || state[:equation]
+          content = if state[:equation] && state[:convert_bold_and_italics]
+            "bb(#{content.strip})"
+          elsif content.strip.empty? || state[:already_strong] || state[:equation]
             content
           else
             strong_tag = state[:non_flanking_whitesapce] ? '**' : '*'

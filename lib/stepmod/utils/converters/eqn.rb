@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "stepmod/utils/html_to_asciimath"
+require "stepmod/utils/equation_logger"
 
 module Stepmod
   module Utils
@@ -14,7 +15,11 @@ module Stepmod
             return definition_converted(cloned_node, state)
           end
 
-          stem_converted(cloned_node, state)
+          equation_converted = stem_converted(cloned_node, state)
+
+          log_equation(node, state, equation_converted)
+
+          equation_converted
         end
 
         private
@@ -50,7 +55,7 @@ module Stepmod
         end
 
         def stem_converted(cloned_node, state)
-          remove_tags_not_in_context(cloned_node)
+          remove_tags_not_in_context(cloned_node) unless state[:convert_bold_and_italics]
           internal_content = treat_children(cloned_node, state.merge(equation: true))
           content = Stepmod::Utils::HtmlToAsciimath.new.call(internal_content)
           res = <<~TEMPLATE
@@ -91,6 +96,24 @@ module Stepmod
                 n.unlink
               end
           end
+        end
+
+        def equation_logger
+          @equation_logger ||= Stepmod::Utils::EquationLogger.new
+        end
+
+        def log_equation(node, state, equation_converted)
+          equation_converted_with_bold_and_italics = stem_converted(node.clone, state.merge(convert_bold_and_italics: true))
+
+          return if equation_converted_with_bold_and_italics == equation_converted
+
+          equation_logger.anchor = state[:schema_and_entity] || state[:schema_name]
+          equation_logger.document = state[:descriptions_file]
+          equation_logger.equation = node.to_s
+          equation_logger.equation_converted = equation_converted
+          equation_logger.equation_converted_with_bold_and_italics = equation_converted_with_bold_and_italics
+
+          equation_logger.log
         end
       end
 
