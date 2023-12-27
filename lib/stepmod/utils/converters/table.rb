@@ -4,7 +4,6 @@ module Stepmod
   module Utils
     module Converters
       class Table < Stepmod::Utils::Converters::Base
-
         def self.pattern(state, id)
           if state[:schema_and_entity].nil?
             raise StandardError.new("[table]: no state given, #{id}")
@@ -23,8 +22,14 @@ module Stepmod
           title = node["caption"].to_s
           title = ".#{title}\n" unless title.empty?
           attrs = style(node)
-          "\n\n#{anchor}#{attrs}#{title}|===\n#{treat_children(node,
-                                                               state)}\n|===\n"
+
+          <<~TABLE
+
+
+            #{anchor}#{attrs}#{title}|===
+            #{treat_children(node, state.merge(inside_table: true))}
+            |===
+          TABLE
         end
 
         def frame(node)
