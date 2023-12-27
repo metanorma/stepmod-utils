@@ -8,7 +8,7 @@ module Stepmod
           if node.text.strip.empty?
             treat_empty(node, state)
           else
-            treat_text(node)
+            treat_text(node, state)
           end
         end
 
@@ -27,21 +27,25 @@ module Stepmod
           end
         end
 
-        def treat_text(node)
+        def treat_text(node, state)
           text = node.text
           text = preserve_nbsp(text)
           text = remove_inner_newlines(text)
           text = remove_border_newlines(text)
 
           text = preserve_keychars_within_backticks(text)
-          preserve_tags(text)
+
+          text = preserve_pipes_within_tables(text, state)
+          preserve_tags(text, state)
         end
 
         def preserve_nbsp(text)
           text.gsub(/\u00A0/, "&nbsp;")
         end
 
-        def preserve_tags(text)
+        def preserve_tags(text, state)
+          return text if state[:inside_table]
+
           text.gsub(/[<>]/, ">" => '\>', "<" => '\<')
         end
 
@@ -57,6 +61,12 @@ module Stepmod
           text.gsub(/`.*?`/) do |match|
             match.gsub('\_', "_").gsub('\*', "*")
           end
+        end
+
+        def preserve_pipes_within_tables(text, state)
+          return text unless state[:inside_table]
+
+          text.gsub("|", "\\|")
         end
       end
 
