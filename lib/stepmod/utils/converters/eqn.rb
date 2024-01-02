@@ -59,7 +59,7 @@ module Stepmod
           internal_content = treat_children(cloned_node, state.merge(equation: true))
           content = Stepmod::Utils::HtmlToAsciimath.new.call(internal_content)
           res = <<~TEMPLATE
-
+            #{source_type_comment(cloned_node)}
             [stem]
             ++++
             #{remove_trash_symbols(content.strip)}
@@ -69,6 +69,10 @@ module Stepmod
           TEMPLATE
           res = "[[#{cloned_node['id']}]]\n#{res}" if cloned_node["id"]&.length&.positive?
           res
+        end
+
+        def source_type_comment(node)
+          "\n// source type is bigeqn\n" if node.name == "bigeqn"
         end
 
         def remove_trash_symbols(content)
@@ -118,6 +122,7 @@ module Stepmod
       end
 
       ReverseAdoc::Converters.register :eqn, Eqn.new
+      ReverseAdoc::Converters.register :bigeqn, Eqn.new
     end
   end
 end
