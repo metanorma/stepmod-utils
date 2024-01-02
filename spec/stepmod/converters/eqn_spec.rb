@@ -160,4 +160,37 @@ RSpec.describe Stepmod::Utils::Converters::Eqn do
       expect(convert).to eq(output)
     end
   end
+
+  context "when is a bigeqn" do
+    let(:input_xml) do
+      <<~XML
+        <bigeqn>
+          <b> &#x3BB;</b>
+          <i>(u)</i> = <b>C</b> + A&#x221A;{&#x3C0;}(&#x222B;<sub>0</sub>
+          <sup><i>u</i></sup>cos(&#x3C0;(<i>t<sup>2</sup>/2))dt</i>
+          <b>x</b> + &#x222B;<sub>0</sub>
+          <sup><i>u</i></sup>sin(&#x3C0;(<i>t<sup>2</sup>/2))dt</i>
+          <b>y</b>
+        </bigeqn>
+      XML
+    end
+
+    let(:output) do
+      <<~XML
+
+        // source type is bigeqn
+
+        [stem]
+        ++++
+        λ(u) = C + A√{π}(∫_{0}^{u}cos(π(t^{2}/2))dtx + ∫_{0}^{u}sin(π(t^{2}/2))dty
+        ++++
+
+
+      XML
+    end
+
+    it "add comment for source type" do
+      expect(convert).to eq(output)
+    end
+  end
 end
