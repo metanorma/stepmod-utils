@@ -36,6 +36,7 @@ module Stepmod
           text = preserve_keychars_within_backticks(text)
 
           text = preserve_pipes_within_tables(text, state)
+          text = wrap_if_contains_spaces(text, state)
           preserve_tags(text, state)
         end
 
@@ -51,6 +52,12 @@ module Stepmod
 
         def remove_border_newlines(text)
           text.gsub(/\A\n+/, "").gsub(/\n+\z/, "")
+        end
+
+        def wrap_if_contains_spaces(text, state)
+          return "(#{text})" if state[:equation] && text.strip.match?(/\s/) && text.match?(/^[A-Za-z ]+$/)
+
+          text
         end
 
         def remove_inner_newlines(text)

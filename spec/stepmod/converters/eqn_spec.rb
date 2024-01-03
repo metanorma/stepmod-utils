@@ -33,7 +33,7 @@ RSpec.describe Stepmod::Utils::Converters::Eqn do
 
       [stem]
       ++++
-      χ My node_{ms}Italic text = V - E + 2F - L_{l} - 2(S - G^{s})  = 0
+      χ (My node)_{ms}(Italic text) = V - E + 2F - L_{l} - 2(S - G^{s})  = 0
       ++++
 
 

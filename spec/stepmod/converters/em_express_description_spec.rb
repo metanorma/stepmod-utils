@@ -34,7 +34,7 @@ RSpec.describe Stepmod::Utils::Converters::Em do
 
           [stem]
           ++++
-          χ My node_{ms} = V - E + 2F - L_{l} - 2(S - G^{s}) = 0
+          χ (My node)_{ms} = V - E + 2F - L_{l} - 2(S - G^{s}) = 0
           ++++
 
 
@@ -70,7 +70,7 @@ RSpec.describe Stepmod::Utils::Converters::Em do
 
           [stem]
           ++++
-          χ My node_{ms} = V - E + 2F - L_{l} - 2(S - G^{s}) = 0
+          χ (My node)_{ms} = V - E + 2F - L_{l} - 2(S - G^{s}) = 0
           ++++
 
 
