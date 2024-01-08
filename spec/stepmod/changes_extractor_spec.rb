@@ -268,5 +268,231 @@ RSpec.describe Stepmod::Utils::ChangesExtractor do
         end
       end
     end
+
+    describe "#extract_change_edition" do
+      let(:extract_change_edition) do
+        subject.send(:extract_change_edition, xml_data, options)
+      end
+
+      context "arm.changes" do
+        let(:xml_data) do
+          xml = <<~XML
+            <arm.changes>
+              <arm.additions>
+                 <modified.object type="ENTITY" name="description_text_assignment_relationship"/>
+              </arm.additions>
+              <arm.deletions>
+                <modified.object name="Collection_identification_and_version_arm" type="USE_FROM"/>
+              </arm.deletions>
+           </arm.changes>
+          XML
+
+          Nokogiri::XML(xml).root
+        end
+
+        let(:options) do
+          {
+            type: "arm",
+          }
+        end
+
+        let(:output) do
+          {
+            version: nil,
+            description: nil,
+            additions: [
+              {
+                type: "ENTITY",
+                name: "description_text_assignment_relationship",
+              },
+            ],
+            modifications: [],
+            deletions: [
+              {
+                type: "USE_FROM",
+                name: "Collection_identification_and_version_arm",
+              },
+            ],
+          }
+        end
+
+        it "should return correct output" do
+          expect(extract_change_edition).to eq(output)
+        end
+      end
+
+      context "mim.changes" do
+        let(:xml_data) do
+          xml = <<~XML
+            <mim.changes>
+              <mim.additions>
+                <modified.object type="USE_FROM"
+                                 name="systems_engineering_representation_schema"
+                                 interfaced.items="description_text_assignment_relationship"/>
+                <modified.object type="ENTITY" name="applied_description_text_assignment_relationship"/>
+              </mim.additions>
+           </mim.changes>
+          XML
+
+          Nokogiri::XML(xml).root
+        end
+
+        let(:options) do
+          {
+            type: "mim",
+          }
+        end
+
+        let(:output) do
+          {
+            version: nil,
+            description: nil,
+            additions: [
+              {
+                interfaced_items: "description_text_assignment_relationship",
+                name: "systems_engineering_representation_schema",
+                type: "USE_FROM",
+              },
+              {
+                name: "applied_description_text_assignment_relationship",
+                type: "ENTITY",
+              },
+            ],
+            modifications: [],
+            deletions: [],
+          }
+        end
+
+        it "should return correct output" do
+          expect(extract_change_edition).to eq(output)
+        end
+      end
+
+      context "arm_longform.changes" do
+        let(:xml_data) do
+          xml = <<~XML
+            <arm_longform.changes>
+              <arm.additions>
+                <modified.object type="TYPE" name="additional_application_domain_enumeration" />
+
+                <modified.object type="TYPE" name="additional_application_domain_select" />
+              </arm.additions>
+
+              <arm.modifications>
+                <modified.object type="TYPE" name="characterized_activity_definition">
+                  <description>
+                    <ul>
+                      <li>Add SELECT value 'ENTITY Condition'</li>
+                      <li>Add SELECT value 'ENTITY Condition_evaluation'</li>
+                      <li>Add SELECT value 'ENTITY Condition_relationship'</li>
+                    </ul>
+                  </description>
+                </modified.object>
+              </arm.modifications>
+           </arm_longform.changes>
+          XML
+
+          Nokogiri::XML(xml).root
+        end
+
+        let(:options) do
+          {
+            type: "arm_longform",
+          }
+        end
+
+        let(:output) do
+          {
+            version: nil,
+            description: nil,
+            additions: [
+              {
+                name: "additional_application_domain_enumeration",
+                type: "TYPE",
+              },
+              {
+                name: "additional_application_domain_select",
+                type: "TYPE",
+              },
+            ],
+            modifications: [
+              {
+                name: "characterized_activity_definition",
+                type: "TYPE",
+                description: <<~DESCRIPTION.strip,
+                  * Add SELECT value 'ENTITY Condition'
+                  * Add SELECT value 'ENTITY Condition_evaluation'
+                  * Add SELECT value 'ENTITY Condition_relationship'
+                DESCRIPTION
+              },
+            ],
+            deletions: [],
+          }
+        end
+
+        it "should return correct output" do
+          expect(extract_change_edition).to eq(output)
+        end
+      end
+
+      context "mim_longform.changes" do
+        let(:xml_data) do
+          xml = <<~XML
+            <mim_longform.changes>
+              <mim.additions>
+                <modified.object type="TYPE" name="angular_deviation" />
+
+                <modified.object type="TYPE" name="annotation_placeholder_occurrence_role" />
+              </mim.additions>
+
+              <mim.modifications>
+                <modified.object type="TYPE" name="characterized_definition">
+                  <description>
+                    Add SELECT value 'TYPE characterized_item'
+                  </description>
+                </modified.object>
+              </mim.modifications>
+           </mim_longform.changes>
+          XML
+
+          Nokogiri::XML(xml).root
+        end
+
+        let(:options) do
+          {
+            type: "mim_longform",
+          }
+        end
+
+        let(:output) do
+          {
+            version: nil,
+            description: nil,
+            additions: [
+              {
+                name: "angular_deviation",
+                type: "TYPE",
+              },
+              {
+                name: "annotation_placeholder_occurrence_role",
+                type: "TYPE",
+              },
+            ],
+            modifications: [
+              {
+                description: "Add SELECT value 'TYPE characterized_item'",
+                name: "characterized_definition",
+                type: "TYPE",
+              },
+            ],
+            deletions: [],
+          }
+        end
+
+        it "should return correct output" do
+          expect(extract_change_edition).to eq(output)
+        end
+      end
+    end
   end
 end

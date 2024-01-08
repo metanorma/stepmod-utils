@@ -64,7 +64,7 @@ module Stepmod
             options = {
               schema_name: schema_name,
               version: change_node.attr("version"),
-              description: converted_description(change_node.at("description")),
+              description: converted_description(change_node.xpath("description").first),
             }
 
             MODULE_TYPES.each do |type|
@@ -132,9 +132,11 @@ module Stepmod
 
       def extract_change_edition(schema_changes, options)
         type = options[:type] || "schema"
-        addition_nodes = schema_changes&.xpath("#{type}.additions") || []
-        modification_nodes = schema_changes&.xpath("#{type}.modifications") || []
-        deletion_nodes = schema_changes&.xpath("#{type}.deletions") || []
+        node_type = type.gsub("_longform", "")
+
+        addition_nodes = schema_changes&.xpath("#{node_type}.additions") || []
+        modification_nodes = schema_changes&.xpath("#{node_type}.modifications") || []
+        deletion_nodes = schema_changes&.xpath("#{node_type}.deletions") || []
 
         {
           version: options[:version],
