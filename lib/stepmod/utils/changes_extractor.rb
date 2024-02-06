@@ -97,8 +97,10 @@ module Stepmod
         schema_name = options[:schema_name]
         change = collection.fetch_or_initialize(schema_name, type)
 
-        change_edition = extract_change_edition(changes, options)
-        change.add_change_edition(change_edition)
+        unless changes.nil? && options[:description].nil?
+          change_edition = extract_change_edition(changes, options)
+          change.add_change_edition(change_edition)
+        end
 
         if type == "arm"
           add_mapping_changes(collection, change_node, options)
@@ -106,12 +108,15 @@ module Stepmod
       end
 
       def add_mapping_changes(collection, change_node, options)
+        mapping_changes = extract_mapping_changes(change_node)
+        return if mapping_changes.empty?
+
         change_edition = collection
                          .fetch_or_initialize(options[:schema_name], "arm")
                          .change_editions
                          .fetch_or_initialize(options[:version])
 
-        change_edition.mapping = extract_mapping_changes(change_node)
+        change_edition.mapping = mapping_changes
       end
 
       def extract_mapping_changes(change_node)
