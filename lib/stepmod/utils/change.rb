@@ -40,13 +40,20 @@ module Stepmod
       alias_method :[], :fetch_change_edition
 
       def save_to_file
-        File.write(filepath(@type), Psych.dump(to_h))
+        change_hash = to_h
+        return if change_hash.empty?
+
+        File.write(filepath(@type), Psych.dump(change_hash))
       end
 
       def to_h
+        change_editions_list = change_editions.to_h
+
+        return {} if change_editions_list.empty?
+
         {
           "schema" => schema_name,
-          "change_edition" => change_editions.to_h,
+          "change_edition" => change_editions_list,
         }
       end
 
