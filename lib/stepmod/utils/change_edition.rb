@@ -2,7 +2,7 @@ module Stepmod
   module Utils
     class ChangeEdition
       attr_accessor :version, :description
-      attr_reader :additions, :modifications, :deletions, :mapping
+      attr_reader :additions, :modifications, :deletions, :changes
 
       def initialize(options)
         @version = options[:version]
@@ -10,7 +10,7 @@ module Stepmod
         self.additions = options[:additions] || []
         self.modifications = options[:modifications] || []
         self.deletions = options[:deletions] || []
-        self.mapping = options[:mapping] || []
+        self.changes = options[:changes] || []
       end
 
       def additions=(additions)
@@ -31,10 +31,10 @@ module Stepmod
         @deletions = deletions
       end
 
-      def mapping=(mapping)
-        validate_type("mapping", mapping, Array)
+      def changes=(changes)
+        validate_type("changes", changes, Array)
 
-        @mapping = mapping
+        @changes = changes
       end
 
       def to_h
@@ -44,7 +44,7 @@ module Stepmod
           "additions" => additions,
           "modifications" => modifications,
           "deletions" => deletions,
-          "mapping" => mapping,
+          "changes" => changes,
         }.reject { |_k, v| v.nil? || v.empty? }
       end
 

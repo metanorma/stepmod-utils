@@ -13,6 +13,8 @@ module Stepmod
         mim: "mim",
         arm_longform: "arm_lf",
         mim_longform: "mim_lf",
+        mapping: "mapping",
+        changes: "",
       }.freeze
 
       def initialize(stepmod_dir:, schema_name:, type:)
@@ -65,8 +67,14 @@ module Stepmod
           "data",
           base_folder,
           schema_name,
-          "#{MODULE_TYPES[type.to_sym] || schema_name}.changes.yaml",
+          filename(type),
         )
+      end
+
+      def filename(type)
+        return "changes.yaml" if type.to_s == "changes"
+
+        "#{MODULE_TYPES[type.to_sym] || schema_name}.changes.yaml"
       end
 
       def base_folder

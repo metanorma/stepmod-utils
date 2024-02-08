@@ -64,8 +64,11 @@ module Stepmod
             options = {
               schema_name: schema_name,
               version: change_node.attr("version"),
-              description: converted_description(change_node.xpath("description").first),
+              # description: converted_description(change_node.xpath("description").first),
             }
+
+            add_mapping_changes(collection, change_node, options)
+            add_changes(collection, change_node, options)
 
             MODULE_TYPES.each do |type|
               add_module_changes(
@@ -97,14 +100,10 @@ module Stepmod
         schema_name = options[:schema_name]
         change = collection.fetch_or_initialize(schema_name, type)
 
-        unless changes.nil? && options[:description].nil?
-          change_edition = extract_change_edition(changes, options)
-          change.add_change_edition(change_edition)
-        end
+        return if changes.nil?
 
-        if type == "arm"
-          add_mapping_changes(collection, change_node, options)
-        end
+        change_edition = extract_change_edition(changes, options)
+        change.add_change_edition(change_edition)
       end
 
       def add_mapping_changes(collection, change_node, options)
@@ -112,11 +111,23 @@ module Stepmod
         return if mapping_changes.empty?
 
         change_edition = collection
-                         .fetch_or_initialize(options[:schema_name], "arm")
+                         .fetch_or_initialize(options[:schema_name], "mapping")
                          .change_editions
                          .fetch_or_initialize(options[:version])
 
-        change_edition.mapping = mapping_changes
+        change_edition.changes = mapping_changes
+      end
+
+      def add_changes(collection, change_node, options)
+        description = converted_description(change_node.xpath("description").first)
+        return if description.nil? || description.empty?
+
+        change_edition = collection
+                         .fetch_or_initialize(options[:schema_name], "changes")
+                         .change_editions
+                         .fetch_or_initialize(options[:version])
+
+        change_edition.description = description
       end
 
       def extract_mapping_changes(change_node)

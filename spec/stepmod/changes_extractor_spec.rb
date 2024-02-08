@@ -14,7 +14,7 @@ RSpec.describe Stepmod::Utils::ChangesExtractor do
       let(:change_collection) { subject.call }
 
       it "should create the collection from fixture files" do
-        expect(change_collection.count).to eq(31)
+        expect(change_collection.count).to eq(32)
       end
     end
 
@@ -74,25 +74,25 @@ RSpec.describe Stepmod::Utils::ChangesExtractor do
       let(:schema_name) { "test_schema" }
 
       it "should add mapping changes to version 3 change editions" do
-        change_edition = change_collection.fetch(schema_name, "arm")
+        change_edition = change_collection.fetch(schema_name, "mapping")
                                           .change_editions["3"]
+
         mapping = [
           { "change" => "ENTITY Description_text_assignment" },
           { "change" => "ENTITY Description_text" },
         ]
 
-        expect(change_edition.mapping).to eq(mapping)
+        expect(change_edition.changes).to eq(mapping)
       end
 
-      it "should add description to all version 2 changes" do
+      it "should add description to only version 2 changes.yaml" do
         description = "The scope statement has been amended in order to " \
                       "clarify the appropriate use of this module."
 
-        change_collection.each do |change|
-          change_edition = change.fetch_change_edition("2")
+        change_edition = change_collection.fetch(schema_name, "changes")
+                                          .fetch_change_edition("2")
 
-          expect(change_edition.description).to eq(description)
-        end
+        expect(change_edition.description).to eq(description)
       end
     end
 
