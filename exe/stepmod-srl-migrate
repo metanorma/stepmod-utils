@@ -4,6 +4,7 @@
 
 require "pathname"
 require "fileutils"
+require "nokogiri"
 bin_file = Pathname.new(__FILE__).realpath
 
 # add self to libpath
@@ -17,16 +18,39 @@ def log(message, indent = 0)
   puts "[stepmod-utils] #{message}"
 end
 
-def copy_files_to_schemas(path, stepmod_path, srl_output_docs_dir)
+def copy_files_to_schemas(path, stepmod_path, srl_output_schemas_dir)
   base_path = path.dirname.relative_path_from(File.join(stepmod_path, "data"))
   file_name = path.basename
 
-  new_dir = File.join(srl_output_docs_dir, base_path.to_s)
+  new_dir = File.join(srl_output_schemas_dir, base_path.to_s)
   new_file_path = File.join(new_dir, file_name)
 
   unless Dir.exist?(new_dir)
     FileUtils.mkdir_p(new_dir)
   end
+
+  FileUtils.copy_file(path, new_file_path)
+  log("Copied #{path.basename} to #{new_file_path}", 1)
+end
+
+def copy_files_to_document(path, stepmod_path, srl_output_docs_dir)
+  base_path = path.dirname.relative_path_from(File.join(stepmod_path, "data"))
+  file_name = path.basename
+  module_xml_path = path.dirname.join('module.xml')
+  # puts "module_xml_path #{module_xml_path}"
+  module_xml = Nokogiri::XML(IO.read(module_xml_path)).root
+
+  part_number = module_xml.xpath('//module').first.attr('part')
+  # module_name = module_xml.xpath('//module').first.attr('name')
+
+  new_dir = File.join(srl_output_docs_dir, "iso-10303-#{part_number}")
+  new_file_path = File.join(new_dir, file_name)
+  # new_file_path = File.join(new_dir, "#{module_name}.#{file_name}")
+
+  ## The document directory should already exist.
+  # unless Dir.exist?(new_dir)
+  #   FileUtils.mkdir_p(new_dir)
+  # end
 
   FileUtils.copy_file(path, new_file_path)
   log("Copied #{path.basename} to #{new_file_path}", 1)
@@ -171,10 +195,19 @@ log("[SRL MIGRATION: stepmod-utils] COMPLETE Annotated EXPRESS generation.")
 log("*"*30)
 log("[SRL MIGRATION: stepmod-utils] START EXPRESS change YAML extraction.")
 system "stepmod-extract-changes -p #{stepmod_dir}"
+
+# Move arm/mim/arm_lf/mim_lf/mapping changes into schema directories
 Dir.glob("#{stepmod_dir}/data/**/*.changes.yaml").each do |filepath|
   path = Pathname.new(filepath)
   copy_files_to_schemas(path, stepmod_dir, srl_output_schemas_dir)
 end
+
+# Move document changes into document directories
+Dir.glob("#{stepmod_dir}/data/**/changes.yaml").each do |filepath|
+  path = Pathname.new(filepath)
+  copy_files_to_document(path, stepmod_dir, srl_output_docs_dir)
+end
+
 log("*"*30)
 log("[SRL MIGRATION: stepmod-utils] COMPLETE EXPRESS change YAML extraction.")
 
