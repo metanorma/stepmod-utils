@@ -1,6 +1,7 @@
 require "nokogiri"
 require "stepmod/utils/change_collection"
 require "stepmod/utils/smrl_description_converter"
+require_relative "parsers"
 
 module Stepmod
   module Utils
@@ -31,12 +32,24 @@ module Stepmod
           xml_changes = Nokogiri::XML(File.read(module_change_file)).root
           schema_name = Pathname.new(module_change_file).parent.basename.to_s
           add_module_changes_to_collection(xml_changes, @collection, schema_name)
+
+          add_mapping_table_changes_to_collection(xml_changes, schema_name, @collection)
         end
 
         @collection
       end
 
       private
+
+      def add_mapping_table_changes_to_collection(xml_data, schema_name, collection)
+        mapping_table = xml_data.at_xpath("//mapping_table")
+        return unless mapping_table
+
+        shale_object = Stepmod::Utils::Parsers::MappingTableParser.parse(mapping_table)
+
+        change = collection.fetch_or_initialize(schema_name, "mapping_table")
+        change.mapping_table = shale_object.to_hash
+      end
 
       # rubocop:disable Metrics/MethodLength
       def add_resource_changes_to_collection(xml_data, collection)

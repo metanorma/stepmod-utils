@@ -14,7 +14,7 @@ RSpec.describe Stepmod::Utils::ChangesExtractor do
       let(:change_collection) { subject.call }
 
       it "should create the collection from fixture files" do
-        expect(change_collection.count).to eq(32)
+        expect(change_collection.count).to eq(33)
       end
     end
 
