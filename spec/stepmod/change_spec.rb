@@ -121,6 +121,45 @@ RSpec.describe Stepmod::Utils::Change do
       end
     end
 
+    describe "#filename" do
+      let(:filename) { subject.send(:filename, type) }
+
+      context "when module" do
+        let(:resource) { false }
+
+        describe "when filename should be used without extension" do
+          let(:type) { "changes" }
+
+          let(:expected_path) do
+            "changes.yaml"
+          end
+
+          it { expect(filename).to eq(expected_path) }
+        end
+
+        describe "when filename should be used with .changes extension" do
+          let(:type) { "arm" }
+
+          let(:expected_path) do
+            "arm.changes.yaml"
+          end
+
+          it { expect(filename).to eq(expected_path) }
+        end
+      end
+
+      context "when resource" do
+        let(:type) { "schema" }
+        let(:resource) { true }
+
+        let(:expected_path) do
+          "test_schema.changes.yaml"
+        end
+
+        it { expect(filename).to eq(expected_path) }
+      end
+    end
+
     describe "#base_folder" do
       let(:base_folder) { subject.send(:base_folder) }
 

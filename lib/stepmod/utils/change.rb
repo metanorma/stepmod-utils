@@ -6,6 +6,7 @@ module Stepmod
   module Utils
     class Change
       attr_accessor :schema_name
+      attr_accessor :mapping_table
       attr_reader :change_editions
 
       MODULE_TYPES = {
@@ -14,12 +15,19 @@ module Stepmod
         arm_longform: "arm_lf",
         mim_longform: "mim_lf",
         mapping: "mapping",
-        changes: "",
+        changes: "changes",
+        mapping_table: "mapping",
       }.freeze
+
+      TYPES_WITHOUT_EXTENSION = %w[
+        changes
+        mapping_table
+      ]
 
       def initialize(stepmod_dir:, schema_name:, type:)
         @stepmod_dir = stepmod_dir
         @change_editions = Stepmod::Utils::ChangeEditionCollection.new
+        @mapping_table = {}
         @schema_name = schema_name
         @type = type
       end
@@ -42,7 +50,11 @@ module Stepmod
       alias_method :[], :fetch_change_edition
 
       def save_to_file
-        change_hash = to_h
+        change_hash = if @type == "mapping_table"
+                        @mapping_table
+                      else
+                        to_h
+                      end
         return if change_hash.empty?
 
         File.write(filepath(@type), Psych.dump(stringify_keys(change_hash)))
@@ -72,7 +84,7 @@ module Stepmod
       end
 
       def filename(type)
-        return "changes.yaml" if type.to_s == "changes"
+        return "#{MODULE_TYPES[type.to_sym]}.yaml" if TYPES_WITHOUT_EXTENSION.include?(type.to_s)
 
         "#{MODULE_TYPES[type.to_sym] || schema_name}.changes.yaml"
       end
