@@ -45,7 +45,7 @@ module Stepmod
         change_hash = to_h
         return if change_hash.empty?
 
-        File.write(filepath(@type), Psych.dump(change_hash))
+        File.write(filepath(@type), Psych.dump(stringify_keys(change_hash)))
       end
 
       def to_h
@@ -83,6 +83,23 @@ module Stepmod
         else
           "modules"
         end
+      end
+
+      # Hash#transform_keys is not available in Ruby 2.4
+      # so we have to do this ourselves :(
+      # symbolize hash keys
+      def stringify_keys(hash)
+        result = {}
+        hash.each_pair do |key, value|
+          result[key.to_s] = if value.is_a?(Hash)
+                               stringify_keys(value)
+                             elsif value.is_a?(Array)
+                               value.map { |v| stringify_keys(v) }
+                             else
+                               value
+                             end
+        end
+        result
       end
     end
   end
