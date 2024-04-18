@@ -1,7 +1,7 @@
 require 'shale'
 
 class Refpath < Shale::Mapper
-  attribute :content, Shale::Type::String
+  attribute :content, StringWithoutIndent
   attribute :space, Shale::Type::Value
 
   xml do
