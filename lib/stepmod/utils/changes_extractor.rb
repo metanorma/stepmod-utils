@@ -135,15 +135,19 @@ module Stepmod
 
         change_node.xpath("mapping.changes").each do |changes|
           changes.xpath("mapping.change").each do |change|
-            mappings << { "change" => change.text }
+            mappings << { "change" => clean_string(change.text.strip) }
           end
 
           changes.xpath("description").each do |change|
-            mappings << { "description" => change.text }
+            mappings << { "description" => clean_string(change.text.strip) }
           end
         end
 
         mappings
+      end
+
+      def clean_string(string)
+        string.gsub(/[\n\t]/, " ").squeeze
       end
 
       def extract_change_edition(schema_changes, options)
