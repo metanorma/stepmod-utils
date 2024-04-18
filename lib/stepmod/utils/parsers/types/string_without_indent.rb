@@ -2,6 +2,6 @@
 
 class StringWithoutIndent < Shale::Type::Value
   def self.cast(value)
-    value&.gsub(/[ \t]/, "")
+    value&.gsub(/\n([ \t]*)/, "\n")
   end
 end
