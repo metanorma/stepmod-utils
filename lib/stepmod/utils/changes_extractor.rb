@@ -147,7 +147,7 @@ module Stepmod
       end
 
       def clean_string(string)
-        string.gsub(/[\n\t]/, " ").squeeze
+        string.gsub(/[\n\t]/, " ").squeeze(" ")
       end
 
       def extract_change_edition(schema_changes, options)
