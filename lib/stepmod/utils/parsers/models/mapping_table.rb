@@ -1,5 +1,7 @@
 require 'shale'
 
+require_relative "../types/string_without_indent"
+
 require_relative 'ae'
 require_relative 'sc'
 
