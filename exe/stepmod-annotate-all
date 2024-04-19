@@ -7,6 +7,41 @@ require "fileutils"
 require "bundler/setup"
 require "optparse"
 
+SKIP_DETACHED_SCHEMAS = %w(
+  assembly_constraint_schema
+  assembly_feature_relationship_schema
+  basis_schema
+  conditions_schema
+  domain_schema
+  equations_schema
+  explicit_constraint_schema
+  explicit_geometric_constraint_schema
+  fea_scalar_vector_tensor_schema
+  finite_element_analysis_control_and_result_schema
+  hierarchy_schema
+  iso13584_expressions_schema
+  ISO13584_expressions_schema
+  iso13584_generic_expressions_schema
+  ISO13584_generic_expressions_schema
+  mathematical_functions_schema
+  mesh_connectivity_schema
+  mesh_function_schema
+  mesh_topology_schema
+  method_definition_schema
+  parameterization_schema
+  procedural_model_schema
+  procedural_shape_model_schema
+  procedural_sketch_schema
+  process_property_representation_schema
+  process_property_schema
+  results_schema
+  sketch_schema
+  solid_shape_element_schema
+  structural_response_definition_schema
+  structural_response_representation_schema
+  variational_representation_schema
+)
+
 def log(message, indent = 0)
   indent_spaces = " " * (indent * 2)
   puts "[stepmod-utils] #{indent_spaces}#{message}"
@@ -91,8 +126,9 @@ def all_express_files(stepmod_dir)
     files << "#{stepmod_dir}/data/modules/#{item['name']}/mim.exp"
   end
 
+  # Skip resource schemas
   index.xpath("resources/resource").each do |item|
-    next if item["name"] == "iso13584_expressions_schema"
+    next if SKIP_DETACHED_SCHEMAS.include?(item["name"])
 
     files << "#{stepmod_dir}/data/resources/#{item['name']}/#{item['name']}.exp"
   end
