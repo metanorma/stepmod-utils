@@ -77,7 +77,8 @@ else
   )
 end
 
-default_output_dir = File.join(File.expand_path("..", stepmod_dir), "output_yaml")
+default_output_dir = File.join(File.expand_path("..", stepmod_dir),
+                               "output_yaml")
 output_dir = options[:output_dir] || default_output_dir
 unless File.directory?(output_dir)
   FileUtils.mkdir_p(output_dir)
@@ -164,7 +165,7 @@ end
 yaml_outputs = {
   clause_4_sections: {},
   clause_5_sections: {},
-  bibliographies: {}
+  bibliographies: {},
 }
 
 part_resources.each do |(_bibdata, current_part_resources)|
@@ -204,9 +205,9 @@ extract_bibliographies(resource_concepts, yaml_outputs[:bibliographies])
 {
   clause_4_sections: "resource_sections.yaml",
   clause_5_sections: "module_sections.yaml",
-  bibliographies: "bib.yaml"
+  bibliographies: "bib.yaml",
 }.each_pair do |var, filename|
   path = File.join(output_dir, filename)
   File.write(path, yaml_outputs[var].values.to_yaml)
-  log "INFO: #{var.to_s} written to #{path}."
+  log "INFO: #{var} written to #{path}."
 end

@@ -1,9 +1,9 @@
-require 'shale'
+require "shale"
 
-require_relative 'constraint'
-require_relative 'description'
-require_relative 'rules'
-require_relative 'source'
+require_relative "constraint"
+require_relative "description"
+require_relative "rules"
+require_relative "source"
 
 class AltScmap < Shale::Mapper
   attribute :id, Shale::Type::String

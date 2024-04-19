@@ -7,7 +7,6 @@ module Stepmod
         def convert(node, _state = {})
           link_end = node["linkend"].to_s.split(":")
           ref_id = link_end.last
-          parts = link_end.last.split(".")
           text = node.text.gsub(/\s/, " ").squeeze(" ").strip
           schema = link_end.first
 
@@ -16,7 +15,7 @@ module Stepmod
             _state[:schema_and_entity] = schema
           end
 
-          result = case link_end[1]
+          case link_end[1]
           when "1_scope", "introduction"
             # When we see this:
             # <module_ref linkend="functional_usage_view:1_scope">Functional usage view</module_ref>
@@ -66,12 +65,11 @@ module Stepmod
               create_ref(Table.pattern(_state, ref_id), text)
             end
           else
-            puts "[module_ref]: encountered unknown <module_ref> tag, #{link_end.join(":")}"
-            raise StandardError.new("[module_ref]: encountered unknown <module_ref> tag, #{link_end.join(":")}")
+            puts "[module_ref]: encountered unknown <module_ref> tag, #{link_end.join(':')}"
+            raise StandardError.new("[module_ref]: encountered unknown <module_ref> tag, #{link_end.join(':')}")
           end
 
           # puts "[module_ref] #{result}"
-          result
         end
 
         private

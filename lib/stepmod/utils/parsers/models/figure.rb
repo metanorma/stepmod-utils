@@ -1,7 +1,7 @@
-require 'shale'
+require "shale"
 
-require_relative 'img'
-require_relative 'title'
+require_relative "img"
+require_relative "title"
 
 class Figure < Shale::Mapper
   attribute :id, Shale::Type::Value

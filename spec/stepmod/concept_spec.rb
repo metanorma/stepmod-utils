@@ -78,7 +78,9 @@ RSpec.describe Stepmod::Utils::Concept do
   end
 
   context "when action" do
-    let(:entity_definition) { "domain:[resource: action_schema]\n\nentity data type that represents an action entity" }
+    let(:entity_definition) do
+      "domain:[resource: action_schema]\n\nentity data type that represents an action entity"
+    end
 
     let(:input_xml) do
       <<~XML

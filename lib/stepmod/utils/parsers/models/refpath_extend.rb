@@ -1,4 +1,4 @@
-require 'shale'
+require "shale"
 
 class RefpathExtend < Shale::Mapper
   attribute :content, Shale::Type::String

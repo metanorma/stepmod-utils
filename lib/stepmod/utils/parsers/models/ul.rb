@@ -1,6 +1,6 @@
-require 'shale'
+require "shale"
 
-require_relative 'li'
+require_relative "li"
 
 class Ul < Shale::Mapper
   attribute :li, Li, collection: true

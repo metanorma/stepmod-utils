@@ -1,7 +1,7 @@
-require 'shale'
+require "shale"
 
-require_relative 'dd'
-require_relative 'dt'
+require_relative "dd"
+require_relative "dt"
 
 class Dl < Shale::Mapper
   attribute :dt, Dt, collection: true

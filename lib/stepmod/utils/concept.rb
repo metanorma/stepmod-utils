@@ -17,7 +17,8 @@ module Stepmod
       # TODO: converted_definition is not supposed to be an attribute, it is
       # supposed to be a method!
       class << self
-        def parse(definition_xml, reference_anchor:, reference_clause:, file_path:, language_code: "eng")
+        def parse(definition_xml, reference_anchor:, reference_clause:,
+file_path:, language_code: "eng")
           converted_definition = Stepmod::Utils::StepmodDefinitionConverter.convert(
             definition_xml,
             {
@@ -64,14 +65,15 @@ module Stepmod
             end
 
           term = Stepmod::Utils::Converters::Term
-            .new
-            .convert(
-              definition_xml.xpath(".//term").first
-            )
+                 .new
+                 .convert(
+                   definition_xml.xpath(".//term").first,
+                 )
 
           # [4..-1] because we want to skip the initial `=== {title}`
           designations = [
-            { "designation" => term[4..-1], "type" => "expression", "normative_status" => "preferred" },
+            { "designation" => term[4..-1], "type" => "expression",
+              "normative_status" => "preferred" },
           ]
 
           alts.each do |alt|
@@ -84,10 +86,10 @@ module Stepmod
         def definition_xml_definition(definition_xml, reference_anchor)
           # We reject the <p> that was considered an alternative term (length<=20)
           text_nodes = definition_xml
-            .xpath(".//def")
-            .first
-            .children
-            .reject { |n| n.name == "p" && n.text.length <= 20 }
+                       .xpath(".//def")
+                       .first
+                       .children
+                       .reject { |n| n.name == "p" && n.text.length <= 20 }
 
           wrapper = "<def>#{text_nodes.map(&:to_s).join}</def>"
 

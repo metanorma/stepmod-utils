@@ -13,18 +13,19 @@ module Stepmod
         def italic_converted(node, state)
           cloned_node = node.clone
           equations = extract_equations(cloned_node)
-          content = treat_children(cloned_node, state.merge(already_italic: true))
+          content = treat_children(cloned_node,
+                                   state.merge(already_italic: true))
           equation_content = equations.map do |equation|
             treat(equation, state.merge(equation: true, already_italic: true))
           end
 
           content = if state[:equation] && state[:convert_bold_and_italics]
-            "ii(#{content.strip})"
-          elsif content.strip.empty? || state[:already_italic] || state[:equation]
-            content
-          else
-            "#{content[/^\s*/]}_#{content.strip}_#{content[/\s*$/]}"
-          end
+                      "ii(#{content.strip})"
+                    elsif content.strip.empty? || state[:already_italic] || state[:equation]
+                      content
+                    else
+                      "#{content[/^\s*/]}_#{content.strip}_#{content[/\s*$/]}"
+                    end
 
           [content, equation_content].compact.join("")
         end

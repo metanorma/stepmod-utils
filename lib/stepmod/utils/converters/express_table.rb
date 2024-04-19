@@ -1,11 +1,11 @@
 # frozen_string_literal: true
+
 require_relative "./table"
 
 module Stepmod
   module Utils
     module Converters
       class ExpressTable < Stepmod::Utils::Converters::Table
-
         # def self.pattern(id)
         #   "table-exp-#{id}"
         # end

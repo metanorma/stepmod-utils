@@ -5,7 +5,7 @@ module Stepmod
     module Converters
       class Dt < Stepmod::Utils::Converters::Base
         def convert(node, _state = {})
-          return "\n\n{blank}::" if node.text.strip.length.zero?
+          return "\n\n{blank}::" if node.text.strip.empty?
 
           "\n\n#{node.text}:: "
         end

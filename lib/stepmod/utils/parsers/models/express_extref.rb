@@ -1,4 +1,4 @@
-require 'shale'
+require "shale"
 
 class ExpressExtref < Shale::Mapper
   attribute :linkend, Shale::Type::String

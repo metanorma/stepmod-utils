@@ -1,11 +1,11 @@
 # frozen_string_literal: true
+
 require_relative "./figure"
 
 module Stepmod
   module Utils
     module Converters
       class ExpressFigure < Stepmod::Utils::Converters::Figure
-
         # def self.pattern(state, id)
         #   "figure-exp-#{id}"
         # end

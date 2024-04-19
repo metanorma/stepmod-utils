@@ -8,7 +8,6 @@ module Stepmod
   module Utils
     module Converters
       class Term < Stepmod::Utils::Converters::Base
-
         # We strip all the children in the case for "stem:[d]-manifold"
         # vs "stem:[d] -manifold"
         def treat_children(node, state)

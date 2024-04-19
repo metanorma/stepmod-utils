@@ -1,6 +1,6 @@
-require 'spec_helper'
-require 'stepmod/utils/terms_extractor'
-require 'stepmod/utils/converters/express_ref_express_description'
+require "spec_helper"
+require "stepmod/utils/terms_extractor"
+require "stepmod/utils/converters/express_ref_express_description"
 
 RSpec.describe Stepmod::Utils::TermsExtractor do
   subject(:call) { described_class.call(stepmod_dir, index_path, StringIO.new) }
@@ -9,12 +9,14 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
     ReverseAdoc::Converters.unregister :express_ref
     ReverseAdoc::Converters
       .register(:express_ref,
-        Stepmod::Utils::Converters::ExpressRefExpressDescription.new)
+                Stepmod::Utils::Converters::ExpressRefExpressDescription.new)
   end
 
-  describe '.call' do
-    let(:stepmod_dir) { fixtures_path('stepmod_terms_mock_directory/data') }
-    let(:index_path) { fixtures_path('stepmod_terms_mock_directory/repository_index.xml') }
+  describe ".call" do
+    let(:stepmod_dir) { fixtures_path("stepmod_terms_mock_directory/data") }
+    let(:index_path) do
+      fixtures_path("stepmod_terms_mock_directory/repository_index.xml")
+    end
 
     let(:resource_description_hash) do
       {
@@ -270,7 +272,8 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
 
     describe "#format_remarks" do
       let(:format_remarks) do
-        subject.send(:format_remarks, remarks, remark_item_name, remark_item_symbol)
+        subject.send(:format_remarks, remarks, remark_item_name,
+                     remark_item_symbol)
       end
 
       let(:remark_item_name) { "NOTE" }
@@ -341,7 +344,9 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
       end
 
       context "when note is redundant" do
-        let(:note) { "A **mbna_Dirichlet_bc_dataset** is a type of {{mbna_bc_dataset,mbna_bc_dataset}}" }
+        let(:note) do
+          "A **mbna_Dirichlet_bc_dataset** is a type of {{mbna_bc_dataset,mbna_bc_dataset}}"
+        end
 
         it { expect(redundant_note).to eq(true) }
       end

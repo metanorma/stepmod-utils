@@ -1,6 +1,6 @@
-require 'shale'
+require "shale"
 
-require_relative 'li'
+require_relative "li"
 
 class Ol < Shale::Mapper
   attribute :type, Shale::Type::String

@@ -20,11 +20,11 @@ module Stepmod
           return "" if state[:no_notes_examples]
 
           # Set ID to "figure-id" in case of conflicts
-          node['id'] = if node['id']
-            self.class.pattern(state, node['id'])
-          else
-            self.class.pattern(state, node['number'])
-          end
+          node["id"] = if node["id"]
+                         self.class.pattern(state, node["id"])
+                       else
+                         self.class.pattern(state, node["number"])
+                       end
 
           super(node, state)
         end

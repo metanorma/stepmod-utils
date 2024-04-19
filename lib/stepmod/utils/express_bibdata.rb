@@ -26,8 +26,12 @@ module Stepmod
           @pub_year = pubid.year&.to_i
         elsif !schema.version.nil?
           @part = schema.version.items.find { |i| i.name == "part" }.value&.to_i
-          @version = schema.version.items.find { |i| i.name == "part" }.value&.to_i
-          @pub_year = schema.version.items.find { |i| i.name == "part" }.value&.to_i
+          @version = schema.version.items.find do |i|
+                       i.name == "part"
+                     end.value&.to_i
+          @pub_year = schema.version.items.find do |i|
+                        i.name == "part"
+                      end.value&.to_i
         else
           raise "PublishedInfoNotFound"
         end

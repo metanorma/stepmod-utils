@@ -1,16 +1,16 @@
-require 'shale'
+require "shale"
 
-require_relative 'a'
-require_relative 'b'
-require_relative 'bold'
-require_relative 'bom_ref'
-require_relative 'express_extref'
-require_relative 'express_ref'
-require_relative 'i'
-require_relative 'module_ref'
-require_relative 'sub'
-require_relative 'sup'
-require_relative 'tt'
+require_relative "a"
+require_relative "b"
+require_relative "bold"
+require_relative "bom_ref"
+require_relative "express_extref"
+require_relative "express_ref"
+require_relative "i"
+require_relative "module_ref"
+require_relative "sub"
+require_relative "sup"
+require_relative "tt"
 
 class Eqn < Shale::Mapper
   attribute :content, Shale::Type::String

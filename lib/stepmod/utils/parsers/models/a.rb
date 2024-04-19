@@ -1,11 +1,11 @@
-require 'shale'
+require "shale"
 
-require_relative 'b'
-require_relative 'bold'
-require_relative 'i'
-require_relative 'sub'
-require_relative 'sup'
-require_relative 'tt'
+require_relative "b"
+require_relative "bold"
+require_relative "i"
+require_relative "sub"
+require_relative "sup"
+require_relative "tt"
 
 class A < Shale::Mapper
   attribute :content, Shale::Type::String

@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 
-require 'nokogiri'
-require 'expressir'
-require 'expressir/express/parser'
-require 'expressir/express/formatter'
+require "nokogiri"
+require "expressir"
+require "expressir/express/parser"
+require "expressir/express/formatter"
 
 stepmod_dir = ARGV.pop || "iso-10303-stepmod-wg12"
 stepmod_path = Pathname.new(stepmod_dir)
@@ -38,7 +38,7 @@ end
 
 def parse_express_schema(path)
   Expressir::Express::Parser.from_file(path)
-rescue
+rescue StandardError
   puts "ERROR: Broken schema detected in #{path}!"
   nil
 end
@@ -54,14 +54,13 @@ puts REPO_INDEX_XML
 puts
 puts "NOTE: SHOULD_REWRITE mode is turned #{SHOULD_REWRITE ? 'ON' : 'OFF'}"
 
-all_express_files(stepmod_dir).each_with_index do |exp_file, i|
+all_express_files(stepmod_dir).each_with_index do |exp_file, _i|
   # puts "i #{i}"
   # next if i > 10
 
   puts "validating: #{exp_file}"
   exp_path = Pathname.new(exp_file)
   repo = parse_express_schema(exp_file)
-
 
   schemas_status[exp_path.to_s] = repo ? true : false
 
@@ -77,28 +76,27 @@ all_express_files(stepmod_dir).each_with_index do |exp_file, i|
     formatted_schema = format_express_schema(repo)
     # experimental_path = exp_path.dirname.join(exp_path.basename('.exp').to_s+".x.exp")
 
-    puts "rewriting : #{exp_path.to_s}"
+    puts "rewriting : #{exp_path}"
     exp_path.truncate(0)
     exp_path.write(formatted_schema)
   end
-
 end
 
-puts "*"*30
+puts "*" * 30
 
-if schemas_status.values.include?(false)
+if schemas_status.value?(false)
   puts "The following schemas failed validation:"
-  schemas_status.select do |path, status|
+  schemas_status.select do |_path, status|
     status == false
-  end.each_pair do |path, status|
+  end.each_pair do |path, _status|
     puts "SCHEMA: #{path}"
   end
-  puts "*"*30
+  puts "*" * 30
 
   exit 1
 end
 
 puts "All schemas passed validation."
-puts "*"*30
+puts "*" * 30
 
 exit 0

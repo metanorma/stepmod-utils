@@ -1,25 +1,25 @@
-require 'shale'
+require "shale"
 
-require_relative 'a'
-require_relative 'b'
-require_relative 'bigeqn'
-require_relative 'bold'
-require_relative 'bom_ref'
-require_relative 'dl'
-require_relative 'eqn'
-require_relative 'express_extref'
-require_relative 'express_ref'
-require_relative 'figure'
-require_relative 'i'
-require_relative 'module_ref'
-require_relative 'ol'
-require_relative 'p'
-require_relative 'screen'
-require_relative 'sub'
-require_relative 'sup'
-require_relative 'table'
-require_relative 'tt'
-require_relative 'ul'
+require_relative "a"
+require_relative "b"
+require_relative "bigeqn"
+require_relative "bold"
+require_relative "bom_ref"
+require_relative "dl"
+require_relative "eqn"
+require_relative "express_extref"
+require_relative "express_ref"
+require_relative "figure"
+require_relative "i"
+require_relative "module_ref"
+require_relative "ol"
+require_relative "p"
+require_relative "screen"
+require_relative "sub"
+require_relative "sup"
+require_relative "table"
+require_relative "tt"
+require_relative "ul"
 
 class Note < Shale::Mapper
   attribute :content, Shale::Type::String
