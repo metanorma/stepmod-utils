@@ -1,3 +1,12 @@
+module Stepmod
+  module Utils
+    module Parsers
+      module Models
+      end
+    end
+  end
+end
+
 require_relative "models/mapping_table"
 
 module Stepmod
@@ -14,7 +23,7 @@ module Stepmod
         end
 
         def parse
-          MappingTable.from_xml(@xml)
+          Models::MappingTable.from_xml(@xml)
         end
       end
     end

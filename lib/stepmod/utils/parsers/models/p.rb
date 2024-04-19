@@ -13,36 +13,44 @@ require_relative "sub"
 require_relative "sup"
 require_relative "tt"
 
-class P < Shale::Mapper
-  attribute :content, Shale::Type::String
-  attribute :express_ref, ExpressRef, collection: true
-  attribute :express_extref, ExpressExtref, collection: true
-  attribute :module_ref, ModuleRef, collection: true
-  attribute :bom_ref, BomRef, collection: true
-  attribute :i, Italic, collection: true
-  attribute :b, B, collection: true
-  attribute :sub, Sub, collection: true
-  attribute :sup, Sup, collection: true
-  attribute :tt, Tt, collection: true
-  attribute :bold, Bold, collection: true
-  attribute :a, A, collection: true
-  attribute :img, Img, collection: true
+module Stepmod
+  module Utils
+    module Parsers
+      module Models
+        class P < Shale::Mapper
+          attribute :content, Shale::Type::String
+          attribute :express_ref, ExpressRef, collection: true
+          attribute :express_extref, ExpressExtref, collection: true
+          attribute :module_ref, ModuleRef, collection: true
+          attribute :bom_ref, BomRef, collection: true
+          attribute :i, Italic, collection: true
+          attribute :b, B, collection: true
+          attribute :sub, Sub, collection: true
+          attribute :sup, Sup, collection: true
+          attribute :tt, Tt, collection: true
+          attribute :bold, Bold, collection: true
+          attribute :a, A, collection: true
+          attribute :img, Img, collection: true
 
-  xml do
-    root 'p'
+          xml do
+            root "p"
 
-    map_content to: :content
-    map_element 'express_ref', to: :express_ref
-    map_element 'express_extref', to: :express_extref
-    map_element 'module_ref', to: :module_ref
-    map_element 'bom_ref', to: :bom_ref
-    map_element 'i', to: :i
-    map_element 'b', to: :b
-    map_element 'sub', to: :sub
-    map_element 'sup', to: :sup
-    map_element 'tt', to: :tt
-    map_element 'bold', to: :bold
-    map_element 'a', to: :a
-    map_element 'img', to: :img
+            map_content to: :content
+            map_element "express_ref", to: :express_ref
+            map_element "express_extref", to: :express_extref
+            map_element "module_ref", to: :module_ref
+            map_element "bom_ref", to: :bom_ref
+            map_element "i", to: :i
+            map_element "b", to: :b
+            map_element "sub", to: :sub
+            map_element "sup", to: :sup
+            map_element "tt", to: :tt
+            map_element "bold", to: :bold
+            map_element "a", to: :a
+            map_element "img", to: :img
+          end
+        end
+      end
+    end
   end
 end

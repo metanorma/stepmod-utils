@@ -1,11 +1,19 @@
 require "shale"
 
-class Rules < Shale::Mapper
-  attribute :content, Shale::Type::String
+module Stepmod
+  module Utils
+    module Parsers
+      module Models
+        class Rules < Shale::Mapper
+          attribute :content, Shale::Type::String
 
-  xml do
-    root 'rules'
+          xml do
+            root "rules"
 
-    map_content to: :content
+            map_content to: :content
+          end
+        end
+      end
+    end
   end
 end
