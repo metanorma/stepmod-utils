@@ -11,12 +11,13 @@ require_relative "module_ref"
 require_relative "sub"
 require_relative "sup"
 
-# These are needed to resolve circular dependencies
-# https://github.com/kgiszczak/shale/blob/master/spec/shale/schema/xml_generator_spec.rb#L108
 module Stepmod
   module Utils
     module Parsers
       module Models
+
+        # These are needed to resolve circular dependencies
+        # https://github.com/kgiszczak/shale/blob/master/spec/shale/schema/xml_generator_spec.rb#L108
         class Italic < Shale::Mapper; end
         class A < Shale::Mapper; end
         class B < Shale::Mapper; end
