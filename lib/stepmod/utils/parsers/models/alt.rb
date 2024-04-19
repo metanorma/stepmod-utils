@@ -1,11 +1,19 @@
 require "shale"
 
-class Alt < Shale::Mapper
-  attribute :content, Shale::Type::String
+module Stepmod
+  module Utils
+    module Parsers
+      module Models
+        class Alt < Shale::Mapper
+          attribute :content, Shale::Type::String
 
-  xml do
-    root 'alt'
+          xml do
+            root "alt"
 
-    map_content to: :content
+            map_content to: :content
+          end
+        end
+      end
+    end
   end
 end
