@@ -135,7 +135,7 @@ RSpec.describe Stepmod::Utils::Converters::Definition do
     end
   end
 
-  context 'when term in definition xml has acronym' do
+  context "when term in definition xml has acronym" do
     let(:input_xml) do
       <<~TEXT
         <definition>
@@ -148,10 +148,10 @@ RSpec.describe Stepmod::Utils::Converters::Definition do
     end
     let(:output) do
       <<~XML
-      === directed acyclic graph
-      alt:[DAG]
+        === directed acyclic graph
+        alt:[DAG]
 
-      collection of nodes and links such that no node is an ancestor (or descendant) of itself
+        collection of nodes and links such that no node is an ancestor (or descendant) of itself
       XML
     end
 
@@ -160,7 +160,7 @@ RSpec.describe Stepmod::Utils::Converters::Definition do
     end
   end
 
-  context 'when term in definition xml has braces' do
+  context "when term in definition xml has braces" do
     let(:input_xml) do
       <<~TEXT
         <definition>
@@ -173,9 +173,9 @@ RSpec.describe Stepmod::Utils::Converters::Definition do
     end
     let(:output) do
       <<~XML
-      === bill-of-material (BOM) data structure
+        === bill-of-material (BOM) data structure
 
-      collection of nodes and links such that no node is an ancestor (or descendant) of itself
+        collection of nodes and links such that no node is an ancestor (or descendant) of itself
       XML
     end
 

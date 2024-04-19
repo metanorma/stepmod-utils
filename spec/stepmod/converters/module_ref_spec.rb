@@ -30,7 +30,9 @@ RSpec.describe Stepmod::Utils::Converters::ModuleRef do
           "<<table-independent_property_definition-T1>>"
         end
 
-        it { expect(converter.convert(node_for(xml_input)).strip).to eq(output.strip) }
+        it {
+          expect(converter.convert(node_for(xml_input)).strip).to eq(output.strip)
+        }
       end
 
       describe '<module_ref linkend="independent_property_definition:4_entities:table:T1">Table (1)</module_ref>' do
@@ -42,7 +44,9 @@ RSpec.describe Stepmod::Utils::Converters::ModuleRef do
           "<<table-independent_property_definition-T1>>"
         end
 
-        it { expect(converter.convert(node_for(xml_input)).strip).to eq(output.strip) }
+        it {
+          expect(converter.convert(node_for(xml_input)).strip).to eq(output.strip)
+        }
       end
 
       describe '<module_ref linkend="independent_property_definition:4_entities:table:T1">(1)</module_ref>' do
@@ -54,7 +58,9 @@ RSpec.describe Stepmod::Utils::Converters::ModuleRef do
           "<<table-independent_property_definition-T1>>"
         end
 
-        it { expect(converter.convert(node_for(xml_input)).strip).to eq(output.strip) }
+        it {
+          expect(converter.convert(node_for(xml_input)).strip).to eq(output.strip)
+        }
       end
     end
 
@@ -68,7 +74,9 @@ RSpec.describe Stepmod::Utils::Converters::ModuleRef do
           "<<figure-assembly_module_design-pudv>>"
         end
 
-        it { expect(converter.convert(node_for(xml_input)).strip).to eq(output.strip) }
+        it {
+          expect(converter.convert(node_for(xml_input)).strip).to eq(output.strip)
+        }
       end
 
       describe '<module_ref linkend="assembly_module_design:4_entities:figure:pudv">Figure (1)</module_ref>' do
@@ -80,7 +88,9 @@ RSpec.describe Stepmod::Utils::Converters::ModuleRef do
           "<<figure-assembly_module_design-pudv>>"
         end
 
-        it { expect(converter.convert(node_for(xml_input)).strip).to eq(output.strip) }
+        it {
+          expect(converter.convert(node_for(xml_input)).strip).to eq(output.strip)
+        }
       end
 
       describe '<module_ref linkend="assembly_module_design:4_entities:figure:pudv">(1)</module_ref>' do
@@ -92,12 +102,14 @@ RSpec.describe Stepmod::Utils::Converters::ModuleRef do
           "<<figure-assembly_module_design-pudv>>"
         end
 
-        it { expect(converter.convert(node_for(xml_input)).strip).to eq(output.strip) }
+        it {
+          expect(converter.convert(node_for(xml_input)).strip).to eq(output.strip)
+        }
       end
     end
   end
 
-   context "When text is not a number" do
+  context "When text is not a number" do
     context "table" do
       describe '<module_ref linkend="independent_property_definition:4_entities:table:T1">This Table</module_ref>' do
         let(:xml_input) do
@@ -108,7 +120,9 @@ RSpec.describe Stepmod::Utils::Converters::ModuleRef do
           "<<table-independent_property_definition-T1,This Table>>"
         end
 
-        it { expect(converter.convert(node_for(xml_input)).strip).to eq(output.strip) }
+        it {
+          expect(converter.convert(node_for(xml_input)).strip).to eq(output.strip)
+        }
       end
     end
 
@@ -122,7 +136,9 @@ RSpec.describe Stepmod::Utils::Converters::ModuleRef do
           "<<figure-assembly_module_design-pudv,This Figure>>"
         end
 
-        it { expect(converter.convert(node_for(xml_input)).strip).to eq(output.strip) }
+        it {
+          expect(converter.convert(node_for(xml_input)).strip).to eq(output.strip)
+        }
       end
     end
   end

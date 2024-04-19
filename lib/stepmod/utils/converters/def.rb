@@ -50,13 +50,13 @@ module Stepmod
         def additional_block(node)
           # Treat first `p` tag as an `alt` block, metanorma/stepmod-utils#9
           first_child_tag = node
-            .children
-            .find { |n| n.is_a?(Nokogiri::XML::Element) }
+                            .children
+                            .find { |n| n.is_a?(Nokogiri::XML::Element) }
           return unless can_transform_to_alt?(first_child_tag)
 
           result = Stepmod::Utils::Converters::Synonym
-            .new
-            .convert(first_child_tag)
+                   .new
+                   .convert(first_child_tag)
 
           first_child_tag.remove
           "#{result}\n\n"

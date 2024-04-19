@@ -1,4 +1,4 @@
-require 'shale'
+require "shale"
 
 class Refpath < Shale::Mapper
   attribute :content, StringWithoutIndent

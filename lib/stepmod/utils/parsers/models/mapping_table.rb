@@ -1,9 +1,9 @@
-require 'shale'
+require "shale"
 
 require_relative "../types/string_without_indent"
 
-require_relative 'ae'
-require_relative 'sc'
+require_relative "ae"
+require_relative "sc"
 
 class MappingTable < Shale::Mapper
   attribute :ae, Ae, collection: true

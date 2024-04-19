@@ -1,4 +1,3 @@
-
 require "stepmod/utils/converters/figure"
 require "stepmod/utils/converters/table"
 
@@ -8,13 +7,11 @@ module Stepmod
       class ModuleRefExpressDescription < Stepmod::Utils::Converters::Base
         def convert(node, _state = {})
           link_end = node["linkend"].to_s.split(":")
-          ref_id = link_end.last
-          parts = link_end.last.split(".")
           text = node.text.gsub(/\s/, " ").squeeze(" ").strip
 
           # puts "linkend #{node["linkend"]}"
 
-          result = case link_end[1]
+          case link_end[1]
           when "1_scope", "introduction"
             # When we see this:
             # <module_ref linkend="functional_usage_view:1_scope">Functional usage view</module_ref>
@@ -41,12 +38,11 @@ module Stepmod
             # ISO 10303-2 does not contain figures and tables, ignore
             ""
           else
-            puts "[module_ref_express_description]: encountered unknown <module_ref> tag, #{link_end.join(":")}"
-            raise StandardError.new("[module_ref_express_description]: encountered unknown <module_ref> tag, #{link_end.join(":")}")
+            puts "[module_ref_express_description]: encountered unknown <module_ref> tag, #{link_end.join(':')}"
+            raise StandardError.new("[module_ref_express_description]: encountered unknown <module_ref> tag, #{link_end.join(':')}")
           end
 
           # puts "[module_ref] #{result}"
-          result
         end
       end
       ReverseAdoc::Converters.register :module_ref,

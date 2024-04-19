@@ -1,4 +1,4 @@
-require 'shale'
+require "shale"
 
 class Imgarea < Shale::Mapper
   attribute :shape, Shale::Type::String

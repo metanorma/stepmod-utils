@@ -5,8 +5,7 @@ require "stepmod/utils/change_edition_collection"
 module Stepmod
   module Utils
     class Change
-      attr_accessor :schema_name
-      attr_accessor :mapping_table
+      attr_accessor :schema_name, :mapping_table
       attr_reader :change_editions
 
       MODULE_TYPES = {
@@ -22,7 +21,7 @@ module Stepmod
       TYPES_WITHOUT_EXTENSION = %w[
         changes
         mapping_table
-      ]
+      ].freeze
 
       def initialize(stepmod_dir:, schema_name:, type:)
         @stepmod_dir = stepmod_dir

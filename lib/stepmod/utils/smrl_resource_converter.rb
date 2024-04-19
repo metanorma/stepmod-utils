@@ -60,7 +60,8 @@ module Stepmod
         root || (return "")
 
         ReverseAdoc.config.with(options) do
-          result = ReverseAdoc::Converters.lookup(root.name).convert(root, options)
+          result = ReverseAdoc::Converters.lookup(root.name).convert(root,
+                                                                     options)
 
           Stepmod::Utils::Cleaner.new.tidy(result)
         end

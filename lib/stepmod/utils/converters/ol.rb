@@ -20,13 +20,13 @@ module Stepmod
         end
 
         def number_style(node)
-          style = case node["style"]
-                  when "1" then "arabic"
-                  when "A" then "upperalpha"
-                  when "a" then "loweralpha"
-                  when "I" then "upperroman"
-                  when "i" then "lowerroman"
-                  end
+          case node["style"]
+          when "1" then "arabic"
+          when "A" then "upperalpha"
+          when "a" then "loweralpha"
+          when "I" then "upperroman"
+          when "i" then "lowerroman"
+          end
         end
 
         def ol_attrs(node)

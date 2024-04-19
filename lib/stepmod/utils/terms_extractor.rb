@@ -67,9 +67,9 @@ module Stepmod
       end
 
       def published_part_numbers
-        docs_xml = Nokogiri::XML(File.read(@stepmod_path.join('library/docs.xml')))
+        docs_xml = Nokogiri::XML(File.read(@stepmod_path.join("library/docs.xml")))
         docs_xml.xpath("//doc").map do |x|
-          x['part']
+          x["part"]
         end.uniq.sort
       end
 
@@ -89,12 +89,12 @@ module Stepmod
 
         # add module paths
         repo_index.xpath("//module").each do |x|
-          unless published_part_nos.include? x['part']
+          unless published_part_nos.include? x["part"]
             log "INFO: skipping module #{x['name']} as part #{x['part']} is not published in `docs.xml`."
             next
           end
 
-          if x['status'] == WITHDRAWN_STATUS
+          if x["status"] == WITHDRAWN_STATUS
             log "INFO: skipping module #{x['name']} as it is withdrawn."
             next
           end
@@ -126,12 +126,12 @@ module Stepmod
 
         # add resource paths
         repo_index.xpath("//resource").each do |x|
-          unless published_part_nos.include? x['part']
+          unless published_part_nos.include? x["part"]
             log "INFO: skipping resource #{x['name']} as part #{x['part']} is not published in `docs.xml`."
             next
           end
 
-          if x['status'] == WITHDRAWN_STATUS
+          if x["status"] == WITHDRAWN_STATUS
             log "INFO: skipping resource #{x['name']} as it is withdrawn."
             next
           end
@@ -217,7 +217,7 @@ module Stepmod
 
           begin
             bibdata = Stepmod::Utils::ExpressBibdata.new(schema: schema)
-          rescue => e
+          rescue StandardError => e
             log e
             log "ERROR: while processing bibdata for `#{schema_name}`"
 
@@ -238,7 +238,7 @@ module Stepmod
 
           case type
           when "module_arm"
-            arm_concepts = parse_annotated_module(
+            parse_annotated_module(
               schema: schema,
               bibdata: bibdata,
               # See: metanorma/iso-10303-2#90
@@ -246,7 +246,7 @@ module Stepmod
               schema_type: type,
             )
           when "module_mim"
-            mim_concepts = parse_annotated_module(
+            parse_annotated_module(
               schema: schema,
               bibdata: bibdata,
               # See: metanorma/iso-10303-2#90
@@ -270,7 +270,8 @@ module Stepmod
         }[match.captures[0]] || "resource"
       end
 
-      def parse_annotated_module(schema:, bibdata:, domain_prefix:, schema_type:)
+      def parse_annotated_module(schema:, bibdata:, domain_prefix:,
+schema_type:)
         log "INFO: parse_annotated_module: " \
             "Processing modules schema #{schema.file}"
 
@@ -287,7 +288,7 @@ module Stepmod
               "name" => schema.id,
               "type" => "module",
               "path" => extract_file_path(entity.parent.file),
-              "schema_type" => schema_type
+              "schema_type" => schema_type,
             },
             document: {
               "type" => "module",
@@ -333,7 +334,7 @@ module Stepmod
               "name" => schema.id,
               "type" => "resource",
               "path" => extract_file_path(entity.parent.file),
-              "schema_type" => "resource"
+              "schema_type" => "resource",
             },
             document: {
               "type" => "resource",
@@ -365,7 +366,8 @@ module Stepmod
       end
 
       # rubocop:disable Metrics/MethodLength
-      def generate_concept_from_entity(entity:, schema:, domain:, bibdata:, document:)
+      def generate_concept_from_entity(entity:, schema:, domain:, bibdata:,
+document:)
         old_definition = trim_definition(entity.remarks.first)
         schema_type = schema["schema_type"]
         definition = generate_entity_definition(entity, domain, schema_type)
@@ -429,21 +431,21 @@ module Stepmod
         end
 
         # If full_paragraph ends with a period, this is the last.
-        if full_paragraph =~ /\.\s*\Z/
+        if /\.\s*\Z/.match?(full_paragraph)
           # puts "CONDITION 2"
           return full_paragraph
         end
 
         # If next_paragraph is a list
-        if next_paragraph.match(/\A\*/)
+        if next_paragraph.start_with?("*")
           # puts "CONDITION 3"
-          return full_paragraph + "\n\n" + next_paragraph
+          return "#{full_paragraph}\n\n#{next_paragraph}"
         end
 
         # If next_paragraph is a continuation of a list
-        if next_paragraph.match(/\Awhich/) || next_paragraph.match(/\Athat/)
+        if next_paragraph.start_with?("which", "that")
           # puts "CONDITION 4"
-          return full_paragraph + "\n\n" + next_paragraph
+          return "#{full_paragraph}\n\n#{next_paragraph}"
         end
 
         # puts "CONDITION 5"
@@ -501,7 +503,7 @@ module Stepmod
       def express_reference_to_mention(description)
         # TODO: Use Expressir to check whether the "entity" is really an
         # EXPRESS ENTITY. If not, skip the mention.
-        description.gsub(/<<express:([^,]+),([^>]+)>>/) do |match|
+        description.gsub(/<<express:([^,]+),([^>]+)>>/) do |_match|
           "{{#{Regexp.last_match[1].split('.').last},#{Regexp.last_match[2]}}}"
         end
       end
@@ -520,22 +522,22 @@ module Stepmod
       # end
 
       # rubocop:disable Layout/LineLength
-      def generate_entity_definition(entity, domain, schema_type)
+      def generate_entity_definition(entity, _domain, schema_type)
         return "" if entity.nil?
 
         # See: metanorma/iso-10303-2#90
         entity_type = case schema_type
-        when "module_arm"
-          "{{application object}}"
-        when "module_mim"
-          "{{entity data type}}"
-        when "resource", "business_object_model"
-          "{{entity data type}}"
-        else
-          raise Error.new("[stepmod-utils] encountered unsupported schema_type")
-        end
+                      when "module_arm"
+                        "{{application object}}"
+                      when "module_mim"
+                        "{{entity data type}}"
+                      when "resource", "business_object_model"
+                        "{{entity data type}}"
+                      else
+                        raise Error.new("[stepmod-utils] encountered unsupported schema_type")
+                      end
 
-        if entity.subtype_of.size.zero?
+        if entity.subtype_of.empty?
           "#{entity_type} " \
             "that represents the " \
             "#{entity_name_to_text(entity.id)} {{entity}}"

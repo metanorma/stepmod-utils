@@ -3,7 +3,8 @@ module Stepmod
     module Converters
       class ExtDescription < Stepmod::Utils::Converters::Base
         def convert(node, state = {})
-          state = state.merge(schema_name: node["linkend"], non_flanking_whitesapce: true)
+          state = state.merge(schema_name: node["linkend"],
+                              non_flanking_whitesapce: true)
           child_text = treat_children(node, state).strip
 
           <<~TEMPLATE

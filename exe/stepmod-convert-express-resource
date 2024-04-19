@@ -17,10 +17,8 @@ input_content = ARGF.read
 
 result = Stepmod::Utils::SmrlResourceConverter.convert(input_content, {})
 result.split("\n").each do |line|
-  begin
-    $stdout.puts(line)
-    $stdout.flush
-  rescue Errno::EPIPE
-    exit(74)
-  end
+  $stdout.puts(line)
+  $stdout.flush
+rescue Errno::EPIPE
+  exit(74)
 end

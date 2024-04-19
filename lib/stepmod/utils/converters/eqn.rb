@@ -26,8 +26,8 @@ module Stepmod
 
         def definition_node?(node)
           first_strong_node = node
-            .children
-            .find do |n|
+                              .children
+                              .find do |n|
             return false if !n.text? && n.name != "b"
 
             n.name == "b"
@@ -39,8 +39,8 @@ module Stepmod
 
         def definition_converted(cloned_node, state)
           first_strong_node = cloned_node
-            .children
-            .find do |n|
+                              .children
+                              .find do |n|
             return false if !n.text? && n.name != "b"
 
             n.name == "b"
@@ -56,7 +56,8 @@ module Stepmod
 
         def stem_converted(cloned_node, state)
           remove_tags_not_in_context(cloned_node) unless state[:convert_bold_and_italics]
-          internal_content = treat_children(cloned_node, state.merge(equation: true))
+          internal_content = treat_children(cloned_node,
+                                            state.merge(equation: true))
           content = Stepmod::Utils::HtmlToAsciimath.new.call(internal_content)
           res = <<~TEMPLATE
             #{source_type_comment(cloned_node)}
@@ -107,7 +108,8 @@ module Stepmod
         end
 
         def log_equation(node, state, equation_converted)
-          equation_converted_with_bold_and_italics = stem_converted(node.clone, state.merge(convert_bold_and_italics: true))
+          equation_converted_with_bold_and_italics = stem_converted(node.clone,
+                                                                    state.merge(convert_bold_and_italics: true))
 
           return if equation_converted_with_bold_and_italics == equation_converted
 

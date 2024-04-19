@@ -14,7 +14,9 @@ RSpec.describe Stepmod::Utils::Converters::A do
         "See <<eqn1>>"
       end
 
-      it { expect(converter.convert(node_for(xml_input)).strip).to eq(output.strip) }
+      it {
+        expect(converter.convert(node_for(xml_input)).strip).to eq(output.strip)
+      }
     end
 
     describe "<p>See Figure <a href=\"#fig1\">(1)</a></p>" do
@@ -26,7 +28,9 @@ RSpec.describe Stepmod::Utils::Converters::A do
         "See <<fig1>>"
       end
 
-      it { expect(converter.convert(node_for(xml_input)).strip).to eq(output.strip) }
+      it {
+        expect(converter.convert(node_for(xml_input)).strip).to eq(output.strip)
+      }
     end
 
     describe "<p>See Table <a href=\"#table1\">(1)</a></p>" do
@@ -38,7 +42,9 @@ RSpec.describe Stepmod::Utils::Converters::A do
         "See <<table1>>"
       end
 
-      it { expect(converter.convert(node_for(xml_input)).strip).to eq(output.strip) }
+      it {
+        expect(converter.convert(node_for(xml_input)).strip).to eq(output.strip)
+      }
     end
   end
 end

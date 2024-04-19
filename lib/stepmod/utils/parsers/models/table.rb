@@ -1,6 +1,6 @@
-require 'shale'
+require "shale"
 
-require_relative 'tr'
+require_relative "tr"
 
 class Table < Shale::Mapper
   attribute :caption, Shale::Type::String

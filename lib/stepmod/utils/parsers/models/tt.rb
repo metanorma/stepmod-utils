@@ -1,15 +1,15 @@
-require 'shale'
+require "shale"
 
-require_relative 'a'
-require_relative 'b'
-require_relative 'bold'
-require_relative 'bom_ref'
-require_relative 'express_extref'
-require_relative 'express_ref'
-require_relative 'i'
-require_relative 'module_ref'
-require_relative 'sub'
-require_relative 'sup'
+require_relative "a"
+require_relative "b"
+require_relative "bold"
+require_relative "bom_ref"
+require_relative "express_extref"
+require_relative "express_ref"
+require_relative "i"
+require_relative "module_ref"
+require_relative "sub"
+require_relative "sup"
 
 # These are needed to resolve circular dependencies
 # https://github.com/kgiszczak/shale/blob/master/spec/shale/schema/xml_generator_spec.rb#L108

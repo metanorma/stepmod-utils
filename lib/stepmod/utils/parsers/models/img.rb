@@ -1,6 +1,6 @@
-require 'shale'
+require "shale"
 
-require_relative 'imgarea'
+require_relative "imgarea"
 
 class Img < Shale::Mapper
   attribute :src, Shale::Type::String

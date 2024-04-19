@@ -31,9 +31,11 @@ module Stepmod
         all_modules_changes_files.each do |module_change_file|
           xml_changes = Nokogiri::XML(File.read(module_change_file)).root
           schema_name = Pathname.new(module_change_file).parent.basename.to_s
-          add_module_changes_to_collection(xml_changes, @collection, schema_name)
+          add_module_changes_to_collection(xml_changes, @collection,
+                                           schema_name)
 
-          add_mapping_table_changes_to_collection(xml_changes, schema_name, @collection)
+          add_mapping_table_changes_to_collection(xml_changes, schema_name,
+                                                  @collection)
         end
 
         @collection
@@ -41,7 +43,8 @@ module Stepmod
 
       private
 
-      def add_mapping_table_changes_to_collection(xml_data, schema_name, collection)
+      def add_mapping_table_changes_to_collection(xml_data, schema_name,
+collection)
         mapping_table = xml_data.at_xpath("//mapping_table")
         return unless mapping_table
 

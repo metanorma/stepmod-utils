@@ -15,7 +15,7 @@ require "optparse"
 
 def log(message, indent = 0)
   indent_spaces = " " * (indent * 2)
-  puts "[stepmod-utils] #{message}"
+  puts "[stepmod-utils] #{indent_spaces}#{message}"
 end
 
 def copy_files_to_schemas(path, stepmod_path, srl_output_schemas_dir)
@@ -34,13 +34,12 @@ def copy_files_to_schemas(path, stepmod_path, srl_output_schemas_dir)
 end
 
 def copy_files_to_document(path, stepmod_path, srl_output_docs_dir)
-  base_path = path.dirname.relative_path_from(File.join(stepmod_path, "data"))
   file_name = path.basename
-  module_xml_path = path.dirname.join('module.xml')
+  module_xml_path = path.dirname.join("module.xml")
   # puts "module_xml_path #{module_xml_path}"
   module_xml = Nokogiri::XML(IO.read(module_xml_path)).root
 
-  part_number = module_xml.xpath('//module').first.attr('part')
+  part_number = module_xml.xpath("//module").first.attr("part")
   # module_name = module_xml.xpath('//module').first.attr('name')
 
   new_dir = File.join(srl_output_docs_dir, "iso-10303-#{part_number}")
@@ -99,19 +98,19 @@ OptionParser.new do |opts|
 end.parse!
 
 def download_stepmod2mn(path)
-  if path && path.exist?
+  if path&.exist?
     puts "Specified `stepmod2mn.jar` found, skipping download."
     return path
   end
 
   puts "Specified `stepmod2mn.jar` not found, downloading from GitHub."
 
-  require 'octokit'
+  require "octokit"
   require "down"
   require "fileutils"
 
   client = Octokit::Client.new
-  download_url = client.latest_release('metanorma/stepmod2mn').assets.first.browser_download_url
+  download_url = client.latest_release("metanorma/stepmod2mn").assets.first.browser_download_url
 
   filename = Pathname.new(download_url).basename.to_s
 
@@ -147,7 +146,7 @@ end
 
 stepmod_path = Pathname.new(stepmod_dir)
 unless stepmod_path.exist? && stepmod_path.directory? &&
-  stepmod_path.join("data").exist? && stepmod_path.join("data").directory?
+    stepmod_path.join("data").exist? && stepmod_path.join("data").directory?
   puts "Specified STEPmod directory not found, not a directory, or does not contain `data/`. Aborting."
   exit 1
 end
@@ -167,32 +166,32 @@ unless File.directory?(srl_output_docs_dir)
 end
 log "SRL output documents directory path: `#{srl_output_docs_dir}`"
 
-log("*"*30)
+log("*" * 30)
 log("[SRL MIGRATION] Migration starts!")
 
-log("*"*30)
+log("*" * 30)
 log("[SRL MIGRATION: stepmod2mn.jar] START SVG generation.")
-log("*"*30)
+log("*" * 30)
 system "java -Xss5m -jar #{stepmod2mn_path} #{stepmod_dir} --output-documents #{srl_output_docs_dir} --output-schemas #{srl_output_schemas_dir} --svg"
 
-log("*"*30)
+log("*" * 30)
 log("[SRL MIGRATION: stepmod2mn.jar] COMPLETE SVG generation.")
 
-log("*"*30)
+log("*" * 30)
 log("[SRL MIGRATION: stepmod2mn.jar] START document migration and SVG generation.")
-log("*"*30)
+log("*" * 30)
 system "java -Xss5m -jar #{stepmod2mn_path} #{stepmod_dir} --output-documents #{srl_output_docs_dir} --output-schemas #{srl_output_schemas_dir}"
-log("*"*30)
+log("*" * 30)
 log("[SRL MIGRATION: stepmod2mn.jar] COMPLETE document migration and SVG generation.")
 
-log("*"*30)
+log("*" * 30)
 log("[SRL MIGRATION: stepmod-utils] START Annotated EXPRESS generation.")
-log("*"*30)
+log("*" * 30)
 system "stepmod-annotate-all --stepmod-dir #{stepmod_dir} --documents #{srl_output_docs_dir} --schemas #{srl_output_schemas_dir}"
-log("*"*30)
+log("*" * 30)
 log("[SRL MIGRATION: stepmod-utils] COMPLETE Annotated EXPRESS generation.")
 
-log("*"*30)
+log("*" * 30)
 log("[SRL MIGRATION: stepmod-utils] START EXPRESS change YAML extraction.")
 system "stepmod-extract-changes -p #{stepmod_dir}"
 
@@ -208,10 +207,10 @@ Dir.glob("#{stepmod_dir}/data/**/changes.yaml").each do |filepath|
   copy_files_to_document(path, stepmod_dir, srl_output_docs_dir)
 end
 
-log("*"*30)
+log("*" * 30)
 log("[SRL MIGRATION: stepmod-utils] COMPLETE EXPRESS change YAML extraction.")
 
-log("*"*30)
+log("*" * 30)
 log("[SRL MIGRATION] Migration complete!")
 
-log("*"*30)
+log("*" * 30)

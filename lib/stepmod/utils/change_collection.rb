@@ -24,7 +24,7 @@ module Stepmod
       end
 
       def save_to_files
-        @changes.values.each(&:save_to_file)
+        @changes.each_value(&:save_to_file)
       end
 
       def count

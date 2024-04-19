@@ -1,13 +1,13 @@
-require 'shale'
+require "shale"
 
-require_relative 'aimelt'
-require_relative 'alt'
-require_relative 'description'
-require_relative 'express_ref'
-require_relative 'refpath'
-require_relative 'refpath_extend'
-require_relative 'rules'
-require_relative 'source'
+require_relative "aimelt"
+require_relative "alt"
+require_relative "description"
+require_relative "express_ref"
+require_relative "refpath"
+require_relative "refpath_extend"
+require_relative "rules"
+require_relative "source"
 
 class AltMap < Shale::Mapper
   attribute :id, Shale::Type::String

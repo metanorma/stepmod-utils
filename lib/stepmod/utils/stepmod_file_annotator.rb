@@ -30,7 +30,8 @@ module Stepmod
       end
 
       def resource_docs_schemas(stepmod_dir)
-        filepath = File.join(stepmod_dir, "data", "resource_docs", "*", "resource.xml")
+        filepath = File.join(stepmod_dir, "data", "resource_docs", "*",
+                             "resource.xml")
 
         schemas = {}
         Dir.glob(filepath).each do |resource_docs_file|
@@ -86,7 +87,8 @@ module Stepmod
             end
 
             schema_base_dir = resource_docs_cache[base_linked]
-            add_images_references(converted_description, schema_base_dir, processed_images_cache)
+            add_images_references(converted_description, schema_base_dir,
+                                  processed_images_cache)
 
             # Add converted description from exact linked path
             if resource_docs_dir && added_resource_descriptions[description["linkend"]].nil?
@@ -97,7 +99,8 @@ module Stepmod
           end
         end
 
-        bib_file_name = extract_bib_file_name(match, resource_docs_cache[@schema_name || ""])
+        bib_file_name = extract_bib_file_name(match,
+                                              resource_docs_cache[@schema_name || ""])
         bib_file = if match
                      File.join(File.dirname(express_file), bib_file_name)
                    else
@@ -135,13 +138,15 @@ module Stepmod
           .gsub(";;", ";")
       end
 
-      def add_images_references(description, schema_base_dir, processed_images_cache)
+      def add_images_references(description, schema_base_dir,
+processed_images_cache)
         referenced_images = description.scan(/image::(.*?)\[\]/).flatten
 
         referenced_images.each do |referenced_image|
           next unless schema_base_dir
 
-          image_file_path = File.join("resource_docs", schema_base_dir, referenced_image)
+          image_file_path = File.join("resource_docs", schema_base_dir,
+                                      referenced_image)
           new_image_file_path = referenced_image
 
           if processed_images_cache[new_image_file_path]
@@ -344,8 +349,10 @@ module Stepmod
         }
       end
 
-      def convert_from_resource_file(resource_docs_dir, stepmod_dir, linked, descriptions_file)
-        resource_docs_file = resource_docs_file_path(stepmod_dir, resource_docs_dir)
+      def convert_from_resource_file(resource_docs_dir, stepmod_dir, linked,
+descriptions_file)
+        resource_docs_file = resource_docs_file_path(stepmod_dir,
+                                                     resource_docs_dir)
 
         resource_docs = Nokogiri::XML(File.read(resource_docs_file)).root
         schema = resource_docs.xpath("schema[@name='#{linked}']")

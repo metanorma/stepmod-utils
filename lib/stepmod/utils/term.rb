@@ -9,7 +9,7 @@ module Stepmod
       def to_mn_adoc
         mn_adoc = ["=== #{definition.map(&:content).join}"]
         mn_adoc << "\nalt:[#{acronym}]" if acronym
-        mn_adoc << "\n\n#{designations.map(&:designation).join(", ")}" if designations&.any?
+        mn_adoc << "\n\n#{designations.map(&:designation).join(', ')}" if designations&.any?
 
         mn_adoc.join
       end

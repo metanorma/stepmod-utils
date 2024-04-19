@@ -22,8 +22,8 @@ module Stepmod
             first_child =~ /include:?\s*\Z/ ||
             first_child =~ /of:?\s*\Z/ ||
             first_child =~ /[:;]\s*\Z/
-            ) &&
-            child_text =~ /\n\n\*/
+          ) &&
+              child_text =~ /\n\n\*/
 
             # Only taking the first paragraph of the definition
             child_text = first_child
@@ -32,7 +32,7 @@ module Stepmod
           # TEMP: Remove any whitespace (" ", not newlines) after an immediate
           # newline due to:
           # https://github.com/metanorma/iso-10303-2/issues/71
-          if child_text =~ /\n\ +/
+          if /\n\ +/.match?(child_text)
             child_text = child_text.gsub(/\n\ +/, "\n")
           end
 

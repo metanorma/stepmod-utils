@@ -1,7 +1,7 @@
-require 'shale'
+require "shale"
 
-require_relative 'td'
-require_relative 'th'
+require_relative "td"
+require_relative "th"
 
 class Tr < Shale::Mapper
   attribute :align, Shale::Type::String

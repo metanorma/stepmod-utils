@@ -16,7 +16,9 @@ RSpec.describe Stepmod::Utils::Converters::A do
         "<<eqn1>>"
       end
 
-      it { expect(converter.convert(node_for(xml_input)).strip).to eq(output.strip) }
+      it {
+        expect(converter.convert(node_for(xml_input)).strip).to eq(output.strip)
+      }
     end
 
     describe "<a href=\"#eqn71\">(71)</a>" do
@@ -28,7 +30,9 @@ RSpec.describe Stepmod::Utils::Converters::A do
         "<<eqn71>>"
       end
 
-      it { expect(converter.convert(node_for(xml_input)).strip).to eq(output.strip) }
+      it {
+        expect(converter.convert(node_for(xml_input)).strip).to eq(output.strip)
+      }
     end
 
     describe "<a href=\"#fig1\">Figure (1)</a>" do
@@ -40,7 +44,9 @@ RSpec.describe Stepmod::Utils::Converters::A do
         "<<fig1>>"
       end
 
-      it { expect(converter.convert(node_for(xml_input)).strip).to eq(output.strip) }
+      it {
+        expect(converter.convert(node_for(xml_input)).strip).to eq(output.strip)
+      }
     end
 
     describe "<a href=\"#table1\">Table 1</a>" do
@@ -52,7 +58,9 @@ RSpec.describe Stepmod::Utils::Converters::A do
         "<<table1>>"
       end
 
-      it { expect(converter.convert(node_for(xml_input)).strip).to eq(output.strip) }
+      it {
+        expect(converter.convert(node_for(xml_input)).strip).to eq(output.strip)
+      }
     end
 
     describe "<a href=\"6_schema.xml#eqnGM1\">(1)</a>" do
@@ -64,7 +72,9 @@ RSpec.describe Stepmod::Utils::Converters::A do
         "link:6_schema.xml#eqnGM1"
       end
 
-      it { expect(converter.convert(node_for(xml_input)).strip).to eq(output.strip) }
+      it {
+        expect(converter.convert(node_for(xml_input)).strip).to eq(output.strip)
+      }
     end
   end
 
@@ -78,7 +88,9 @@ RSpec.describe Stepmod::Utils::Converters::A do
         "<<eqn7,This Equation>>"
       end
 
-      it { expect(converter.convert(node_for(xml_input)).strip).to eq(output.strip) }
+      it {
+        expect(converter.convert(node_for(xml_input)).strip).to eq(output.strip)
+      }
     end
 
     describe "<a href=\"6_schema.xml#eqnGM1\">That Equation</a>" do
@@ -90,7 +102,9 @@ RSpec.describe Stepmod::Utils::Converters::A do
         "link:6_schema.xml#eqnGM1[That Equation]"
       end
 
-      it { expect(converter.convert(node_for(xml_input)).strip).to eq(output.strip) }
+      it {
+        expect(converter.convert(node_for(xml_input)).strip).to eq(output.strip)
+      }
     end
   end
 end

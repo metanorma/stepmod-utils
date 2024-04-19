@@ -1,9 +1,9 @@
-require 'shale'
+require "shale"
 
-require_relative 'alt_scmap'
-require_relative 'description'
-require_relative 'rules'
-require_relative 'source'
+require_relative "alt_scmap"
+require_relative "description"
+require_relative "rules"
+require_relative "source"
 
 class Sc < Shale::Mapper
   attribute :constraint, Shale::Type::Value

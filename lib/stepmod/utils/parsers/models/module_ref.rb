@@ -1,4 +1,4 @@
-require 'shale'
+require "shale"
 
 class ModuleRef < Shale::Mapper
   attribute :content, Shale::Type::String

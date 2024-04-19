@@ -5,7 +5,7 @@ module Stepmod
     module Parsers
       class MappingTableParser
         def self.parse(node)
-          self.new(node).parse
+          new(node).parse
         end
 
         def initialize(node)

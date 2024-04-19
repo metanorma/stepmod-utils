@@ -1,14 +1,14 @@
-require 'shale'
+require "shale"
 
-require_relative 'aimelt'
-require_relative 'alt'
-require_relative 'alt_map'
-require_relative 'description'
-require_relative 'express_ref'
-require_relative 'refpath'
-require_relative 'refpath_extend'
-require_relative 'rules'
-require_relative 'source'
+require_relative "aimelt"
+require_relative "alt"
+require_relative "alt_map"
+require_relative "description"
+require_relative "express_ref"
+require_relative "refpath"
+require_relative "refpath_extend"
+require_relative "rules"
+require_relative "source"
 
 class Aa < Shale::Mapper
   attribute :attribute, Shale::Type::String
