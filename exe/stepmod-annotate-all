@@ -124,6 +124,8 @@ def all_express_files(stepmod_dir)
   index.xpath("modules/module").each do |item|
     files << "#{stepmod_dir}/data/modules/#{item['name']}/arm.exp"
     files << "#{stepmod_dir}/data/modules/#{item['name']}/mim.exp"
+    files << "#{stepmod_dir}/data/modules/#{item['name']}/arm_lf.exp"
+    files << "#{stepmod_dir}/data/modules/#{item['name']}/mim_lf.exp"
   end
 
   # Skip resource schemas
