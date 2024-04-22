@@ -58,18 +58,18 @@ module Stepmod
       def build_schema_string_with_version
         # Geometric_tolerance_arm => geometric-tolarance-arm
         name_in_asn1 = @schema_name.downcase.gsub("_", "-")
-        type_number = case @schema_name.downcase
+        schema_type, type_number = case @schema_name.downcase
         when /_arm\Z/i
-          1
+          [:module, 1]
         when /_mim\Z/i
-          2
+          [:module, 2]
         when /_arm_lf\Z/i
-          3
+          [:module, 3]
         when /_mim_lf\Z/i
-          @module_has_arm_lf ? 4 : 3
+          [:module, @module_has_arm_lf ? 4 : 3]
         else # any resource schema without version strings
           puts "[annotator-WARNING] this resource schema is missing a version string: #{@schema_name}"
-          1
+          [:resource, 1]
         end
 
         # TODO there are schemas with only arm, arm_lf:
@@ -78,8 +78,14 @@ module Stepmod
         # schemas/modules/limited_length_or_area_indicator_assignment/mim_lf.exp
         part = @identifier.part
         edition = @identifier.edition
+        schema_or_object = (schema_type == :module) ? "schema" : "object"
 
-        "SCHEMA #{@schema_name} '{ iso standard 10303 part(#{part}) version(#{edition}) schema(1) #{name_in_asn1}(#{type_number}) }';\n"
+        "SCHEMA #{@schema_name} '{ " \
+          "iso standard 10303 part(#{part}) " \
+          "version(#{edition}) " \
+          "#{schema_or_object}(1) " \
+          "#{name_in_asn1}(#{type_number}) " \
+        "}';\n"
       end
 
       def resource_docs_schemas(stepmod_dir)
