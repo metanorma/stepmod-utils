@@ -4,7 +4,7 @@ ISO TC184/SC4/WG12 N1157 - ISO/TS 10303-1047 Activity - EXPRESS MIM
 *) 
 
 
-SCHEMA Activity_mim;
+SCHEMA Activity_mim '{ iso standard 10303 part(1047) version(3) schema(1) activity-mim(2) }';
 
 USE FROM action_schema   -- ISO 10303-41
   (action,
