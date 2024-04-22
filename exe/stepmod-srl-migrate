@@ -169,6 +169,13 @@ log "SRL output documents directory path: `#{srl_output_docs_dir}`"
 log("*" * 30)
 log("[SRL MIGRATION] Migration starts!")
 
+# Excludes migration of originally detached documents
+# See https://github.com/metanorma/iso-10303-srl/issues/67
+STEPMOD2MN_ARGS_EXCLUDE_PARTS = %w(
+  49 50 52 55 104 108 109 110 111 112
+  501 502 505 507 508 509 510 511 512 513 514 519
+).join(" ")
+
 log("*" * 30)
 log("[SRL MIGRATION: stepmod2mn.jar] START SVG generation.")
 log("*" * 30)
@@ -180,7 +187,7 @@ log("[SRL MIGRATION: stepmod2mn.jar] COMPLETE SVG generation.")
 log("*" * 30)
 log("[SRL MIGRATION: stepmod2mn.jar] START document migration and SVG generation.")
 log("*" * 30)
-system "java -Xss5m -jar #{stepmod2mn_path} #{stepmod_dir} --output-documents #{srl_output_docs_dir} --output-schemas #{srl_output_schemas_dir}"
+system "java -Xss5m -jar #{stepmod2mn_path} #{stepmod_dir} --output-documents #{srl_output_docs_dir} --output-schemas #{srl_output_schemas_dir} --exclude '#{STEPMOD2MN_ARGS_EXCLUDE_PARTS}'"
 log("*" * 30)
 log("[SRL MIGRATION: stepmod2mn.jar] COMPLETE document migration and SVG generation.")
 
