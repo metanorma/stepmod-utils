@@ -12,7 +12,7 @@ require "pubid-iso"
 module Stepmod
   module Utils
     class StepmodFileAnnotator
-      attr_reader :express_file, :resource_docs_cache, :stepmod_dir
+      attr_reader :express_file, :resource_docs_cache, :stepmod_dir, :schema_name
 
       # @param express_file [String] path to the exp file needed to annotate
       # @param resource_docs_cache [String] output of ./stepmod-build-resource-docs-cache
@@ -27,6 +27,59 @@ module Stepmod
                                                  .schemas
                                                  .first
                                                  .id
+        @schema_name = normalize_schema_name(@schema_name)
+        self
+      end
+
+      # Needed to fix scheme casing issues, e.g. xxx_LF => xxx_lf
+      def normalize_schema_name(name)
+        case name.downcase
+        # module schemas have first letter capitalized, rest in lowercase
+        when /_arm_lf\Z/i, /_mim_lf\Z/i, /_arm\Z/i, /_mim\Z/i
+          name.downcase.capitalize
+        # resource schemas are all in lowercase
+        else
+          name.downcase
+        end
+      end
+
+      SCHEMA_VERSION_MATCH_REGEX = /^SCHEMA [0-9a-zA-Z_]+;\s*$/
+      def is_missing_version(schema_content)
+        m = schema_content.match(SCHEMA_VERSION_MATCH_REGEX)
+        if m.nil?
+          false
+        elsif m[0] # match
+          true
+        else
+          false
+        end
+      end
+
+      def build_schema_string_with_version
+        # Geometric_tolerance_arm => geometric-tolarance-arm
+        name_in_asn1 = @schema_name.downcase.gsub("_", "-")
+        type_number = case @schema_name.downcase
+        when /_arm\Z/i
+          1
+        when /_mim\Z/i
+          2
+        when /_arm_lf\Z/i
+          3
+        when /_mim_lf\Z/i
+          @module_has_arm_lf ? 4 : 3
+        else # any resource schema without version strings
+          puts "[annotator-WARNING] this resource schema is missing a version string: #{@schema_name}"
+          1
+        end
+
+        # TODO there are schemas with only arm, arm_lf:
+        # schemas/modules/reference_schema_for_sysml_mapping/arm_lf.exp
+        # TODO there are schemas with only arm, mim, mim_lf:
+        # schemas/modules/limited_length_or_area_indicator_assignment/mim_lf.exp
+        part = @identifier.part
+        edition = @identifier.edition
+
+        "SCHEMA #{@schema_name} '{ iso standard 10303 part(#{part}) version(#{edition}) schema(1) #{name_in_asn1}(#{type_number}) }';\n"
       end
 
       def resource_docs_schemas(stepmod_dir)
@@ -48,7 +101,7 @@ module Stepmod
       end
 
       def call
-        match = File.basename(express_file).match('^(arm|mim|bom)\.exp$')
+        match = File.basename(express_file).match('^(arm|mim|bom|arm_lf|mim_lf|DomainModel)\.exp$')
         descriptions_base = match ? "#{match.captures[0]}_descriptions.xml" : "descriptions.xml"
 
         descriptions_file = File.join(File.dirname(express_file),
@@ -107,8 +160,13 @@ module Stepmod
                      resource_docs_file_path(stepmod_dir, bib_file_name)
                    end
 
-        output_express << if bib_file && File.exist?(bib_file)
-                            prepend_bibdata(
+        unless bib_file && File.exist?(bib_file)
+          raise StandardError.new(
+            "bib_file for #{schema_name} does not exist: #{bib_file}"
+          )
+        end
+
+        output_express << prepend_bibdata(
                               converted_description || "",
                               # bib_file will not be present for resouces
                               # that are not in resource_docs cache.
@@ -117,9 +175,16 @@ module Stepmod
                               @schema_name,
                               match,
                             )
-                          else
-                            converted_description
-                          end
+
+        if is_missing_version(output_express)
+          puts "[annotator-WARNING] schema (#{@schema_name}) missing version string. "\
+            "Adding: `#{build_schema_string_with_version}` to schema."
+
+          output_express.gsub!(
+            SCHEMA_VERSION_MATCH_REGEX,
+            build_schema_string_with_version
+          )
+        end
 
         {
           annotated_text: sanitize(output_express),
@@ -171,7 +236,11 @@ processed_images_cache)
 
           converted_description = <<~DESCRIPTION
 
-            #{Stepmod::Utils::SmrlDescriptionConverter.convert(wrapper, no_notes_examples: true, descriptions_file: descriptions_file)}
+            #{Stepmod::Utils::SmrlDescriptionConverter.convert(
+              wrapper,
+              no_notes_examples: true,
+              descriptions_file: descriptions_file
+            )}
           DESCRIPTION
 
           if description["linkend"].nil?
@@ -216,12 +285,15 @@ processed_images_cache)
         bib = Nokogiri::XML(File.read(bibdata_file)).root
         bibdata = extract_bib_data(match, bib, schema_and_entity)
 
+        # for schema version string generation
+        @identifier = bibdata[:identifier]
+
         return description.to_s if @added_bibdata[schema_and_entity]
 
         published_in = <<~PUBLISHED_IN
 
           (*"#{schema_and_entity}.__published_in"
-          #{bibdata[:identifier]}
+          #{bibdata[:identifier].to_s(with_edition: true)}
           *)
         PUBLISHED_IN
 
@@ -269,17 +341,17 @@ processed_images_cache)
       end
 
       def module?(match)
-        match && %w[arm mim].include?(match.captures[0])
+        match && %w[arm mim arm_lf mim_lf].include?(match.captures[0])
       end
 
       def bom?(match)
-        match && %w[bom].include?(match.captures[0])
+        match && %w[bom DomainModel].include?(match.captures[0])
       end
 
       def extract_bib_file_name(match, default_file_name = "")
         return default_file_name || "" unless match
 
-        if %w[arm mim].include?(match.captures[0])
+        if %w[arm mim arm_lf mim_lf].include?(match.captures[0])
           "module.xml"
         else
           "business_object_model.xml"
@@ -287,9 +359,21 @@ processed_images_cache)
       end
 
       def extract_bib_data(match, bib, schema_and_entity)
+        # for schema version string generation
+        @identifier = identifier(bib)
+
         return resource_bib_data(bib, schema_and_entity) unless match
 
         if module?(match)
+          @module_has_arm = !bib.xpath("arm").first.nil?
+          @module_has_mim = !bib.xpath("mim").first.nil?
+          @module_has_arm_lf = !bib.xpath("arm_lf").first.nil?
+          @module_has_mim_lf = !bib.xpath("mim_lf").first.nil?
+
+          puts "[annotator] module has schemas: " \
+            "ARM(#{@module_has_arm}) MIM(#{@module_has_mim}) " \
+            "ARM_LF(#{@module_has_arm_lf}) MIM_LF(#{@module_has_mim_lf})"
+
           module_bib_data(bib, match.captures[0])
         elsif bom?(match)
           bom_bib_data(bib)
@@ -314,7 +398,7 @@ processed_images_cache)
         pubid.year = year.split("-").first if year && !year.empty?
         pubid.edition = edition if edition && !edition.empty?
 
-        pubid.to_s(with_edition: true)
+        pubid
       end
 
       def resource_bib_data(bib, schema_and_entity)
@@ -322,6 +406,7 @@ processed_images_cache)
 
         {
           identifier: identifier(bib),
+          edition: bib.attributes["version"],
           number: schema.attributes["number"],
           supersedes_concept: schema.attributes["number.supersedes"],
           status: bib.attributes["status"],
@@ -332,6 +417,7 @@ processed_images_cache)
       def module_bib_data(bib, type)
         {
           identifier: identifier(bib),
+          edition: bib.attributes["version"],
           number: bib.attributes["wg.number.#{type}"],
           supersedes_concept: bib.attributes["wg.number.#{type}.supersedes"],
           status: bib.attributes["status"],
@@ -342,6 +428,7 @@ processed_images_cache)
       def bom_bib_data(bib)
         {
           identifier: identifier(bib),
+          edition: bib.attributes["version"],
           number: bib.attributes["wg.number.bom.exp"],
           supersedes_concept: bib.attributes["wg.number.bom.supersedes"],
           status: bib.attributes["status"],
