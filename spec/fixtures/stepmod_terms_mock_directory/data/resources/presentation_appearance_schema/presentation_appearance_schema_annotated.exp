@@ -1785,6 +1785,7 @@ The **squared_or_rounded** type specifies the appearance of curves at their corn
 
 (*"presentation_appearance_schema.squared_or_rounded.__figure"
 [[figure-presentation_appearance_schema-fig_squared_or_rounded]]
+.Squared or rounded
 ====
 image::squared_or_rounded.gif[]
 ====
@@ -2066,6 +2067,7 @@ The **box_rotate_angle** is an angle which indicates that the box for a characte
 
 (*"presentation_appearance_schema.box_rotate_angle.__figure"
 [[figure-presentation_appearance_schema-fig_slant_angle]]
+.Box slant and rotate angle
 ====
 image::box_slant_and_rotate_angle.gif[]
 ====
@@ -2096,6 +2098,7 @@ The **approximation_method** is used to enumerate two possible methods for the t
 
 (*"presentation_appearance_schema.approximation_method.__figure"
 [[figure-presentation_appearance_schema-fig_chordal_deviation_and_length]]
+.Chordal deviation and length
 ====
 image::chordal_deviation_and_length.gif[]
 ====
@@ -2479,6 +2482,7 @@ a <<express:measure_schema.length_measure,length_measure>> indicating how to len
 
 (*"presentation_appearance_schema.curve_style_with_extension.curve_extensions.__figure"
 [[figure-presentation_appearance_schema-fig_curve_style_with_extension]]
+.Curve style with extension
 ====
 image::curve_style_with_extension.gif[]
 ====
@@ -2501,6 +2505,7 @@ Table 1 states the lengths of each line segment and space, in millimetres, corre
 
 (*"presentation_appearance_schema.draughting_pre_defined_curve_font.__figure"
 [[figure-presentation_appearance_schema-fig_illustration_of_predefined_curve_fonts]]
+.Illustration of predefined curve fonts
 ====
 image::illustration_of_predefined_curve_fonts.gif[]
 ====
@@ -2623,6 +2628,7 @@ A **curve_style_curve_pattern** is a type of <<express:geometry_schema.geometric
 
 (*"presentation_appearance_schema.curve_style_curve_pattern.__figure"
 [[figure-presentation_appearance_schema-fig_curve_style_curve_pattern]]
+.Curve style curve pattern
 ====
 image::curve_style_curve_pattern.gif[]
 ====
@@ -2717,6 +2723,7 @@ A **fill_area_style_hatching** is a type of <<express:geometry_schema.geometric_
 
 (*"presentation_appearance_schema.fill_area_style_hatching.__figure"
 [[figure-presentation_appearance_schema-fig_fill_area_style_hatching]]
+.Fill area style hatching
 ====
 image::fill_area_style_hatching.gif[]
 ====
@@ -2845,6 +2852,7 @@ A **one_direction_repeat_factor** is a type of <<express:geometry_schema.geometr
 
 (*"presentation_appearance_schema.one_direction_repeat_factor.__figure"
 [[figure-presentation_appearance_schema-fig_one_direction_repeat_factor]]
+.One direction repeat factor
 ====
 image::one_direction_repeat_factor.gif[]
 ====
@@ -2865,6 +2873,7 @@ A **two_direction_repeat_factor** is a type of <<express:presentation_appearance
 
 (*"presentation_appearance_schema.two_direction_repeat_factor.__figure"
 [[figure-presentation_appearance_schema-fig_two_direction_repeat_factor]]
+.Two direction repeat factor
 ====
 image::two_direction_repeat_factor.gif[]
 ====
@@ -3252,6 +3261,7 @@ A **text_style_with_mirror** is a type of <<express:presentation_appearance_sche
 
 (*"presentation_appearance_schema.text_style_with_mirror.__figure"
 [[figure-presentation_appearance_schema-fig_text_style_with_mirror]]
+.Text style with mirror
 ====
 image::text_style_with_mirror.gif[]
 ====
