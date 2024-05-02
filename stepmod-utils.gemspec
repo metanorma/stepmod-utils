@@ -40,7 +40,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "plurimath"
   spec.add_runtime_dependency "ptools"
   spec.add_runtime_dependency "pubid-iso"
-  spec.add_runtime_dependency "reverse_adoc", ">= 0.3"
+  spec.add_runtime_dependency "reverse_adoc", "~> 0.3.7"
   spec.add_runtime_dependency "shale"
   spec.add_runtime_dependency "thor", ">= 0.20"
   spec.add_runtime_dependency "unitsml"
