@@ -176,7 +176,7 @@ collection)
 
         {
           version: options[:version],
-          description: options[:description],
+          description: options[:description] || converted_description(schema_changes.xpath("description").first),
           additions: extract_modified_objects(addition_nodes),
           modifications: extract_modified_objects(modification_nodes),
           deletions: extract_modified_objects(deletion_nodes),

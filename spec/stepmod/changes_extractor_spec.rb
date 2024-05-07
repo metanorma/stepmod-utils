@@ -321,6 +321,38 @@ RSpec.describe Stepmod::Utils::ChangesExtractor do
         end
       end
 
+      context "arm.changes with only description" do
+        let(:xml_data) do
+          xml = <<~XML
+            <arm.changes>
+              <description>ARM EXPRESS-G Diagrams have been updated</description>
+            </arm.changes>
+          XML
+
+          Nokogiri::XML(xml).root
+        end
+
+        let(:options) do
+          {
+            type: "arm",
+          }
+        end
+
+        let(:output) do
+          {
+            version: nil,
+            description: "ARM EXPRESS-G Diagrams have been updated",
+            additions: [],
+            modifications: [],
+            deletions: [],
+          }
+        end
+
+        it "should return correct output" do
+          expect(extract_change_edition).to eq(output)
+        end
+      end
+
       context "mim.changes" do
         let(:xml_data) do
           xml = <<~XML
