@@ -43,7 +43,7 @@ module Stepmod
         end
       end
 
-      SCHEMA_VERSION_MATCH_REGEX = /^SCHEMA [0-9a-zA-Z_]+;\s*$/
+      SCHEMA_VERSION_MATCH_REGEX = /^[[:space:]]*?SCHEMA [0-9a-zA-Z_]+;(?<trailing>.*)[[:space:]]*$/
       def is_missing_version(schema_content)
         m = schema_content.match(SCHEMA_VERSION_MATCH_REGEX)
         if m.nil?
@@ -53,6 +53,16 @@ module Stepmod
         else
           false
         end
+      end
+
+      def replace_schema_string_with_version(content)
+        m = content.match(SCHEMA_VERSION_MATCH_REGEX)
+        result = build_schema_string_with_version
+        unless m['trailing'].nil?
+          result = "#{result}#{m['trailing']}"
+        end
+
+        content.gsub!(SCHEMA_VERSION_MATCH_REGEX, result)
       end
 
       def build_schema_string_with_version
@@ -80,7 +90,7 @@ module Stepmod
         edition = @identifier.edition
         schema_or_object = (schema_type == :module) ? "schema" : "object"
 
-        "SCHEMA #{@schema_name} '{ " \
+        "\nSCHEMA #{@schema_name} '{ " \
           "iso standard 10303 part(#{part}) " \
           "version(#{edition}) " \
           "#{schema_or_object}(1) " \
@@ -186,10 +196,7 @@ module Stepmod
           puts "[annotator-WARNING] schema (#{@schema_name}) missing version string. "\
             "Adding: `#{build_schema_string_with_version}` to schema."
 
-          output_express.gsub!(
-            SCHEMA_VERSION_MATCH_REGEX,
-            build_schema_string_with_version
-          )
+          output_express = replace_schema_string_with_version(output_express)
         end
 
         {
