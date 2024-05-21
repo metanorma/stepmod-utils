@@ -37,6 +37,10 @@ def copy_files_to_document(path, stepmod_path, srl_output_docs_dir)
   file_name = path.basename
   module_xml_path = path.dirname.join("module.xml")
   # puts "module_xml_path #{module_xml_path}"
+  unless File.exist?(module_xml_path)
+    puts "[ERROR] Attempting to copy but does not exist: #{module_xml_path}"
+    return
+  end
   module_xml = Nokogiri::XML(IO.read(module_xml_path)).root
 
   part_number = module_xml.xpath("//module").first.attr("part")
