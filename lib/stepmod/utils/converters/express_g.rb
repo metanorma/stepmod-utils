@@ -29,17 +29,21 @@ module Stepmod
             ====
             image::#{svg_filename}.svg[]
 
-            #{image_document.xpath('//img.area').map.with_index(1) { |n, i| schema_reference(n['href'], i) }.join("\n")}
+            #{image_document.xpath("//img.area").map.with_index(1) { |n, i| schema_reference(n["href"], i) }.join("\n")}
             ====
           SVGMAP
         end
 
         def schema_reference(xml_path, index)
-          if /#/.match?(xml_path)
+          if xml_path.include?("#")
             _, express_path_part = xml_path.split("#")
-            "* <<express:#{express_path_part.strip}>>; #{index}"
+            return "* <<express:#{express_path_part.strip}>>; #{index}"
+          end
+
+          schema_name = File.basename(xml_path, ".*")
+          if schema_name.include?("expg")
+            "* <<#{schema_name.strip}>>; #{index}"
           else
-            schema_name = File.basename(xml_path, ".*")
             "* <<express:#{schema_name.strip}>>; #{index}"
           end
         end
