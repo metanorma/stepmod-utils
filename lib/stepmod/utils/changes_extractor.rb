@@ -175,11 +175,11 @@ collection)
         deletion_nodes = schema_changes&.xpath("#{node_type}.deletions") || []
 
         {
-          version: options[:version],
-          description: options[:description] || converted_description(schema_changes.xpath("description").first),
-          additions: extract_modified_objects(addition_nodes),
-          modifications: extract_modified_objects(modification_nodes),
-          deletions: extract_modified_objects(deletion_nodes),
+          "version" => options[:version],
+          "description" => options[:description] || converted_description(schema_changes.xpath("description").first),
+          "additions" => extract_modified_objects(addition_nodes),
+          "modifications" => extract_modified_objects(modification_nodes),
+          "deletions" => extract_modified_objects(deletion_nodes),
         }
       end
       # rubocop:enable Metrics/MethodLength
@@ -188,10 +188,10 @@ collection)
         nodes.map do |node|
           node.xpath("modified.object").map do |object|
             {
-              type: object.attr("type"),
-              name: object.attr("name"),
-              description: converted_description(object.at("description")),
-              interfaced_items: object.attr("interfaced.items"),
+              "type" => object.attr("type"),
+              "name" => object.attr("name"),
+              "description" => converted_description(object.at("description")),
+              "interfaced_items" => object.attr("interfaced.items"),
             }.compact
           end
         end.flatten
