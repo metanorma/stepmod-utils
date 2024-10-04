@@ -231,7 +231,6 @@ RSpec.describe Stepmod::Utils::ChangesExtractor do
         end
 
         it "should extract correct modified.objects data" do
-          require "pry"; binding.pry
           expect(extract_modified_objects).to eq(expected_output)
         end
       end
