@@ -178,19 +178,19 @@ RSpec.describe Stepmod::Utils::ChangesExtractor do
 
         let(:expected_output) do
           [
-            { type: "ENTITY", name: "description_attribute" },
-            { type: "TYPE", name: "description_attribute_select" },
-            { type: "FUNCTION", name: "get_description_value" },
-            { type: "FUNCTION", name: "get_id_value" },
-            { type: "FUNCTION", name: "get_name_value" },
-            { type: "FUNCTION", name: "get_role" },
-            { type: "ENTITY", name: "id_attribute" },
-            { type: "TYPE", name: "id_attribute_select" },
-            { type: "ENTITY", name: "name_attribute" },
-            { type: "TYPE", name: "name_attribute_select" },
-            { type: "ENTITY", name: "object_role" },
-            { type: "ENTITY", name: "role_association" },
-            { type: "TYPE", name: "role_select" },
+            { "type" => "ENTITY", "name" => "description_attribute" },
+            { "type" => "TYPE", "name" => "description_attribute_select" },
+            { "type" => "FUNCTION", "name" => "get_description_value" },
+            { "type" => "FUNCTION", "name" => "get_id_value" },
+            { "type" => "FUNCTION", "name" => "get_name_value" },
+            { "type" => "FUNCTION", "name" => "get_role" },
+            { "type" => "ENTITY", "name" => "id_attribute" },
+            { "type" => "TYPE", "name" => "id_attribute_select" },
+            { "type" => "ENTITY", "name" => "name_attribute" },
+            { "type" => "TYPE", "name" => "name_attribute_select" },
+            { "type" => "ENTITY", "name" => "object_role" },
+            { "type" => "ENTITY", "name" => "role_association" },
+            { "type" => "TYPE", "name" => "role_select" },
           ]
         end
 
@@ -218,19 +218,20 @@ RSpec.describe Stepmod::Utils::ChangesExtractor do
         let(:expected_output) do
           [
             {
-              type: "ENTITY",
-              name: "curve_bounded_surface",
-              description: "WHERE 'WR4' expression changed",
+              "type" => "ENTITY",
+              "name" => "curve_bounded_surface",
+              "description" => "WHERE 'WR4' expression changed",
             },
             {
-              type: "ENTITY",
-              name: "locally_refined_spline_curve",
-              description: "Add WHERE 'WR3'",
+              "type" => "ENTITY",
+              "name" => "locally_refined_spline_curve",
+              "description" => "Add WHERE 'WR3'",
             },
           ]
         end
 
         it "should extract correct modified.objects data" do
+          require "pry"; binding.pry
           expect(extract_modified_objects).to eq(expected_output)
         end
       end
@@ -252,13 +253,13 @@ RSpec.describe Stepmod::Utils::ChangesExtractor do
         let(:expected_output) do
           [
             {
-              type: "REFERENCE_FROM",
-              name: "measure_schema",
-              interfaced_items: "length_measure",
+              "type" => "REFERENCE_FROM",
+              "name" => "measure_schema",
+              "interfaced_items" => "length_measure",
             },
             {
-              type: "ENTITY",
-              name: "edge_with_length",
+              "type" => "ENTITY",
+              "name" => "edge_with_length",
             },
           ]
         end
@@ -298,19 +299,19 @@ RSpec.describe Stepmod::Utils::ChangesExtractor do
 
         let(:output) do
           {
-            version: nil,
-            description: nil,
-            additions: [
+            "version" => nil,
+            "description" => nil,
+            "additions" => [
               {
-                type: "ENTITY",
-                name: "description_text_assignment_relationship",
+                "type" => "ENTITY",
+                "name" => "description_text_assignment_relationship",
               },
             ],
-            modifications: [],
-            deletions: [
+            "modifications" => [],
+            "deletions" => [
               {
-                type: "USE_FROM",
-                name: "Collection_identification_and_version_arm",
+                "type" => "USE_FROM",
+                "name" => "Collection_identification_and_version_arm",
               },
             ],
           }
@@ -340,11 +341,11 @@ RSpec.describe Stepmod::Utils::ChangesExtractor do
 
         let(:output) do
           {
-            version: nil,
-            description: "ARM EXPRESS-G Diagrams have been updated",
-            additions: [],
-            modifications: [],
-            deletions: [],
+            "version" => nil,
+            "description" => "ARM EXPRESS-G Diagrams have been updated",
+            "additions" => [],
+            "modifications" => [],
+            "deletions" => [],
           }
         end
 
@@ -377,21 +378,21 @@ RSpec.describe Stepmod::Utils::ChangesExtractor do
 
         let(:output) do
           {
-            version: nil,
-            description: nil,
-            additions: [
+            "version" => nil,
+            "description" => nil,
+            "additions" => [
               {
-                interfaced_items: "description_text_assignment_relationship",
-                name: "systems_engineering_representation_schema",
-                type: "USE_FROM",
+                "interfaced_items" => "description_text_assignment_relationship",
+                "name" => "systems_engineering_representation_schema",
+                "type" => "USE_FROM",
               },
               {
-                name: "applied_description_text_assignment_relationship",
-                type: "ENTITY",
+                "name" => "applied_description_text_assignment_relationship",
+                "type" => "ENTITY",
               },
             ],
-            modifications: [],
-            deletions: [],
+            "modifications" => [],
+            "deletions" => [],
           }
         end
 
@@ -435,30 +436,30 @@ RSpec.describe Stepmod::Utils::ChangesExtractor do
 
         let(:output) do
           {
-            version: nil,
-            description: nil,
-            additions: [
+            "version" => nil,
+            "description" => nil,
+            "additions" => [
               {
-                name: "additional_application_domain_enumeration",
-                type: "TYPE",
+                "name" => "additional_application_domain_enumeration",
+                "type" => "TYPE",
               },
               {
-                name: "additional_application_domain_select",
-                type: "TYPE",
+                "name" => "additional_application_domain_select",
+                "type" => "TYPE",
               },
             ],
-            modifications: [
+            "modifications" => [
               {
-                name: "characterized_activity_definition",
-                type: "TYPE",
-                description: <<~DESCRIPTION.strip,
+                "name" => "characterized_activity_definition",
+                "type" => "TYPE",
+                "description" => <<~DESCRIPTION.strip,
                   * Add SELECT value 'ENTITY Condition'
                   * Add SELECT value 'ENTITY Condition_evaluation'
                   * Add SELECT value 'ENTITY Condition_relationship'
                 DESCRIPTION
               },
             ],
-            deletions: [],
+            "deletions" => [],
           }
         end
 
@@ -498,26 +499,26 @@ RSpec.describe Stepmod::Utils::ChangesExtractor do
 
         let(:output) do
           {
-            version: nil,
-            description: nil,
-            additions: [
+            "version" => nil,
+            "description" => nil,
+            "additions" => [
               {
-                name: "angular_deviation",
-                type: "TYPE",
+                "name" => "angular_deviation",
+                "type" => "TYPE",
               },
               {
-                name: "annotation_placeholder_occurrence_role",
-                type: "TYPE",
-              },
-            ],
-            modifications: [
-              {
-                description: "Add SELECT value 'TYPE characterized_item'",
-                name: "characterized_definition",
-                type: "TYPE",
+                "name" => "annotation_placeholder_occurrence_role",
+                "type" => "TYPE",
               },
             ],
-            deletions: [],
+            "modifications" => [
+              {
+                "description" => "Add SELECT value 'TYPE characterized_item'",
+                "name" => "characterized_definition",
+                "type" => "TYPE",
+              },
+            ],
+            "deletions" => [],
           }
         end
 
