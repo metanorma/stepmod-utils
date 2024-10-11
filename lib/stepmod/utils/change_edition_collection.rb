@@ -9,7 +9,7 @@ module Stepmod
 
       def fetch_or_initialize(version)
         @collection[version] ||=
-          Stepmod::Utils::ChangeEdition.new(version: version)
+          Stepmod::Utils::ChangeEdition.new("version" => version)
       end
 
       def to_h
