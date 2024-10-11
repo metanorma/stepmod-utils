@@ -5,12 +5,12 @@ module Stepmod
       attr_reader :additions, :modifications, :deletions, :changes
 
       def initialize(options)
-        @version = options[:version]
-        @description = options[:description]
-        self.additions = options[:additions] || []
-        self.modifications = options[:modifications] || []
-        self.deletions = options[:deletions] || []
-        self.changes = options[:changes] || []
+        @version = options["version"] || options[:version]
+        @description = options["description"] || options[:description]
+        self.additions = options["additions"] || options[:additions] || []
+        self.modifications = options["modifications"] || options[:modifications] || []
+        self.deletions = options["deletions"] || options[:deletions] || []
+        self.changes = options["changes"] || options[:changes] || []
       end
 
       def additions=(additions)

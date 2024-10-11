@@ -5,8 +5,8 @@ RSpec.describe Stepmod::Utils::ChangeEdition do
   describe "Instance methods" do
     subject do
       described_class.new(
-        version: "2",
-        description: "Test Description",
+        "version" => "2",
+        "description" => "Test Description",
       )
     end
 
@@ -75,9 +75,6 @@ RSpec.describe Stepmod::Utils::ChangeEdition do
         {
           "version" => "2",
           "description" => "Test Description",
-          "additions" => [],
-          "modifications" => [],
-          "deletions" => [],
         }
       end
 

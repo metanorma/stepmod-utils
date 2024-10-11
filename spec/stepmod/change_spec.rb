@@ -46,11 +46,11 @@ RSpec.describe Stepmod::Utils::Change do
 
       let(:change_edition) do
         {
-          version: "2",
-          description: "Test Description",
-          additions: [{ "type" => "ADD", "name" => "FooBar" }],
-          modifications: [{ "type" => "MODIFY", "name" => "FooBar" }],
-          deletions: [{ "type" => "DELETE", "name" => "FooBar" }],
+          "version" => "2",
+          "description" => "Test Description",
+          "additions" => [{ "type" => "ADD", "name" => "FooBar" }],
+          "modifications" => [{ "type" => "MODIFY", "name" => "FooBar" }],
+          "deletions" => [{ "type" => "DELETE", "name" => "FooBar" }],
         }
       end
 
@@ -66,11 +66,11 @@ RSpec.describe Stepmod::Utils::Change do
 
       let(:change_edition) do
         {
-          version: "2",
-          description: "Test Description",
-          additions: [{ "type" => "ADD", "name" => "FooBar" }],
-          modifications: [{ "type" => "MODIFY", "name" => "FooBar" }],
-          deletions: [{ "type" => "DELETE", "name" => "FooBar" }],
+          "version" => "2",
+          "description" => "Test Description",
+          "additions" => [{ "type" => "ADD", "name" => "FooBar" }],
+          "modifications" => [{ "type" => "MODIFY", "name" => "FooBar" }],
+          "deletions" => [{ "type" => "DELETE", "name" => "FooBar" }],
         }
       end
 

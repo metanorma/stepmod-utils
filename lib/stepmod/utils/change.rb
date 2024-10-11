@@ -40,7 +40,7 @@ module Stepmod
       end
 
       def add_change_edition(change_edition)
-        @change_editions[change_edition[:version]] = change_edition
+        @change_editions[change_edition["version"]] = change_edition
       end
 
       def fetch_change_edition(version)
