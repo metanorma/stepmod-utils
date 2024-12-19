@@ -217,6 +217,8 @@ collection)
 
       # rubocop:disable Layout/LineLength
       def correct_schema_name(schema_name)
+        schema_name = schema_name.downcase
+
         schema_name_corrector = {
           "material_property_definition" => "material_property_definition_schema",
           "qualified_measure" => "qualified_measure_schema",
