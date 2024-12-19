@@ -185,7 +185,7 @@
       </change_edition>
       <change_edition version="3">
          <description>Presentation appearance schema's Scope and Fundamental concepts and assumptions clause updated.</description>
-         <schema.changes schema_name="presentation_appearance_schema">
+         <schema.changes schema_name="PRESENTATION_APPEARANCE_SCHEMA">
             <schema.additions>
                <modified.object name="geometric_model_schema" type="REFERENCE_FROM"/>
                <modified.object name="product_property_representation_schema" type="REFERENCE_FROM"/>
