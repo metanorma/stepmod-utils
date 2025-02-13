@@ -20,23 +20,23 @@ require "stepmod/utils/converters/figure"
 require "stepmod/utils/converters/table"
 require "stepmod/utils/cleaner"
 
-require "reverse_adoc/converters/a"
-require "reverse_adoc/converters/blockquote"
-require "reverse_adoc/converters/bypass"
-require "reverse_adoc/converters/br"
-require "reverse_adoc/converters/code"
-require "reverse_adoc/converters/drop"
-require "reverse_adoc/converters/head"
-require "reverse_adoc/converters/hr"
-require "reverse_adoc/converters/ignore"
-require "reverse_adoc/converters/li"
-require "reverse_adoc/converters/p"
-require "reverse_adoc/converters/pass_through"
-require "reverse_adoc/converters/q"
-require "reverse_adoc/converters/strong"
-require "reverse_adoc/converters/sup"
-require "reverse_adoc/converters/sub"
-require "reverse_adoc/converters/text"
+require "coradoc/input/html/converters/a"
+require "coradoc/input/html/converters/blockquote"
+require "coradoc/input/html/converters/bypass"
+require "coradoc/input/html/converters/br"
+require "coradoc/input/html/converters/code"
+require "coradoc/input/html/converters/drop"
+require "coradoc/input/html/converters/head"
+require "coradoc/input/html/converters/hr"
+require "coradoc/input/html/converters/ignore"
+require "coradoc/input/html/converters/li"
+require "coradoc/input/html/converters/p"
+require "coradoc/input/html/converters/pass_through"
+require "coradoc/input/html/converters/q"
+require "coradoc/input/html/converters/strong"
+require "coradoc/input/html/converters/sup"
+require "coradoc/input/html/converters/sub"
+require "coradoc/input/html/converters/text"
 
 module Stepmod
   module Utils
@@ -53,9 +53,9 @@ module Stepmod
 
         return "" unless root
 
-        ReverseAdoc.config.with(options) do
-          result = ReverseAdoc::Converters.lookup(root.name).convert(root,
-                                                                     options)
+        Coradoc::Input::HTML.config.with(options) do
+          result = Coradoc::Input::HTML::Converters.lookup(root.name).convert(root,
+                                                                              options)
           return "" unless result
 
           Stepmod::Utils::Cleaner.new.tidy(result.dup)

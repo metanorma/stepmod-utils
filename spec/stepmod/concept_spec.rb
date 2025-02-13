@@ -33,15 +33,15 @@ RSpec.describe Stepmod::Utils::Concept do
 
   let(:input) { node_for(input_xml) }
 
-  original_ext_description = ReverseAdoc::Converters.lookup(:ext_description)
-  original_express_ref = ReverseAdoc::Converters.lookup(:express_ref)
+  original_ext_description = Coradoc::Input::HTML::Converters.lookup(:ext_description)
+  original_express_ref = Coradoc::Input::HTML::Converters.lookup(:express_ref)
   before do
     require "stepmod/utils/converters/stepmod_ext_description"
-    ReverseAdoc::Converters.register(
+    Coradoc::Input::HTML::Converters.register(
       :ext_description, Stepmod::Utils::Converters::StepmodExtDescription.new
     )
 
-    ReverseAdoc::Converters.register(
+    Coradoc::Input::HTML::Converters.register(
       :express_ref, Stepmod::Utils::Converters::ExpressRef.new
     )
   end
@@ -228,7 +228,8 @@ RSpec.describe Stepmod::Utils::Concept do
   end
 
   after do
-    ReverseAdoc::Converters.register :ext_description, original_ext_description
-    ReverseAdoc::Converters.register :express_ref, original_express_ref
+    Coradoc::Input::HTML::Converters.register :ext_description,
+                                              original_ext_description
+    Coradoc::Input::HTML::Converters.register :express_ref, original_express_ref
   end
 end

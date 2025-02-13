@@ -4,11 +4,11 @@ module Stepmod
   module Utils
     module Converters
       class Resource < Stepmod::Utils::Converters::Base
-        def convert(node, state = {})
+        def to_coradoc(node, state = {})
           treat_children(node, state)
         end
       end
-      ReverseAdoc::Converters.register :resource, Resource.new
+      Coradoc::Input::HTML::Converters.register :resource, Resource.new
     end
   end
 end

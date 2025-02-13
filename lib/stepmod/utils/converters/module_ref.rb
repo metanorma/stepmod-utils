@@ -4,7 +4,7 @@ module Stepmod
   module Utils
     module Converters
       class ModuleRef < Stepmod::Utils::Converters::Base
-        def convert(node, _state = {})
+        def to_coradoc(node, _state = {})
           link_end = node["linkend"].to_s.split(":")
           ref_id = link_end.last
           text = node.text.gsub(/\s/, " ").squeeze(" ").strip
@@ -86,7 +86,7 @@ module Stepmod
           /.*?\s*\(?\d+\)?/.match(text)
         end
       end
-      ReverseAdoc::Converters.register :module_ref, ModuleRef.new
+      Coradoc::Input::HTML::Converters.register :module_ref, ModuleRef.new
     end
   end
 end

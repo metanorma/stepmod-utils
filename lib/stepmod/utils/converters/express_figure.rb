@@ -10,7 +10,7 @@ module Stepmod
         #   "figure-exp-#{id}"
         # end
 
-        def convert(node, state = {})
+        def to_coradoc(node, state = {})
           <<~TEMPLATE
             (*"#{state[:schema_and_entity]}.__figure"
             #{super(node, state.merge(no_notes_examples: nil)).strip}
@@ -19,7 +19,7 @@ module Stepmod
         end
       end
 
-      ReverseAdoc::Converters.register :express_figure, ExpressFigure.new
+      Coradoc::Input::HTML::Converters.register :express_figure, ExpressFigure.new
     end
   end
 end

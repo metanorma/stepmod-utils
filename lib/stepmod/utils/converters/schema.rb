@@ -4,7 +4,7 @@ module Stepmod
   module Utils
     module Converters
       class Schema < Stepmod::Utils::Converters::Base
-        def convert(node, state = {})
+        def to_coradoc(node, state = {})
           state = state.merge(schema_name: node["name"])
           <<~TEMPLATE
             (*"#{node['name']}"
@@ -13,7 +13,7 @@ module Stepmod
           TEMPLATE
         end
       end
-      ReverseAdoc::Converters.register :schema, Schema.new
+      Coradoc::Input::HTML::Converters.register :schema, Schema.new
     end
   end
 end

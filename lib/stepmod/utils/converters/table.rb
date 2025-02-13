@@ -3,7 +3,7 @@
 module Stepmod
   module Utils
     module Converters
-      class Table < Stepmod::Utils::Converters::Base
+      class Table < Coradoc::Input::HTML::Converters::Table
         def self.pattern(state, id)
           if state[:schema_and_entity].nil?
             raise StandardError.new("[table]: no state given, #{id}")
@@ -13,7 +13,7 @@ module Stepmod
           "table-#{schema}-#{id}"
         end
 
-        def convert(node, state = {})
+        def to_coradoc(node, state = {})
           # If we want to skip this node
           return "" if state[:no_notes_examples]
 
@@ -72,7 +72,7 @@ module Stepmod
         end
       end
 
-      ReverseAdoc::Converters.register :table, Table.new
+      Coradoc::Input::HTML::Converters.register :table, Table.new
     end
   end
 end

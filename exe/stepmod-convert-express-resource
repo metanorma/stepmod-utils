@@ -11,7 +11,7 @@ $:.unshift File.expand_path("../../lib", bin_file)
 require "bundler/setup"
 require "stepmod/utils/smrl_resource_converter"
 
-ReverseAdoc.config.unknown_tags = :bypass
+Coradoc::Input::HTML.config.unknown_tags = :bypass
 
 input_content = ARGF.read
 

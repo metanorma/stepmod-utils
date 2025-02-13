@@ -4,7 +4,7 @@ module Stepmod
   module Utils
     module Converters
       class ClauseRef < Stepmod::Utils::Converters::Base
-        def convert(node, _state = {})
+        def to_coradoc(node, _state = {})
           " {{#{normalized_ref(node['linkend'])}}} "
         end
 
@@ -16,7 +16,7 @@ module Stepmod
           ref.to_s.split(":").last.squeeze(" ").strip
         end
       end
-      ReverseAdoc::Converters.register :clause_ref, ClauseRef.new
+      Coradoc::Input::HTML::Converters.register :clause_ref, ClauseRef.new
     end
   end
 end

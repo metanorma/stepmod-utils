@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require "reverse_adoc/converters/figure"
+require "coradoc/input/html/converters/figure"
 
 module Stepmod
   module Utils
     module Converters
-      class Figure < ReverseAdoc::Converters::Figure
+      class Figure < Coradoc::Input::HTML::Converters::Figure
         def self.pattern(state, id)
           if state[:schema_and_entity].nil?
             raise StandardError.new("[figure]: no state given, #{id}")
@@ -15,7 +15,7 @@ module Stepmod
           "figure-#{schema}-#{id}"
         end
 
-        def convert(node, state = {})
+        def to_coradoc(node, state = {})
           # If we want to skip this node
           return "" if state[:no_notes_examples]
 
@@ -26,7 +26,11 @@ module Stepmod
                          self.class.pattern(state, node["number"])
                        end
 
-          super(node, state)
+          result = super(node, state)
+          id = result.id
+          anchor = id ? "[[#{id}]]\n" : ""
+          "\n\n#{anchor}.#{result.title}\n====\n" << treat_children(node,
+                                                                    state).strip << "\n====\n\n"
         end
 
         def extract_title(node)
@@ -38,7 +42,7 @@ module Stepmod
       end
 
       # This replaces the converter
-      ReverseAdoc::Converters.register :figure, Figure.new
+      Coradoc::Input::HTML::Converters.register :figure, Figure.new
     end
   end
 end

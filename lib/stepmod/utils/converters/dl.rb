@@ -4,7 +4,7 @@ module Stepmod
   module Utils
     module Converters
       class Dl < Stepmod::Utils::Converters::Base
-        def convert(node, state = {})
+        def to_coradoc(node, state = {})
           cleaned_node = cleanup_trash_tags(node.clone)
           treat_children(cleaned_node, state)
         end
@@ -24,7 +24,7 @@ module Stepmod
           node
         end
 
-        ReverseAdoc::Converters.register :dl, Dl.new
+        Coradoc::Input::HTML::Converters.register :dl, Dl.new
       end
     end
   end

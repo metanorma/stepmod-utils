@@ -12,8 +12,6 @@ module Stepmod
           TEMPLATE
         end
       end
-
-      ReverseAdoc::Converters.register :express_example, ExpressExample.new
     end
   end
 end

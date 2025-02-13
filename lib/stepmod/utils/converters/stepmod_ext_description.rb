@@ -2,7 +2,7 @@ module Stepmod
   module Utils
     module Converters
       class StepmodExtDescription < Stepmod::Utils::Converters::Base
-        def convert(node, state = {})
+        def to_coradoc(node, state = {})
           state = state.merge(schema_name: node["linkend"])
           linkend = node["linkend"].split(".")
 
@@ -57,8 +57,7 @@ module Stepmod
           TEMPLATE
         end
       end
-      ReverseAdoc::Converters.register :ext_description,
-                                       StepmodExtDescription.new
+      Coradoc::Input::HTML::Converters.register :ext_description, StepmodExtDescription.new
     end
   end
 end

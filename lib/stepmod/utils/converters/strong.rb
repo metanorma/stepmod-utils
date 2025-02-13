@@ -6,7 +6,7 @@ module Stepmod
       class Strong < Stepmod::Utils::Converters::Base
         BLANK_CHARS = "{blank}"
 
-        def convert(node, state = {})
+        def to_coradoc(node, state = {})
           bold_converted(node, state)
         end
 
@@ -66,8 +66,8 @@ module Stepmod
         end
       end
 
-      ReverseAdoc::Converters.register :strong, Strong.new
-      ReverseAdoc::Converters.register :b,      Strong.new
+      Coradoc::Input::HTML::Converters.register :strong, Strong.new
+      Coradoc::Input::HTML::Converters.register :b,      Strong.new
     end
   end
 end

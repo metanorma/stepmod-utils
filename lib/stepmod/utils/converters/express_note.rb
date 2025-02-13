@@ -4,7 +4,7 @@ module Stepmod
   module Utils
     module Converters
       class ExpressNote < Stepmod::Utils::Converters::Base
-        def convert(node, state = {})
+        def to_coradoc(node, state = {})
           <<~TEMPLATE
 
             (*"#{state[:schema_and_entity]}.__note"
@@ -14,7 +14,7 @@ module Stepmod
         end
       end
 
-      ReverseAdoc::Converters.register :express_note, ExpressNote.new
+      Coradoc::Input::HTML::Converters.register :express_note, ExpressNote.new
     end
   end
 end

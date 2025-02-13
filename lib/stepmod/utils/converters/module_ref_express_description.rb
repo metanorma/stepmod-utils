@@ -5,7 +5,7 @@ module Stepmod
   module Utils
     module Converters
       class ModuleRefExpressDescription < Stepmod::Utils::Converters::Base
-        def convert(node, _state = {})
+        def to_coradoc(node, _state = {})
           link_end = node["linkend"].to_s.split(":")
           text = node.text.gsub(/\s/, " ").squeeze(" ").strip
 
@@ -45,7 +45,7 @@ module Stepmod
           # puts "[module_ref] #{result}"
         end
       end
-      ReverseAdoc::Converters.register :module_ref,
+      Coradoc::Input::HTML::Converters.register :module_ref,
                                        ModuleRefExpressDescription.new
     end
   end

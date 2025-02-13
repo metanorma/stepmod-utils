@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require "stepmod/utils/converters/base"
-require "reverse_adoc/converters/bypass"
-require "reverse_adoc/converters/pass_through"
+require "coradoc/input/html/converters/bypass"
+require "coradoc/input/html/converters/pass_through"
 require "stepmod/utils/converters/a"
 require "stepmod/utils/converters/blockquote"
 require "stepmod/utils/converters/br"
@@ -36,13 +36,15 @@ require "stepmod/utils/converters/sub"
 require "stepmod/utils/converters/sup"
 require "stepmod/utils/converters/table"
 require "stepmod/utils/converters/text"
+require "stepmod/utils/converters/tr"
+require "stepmod/utils/converters/li"
 require "stepmod/utils/cleaner"
 
-require "reverse_adoc/converters/img"
-require "reverse_adoc/converters/li"
-require "reverse_adoc/converters/tr"
-require "reverse_adoc/converters/td"
-require "reverse_adoc/converters/th"
+require "coradoc/input/html/converters/img"
+require "coradoc/input/html/converters/li"
+require "coradoc/input/html/converters/tr"
+require "coradoc/input/html/converters/td"
+require "coradoc/input/html/converters/th"
 
 module Stepmod
   module Utils
@@ -59,9 +61,9 @@ module Stepmod
 
         root || (return "")
 
-        ReverseAdoc.config.with(options) do
-          result = ReverseAdoc::Converters.lookup(root.name).convert(root,
-                                                                     options)
+        Coradoc::Input::HTML.config.with(options) do
+          result = Coradoc::Input::HTML::Converters.lookup(root.name).convert(root,
+                                                                              options)
 
           Stepmod::Utils::Cleaner.new.tidy(result)
         end

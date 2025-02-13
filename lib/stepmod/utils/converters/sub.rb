@@ -3,12 +3,9 @@
 module Stepmod
   module Utils
     module Converters
-      class Sub < Stepmod::Utils::Converters::Base
-        def convert(node, state = {})
-          content = treat_children(node, state)
-          return stem_notation(content) if state[:equation]
-
-          "#{content[/^\s*/]}~#{content.strip}~#{content[/\s*$/]}"
+      class Sub < Coradoc::Input::HTML::Converters::Sub
+        def to_coradoc(node, state = {})
+          state[:equation] ? stem_notation(treat_children(node, state)) : super(node, state)
         end
 
         private
@@ -18,7 +15,7 @@ module Stepmod
         end
       end
 
-      ReverseAdoc::Converters.register :sub, Sub.new
+      Coradoc::Input::HTML::Converters.register :sub, Sub.new
     end
   end
 end

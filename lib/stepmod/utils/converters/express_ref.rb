@@ -4,11 +4,11 @@ module Stepmod
   module Utils
     module Converters
       class ExpressRef < Stepmod::Utils::Converters::Base
-        def convert(node, _state = {})
+        def to_coradoc(node, _state = {})
           " *#{node['linkend'].to_s.split('.').last}* "
         end
       end
-      ReverseAdoc::Converters.register :express_ref, ExpressRef.new
+      Coradoc::Input::HTML::Converters.register :express_ref, ExpressRef.new
     end
   end
 end

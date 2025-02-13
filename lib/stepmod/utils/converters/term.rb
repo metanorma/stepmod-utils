@@ -15,7 +15,7 @@ module Stepmod
           res.map(&:strip).reject(&:empty?).join("")
         end
 
-        def convert(node, state = {})
+        def to_coradoc(node, state = {})
           first_child = node.children.find do |child|
             child.name == "text" && !child.text.to_s.strip.empty?
           end
@@ -40,7 +40,7 @@ module Stepmod
         end
       end
 
-      ReverseAdoc::Converters.register :term, Term.new
+      Coradoc::Input::HTML::Converters.register :term, Term.new
     end
   end
 end
