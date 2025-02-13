@@ -44,9 +44,7 @@ module Stepmod
         end
       end
 
-      ReverseAdoc::Converters.register :em, Em.new
-      ReverseAdoc::Converters.register :i,  Em.new
-      ReverseAdoc::Converters.register :cite, Em.new
+      Coradoc::Input::HTML::Converters.register :i,  Em.new
     end
   end
 end

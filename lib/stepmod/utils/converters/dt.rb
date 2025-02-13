@@ -4,13 +4,13 @@ module Stepmod
   module Utils
     module Converters
       class Dt < Stepmod::Utils::Converters::Base
-        def convert(node, _state = {})
+        def to_coradoc(node, _state = {})
           return "\n\n{blank}::" if node.text.strip.empty?
 
           "\n\n#{node.text}:: "
         end
 
-        ReverseAdoc::Converters.register :dt, Dt.new
+        Coradoc::Input::HTML::Converters.register :dt, Dt.new
       end
     end
   end

@@ -3,8 +3,8 @@
 module Stepmod
   module Utils
     module Converters
-      class Text < Stepmod::Utils::Converters::Base
-        def convert(node, state = {})
+      class Text < Coradoc::Input::HTML::Converters::Text
+        def to_coradoc(node, state = {})
           if node.text.strip.empty?
             treat_empty(node, state)
           else
@@ -13,19 +13,6 @@ module Stepmod
         end
 
         private
-
-        def treat_empty(node, state)
-          parent = node.parent.name.to_sym
-          if %i[ol ul].include?(parent) # Otherwise the identation is broken
-            ""
-          elsif state[:tdsinglepara]
-            ""
-          elsif node.text == " "        # Regular whitespace text node
-            " "
-          else
-            ""
-          end
-        end
 
         def treat_text(node, state)
           text = node.text
@@ -77,7 +64,7 @@ module Stepmod
         end
       end
 
-      ReverseAdoc::Converters.register :text, Text.new
+      Coradoc::Input::HTML::Converters.register :text, Text.new
     end
   end
 end

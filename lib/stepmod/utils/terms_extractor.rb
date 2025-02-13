@@ -8,7 +8,7 @@ require "expressir/express/parser"
 require "indefinite_article"
 require "pubid-iso"
 
-ReverseAdoc.config.unknown_tags = :bypass
+Coradoc::Input::HTML.config.unknown_tags = :bypass
 
 module Stepmod
   module Utils

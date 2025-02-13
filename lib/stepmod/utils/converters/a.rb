@@ -4,7 +4,7 @@ module Stepmod
   module Utils
     module Converters
       class A < Stepmod::Utils::Converters::Base
-        def convert(node, state = {})
+        def to_coradoc(node, state = {})
           name  = treat_children(node, state)
           href  = node["href"]
           title = extract_title(node)
@@ -41,7 +41,7 @@ module Stepmod
         end
       end
 
-      ReverseAdoc::Converters.register :a, A.new
+      Coradoc::Input::HTML::Converters.register :a, A.new
     end
   end
 end

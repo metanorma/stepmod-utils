@@ -4,7 +4,7 @@ module Stepmod
   module Utils
     module Converters
       class Definition < Stepmod::Utils::Converters::Base
-        def convert(node, state = {})
+        def to_coradoc(node, state = {})
           treat_children(node, state)
         end
 
@@ -16,7 +16,7 @@ module Stepmod
         end
       end
 
-      ReverseAdoc::Converters.register :definition, Definition.new
+      Coradoc::Input::HTML::Converters.register :definition, Definition.new
     end
   end
 end

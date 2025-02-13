@@ -4,7 +4,7 @@ module Stepmod
   module Utils
     module Converters
       class FundCons < Stepmod::Utils::Converters::Base
-        def convert(node, state = {})
+        def to_coradoc(node, state = {})
           <<~TEXT
 
             *)
@@ -15,7 +15,7 @@ module Stepmod
         end
       end
 
-      ReverseAdoc::Converters.register :fund_cons, FundCons.new
+      Coradoc::Input::HTML::Converters.register :fund_cons, FundCons.new
     end
   end
 end

@@ -4,7 +4,7 @@ module Stepmod
   module Utils
     module Converters
       class ExpressG < Stepmod::Utils::Converters::Base
-        def convert(node, state = {})
+        def to_coradoc(node, state = {})
           node.children.map do |child|
             next unless child.name == "imgfile"
 
@@ -29,7 +29,7 @@ module Stepmod
             ====
             image::#{svg_filename}.svg[]
 
-            #{image_document.xpath("//img.area").map.with_index(1) { |n, i| schema_reference(n["href"], i) }.join("\n")}
+            #{image_document.xpath('//img.area').map.with_index(1) { |n, i| schema_reference(n['href'], i) }.join("\n")}
             ====
           SVGMAP
         end
@@ -49,7 +49,7 @@ module Stepmod
         end
       end
 
-      ReverseAdoc::Converters.register "express-g", ExpressG.new
+      Coradoc::Input::HTML::Converters.register "express-g", ExpressG.new
     end
   end
 end

@@ -4,11 +4,11 @@ module Stepmod
   module Utils
     module Converters
       class SchemaDiag < Stepmod::Utils::Converters::Base
-        def convert(node, state = {})
+        def to_coradoc(node, state = {})
           treat_children(node, state).strip
         end
       end
-      ReverseAdoc::Converters.register :schema_diag, SchemaDiag.new
+      Coradoc::Input::HTML::Converters.register :schema_diag, SchemaDiag.new
     end
   end
 end

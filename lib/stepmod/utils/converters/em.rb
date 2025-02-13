@@ -4,7 +4,7 @@ module Stepmod
   module Utils
     module Converters
       class Em < Stepmod::Utils::Converters::Base
-        def convert(node, state = {})
+        def to_coradoc(node, state = {})
           content = treat_children(node, state.merge(already_italic: true))
           if content.strip.empty? || state[:already_italic]
             content
@@ -14,8 +14,8 @@ module Stepmod
         end
       end
 
-      ReverseAdoc::Converters.register :em, Em.new
-      ReverseAdoc::Converters.register :cite, Em.new
+      Coradoc::Input::HTML::Converters.register :em, Em.new
+      Coradoc::Input::HTML::Converters.register :cite, Em.new
     end
   end
 end

@@ -25,6 +25,8 @@ require "stepmod/utils/converters/strong"
 require "stepmod/utils/converters/sub"
 require "stepmod/utils/converters/sup"
 require "stepmod/utils/converters/text"
+require "stepmod/utils/converters/tr"
+require "stepmod/utils/converters/li"
 require "stepmod/utils/cleaner"
 
 module Stepmod
@@ -42,9 +44,9 @@ module Stepmod
 
         root || (return "")
 
-        ReverseAdoc.config.with(options) do
-          result = ReverseAdoc::Converters.lookup(root.name).convert(root,
-                                                                     options)
+        Coradoc::Input::HTML.config.with(options) do
+          result = Coradoc::Input::HTML::Converters.lookup(root.name).convert(root,
+                                                                              options)
           Stepmod::Utils::Cleaner.new.tidy(result)
         end
       end

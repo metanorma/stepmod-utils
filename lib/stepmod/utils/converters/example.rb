@@ -4,7 +4,7 @@ module Stepmod
   module Utils
     module Converters
       class Example < Stepmod::Utils::Converters::Base
-        def convert(node, state = {})
+        def to_coradoc(node, state = {})
           # If we want to skip this node
           return "" if state[:no_notes_examples]
 
@@ -19,7 +19,7 @@ module Stepmod
           TEMPLATE
         end
       end
-      ReverseAdoc::Converters.register :example, Example.new
+      Coradoc::Input::HTML::Converters.register :example, Example.new
     end
   end
 end

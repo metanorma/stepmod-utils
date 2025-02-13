@@ -4,12 +4,12 @@ module Stepmod
   module Utils
     module Converters
       class Synonym < Stepmod::Utils::Converters::Base
-        def convert(node, _state = {})
+        def to_coradoc(node, _state = {})
           "alt:[#{node.text.strip}]"
         end
       end
 
-      ReverseAdoc::Converters.register :synonym, Synonym.new
+      Coradoc::Input::HTML::Converters.register :synonym, Synonym.new
     end
   end
 end

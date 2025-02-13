@@ -9,7 +9,7 @@ module Stepmod
       class Eqn < Stepmod::Utils::Converters::Base
         TAGS_NOT_IN_CONTEXT = %w[b i].freeze
 
-        def convert(node, state = {})
+        def to_coradoc(node, state = {})
           cloned_node = node.clone
           if definition_node?(cloned_node)
             return definition_converted(cloned_node, state)
@@ -123,8 +123,8 @@ module Stepmod
         end
       end
 
-      ReverseAdoc::Converters.register :eqn, Eqn.new
-      ReverseAdoc::Converters.register :bigeqn, Eqn.new
+      Coradoc::Input::HTML::Converters.register :eqn, Eqn.new
+      Coradoc::Input::HTML::Converters.register :bigeqn, Eqn.new
     end
   end
 end

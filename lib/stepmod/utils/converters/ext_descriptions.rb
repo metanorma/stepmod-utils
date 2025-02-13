@@ -4,11 +4,11 @@ module Stepmod
   module Utils
     module Converters
       class ExtDescriptions < Stepmod::Utils::Converters::Base
-        def convert(node, state = {})
+        def to_coradoc(node, state = {})
           treat_children(node, state)
         end
       end
-      ReverseAdoc::Converters.register :ext_descriptions, ExtDescriptions.new
+      Coradoc::Input::HTML::Converters.register :ext_descriptions, ExtDescriptions.new
     end
   end
 end

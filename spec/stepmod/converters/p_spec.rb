@@ -11,7 +11,7 @@ RSpec.describe Stepmod::Utils::Converters::A do
       end
 
       let(:output) do
-        "See <<eqn1>>"
+        "See Formula <<eqn1>>"
       end
 
       it {
@@ -25,7 +25,7 @@ RSpec.describe Stepmod::Utils::Converters::A do
       end
 
       let(:output) do
-        "See <<fig1>>"
+        "See Figure <<fig1>>"
       end
 
       it {
@@ -39,7 +39,7 @@ RSpec.describe Stepmod::Utils::Converters::A do
       end
 
       let(:output) do
-        "See <<table1>>"
+        "See Table <<table1>>"
       end
 
       it {
