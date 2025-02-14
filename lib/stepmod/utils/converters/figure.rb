@@ -28,9 +28,10 @@ module Stepmod
 
           result = super(node, state)
           id = result.id
-          anchor = id ? "[[#{id}]]\n" : ""
-          "\n\n#{anchor}.#{result.title}\n====\n" << treat_children(node,
-                                                                    state).strip << "\n====\n\n"
+          anchor = "[[#{id}]]\n" if id
+          padding = "\n====\n"
+          child_content = treat_children(node, state).strip
+          "\n\n#{anchor}.#{result.title}#{padding}#{child_content}#{padding}"
         end
 
         def extract_title(node)
