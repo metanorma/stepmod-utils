@@ -34,7 +34,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "concurrent-ruby"
   spec.add_runtime_dependency "down"
   spec.add_runtime_dependency "expressir"
-  spec.add_runtime_dependency "glossarist", "~> 2.0"
+  spec.add_runtime_dependency "glossarist", "~> 2.0.10"
   spec.add_runtime_dependency "indefinite_article"
   spec.add_runtime_dependency "octokit"
   spec.add_runtime_dependency "plurimath"

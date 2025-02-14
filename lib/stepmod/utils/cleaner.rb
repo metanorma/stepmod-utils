@@ -14,29 +14,27 @@ module Stepmod
       # in the border area.
       # Same for underscores and brackets.
       def clean_tag_borders(string)
-        result = string.gsub(/\s?\*{2,}.*?\*{2,}\s?/) do |match|
-          preserve_border_whitespaces(match, default_border: Coradoc::Input::HTML.config.tag_border) do
-            match.strip.sub("** ", "**").sub(" **", "**")
+        patterns = {
+          /\s?\*{2,}.*?\*{2,}\s?/ => "**",
+          /\s?_{2,}.*?_{2,}\s?/   => "__",
+          /\s?~{2,}.*?~{2,}\s?/   => "~~",
+        }
+
+        result = string.dup
+        patterns.each do |pattern, value|
+          result = result.gsub(pattern) do |match|
+            preserve_border_whitespaces(match, default_border: Coradoc::Input::HTML.config.tag_border) do
+              match.strip.sub(" #{value}", value).sub("#{value} ", value)
+            end
           end
         end
 
-        result = result.gsub(/\s?_{2,}.*?_{2,}\s?/) do |match|
-          preserve_border_whitespaces(match, default_border: Coradoc::Input::HTML.config.tag_border) do
-            match.strip.sub("__ ", "__").sub(" __", "__")
-          end
-        end
-  
-        result = result.gsub(/\s?~{2,}.*?~{2,}\s?/) do |match|
-          preserve_border_whitespaces(match, default_border: Coradoc::Input::HTML.config.tag_border) do
-            match.strip.sub("~~ ", "~~").sub(" ~~", "~~")
-          end
-        end
-  
-        result.gsub(/\s?\[.*?\]\s?/) do |match|
+        result = result.gsub(/\s?\[.*?\]\s?/) do |match|
           preserve_border_whitespaces(match) do
-            match.strip.sub("[ ", "[").sub(" ]", "]")
+            match.strip.sub("[ ", "[").sub(" ]", "[")
           end
         end
+        result
       end
     end
   end
