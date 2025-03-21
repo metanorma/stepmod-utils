@@ -219,7 +219,7 @@ RSpec.describe Stepmod::Utils::Concept do
     end
 
     it "correctly parses and stores designation" do
-      expect(parse.designations.map(&:to_h)).to(eq(designation))
+      expect(parse.designations.map(&:to_yaml_hash)).to(eq(designation))
     end
 
     it "correctly renders ascidoc output" do
