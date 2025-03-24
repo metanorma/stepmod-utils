@@ -8,6 +8,10 @@ module Stepmod
           italic_converted(node, state)
         end
 
+        def to_coradoc(node, state = {})
+          italic_converted(node, state)
+        end
+
         private
 
         def italic_converted(node, state)
@@ -44,7 +48,7 @@ module Stepmod
         end
       end
 
-      Coradoc::Input::HTML::Converters.register :i,  Em.new
+      Coradoc::Input::HTML::Converters.register :i, Em.new
     end
   end
 end
