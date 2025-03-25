@@ -58,7 +58,7 @@ module Stepmod
       def replace_schema_string_with_version(content)
         m = content.match(SCHEMA_VERSION_MATCH_REGEX)
         result = build_schema_string_with_version
-        unless m['trailing'].nil?
+        unless m["trailing"].nil?
           result = "#{result}#{m['trailing']}"
         end
 
@@ -178,19 +178,19 @@ module Stepmod
 
         unless bib_file && File.exist?(bib_file)
           raise StandardError.new(
-            "bib_file for #{schema_name} does not exist: #{bib_file}"
+            "bib_file for #{schema_name} does not exist: #{bib_file}",
           )
         end
 
         output_express << prepend_bibdata(
-                              converted_description || "",
-                              # bib_file will not be present for resouces
-                              # that are not in resource_docs cache.
-                              # e.g hierarchy_schema
-                              bib_file,
-                              @schema_name,
-                              match,
-                            )
+          converted_description || "",
+          # bib_file will not be present for resouces
+          # that are not in resource_docs cache.
+          # e.g hierarchy_schema
+          bib_file,
+          @schema_name,
+          match,
+        )
 
         if is_missing_version(output_express)
           puts "[annotator-WARNING] schema (#{@schema_name}) missing version string. "\
@@ -252,7 +252,7 @@ processed_images_cache)
             #{Stepmod::Utils::SmrlDescriptionConverter.convert(
               wrapper,
               no_notes_examples: true,
-              descriptions_file: descriptions_file
+              descriptions_file: descriptions_file,
             )}
           DESCRIPTION
 
