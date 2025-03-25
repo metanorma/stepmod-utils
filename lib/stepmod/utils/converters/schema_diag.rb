@@ -8,7 +8,7 @@ module Stepmod
           treat_children(node, state).strip
         end
       end
-      Coradoc::Input::HTML::Converters.register :schema_diag, SchemaDiag.new
+      Coradoc::Input::Html::Converters.register :schema_diag, SchemaDiag.new
     end
   end
 end

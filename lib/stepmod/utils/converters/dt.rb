@@ -10,7 +10,7 @@ module Stepmod
           "\n\n#{node.text}:: "
         end
 
-        Coradoc::Input::HTML::Converters.register :dt, Dt.new
+        Coradoc::Input::Html::Converters.register :dt, Dt.new
       end
     end
   end

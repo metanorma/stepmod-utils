@@ -6,8 +6,8 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
   subject(:call) { described_class.call(stepmod_dir, index_path, StringIO.new) }
 
   before do
-    Coradoc::Input::HTML::Converters.unregister :express_ref
-    Coradoc::Input::HTML::Converters
+    Coradoc::Input::Html::Converters.unregister :express_ref
+    Coradoc::Input::Html::Converters
       .register(:express_ref,
                 Stepmod::Utils::Converters::ExpressRefExpressDescription.new)
   end
@@ -52,8 +52,8 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
 
     it "For resources/*/descriptions.xml terms takes \
       only the first paragraph and no additonal tags " do
-      Coradoc::Input::HTML::Converters.unregister :ext_description
-      Coradoc::Input::HTML::Converters
+      Coradoc::Input::Html::Converters.unregister :ext_description
+      Coradoc::Input::Html::Converters
         .register(:ext_description,
                   Stepmod::Utils::Converters::StepmodExtDescription.new)
       action_directive_concept = call[4][0][1]
@@ -78,8 +78,8 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
 
     it "For modules/*/aim_descriptions.xml terms takes only the first \
       paragraph and no additonal tags " do
-      Coradoc::Input::HTML::Converters.unregister :ext_description
-      Coradoc::Input::HTML::Converters
+      Coradoc::Input::Html::Converters.unregister :ext_description
+      Coradoc::Input::Html::Converters
         .register(:ext_description,
                   Stepmod::Utils::Converters::StepmodExtDescription.new)
       activity_arm_concept =
@@ -98,8 +98,8 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
     end
 
     it "does not include redundant notes" do
-      Coradoc::Input::HTML::Converters.unregister :ext_description
-      Coradoc::Input::HTML::Converters
+      Coradoc::Input::Html::Converters.unregister :ext_description
+      Coradoc::Input::Html::Converters
         .register(:ext_description,
                   Stepmod::Utils::Converters::StepmodExtDescription.new)
 
@@ -112,8 +112,8 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
 
     it "For modules/*/mim_descriptions.xml terms takes only the first \
       paragraph and no additonal tags " do
-      Coradoc::Input::HTML::Converters.unregister :ext_description
-      Coradoc::Input::HTML::Converters
+      Coradoc::Input::Html::Converters.unregister :ext_description
+      Coradoc::Input::Html::Converters
         .register(:ext_description,
                   Stepmod::Utils::Converters::StepmodExtDescription.new)
 

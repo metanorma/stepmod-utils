@@ -40,7 +40,7 @@ module Stepmod
         end
       end
 
-      Coradoc::Input::HTML::Converters.register :term, Term.new
+      Coradoc::Input::Html::Converters.register :term, Term.new
     end
   end
 end

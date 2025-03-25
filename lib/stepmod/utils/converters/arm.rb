@@ -16,7 +16,7 @@ module Stepmod
         end
       end
 
-      Coradoc::Input::HTML::Converters.register :arm, Arm.new
+      Coradoc::Input::Html::Converters.register :arm, Arm.new
     end
   end
 end

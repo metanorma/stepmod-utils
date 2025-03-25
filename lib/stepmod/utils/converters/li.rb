@@ -3,7 +3,7 @@
 module Stepmod
   module Utils
     module Converters
-      class Li < Coradoc::Input::HTML::Converters::Li
+      class Li < Coradoc::Input::Html::Converters::Li
         def to_coradoc(node, state = {})
           li = super
           li.content = li.content.map do |content|
@@ -14,7 +14,7 @@ module Stepmod
         end
       end
 
-      Coradoc::Input::HTML::Converters.register :li, Li.new
+      Coradoc::Input::Html::Converters.register :li, Li.new
     end
   end
 end

@@ -57,7 +57,8 @@ module Stepmod
           TEMPLATE
         end
       end
-      Coradoc::Input::HTML::Converters.register :ext_description, StepmodExtDescription.new
+      Coradoc::Input::Html::Converters.register :ext_description,
+                                                StepmodExtDescription.new
     end
   end
 end

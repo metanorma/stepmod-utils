@@ -2,13 +2,13 @@ require "coradoc/input/html/cleaner"
 
 module Stepmod
   module Utils
-    class Cleaner < Coradoc::Input::HTML::Cleaner
+    class Cleaner < Coradoc::Input::Html::Cleaner
       def tidy(string)
         super
           .gsub(/^ +/, "")
           .gsub(/\*\s([,.])/, '*\1') # remove space between * and comma or dot.
       end
-  
+
       # Find non-asterisk content that is enclosed by two or
       # more asterisks. Ensure that only one whitespace occurs
       # in the border area.
@@ -23,7 +23,8 @@ module Stepmod
         result = string.dup
         patterns.each do |pattern, value|
           result = result.gsub(pattern) do |match|
-            preserve_border_whitespaces(match, default_border: Coradoc::Input::HTML.config.tag_border) do
+            preserve_border_whitespaces(match,
+                                        default_border: Coradoc::Input::Html.config.tag_border) do
               match.strip.sub(" #{value}", value).sub("#{value} ", value)
             end
           end

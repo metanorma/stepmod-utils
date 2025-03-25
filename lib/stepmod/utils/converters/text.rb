@@ -3,7 +3,7 @@
 module Stepmod
   module Utils
     module Converters
-      class Text < Coradoc::Input::HTML::Converters::Text
+      class Text < Coradoc::Input::Html::Converters::Text
         def to_coradoc(node, state = {})
           if node.text.strip.empty?
             treat_empty(node, state)
@@ -64,7 +64,7 @@ module Stepmod
         end
       end
 
-      Coradoc::Input::HTML::Converters.register :text, Text.new
+      Coradoc::Input::Html::Converters.register :text, Text.new
     end
   end
 end

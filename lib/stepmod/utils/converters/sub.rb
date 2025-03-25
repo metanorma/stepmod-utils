@@ -3,9 +3,14 @@
 module Stepmod
   module Utils
     module Converters
-      class Sub < Coradoc::Input::HTML::Converters::Sub
+      class Sub < Coradoc::Input::Html::Converters::Sub
         def to_coradoc(node, state = {})
-          state[:equation] ? stem_notation(treat_children(node, state)) : super(node, state)
+          if state[:equation]
+            stem_notation(treat_children(node,
+                                         state))
+          else
+            super(node, state)
+          end
         end
 
         private
@@ -15,7 +20,7 @@ module Stepmod
         end
       end
 
-      Coradoc::Input::HTML::Converters.register :sub, Sub.new
+      Coradoc::Input::Html::Converters.register :sub, Sub.new
     end
   end
 end

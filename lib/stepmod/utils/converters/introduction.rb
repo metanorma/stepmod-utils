@@ -9,7 +9,7 @@ module Stepmod
         end
       end
 
-      Coradoc::Input::HTML::Converters.register :introduction, Introduction.new
+      Coradoc::Input::Html::Converters.register :introduction, Introduction.new
     end
   end
 end

@@ -16,7 +16,7 @@ module Stepmod
         end
       end
 
-      Coradoc::Input::HTML::Converters.register :description, Description.new
+      Coradoc::Input::Html::Converters.register :description, Description.new
     end
   end
 end

@@ -3,7 +3,7 @@
 module Stepmod
   module Utils
     module Converters
-      class Table < Coradoc::Input::HTML::Converters::Table
+      class Table < Coradoc::Input::Html::Converters::Table
         def self.pattern(state, id)
           if state[:schema_and_entity].nil?
             raise StandardError.new("[table]: no state given, #{id}")
@@ -72,7 +72,7 @@ module Stepmod
         end
       end
 
-      Coradoc::Input::HTML::Converters.register :table, Table.new
+      Coradoc::Input::Html::Converters.register :table, Table.new
     end
   end
 end

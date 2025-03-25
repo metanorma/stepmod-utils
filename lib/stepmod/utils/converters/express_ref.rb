@@ -8,7 +8,7 @@ module Stepmod
           " *#{node['linkend'].to_s.split('.').last}* "
         end
       end
-      Coradoc::Input::HTML::Converters.register :express_ref, ExpressRef.new
+      Coradoc::Input::Html::Converters.register :express_ref, ExpressRef.new
     end
   end
 end

@@ -15,7 +15,7 @@ module Stepmod
         end
       end
 
-      Coradoc::Input::HTML::Converters.register :fund_cons, FundCons.new
+      Coradoc::Input::Html::Converters.register :fund_cons, FundCons.new
     end
   end
 end
