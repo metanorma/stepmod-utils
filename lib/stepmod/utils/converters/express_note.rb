@@ -14,7 +14,7 @@ module Stepmod
         end
       end
 
-      Coradoc::Input::HTML::Converters.register :express_note, ExpressNote.new
+      Coradoc::Input::Html::Converters.register :express_note, ExpressNote.new
     end
   end
 end

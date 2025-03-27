@@ -8,7 +8,7 @@ require "expressir/express/parser"
 require "indefinite_article"
 require "pubid-iso"
 
-Coradoc::Input::HTML.config.unknown_tags = :bypass
+Coradoc::Input::Html.config.unknown_tags = :bypass
 
 module Stepmod
   module Utils
@@ -374,16 +374,21 @@ document:)
 
         notes = [old_definition].reject { |note| redundant_note?(note) }
 
-        Stepmod::Utils::Concept.new(
-          designations: [
-            {
-              "type" => "expression",
-              "normative_status" => "preferred",
-              "designation" => entity.id,
-            },
-          ],
-          domain: domain,
-          definition: [definition.strip],
+        Stepmod::Utils::Concept.from_yaml({
+          data: {
+            terms: [
+              {
+                "type" => "expression",
+                "normative_status" => "preferred",
+                "designation" => entity.id,
+              },
+            ],
+            domain: domain,
+            notes: notes.map { |note| { "content" => note } },
+            definition: [{ "content" => definition.strip }],
+            language_code: "eng",
+            id: "#{bibdata.part}-#{@sequence}",
+          },
           id: "#{bibdata.part}-#{@sequence}",
           sources: [
             {
@@ -396,12 +401,11 @@ document:)
               # "link" => "https://www.iso.org/standard/32858.html",
             },
           ],
-          notes: notes,
           language_code: "eng",
           part: bibdata.part,
           schema: schema,
           document: document,
-        )
+        }.to_yaml)
       end
       # rubocop:enable Metrics/MethodLength
 

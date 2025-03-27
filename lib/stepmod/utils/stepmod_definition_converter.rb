@@ -50,8 +50,8 @@ module Stepmod
 
         return "" unless root
 
-        Coradoc::Input::HTML.config.with(options) do
-          result = Coradoc::Input::HTML::Converters.lookup(root.name).convert(root,
+        Coradoc::Input::Html.config.with(options) do
+          result = Coradoc::Input::Html::Converters.lookup(root.name).convert(root,
                                                                               options)
           return "" unless result
 

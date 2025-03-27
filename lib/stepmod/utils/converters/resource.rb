@@ -8,7 +8,7 @@ module Stepmod
           treat_children(node, state)
         end
       end
-      Coradoc::Input::HTML::Converters.register :resource, Resource.new
+      Coradoc::Input::Html::Converters.register :resource, Resource.new
     end
   end
 end

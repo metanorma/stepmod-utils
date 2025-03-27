@@ -16,7 +16,7 @@ module Stepmod
           ref.to_s.split(":").last.squeeze(" ").strip
         end
       end
-      Coradoc::Input::HTML::Converters.register :clause_ref, ClauseRef.new
+      Coradoc::Input::Html::Converters.register :clause_ref, ClauseRef.new
     end
   end
 end

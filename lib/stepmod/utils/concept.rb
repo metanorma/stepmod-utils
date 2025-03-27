@@ -3,16 +3,17 @@ require "glossarist"
 module Stepmod
   module Utils
     class Concept < Glossarist::LocalizedConcept
-      attr_accessor *%w(
+      CUSTOM_ATTRIBUTES = %w(
         reference_clause
         reference_anchor
         converted_definition
         file_path
         schema
         part
-        domain
         document
-      )
+      ).freeze
+
+      attr_accessor(*CUSTOM_ATTRIBUTES)
 
       # TODO: converted_definition is not supposed to be an attribute, it is
       # supposed to be a method!
@@ -45,14 +46,20 @@ file_path:, language_code: "eng")
           # TODO: `designations:` should include the `alt:[...]` terms here,
           # they are now only included in definition_xml_converted_definition.
           new(
-            designations: designation,
-            definition: [definition],
+            data: Glossarist::ConceptData.new(
+              {
+                terms: designation,
+                definition: [
+                  Glossarist::DetailedDefinition.new({ content: definition }),
+                ],
+                language_code: language_code,
+              },
+            ),
             converted_definition: converted_definition,
             id: "#{reference_anchor}.#{reference_clause}",
             reference_anchor: reference_anchor,
             reference_clause: reference_clause,
             file_path: file_path,
-            language_code: language_code,
           )
         end
 
@@ -80,7 +87,9 @@ file_path:, language_code: "eng")
             designations << { "designation" => alt, "type" => "expression" }
           end
 
-          designations
+          designations.map do |des|
+            Glossarist::Designation::Base.from_yaml(des.to_yaml)
+          end
         end
 
         def definition_xml_definition(definition_xml, reference_anchor)
@@ -106,24 +115,19 @@ file_path:, language_code: "eng")
         end
 
         def definition_xml_converted_definition(designation, definition)
-          accepted_designation = designation.select do |des|
-            des["normative_status"] == "preferred"
-          end
-
-          alt_designations = designation.reject do |des|
-            des["normative_status"] == "preferred"
-          end
+          accepted_designation = designation.select(&:preferred?)
+          alt_designations = designation.reject(&:preferred?)
 
           if alt_designations.length.positive?
             alt_designations_text = alt_designations.map do |d|
-              d["designation"].strip
+              d.designation.strip
             end.join(",")
 
             alt_notation = "alt:[#{alt_designations_text}]"
           end
 
           result = <<~TEXT
-            === #{accepted_designation.map { |d| d['designation'].strip }.join(',')}
+            === #{accepted_designation.map { |d| d.designation.strip }.join(',')}
           TEXT
 
           if alt_notation
@@ -140,6 +144,14 @@ file_path:, language_code: "eng")
         end
       end
 
+      def initialize(hash = {})
+        super(hash)
+
+        CUSTOM_ATTRIBUTES.each do |attr|
+          public_send("#{attr}=", hash[attr] || hash[attr.to_sym])
+        end
+      end
+
       def to_h
         super.merge({
           "domain" => domain,
@@ -149,9 +161,13 @@ file_path:, language_code: "eng")
         }.compact)
       end
 
+      def domain
+        data.domain
+      end
+
       def to_mn_adoc
         <<~TEXT
-          // STEPmod path:#{file_path.empty? ? '' : " #{file_path}"}
+          // STEPmod path:#{file_path.to_s.empty? ? '' : " #{file_path}"}
           #{converted_definition}
 
           [.source]

@@ -10,4 +10,4 @@ Style/MultilineMethodCallIndentation:
   EnforcedStyle: aligned
 
 AllCops:
-  TargetRubyVersion: 2.5
+  TargetRubyVersion: 3.1

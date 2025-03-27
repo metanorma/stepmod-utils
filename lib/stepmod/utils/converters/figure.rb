@@ -5,7 +5,7 @@ require "coradoc/input/html/converters/figure"
 module Stepmod
   module Utils
     module Converters
-      class Figure < Coradoc::Input::HTML::Converters::Figure
+      class Figure < Coradoc::Input::Html::Converters::Figure
         def self.pattern(state, id)
           if state[:schema_and_entity].nil?
             raise StandardError.new("[figure]: no state given, #{id}")
@@ -43,7 +43,7 @@ module Stepmod
       end
 
       # This replaces the converter
-      Coradoc::Input::HTML::Converters.register :figure, Figure.new
+      Coradoc::Input::Html::Converters.register :figure, Figure.new
     end
   end
 end

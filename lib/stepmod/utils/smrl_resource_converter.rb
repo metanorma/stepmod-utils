@@ -51,8 +51,8 @@ module Stepmod
 
         root || (return "")
 
-        Coradoc::Input::HTML.config.with(options) do
-          result = Coradoc::Input::HTML::Converters.lookup(root.name).convert(root,
+        Coradoc::Input::Html.config.with(options) do
+          result = Coradoc::Input::Html::Converters.lookup(root.name).convert(root,
                                                                               options)
 
           Stepmod::Utils::Cleaner.new.tidy(result)

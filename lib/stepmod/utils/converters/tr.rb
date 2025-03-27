@@ -3,7 +3,7 @@
 module Stepmod
   module Utils
     module Converters
-      class Tr < Coradoc::Input::HTML::Converters::Tr
+      class Tr < Coradoc::Input::Html::Converters::Tr
         def to_coradoc(node, state = {})
           content = super(node, state)
           line_break = content.header ? "\n\n" : "\n"
@@ -11,7 +11,7 @@ module Stepmod
         end
       end
 
-      Coradoc::Input::HTML::Converters.register :tr, Tr.new
+      Coradoc::Input::Html::Converters.register :tr, Tr.new
     end
   end
 end

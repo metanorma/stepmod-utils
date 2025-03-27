@@ -12,7 +12,7 @@ module Stepmod
         end
       end
 
-      Coradoc::Input::HTML::Converters.register :comment, Comment.new
+      Coradoc::Input::Html::Converters.register :comment, Comment.new
     end
   end
 end

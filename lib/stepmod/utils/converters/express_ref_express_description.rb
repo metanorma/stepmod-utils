@@ -7,7 +7,8 @@ module Stepmod
           "<<express:#{parts.join('.').strip},#{parts.last.strip}>>"
         end
       end
-      Coradoc::Input::HTML::Converters.register :express_ref, ExpressRefExpressDescription.new
+      Coradoc::Input::Html::Converters.register :express_ref,
+                                                ExpressRefExpressDescription.new
     end
   end
 end

@@ -14,8 +14,8 @@ module Stepmod
         end
       end
 
-      Coradoc::Input::HTML::Converters.register :em, Em.new
-      Coradoc::Input::HTML::Converters.register :cite, Em.new
+      Coradoc::Input::Html::Converters.register :em, Em.new
+      Coradoc::Input::Html::Converters.register :cite, Em.new
     end
   end
 end

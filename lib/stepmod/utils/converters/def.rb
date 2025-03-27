@@ -78,8 +78,8 @@ module Stepmod
         end
       end
 
-      Coradoc::Input::HTML::Converters.register :def, Def.new
-      Coradoc::Input::HTML::Converters.register :description, Def.new
+      Coradoc::Input::Html::Converters.register :def, Def.new
+      Coradoc::Input::Html::Converters.register :description, Def.new
     end
   end
 end

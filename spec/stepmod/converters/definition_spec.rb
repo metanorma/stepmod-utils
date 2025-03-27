@@ -11,9 +11,9 @@ RSpec.describe Stepmod::Utils::Converters::Definition do
   let(:input_xml) do
     <<~TEXT
       <definition>
-          <term>boundary representation solid model  </term>
-          <def>
-            <p> B-rep </p>
+        <term>boundary representation solid model  </term>
+        <def>
+          <p> B-rep </p>
           type of geometric model in which the size and shape of a solid is
           defined in terms of the faces, edges
           and vertices which make up its boundary

@@ -3,7 +3,7 @@
 module Stepmod
   module Utils
     module Converters
-      class Ol < Coradoc::Input::HTML::Converters::Ol
+      class Ol < Coradoc::Input::Html::Converters::Ol
         LIST_TAGS = ["ol", "ul", "dir"].freeze
 
         def to_coradoc(node, state = {})
@@ -15,7 +15,7 @@ module Stepmod
       end
 
       Ol::LIST_TAGS.each do |tag|
-        Coradoc::Input::HTML::Converters.register tag.to_sym, Ol.new
+        Coradoc::Input::Html::Converters.register tag.to_sym, Ol.new
       end
     end
   end
