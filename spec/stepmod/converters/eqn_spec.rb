@@ -193,4 +193,134 @@ RSpec.describe Stepmod::Utils::Converters::Eqn do
       expect(convert).to eq(output)
     end
   end
+
+  context "when express_ref is in equation" do
+    let(:input_xml) do
+      <<~XML
+        <eqn>
+          <i>y</i> = <express_ref linkend="math_schema.sine"/>(<i>x</i>)
+        </eqn>
+      XML
+    end
+
+    let(:output) do
+      <<~XML
+
+        [stem]
+        ++++
+        y = sine(x)
+        ++++
+
+
+      XML
+    end
+
+    it "strips express_ref and keeps only the function name" do
+      expect(convert).to eq(output)
+    end
+  end
+
+  context "when module_ref is in equation" do
+    let(:input_xml) do
+      <<~XML
+        <eqn>
+          <i>value</i> = <module_ref linkend="some_module:entity_name"/>
+        </eqn>
+      XML
+    end
+
+    let(:output) do
+      <<~XML
+
+        [stem]
+        ++++
+        value = "entity_name"
+        ++++
+
+
+      XML
+    end
+
+    it "strips module_ref and extracts name after colon" do
+      expect(convert).to eq(output)
+    end
+  end
+
+  context "when multiple express_ref tags are present" do
+    let(:input_xml) do
+      <<~XML
+        <eqn>
+          <i>result</i> = <express_ref linkend="schema.func_a"/>(<express_ref linkend="schema.func_b"/>(<i>x</i>))
+        </eqn>
+      XML
+    end
+
+    let(:output) do
+      <<~XML
+
+        [stem]
+        ++++
+        result = "func_a"("func_b"(x))
+        ++++
+
+
+      XML
+    end
+
+    it "strips all express references" do
+      expect(convert).to eq(output)
+    end
+  end
+
+  context "when express_ref has empty linkend" do
+    let(:input_xml) do
+      <<~XML
+        <eqn>
+          <i>y</i> = <express_ref linkend=""/>(<i>x</i>)
+        </eqn>
+      XML
+    end
+
+    let(:output) do
+      <<~XML
+
+        [stem]
+        ++++
+        y = (x)
+        ++++
+
+
+      XML
+    end
+
+    it "removes express_ref with empty linkend" do
+      expect(convert).to eq(output)
+    end
+  end
+
+  context "when express_ref has no linkend attribute" do
+    let(:input_xml) do
+      <<~XML
+        <eqn>
+          <i>y</i> = <express_ref/>(<i>x</i>)
+        </eqn>
+      XML
+    end
+
+    let(:output) do
+      <<~XML
+
+        [stem]
+        ++++
+        y = (x)
+        ++++
+
+
+      XML
+    end
+
+    it "removes express_ref without linkend" do
+      expect(convert).to eq(output)
+    end
+  end
 end

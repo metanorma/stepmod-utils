@@ -8,6 +8,7 @@ module Stepmod
     module Converters
       class Eqn < Stepmod::Utils::Converters::Base
         TAGS_NOT_IN_CONTEXT = %w[b i].freeze
+        EXPRESS_REF_TAGS = %w[express_ref module_ref].freeze
 
         def to_coradoc(node, state = {})
           cloned_node = node.clone
@@ -56,6 +57,7 @@ module Stepmod
 
         def stem_converted(cloned_node, state)
           remove_tags_not_in_context(cloned_node) unless state[:convert_bold_and_italics]
+          strip_express_references(cloned_node)
           internal_content = treat_children(cloned_node,
                                             state.merge(equation: true))
           content = Stepmod::Utils::HtmlToAsciimath.new.call(internal_content)
@@ -100,6 +102,24 @@ module Stepmod
                 n.add_previous_sibling(n.children)
                 n.unlink
               end
+          end
+        end
+
+        # Cross-references aren't supported in stem blocks, so we replace
+        # express_ref/module_ref with just the entity name
+        def strip_express_references(node)
+          EXPRESS_REF_TAGS.each do |tag_name|
+            node.xpath(".//#{tag_name}").each do |ref_node|
+              linkend = ref_node["linkend"].to_s
+              name = linkend.split(/[.:]/).last
+              name = linkend if name.nil? || name.empty?
+
+              if name.empty?
+                ref_node.unlink
+              else
+                ref_node.replace(Nokogiri::XML::Text.new(name.strip, node.document))
+              end
+            end
           end
         end
 
