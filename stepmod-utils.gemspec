@@ -40,7 +40,9 @@ Gem::Specification.new do |spec|
   spec.add_dependency "octokit"
   spec.add_dependency "plurimath"
   spec.add_dependency "ptools"
-  spec.add_dependency "pubid-iso"
+  # The pubid monogem ships Pubid::Iso itself; the separate pubid-iso
+  # gem is superseded and its lib/pubid/iso.rb shadows the monogem's.
+  spec.add_dependency "pubid", "~> 2.0.0.pre.alpha"
   spec.add_dependency "shale"
   spec.add_dependency "thor", ">= 0.20"
   spec.add_dependency "unitsml"

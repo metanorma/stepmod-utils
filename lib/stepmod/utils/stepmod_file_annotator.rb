@@ -7,7 +7,7 @@ require "stepmod/utils/converters/express_figure"
 require "stepmod/utils/converters/express_table"
 require "expressir"
 require "expressir/express/parser"
-require "pubid-iso"
+require "pubid"
 
 module Stepmod
   module Utils
