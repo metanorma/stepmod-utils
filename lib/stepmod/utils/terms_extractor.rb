@@ -6,7 +6,7 @@ require "securerandom"
 require "expressir"
 require "expressir/express/parser"
 require "indefinite_article"
-require "pubid-iso"
+require "pubid"
 
 Coradoc::Input::Html.config.unknown_tags = :bypass
 
