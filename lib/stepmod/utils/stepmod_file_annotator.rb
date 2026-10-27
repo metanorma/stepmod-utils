@@ -87,7 +87,7 @@ module Stepmod
         # TODO there are schemas with only arm, mim, mim_lf:
         # schemas/modules/limited_length_or_area_indicator_assignment/mim_lf.exp
         part = @identifier.part
-        edition = @identifier.edition
+        edition = @identifier.edition&.number
         schema_or_object = (schema_type == :module) ? "schema" : "object"
 
         "\nSCHEMA #{@schema_name} '{ " \
@@ -402,16 +402,12 @@ processed_images_cache)
         year = "" if year == "tbd"
         edition = bib.attributes["version"].value
 
-        pubid = Pubid::Iso::Identifier.create(
-          publisher: "ISO",
-          number: 10303,
-        )
+        attrs = { number: 10303 }
+        attrs[:part] = part if part && !part.empty?
+        attrs[:date] = { year: year.split("-").first } if year && !year.empty?
+        attrs[:edition] = { number: edition } if edition && !edition.empty?
 
-        pubid.part = part if part && !part.empty?
-        pubid.year = year.split("-").first if year && !year.empty?
-        pubid.edition = edition if edition && !edition.empty?
-
-        pubid
+        Pubid::Iso::Identifier.new(**attrs)
       end
 
       def resource_bib_data(bib, schema_and_entity)
