@@ -30,6 +30,10 @@ Or include it in your gemspec.
 This command uses Expressir to validate all EXPRESS schemas listed in the
 `{stepmod}/repository_index.xml` file.
 
+Validation parses each file separately so that a broken schema is reported
+without preventing validation of the remaining files. It does not build the
+shared repository used for concept extraction.
+
 There is a `SHOULD_REWRITE` constant that can be switched in the code which
 allows overwriting of the EXPRESS schemas into a pretty-printed format.
 
@@ -67,6 +71,10 @@ SCHEMA: data/resources/geometric_model_schema/geometric_model_schema.exp
 
 This command takes the STEPmod directory and parses its XML to synthesize
 with the target EXPRESS schemas to migrate into Annotated EXPRESS schemas.
+
+Annotation parses each input file to determine its schema name before combining
+it with the XML descriptions. It does not resolve references across schemas;
+repository-wide parsing happens when extracting concepts from the annotated files.
 
 Given the following schemas:
 
@@ -118,6 +126,15 @@ $ bundle exec stepmod-annotate-all --stepmod-dir iso-10303-stepmod-wg12 --output
 
 
 === ISO 10303-2 concepts extraction
+
+Concept extraction passes the complete selected set of annotated EXPRESS files to
+`Expressir::Express::Parser.from_files` once, producing a shared repository for
+cross-schema references as requested in
+https://github.com/metanorma/stepmod-utils/issues/136[issue #136]. The set contains
+existing ARM and MIM files for published, non-withdrawn modules and existing
+schemas for published, non-withdrawn resources listed in `repository_index.xml`.
+ISO 13584 schemas are excluded. BOMs and application protocols do not contribute
+Clause 3 terms and are excluded from concept extraction.
 
 [source,sh]
 ----

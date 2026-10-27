@@ -1,3 +1,5 @@
+require "pubid"
+
 module Stepmod
   module Utils
     class ExpressBibdata
@@ -22,7 +24,7 @@ module Stepmod
           @pubid = Pubid::Iso::Identifier.parse(published_info)
 
           @part = pubid.part&.to_i
-          @version = pubid.edition&.to_i
+          @version = pubid.edition&.number&.to_i
           @pub_year = pubid.year&.to_i
         elsif !schema.version.nil?
           @part = schema.version.items.find { |i| i.name == "part" }.value&.to_i
