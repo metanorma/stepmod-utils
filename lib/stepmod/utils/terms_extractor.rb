@@ -541,12 +541,12 @@ document:)
                         raise Error.new("[stepmod-utils] encountered unsupported schema_type")
                       end
 
-        if entity.subtype_of.empty?
+        if entity.subtype_of.to_a.empty?
           "#{entity_type} " \
             "that represents the " \
             "#{entity_name_to_text(entity.id)} {{entity}}"
         else
-          entity_subtypes = entity.subtype_of.map do |e|
+          entity_subtypes = entity.subtype_of.to_a.map do |e|
             "{{#{e.id}}}"
           end
 

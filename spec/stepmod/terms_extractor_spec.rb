@@ -22,8 +22,12 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
       {
         designation: "action_directive",
         domain: "resource: action_schema",
-        definition: "{{entity data type}} that represents the action directive {{entity}}",
-        old_definition: "An **action_directive** is an authoritative instrument that provides directions to achieve the specified results.",
+        definition: "{{entity data type}} that represents the action " \
+                    "directive {{entity}}",
+        old_definition: "An **action_directive** is an authoritative " \
+                        "instrument that provides directions to achieve the " \
+                        "specified " \
+                        "results.",
       }
     end
 
@@ -31,8 +35,12 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
       {
         designation: "Activity",
         domain: "application module: Activity_arm",
-        definition: "{{application object}} that represents the activity {{entity}}",
-        old_definition: "An **Activity** is the identification of the occurrence of an action that has taken place, is taking place, or is expected to take place in the future.",
+        definition: "{{application object}} that represents the activity " \
+                    "{{entity}}",
+        old_definition: "An **Activity** is the identification of the " \
+                        "occurrence of an action that has taken place, is " \
+                        "taking place, or " \
+                        "is expected to take place in the future.",
       }
     end
 
@@ -40,14 +48,35 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
       {
         designation: "applied_action_assignment",
         domain: "application module: Activity_mim",
-        definition: "{{entity data type}} that is a type of {{action_assignment}} that represents the applied action assignment {{entity}}",
-        old_definition: "An **applied_action_assignment** is an {{action,action}} related to the data that are affected by the {{action,action}}.",
+        definition: "{{entity data type}} that is a type of " \
+                    "{{action_assignment}} that represents the applied " \
+                    "action assignment {{entity}}",
+        old_definition: "An **applied_action_assignment** is an " \
+                        "{{action,action}} related to the data that are " \
+                        "affected by the " \
+                        "{{action,action}}.",
       }
     end
 
+    it "parses the complete schema set in one repository" do
+      expected_files = [
+        "modules/activity/arm_annotated.exp",
+        "modules/activity/mim_annotated.exp",
+        "resources/action_schema/action_schema_annotated.exp",
+        "resources/presentation_appearance_schema/" \
+        "presentation_appearance_schema_annotated.exp",
+        "resources/set_theory_schema/set_theory_schema_annotated.exp",
+      ].map { |path| Pathname.new(stepmod_dir).realpath.join(path) }.sort
+
+      expect(Expressir::Express::Parser).to receive(:from_files)
+        .with(expected_files).once.and_call_original
+
+      call
+    end
+
     it "returns general_concepts," \
-      "resource_concepts, parsed_bibliography lists" do
-      expect(call.map(&:to_a).map(&:length)).to(eq([0, 0, 3, 0, 2, 1]))
+       "resource_concepts, parsed_bibliography lists" do
+      expect(call.map { |list| list.to_a.length }).to(eq([0, 0, 3, 0, 2, 1]))
     end
 
     it "For resources/*/descriptions.xml terms takes \
@@ -103,8 +132,10 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
         .register(:ext_description,
                   Stepmod::Utils::Converters::StepmodExtDescription.new)
 
-      activity_with_a_redundant_note = call[-1][0][1]["Activity_arm"].fetch("1047-5").default_lang
-      activity_with_an_redundant_note = call[-1][0][1]["Activity_arm"].fetch("1047-6").default_lang
+      activity_with_a_redundant_note =
+        call[-1][0][1]["Activity_arm"].fetch("1047-5").default_lang
+      activity_with_an_redundant_note =
+        call[-1][0][1]["Activity_arm"].fetch("1047-6").default_lang
 
       expect(activity_with_a_redundant_note.notes.count).to eq(0)
       expect(activity_with_an_redundant_note.notes.count).to eq(0)
@@ -196,7 +227,8 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
         end
 
         let(:expected_output) do
-          "{{entity data type}} that is a type of {{action}} that represents the executed action {{entity}}"
+          "{{entity data type}} that is a type of {{action}} that represents " \
+            "the executed action {{entity}}"
         end
 
         it { expect(generate_entity_definition).to eq(expected_output) }
@@ -216,7 +248,8 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
         end
 
         let(:expected_output) do
-          "{{entity data type}} that is a type of {{action_1}} and {{action_2}} that represents the executed action {{entity}}"
+          "{{entity data type}} that is a type of {{action_1}} and " \
+            "{{action_2}} that represents the executed action {{entity}}"
         end
 
         it { expect(generate_entity_definition).to eq(expected_output) }
@@ -345,7 +378,8 @@ RSpec.describe Stepmod::Utils::TermsExtractor do
 
       context "when note is redundant" do
         let(:note) do
-          "A **mbna_Dirichlet_bc_dataset** is a type of {{mbna_bc_dataset,mbna_bc_dataset}}"
+          "A **mbna_Dirichlet_bc_dataset** is a type of " \
+            "{{mbna_bc_dataset,mbna_bc_dataset}}"
         end
 
         it { expect(redundant_note).to eq(true) }
