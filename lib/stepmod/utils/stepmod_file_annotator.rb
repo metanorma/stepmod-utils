@@ -246,6 +246,11 @@ processed_images_cache)
           examples = description.xpath("example")
           figures = description.xpath("figure")
           tables = description.xpath("table")
+          state = {
+            schema_and_entity: description["linkend"],
+            descriptions_file: descriptions_file,
+            figure_ids: figures.map { |f| f["id"] || f["number"] },
+          }
 
           converted_description = <<~DESCRIPTION
 
@@ -253,6 +258,7 @@ processed_images_cache)
               wrapper,
               no_notes_examples: true,
               descriptions_file: descriptions_file,
+              figure_ids: state[:figure_ids],
             )}
           DESCRIPTION
 
@@ -263,7 +269,7 @@ processed_images_cache)
           converted_figures = figures.map do |figure|
             Stepmod::Utils::Converters::ExpressFigure
               .new
-              .convert(figure, schema_and_entity: description["linkend"], descriptions_file: descriptions_file)
+              .convert(figure, state)
           end.join
 
           converted_tables = tables.map do |table|
@@ -275,13 +281,13 @@ processed_images_cache)
           converted_notes = notes.map do |note|
             Stepmod::Utils::Converters::ExpressNote
               .new
-              .convert(note, schema_and_entity: description["linkend"], descriptions_file: descriptions_file)
+              .convert(note, state)
           end.join
 
           converted_examples = examples.map do |example|
             Stepmod::Utils::Converters::ExpressExample
               .new
-              .convert(example, schema_and_entity: description["linkend"], descriptions_file: descriptions_file)
+              .convert(example, state)
           end.join
 
           [

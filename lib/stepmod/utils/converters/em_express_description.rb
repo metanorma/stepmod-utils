@@ -1,9 +1,13 @@
 # frozen_string_literal: true
 
+require_relative "strong"
+
 module Stepmod
   module Utils
     module Converters
       class Em < Stepmod::Utils::Converters::Base
+        BOLD_TAGS = %w[b strong].freeze
+
         def convert(node, state = {})
           italic_converted(node, state)
         end
@@ -15,6 +19,11 @@ module Stepmod
         private
 
         def italic_converted(node, state)
+          bold = sole_bold_child(node)
+          if bold && !state[:already_italic]
+            return bold_italic(node, bold, state)
+          end
+
           cloned_node = node.clone
           equations = extract_equations(cloned_node)
           content = treat_children(cloned_node,
@@ -32,6 +41,26 @@ module Stepmod
                     end
 
           [content, equation_content].compact.join("")
+        end
+
+        # <i><b>x</b></i> is written bold outside, italic inside: `*_x_*`.
+        def bold_italic(node, bold, state)
+          content = treat_children(bold, state.merge(already_italic: true))
+          return content if content.strip.empty?
+
+          lead = content[/^\s*/]
+          trail = content[/\s*$/]
+          Strong.new.mark_up(node, "#{lead}_#{content.strip}_#{trail}", state)
+        end
+
+        def sole_bold_child(node)
+          return unless node.element_children.one?
+          return if node.children.any? { |c| c.text? && !c.text.strip.empty? }
+
+          bold = node.element_children.first
+          return unless BOLD_TAGS.include?(bold.name)
+
+          bold unless bold.element_children.any? { |c| c.name == "eqn" }
         end
 
         def extract_equations(node)

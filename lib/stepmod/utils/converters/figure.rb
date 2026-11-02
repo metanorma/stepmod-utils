@@ -7,11 +7,12 @@ module Stepmod
     module Converters
       class Figure < Coradoc::Input::Html::Converters::Figure
         def self.pattern(state, id)
-          if state[:schema_and_entity].nil?
+          schema_and_entity = state[:schema_and_entity] || state[:schema_name]
+          if schema_and_entity.nil?
             raise StandardError.new("[figure]: no state given, #{id}")
           end
 
-          schema = state[:schema_and_entity].split(".").first
+          schema = schema_and_entity.split(".").first
           "figure-#{schema}-#{id}"
         end
 

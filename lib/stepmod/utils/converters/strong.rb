@@ -10,7 +10,33 @@ module Stepmod
           bold_converted(node, state)
         end
 
+        # Wraps already converted +content+ in AsciiDoc bold markup, as
+        # +node+ (a <b>, or an element standing in for one) would.
+        def mark_up(node, content, state)
+          return content if content.strip.empty? || state[:already_strong] ||
+            state[:equation]
+
+          strong_tag = unconstrained?(node, content, state) ? "**" : "*"
+          handle_express_escape_seq(
+            node,
+            "#{content[/^\s*/]}#{strong_tag}#{content.strip}#{strong_tag}#{content[/\s*$/]}",
+          )
+        end
+
         private
+
+        # Constrained bold (`*x*`) is not recognised inside a word, so
+        # unconstrained markup is needed whenever a word character touches it.
+        def unconstrained?(node, content, state)
+          return true if state[:non_flanking_whitesapce]
+
+          (content.match?(/\A\S/) && word_sibling?(node.previous, /\w\z/)) ||
+            (content.match?(/\S\z/) && word_sibling?(node.next, /\A\w/))
+        end
+
+        def word_sibling?(sibling, pattern)
+          sibling&.text? && sibling.text.match?(pattern)
+        end
 
         def bold_converted(node, state)
           cloned_node = node.clone
@@ -23,14 +49,8 @@ module Stepmod
 
           content = if state[:equation] && state[:convert_bold_and_italics]
                       "bb(#{content.strip})"
-                    elsif content.strip.empty? || state[:already_strong] || state[:equation]
-                      content
                     else
-                      strong_tag = state[:non_flanking_whitesapce] ? "**" : "*"
-                      handle_express_escape_seq(
-                        node,
-                        "#{content[/^\s*/]}#{strong_tag}#{content.strip}#{strong_tag}#{content[/\s*$/]}",
-                      )
+                      mark_up(node, content, state)
                     end
 
           [content, equation_content].compact.join("")
