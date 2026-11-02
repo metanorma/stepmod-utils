@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative "figure"
+
 module Stepmod
   module Utils
     module Converters
@@ -18,6 +20,7 @@ module Stepmod
             "[[#{id}]]"
           elsif href.to_s.start_with?("#")
             href = href.sub(/^#/, "").gsub(/\s/, "").gsub(/__+/, "_")
+            href = figure_anchor(href, state) || href
             if name.empty? || number_with_optional_prefix?(name)
               "<<#{href}>>"
             else
@@ -35,6 +38,17 @@ module Stepmod
         end
 
         private
+
+        # A reference to a figure must use the id the figure is given by
+        # Figure.pattern, or the link does not resolve.
+        def figure_anchor(href, state)
+          return unless state[:schema_and_entity] || state[:schema_name]
+
+          figure_id = href[/\Afigure[_-](.+)\z/, 1]
+          figure_id = href if figure_id.nil? &&
+            Array(state[:figure_ids]).include?(href)
+          Figure.pattern(state, figure_id) if figure_id
+        end
 
         def number_with_optional_prefix?(name)
           /.*?\s*\(?\d+\)?/.match(name)
