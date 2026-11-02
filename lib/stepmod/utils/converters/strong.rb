@@ -17,9 +17,11 @@ module Stepmod
             state[:equation]
 
           strong_tag = unconstrained?(node, content, state) ? "**" : "*"
+          leading = content[0, content.length - content.lstrip.length]
+          trailing = content[content.rstrip.length..]
           handle_express_escape_seq(
             node,
-            "#{content[/^\s*/]}#{strong_tag}#{content.strip}#{strong_tag}#{content[/\s*$/]}",
+            "#{leading}#{strong_tag}#{content.strip}#{strong_tag}#{trailing}",
           )
         end
 
