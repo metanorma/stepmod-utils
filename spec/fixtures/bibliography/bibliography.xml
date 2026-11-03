@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+     Extract of STEPmod data/basic/bibliography.xml (issue #61 attachment).
+-->
+<!DOCTYPE bibitem.list SYSTEM "../../dtd/module.dtd">
+<bibitem.list>
+
+  <bibitem id="aws-a2.4-2012">
+    <orgname>American welding society</orgname>
+    <pubdate>To be published in 2018</pubdate>
+    <stdnumber>AWS-A2.4 2012</stdnumber>
+    <stdtitle>
+      Standard Symbols for Welding, Brazing, and Nondestructive Examination
+    </stdtitle>
+  </bibitem>
+
+  <bibitem id="ref8824-1">
+    <orgname>ISO/IEC</orgname>
+    <stdnumber>ISO/IEC 8824-1</stdnumber>
+    <stdtitle>
+      Information technology &mdash;
+      Abstract Syntax Notation One (ASN.1) &mdash; Part 1: Specification of basic notation
+    </stdtitle>
+  </bibitem>
+
+  <bibitem id="ISO 31-all">
+			<orgname>ISO</orgname>
+			<pubdate>1992</pubdate>
+			<stdnumber>ISO 31(all parts)</stdnumber>
+			<stdtitle>Quantities and units</stdtitle>
+  </bibitem>
+
+  <bibitem id="ISO_31-all">
+    <orgname>ISO</orgname>
+    <stdnumber>ISO 31</stdnumber>
+    <stdtitle>Collides with "ISO 31-all" after sanitizing &unknownentity;</stdtitle>
+  </bibitem>
+
+  <bibitem id="ref286_1.">
+      <orgname>ISO</orgname>
+    <stdnumber>ISO 286-1</stdnumber>
+      <stdtitle>Geometrical product specifications (GPS) &#8212; ISO code system for tolerances on linear sizes</stdtitle>
+    <subtitle>new ed. to be published imminently</subtitle>
+  </bibitem>
+
+  <bibitem id="ietf3986.-">
+    <orgname>Internet Engineering Task Force </orgname>
+    <stdnumber>RFC 3986</stdnumber>
+    <stdtitle>
+      Uniform Resource Identifier (URI): Generic Syntax.
+    </stdtitle>
+    <ulink>http://www.ietf.org/rfc/rfc3986.txt</ulink>
+  </bibitem>
+
+  <bibitem id="IGES-5">
+    <orgname>US PRO</orgname>
+    <pubdate>January 1992</pubdate>
+    <stdnumber>IGES 5.0</stdnumber>
+    <stdtitle>Initial Graphics Exchange Specification (IGES)</stdtitle>
+  </bibitem>
+
+  <bibitem.techreport id="AMConGde06">
+<!-- abf- per Brian Stanton, ISO, no authors for SC4 documents
+    <primary-responsibility>HUNTEN, Keith</primary-responsibility> -->
+    <stdtitle>Guidelines for the content of application modules</stdtitle>
+    <number>ISO TC 184/SC 4 N1685</number>
+    <pubdate>2004-02-27</pubdate>
+  </bibitem.techreport>
+
+  <bibitem.techreport id="NISTIR-7634">
+    <primary-responsibility>BRADY, K. G., STORI, J., and THURMAN, T.</primary-responsibility>
+      <stdtitle>Extensions to the recommended practices for GD&amp;T in STEP-AP210</stdtitle>
+    <institution>National Institute of Standards and Technology</institution>
+    <report-type>NISTIR</report-type>
+    <number>7634</number>
+    <pubdate>2009-12-04</pubdate>
+    <ulink>http://www.nist.gov/customcf/get_pdf.cfm?pub_id=903904</ulink>
+  </bibitem.techreport>
+
+  <bibitem.techreport id="hamilton-mh-welding-symbol-elements">
+    <primary-responsibility>
+      MH Hamilton
+    </primary-responsibility>
+    <stdtitle>
+    Elements of a welding symbol
+    </stdtitle>
+    <pubdate>2011</pubdate>
+  </bibitem.techreport>
+
+	<bibitem.book id="BLANCHARD1998">
+		<primary-responsibility>BLANCHARD, Benjamin S. and FABRYCKY, Wolter J.</primary-responsibility>
+    <stdtitle>
+      Systems engineering and analysis
+    </stdtitle>
+		<place>New Jersey</place>
+		<publisher>Prentice Hall</publisher>
+		<pubdate>1990</pubdate>
+	</bibitem.book>
+</bibitem.list>

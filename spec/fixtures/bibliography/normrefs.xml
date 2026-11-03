@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl"
+  href="../../xsl/normrefs.xsl"
+?>
+<!--
+     Extract of STEPmod data/basic/normrefs.xml (issue #61 attachment).
+-->
+<!DOCTYPE normref.list SYSTEM "../../dtd/module.dtd">
+
+<normref.list>
+	<normref id="ref31-0">
+		<stdref>
+			<orgname>ISO</orgname>
+			<pubdate>1992</pubdate>
+			<stdnumber>31-0</stdnumber>
+			<stdtitle>Quantities and units</stdtitle>
+			<subtitle>&mdash; Part 0: General principles</subtitle>
+		</stdref>
+	</normref>
+	<normref id="refIEC80000">
+		<stdref>
+			<orgname>IEC</orgname>
+						<stdnumber>80000(all parts)</stdnumber>
+			<stdtitle>Quantities and units</stdtitle>
+		</stdref>
+	</normref>
+	<normref id="ref129-1">
+		<stdref>
+			<orgname>ISO</orgname>
+			<stdnumber>129-1</stdnumber>
+			<stdtitle>Technical drawings &mdash; Indication of dimensions and tolerances
+			</stdtitle>
+			<subtitle>&mdash; Part 1: General principles</subtitle>
+		</stdref>
+		<!-- clause 3.1 Features -->
+		<term id="term_reference_feature">reference feature</term>
+		<term id="term_repeated_feature">repeated feature</term>
+	</normref>
+	<normref id="ref2553-2013">
+		<stdref>
+			<orgname>ISO</orgname>
+			<pubdate>&mdash;</pubdate>
+			<stdnumber>2533</stdnumber>
+			<stdtitle>Welding and allied processes &mdash; Symbolic representation on drawings
+			</stdtitle>
+			<subtitle>&mdash; Welded joints</subtitle>
+		</stdref>
+	</normref>
+	<normref id="uncertainty">
+		<stdref>
+			<orgname>BIPM, IEC, IFCC, ISO, IUPAC, IUPAP, OIML</orgname>
+		<pubdate>1993</pubdate>
+
+			<stdnumber></stdnumber>
+			<stdtitle>Guide to the expression of uncertainty in measurement (GUM)</stdtitle>
+		<subtitle>, corrected and reprinted in 1995</subtitle>
+		</stdref>
+			<term id="uncertainty">uncertainty</term>
+	</normref>
+	<normref id="ref17450-1">
+		<stdref>
+			<orgname>ISO</orgname>
+			<stdnumber>17450-1</stdnumber>
+			<stdtitle>
+				Geometrical Product Specifications (GPS) &mdash; Geometrical concepts &mdash;
+			</stdtitle>
+			<subtitle>
+         		Part 1: Model for geometrical specification and verification
+	 		</subtitle>
+		</stdref>
+	</normref>
+	<normref id="ref17450-1">
+		<stdref>
+			<orgname>ISO/TS</orgname>
+			<stdnumber>17450-1</stdnumber>
+			<stdtitle>Duplicate entry that must be skipped</stdtitle>
+		</stdref>
+	</normref>
+</normref.list>

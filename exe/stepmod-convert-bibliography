@@ -1,0 +1,97 @@
+#!/usr/bin/env ruby
+
+# resolve bin path, ignoring symlinks
+require "pathname"
+bin_file = Pathname.new(__FILE__).realpath
+
+# add self to libpath
+$:.unshift File.expand_path("../../lib", bin_file)
+
+require "bundler/setup"
+require "optparse"
+require "stepmod/utils/bibliography_converter"
+
+def log(message)
+  warn "[stepmod-utils] #{message}"
+end
+
+options = {}
+parser = OptionParser.new do |opts|
+  opts.banner = "Usage: #{$0} [options]\n\n" \
+                "Convert STEPmod normrefs.xml and bibliography.xml into " \
+                "one Relaton collection."
+
+  opts.on("-s", "--stepmod DIR",
+          "STEPmod root; reads data/basic/normrefs.xml and " \
+          "data/basic/bibliography.xml") do |dir|
+    options[:stepmod] = dir
+  end
+
+  opts.on("--normrefs PATH", "Path to normrefs.xml") do |path|
+    options[:normrefs] = path
+  end
+
+  opts.on("--bibliography PATH", "Path to bibliography.xml") do |path|
+    options[:bibliography] = path
+  end
+
+  opts.on("-o", "--output PATH",
+          "Output collection XML (default: standard output)") do |path|
+    options[:output] = path
+  end
+
+  opts.on("-t", "--title TITLE", "Title of the collection") do |title|
+    options[:title] = title
+  end
+
+  opts.on_tail("-h", "--help", "Show this message") do
+    puts opts
+    exit
+  end
+end
+begin
+  parser.parse!
+rescue OptionParser::ParseError => e
+  warn e.message
+  warn parser
+  exit 1
+end
+
+unless ARGV.empty?
+  warn "Unexpected argument: #{ARGV.join(' ')}"
+  warn parser
+  exit 1
+end
+
+if options[:stepmod]
+  basic = File.join(options[:stepmod], "data", "basic")
+  options[:normrefs] ||= File.join(basic, "normrefs.xml")
+  options[:bibliography] ||= File.join(basic, "bibliography.xml")
+end
+
+inputs = options.values_at(:normrefs, :bibliography).compact
+if inputs.empty?
+  warn "Give --stepmod DIR, or --normrefs PATH and/or --bibliography PATH."
+  warn parser
+  exit 1
+end
+
+missing = inputs.reject { |path| File.file?(path) }
+unless missing.empty?
+  warn "File not found: #{missing.join(', ')}"
+  exit 1
+end
+
+converter = Stepmod::Utils::BibliographyConverter.new(
+  normrefs: options[:normrefs],
+  bibliography: options[:bibliography],
+  title: options[:title],
+)
+xml = converter.to_xml
+
+if options[:output]
+  File.write(options[:output], xml, encoding: "UTF-8")
+  log "#{converter.items.size} items written to #{options[:output]}"
+else
+  $stdout.write(xml)
+end
