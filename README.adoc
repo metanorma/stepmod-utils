@@ -273,6 +273,56 @@ End!
 [stepmod-utils] ******************************
 ----
 
+=== Converting the STEPmod bibliography to a Relaton collection
+
+STEPmod keeps the shared references for `normref.inc` and `bibitem.inc` in
+`data/basic/normrefs.xml` and `data/basic/bibliography.xml`. This command
+converts both lists into one Relaton collection, so that Metanorma can cite any
+entry by its id.
+
+[source,sh]
+----
+# from a STEPmod checkout
+$ stepmod-convert-bibliography -s {stepmod-directory} -o stepmod-bibliography.xml
+
+# or from the two files directly (either one can be left out)
+$ stepmod-convert-bibliography --normrefs normrefs.xml \
+    --bibliography bibliography.xml -o stepmod-bibliography.xml
+----
+
+Without `-o`, the collection is written to standard output. `-t` sets the
+collection title.
+
+The output is a `<relaton-collection>` with one `<relation type="partOf">` per
+entry, each holding a Relaton `<bibitem>`:
+
+* The item id is the STEPmod id with the prefix `normref_` or `bibitem_` (for
+example `bibitem_ref8824-1`), the anchor form that the migrated ISO 10303
+documents use. The raw STEPmod id is kept as a `docidentifier` of type
+`STEPmod-id`.
+* The primary `docidentifier` is `orgname` + `stdnumber` for a normref (for
+example `ISO 31-0`), the `stdnumber` for a bibliography entry, and
+`report-type` + `number` for a technical report.
+* `bibitem` and `normref` become `standard`, `bibitem.techreport` becomes
+`techreport`, and `bibitem.book` becomes `book`.
+* `<term>` children of a normref are not bibliographic data and are skipped.
+* A duplicate id in one list is skipped with a warning. An unknown named
+entity is kept as text with a warning.
+
+From Ruby:
+
+[source,ruby]
+----
+require "stepmod/utils/bibliography_converter"
+
+converter = Stepmod::Utils::BibliographyConverter.new(
+  normrefs: "data/basic/normrefs.xml",
+  bibliography: "data/basic/bibliography.xml",
+)
+converter.items  # => Array<Relaton::Bib::ItemData>
+converter.to_xml # => relaton-collection XML
+----
+
 == Conversion of STEPmod descriptions.xml into adoc
 
 [source,sh]
