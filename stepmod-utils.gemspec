@@ -42,7 +42,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "ptools"
   # The pubid monogem ships Pubid::Iso itself; the separate pubid-iso
   # gem is superseded and its lib/pubid/iso.rb shadows the monogem's.
-  spec.add_dependency "pubid", "~> 2.0.0.pre.alpha"
+  spec.add_dependency "pubid", "~> 2.0"
   spec.add_dependency "relaton", "~> 3.0"
   spec.add_dependency "shale"
   spec.add_dependency "thor", ">= 0.20"
