@@ -1,4 +1,4 @@
-require "stepmod/utils/change"
+require "stepmod/utils/change_file"
 
 module Stepmod
   module Utils
@@ -11,7 +11,7 @@ module Stepmod
       def fetch_or_initialize(change, type)
         schema = schema_name(change)
 
-        @changes[schema_identifier(schema, type)] ||= Change.new(
+        @changes[schema_identifier(schema, type)] ||= ChangeFile.new(
           type: type,
           stepmod_dir: @stepmod_dir,
           schema_name: schema,
@@ -39,7 +39,7 @@ module Stepmod
       private
 
       def schema_name(change)
-        change.is_a?(Stepmod::Utils::Change) ? change.schema_name : change
+        change.is_a?(Stepmod::Utils::ChangeFile) ? change.schema_name : change
       end
 
       def schema_identifier(schema_name, type)
