@@ -1,7 +1,7 @@
 require "spec_helper"
-require "stepmod/utils/change"
+require "stepmod/utils/change_file"
 
-RSpec.describe Stepmod::Utils::Change do
+RSpec.describe Stepmod::Utils::ChangeFile do
   describe "Instance methods" do
     subject do
       described_class.new(
