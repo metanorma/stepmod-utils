@@ -18,22 +18,22 @@ require "stepmod/utils/converters/figure"
 require "stepmod/utils/converters/table"
 require "stepmod/utils/cleaner"
 
-require "coradoc/input/html/converters/a"
-require "coradoc/input/html/converters/blockquote"
-require "coradoc/input/html/converters/bypass"
-require "coradoc/input/html/converters/br"
-require "coradoc/input/html/converters/code"
-require "coradoc/input/html/converters/drop"
-require "coradoc/input/html/converters/head"
-require "coradoc/input/html/converters/hr"
-require "coradoc/input/html/converters/ignore"
-require "coradoc/input/html/converters/li"
-require "coradoc/input/html/converters/pass_through"
-require "coradoc/input/html/converters/q"
-require "coradoc/input/html/converters/strong"
-require "coradoc/input/html/converters/sup"
-require "coradoc/input/html/converters/sub"
-require "coradoc/input/html/converters/text"
+require "ceradoc/html/converters/a"
+require "ceradoc/html/converters/blockquote"
+require "ceradoc/html/converters/bypass"
+require "ceradoc/html/converters/br"
+require "ceradoc/html/converters/code"
+require "ceradoc/html/converters/drop"
+require "ceradoc/html/converters/head"
+require "ceradoc/html/converters/hr"
+require "ceradoc/html/converters/drop" # old coradoc Ignore (colgroup/col) is the ceradoc Skip registry
+require "ceradoc/html/converters/li"
+require "ceradoc/html/converters/pass_through"
+require "ceradoc/html/converters/q"
+require "ceradoc/html/converters/strong"
+require "ceradoc/html/converters/sup"
+require "ceradoc/html/converters/sub"
+require "ceradoc/html/converters/text"
 
 module Stepmod
   module Utils
@@ -50,8 +50,8 @@ module Stepmod
 
         return "" unless root
 
-        Coradoc::Input::Html.config.with(options) do
-          result = Coradoc::Input::Html::Converters.lookup(root.name).convert(root,
+        Ceradoc::Html.input_config.with(options) do
+          result = Ceradoc::Html::Converters.lookup(root.name).convert(root,
                                                                               options)
           return "" unless result
 

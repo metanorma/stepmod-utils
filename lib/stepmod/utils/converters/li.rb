@@ -3,18 +3,18 @@
 module Stepmod
   module Utils
     module Converters
-      class Li < Coradoc::Input::Html::Converters::Li
+      class Li < Ceradoc::Html::Converters::Li
         def to_coradoc(node, state = {})
           li = super
           li.content = li.content.map do |content|
-            parsed_content = Coradoc::Generator.gen_adoc(content)
+            parsed_content = Stepmod::Utils::CeradocCompat.gen_adoc(content)
             parsed_content[0] == " " ? parsed_content : parsed_content.lstrip
           end
           li
         end
       end
 
-      Coradoc::Input::Html::Converters.register :li, Li.new
+      Ceradoc::Html::Converters.register :li, Li.new
     end
   end
 end

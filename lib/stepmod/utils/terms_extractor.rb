@@ -8,7 +8,7 @@ require "expressir/express/parser"
 require "indefinite_article"
 require "pubid"
 
-Coradoc::Input::Html.config.unknown_tags = :bypass
+Ceradoc::Html.input_config.unknown_tags = :bypass
 
 module Stepmod
   module Utils

@@ -8,7 +8,7 @@ module Stepmod
           treat_children(node, state)
         end
       end
-      Coradoc::Input::Html::Converters.register :ext_descriptions,
+      Ceradoc::Html::Converters.register :ext_descriptions,
                                                 ExtDescriptions.new
     end
   end

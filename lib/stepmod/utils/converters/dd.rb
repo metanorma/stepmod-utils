@@ -8,7 +8,7 @@ module Stepmod
           "#{node.text}\n"
         end
 
-        Coradoc::Input::Html::Converters.register :dd, Dd.new
+        Ceradoc::Html::Converters.register :dd, Dd.new
       end
     end
   end

@@ -3,7 +3,7 @@
 module Stepmod
   module Utils
     module Converters
-      class Sup < Coradoc::Input::Html::Converters::Sup
+      class Sup < Ceradoc::Html::Converters::Sup
         def to_coradoc(node, state = {})
           if state[:equation]
             stem_notation(treat_children(node,
@@ -18,7 +18,7 @@ module Stepmod
         end
       end
 
-      Coradoc::Input::Html::Converters.register :sup, Sup.new
+      Ceradoc::Html::Converters.register :sup, Sup.new
     end
   end
 end

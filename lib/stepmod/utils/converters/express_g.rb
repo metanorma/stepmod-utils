@@ -49,7 +49,7 @@ module Stepmod
         end
       end
 
-      Coradoc::Input::Html::Converters.register "express-g", ExpressG.new
+      Ceradoc::Html::Converters.register "express-g", ExpressG.new
     end
   end
 end

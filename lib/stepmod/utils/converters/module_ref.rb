@@ -86,7 +86,7 @@ module Stepmod
           /.*?\s*\(?\d+\)?/.match(text)
         end
       end
-      Coradoc::Input::Html::Converters.register :module_ref, ModuleRef.new
+      Ceradoc::Html::Converters.register :module_ref, ModuleRef.new
     end
   end
 end

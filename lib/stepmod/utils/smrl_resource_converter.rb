@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require "stepmod/utils/converters/base"
-require "coradoc/input/html/converters/bypass"
-require "coradoc/input/html/converters/pass_through"
+require "ceradoc/html/converters/bypass"
+require "ceradoc/html/converters/pass_through"
 require "stepmod/utils/converters/a"
 require "stepmod/utils/converters/comment"
 require "stepmod/utils/converters/dd"
@@ -30,11 +30,11 @@ require "stepmod/utils/converters/tr"
 require "stepmod/utils/converters/li"
 require "stepmod/utils/cleaner"
 
-require "coradoc/input/html/converters/img"
-require "coradoc/input/html/converters/li"
-require "coradoc/input/html/converters/tr"
-require "coradoc/input/html/converters/td"
-require "coradoc/input/html/converters/th"
+require "ceradoc/html/converters/img"
+require "ceradoc/html/converters/li"
+require "ceradoc/html/converters/tr"
+require "ceradoc/html/converters/td"
+require "ceradoc/html/converters/td" # ceradoc registers :th on the same Td converter
 
 module Stepmod
   module Utils
@@ -51,8 +51,8 @@ module Stepmod
 
         root || (return "")
 
-        Coradoc::Input::Html.config.with(options) do
-          result = Coradoc::Input::Html::Converters.lookup(root.name).convert(root,
+        Ceradoc::Html.input_config.with(options) do
+          result = Ceradoc::Html::Converters.lookup(root.name).convert(root,
                                                                               options)
 
           Stepmod::Utils::Cleaner.new.tidy(result)

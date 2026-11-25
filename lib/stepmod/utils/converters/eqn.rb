@@ -123,8 +123,8 @@ module Stepmod
         end
       end
 
-      Coradoc::Input::Html::Converters.register :eqn, Eqn.new
-      Coradoc::Input::Html::Converters.register :bigeqn, Eqn.new
+      Ceradoc::Html::Converters.register :eqn, Eqn.new
+      Ceradoc::Html::Converters.register :bigeqn, Eqn.new
     end
   end
 end

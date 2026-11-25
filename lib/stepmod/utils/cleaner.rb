@@ -1,8 +1,8 @@
-require "coradoc/input/html/cleaner"
+require "ceradoc/html/cleaner"
 
 module Stepmod
   module Utils
-    class Cleaner < Coradoc::Input::Html::Cleaner
+    class Cleaner < Ceradoc::Html::Cleaner
       def tidy(string)
         super
           .gsub(/^ +/, "")
@@ -55,7 +55,7 @@ module Stepmod
       end
 
       def border(neighbour)
-        neighbour&.match?(/\w/) ? "" : Coradoc::Input::Html.config.tag_border
+        neighbour&.match?(/\w/) ? "" : Ceradoc::Html.input_config.tag_border
       end
     end
   end

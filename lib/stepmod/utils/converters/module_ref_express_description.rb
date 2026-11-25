@@ -45,7 +45,7 @@ module Stepmod
           # puts "[module_ref] #{result}"
         end
       end
-      Coradoc::Input::Html::Converters.register :module_ref,
+      Ceradoc::Html::Converters.register :module_ref,
                                                 ModuleRefExpressDescription.new
     end
   end

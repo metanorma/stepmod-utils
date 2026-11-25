@@ -13,7 +13,7 @@ module Stepmod
           TEMPLATE
         end
       end
-      Coradoc::Input::Html::Converters.register :schema, Schema.new
+      Ceradoc::Html::Converters.register :schema, Schema.new
     end
   end
 end

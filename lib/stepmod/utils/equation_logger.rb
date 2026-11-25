@@ -1,3 +1,4 @@
+require "logger"
 require "plurimath"
 require "stepmod/utils"
 
