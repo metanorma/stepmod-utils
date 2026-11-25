@@ -9,7 +9,7 @@ module Stepmod
         end
       end
 
-      Coradoc::Input::Html::Converters.register :synonym, Synonym.new
+      Ceradoc::Html::Converters.register :synonym, Synonym.new
     end
   end
 end

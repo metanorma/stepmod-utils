@@ -33,15 +33,15 @@ RSpec.describe Stepmod::Utils::Concept do
 
   let(:input) { node_for(input_xml) }
 
-  original_ext_description = Coradoc::Input::Html::Converters.lookup(:ext_description)
-  original_express_ref = Coradoc::Input::Html::Converters.lookup(:express_ref)
+  original_ext_description = Ceradoc::Html::Converters.lookup(:ext_description)
+  original_express_ref = Ceradoc::Html::Converters.lookup(:express_ref)
   before do
     require "stepmod/utils/converters/stepmod_ext_description"
-    Coradoc::Input::Html::Converters.register(
+    Ceradoc::Html::Converters.register(
       :ext_description, Stepmod::Utils::Converters::StepmodExtDescription.new
     )
 
-    Coradoc::Input::Html::Converters.register(
+    Ceradoc::Html::Converters.register(
       :express_ref, Stepmod::Utils::Converters::ExpressRef.new
     )
   end
@@ -228,8 +228,8 @@ RSpec.describe Stepmod::Utils::Concept do
   end
 
   after do
-    Coradoc::Input::Html::Converters.register :ext_description,
+    Ceradoc::Html::Converters.register :ext_description,
                                               original_ext_description
-    Coradoc::Input::Html::Converters.register :express_ref, original_express_ref
+    Ceradoc::Html::Converters.register :express_ref, original_express_ref
   end
 end

@@ -24,7 +24,7 @@ module Stepmod
           node
         end
 
-        Coradoc::Input::Html::Converters.register :dl, Dl.new
+        Ceradoc::Html::Converters.register :dl, Dl.new
       end
     end
   end

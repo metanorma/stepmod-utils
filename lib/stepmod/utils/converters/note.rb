@@ -19,7 +19,7 @@ module Stepmod
           TEMPLATE
         end
       end
-      Coradoc::Input::Html::Converters.register :note, Note.new
+      Ceradoc::Html::Converters.register :note, Note.new
     end
   end
 end

@@ -5,8 +5,8 @@ require_relative "../../lib/stepmod/utils/stepmod_file_annotator"
 
 RSpec.describe Stepmod::Utils::StepmodFileAnnotator do
   before do
-    Coradoc::Input::Html::Converters.unregister :express_ref
-    Coradoc::Input::Html::Converters.register(
+    Ceradoc::Html::Converters.unregister :express_ref
+    Ceradoc::Html::Converters.register(
       :express_ref,
       Stepmod::Utils::Converters::ExpressRefExpressDescription.new,
     )

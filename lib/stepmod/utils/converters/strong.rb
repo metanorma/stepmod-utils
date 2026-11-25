@@ -88,8 +88,8 @@ module Stepmod
         end
       end
 
-      Coradoc::Input::Html::Converters.register :strong, Strong.new
-      Coradoc::Input::Html::Converters.register :b,      Strong.new
+      Ceradoc::Html::Converters.register :strong, Strong.new
+      Ceradoc::Html::Converters.register :b,      Strong.new
     end
   end
 end

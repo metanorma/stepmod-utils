@@ -1,10 +1,10 @@
-require "coradoc"
-require "coradoc/input/html"
+require "ceradoc"
+require "stepmod/utils/ceradoc_compat"
 
 module Stepmod
   module Utils
     module Converters
-      class Base < Coradoc::Input::Html::Converters::Base
+      class Base < Ceradoc::Html::Converters::Base
       end
     end
   end

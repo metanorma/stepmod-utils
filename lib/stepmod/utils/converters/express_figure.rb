@@ -19,7 +19,7 @@ module Stepmod
         end
       end
 
-      Coradoc::Input::Html::Converters.register :express_figure,
+      Ceradoc::Html::Converters.register :express_figure,
                                                 ExpressFigure.new
     end
   end

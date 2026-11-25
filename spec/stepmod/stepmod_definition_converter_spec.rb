@@ -38,12 +38,12 @@ RSpec.describe Stepmod::Utils::StepmodDefinitionConverter do
     end
 
     it "converts html children" do
-      Coradoc::Input::Html::Converters.unregister :express_ref
-      Coradoc::Input::Html::Converters
+      Ceradoc::Html::Converters.unregister :express_ref
+      Ceradoc::Html::Converters
         .register(:express_ref,
                   Stepmod::Utils::Converters::ExpressRef.new)
       expect(convert).to eq(output)
-      Coradoc::Input::Html::Converters.unregister :express_ref
+      Ceradoc::Html::Converters.unregister :express_ref
     end
   end
 end

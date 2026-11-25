@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require "coradoc/input/html/converters/figure"
+require "ceradoc/html/converters/figure"
 
 module Stepmod
   module Utils
     module Converters
-      class Figure < Coradoc::Input::Html::Converters::Figure
+      class Figure < Ceradoc::Html::Converters::Figure
         def self.pattern(state, id)
           schema_and_entity = state[:schema_and_entity] || state[:schema_name]
           if schema_and_entity.nil?
@@ -44,7 +44,7 @@ module Stepmod
       end
 
       # This replaces the converter
-      Coradoc::Input::Html::Converters.register :figure, Figure.new
+      Ceradoc::Html::Converters.register :figure, Figure.new
     end
   end
 end
